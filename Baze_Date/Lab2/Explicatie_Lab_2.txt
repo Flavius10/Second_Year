@@ -1,0 +1,13 @@
+Explicatie cerinta Lab 2 Baze de date:
+
+Sunt 10 interogari:
+	- 2 din cele 10 interogari trebuie sa fie pe tabele care au relatie m-n
+	- 7 din cele 10 interogari trebuie sa fie pe minim 3 tabele
+
+	DECI IMPREUNA, 9 DIN CELE 10 INTEROGARI TREBUIE SA FIE PE 3 TABELE
+
+	- 5 dintre ele trebuie sa fie clauza WHERE
+	- 2 dintre ele trebuie sa fie cu clauza DISTINCT
+	- 3 dintre ele trebuie sa foloseasca clauza GROUP BY
+
+!!!! TREBUIE SA DESCRIEM INTEROGARILE PE CARE LE FACEM!!!!

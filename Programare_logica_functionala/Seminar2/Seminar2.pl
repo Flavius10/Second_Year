@@ -1,0 +1,41 @@
+% nr_aparitii(E - element, L - lista, N - int)
+nr_aparitii(_,[],0).
+
+nr_aparitii(E,[E|L],N):-
+    !, %obligatoriu sa fie corect
+    nr_aparitii(E,L,N1),
+    N is N1 + 1.
+
+nr_aparitii(E,[_|L],N):-
+    nr_aparitii(E,L,N).
+
+%elimina(L1: lista, L2: lista, Rez: lista)
+elimina([], _, []):-!.
+
+elimina([H | T], L2, Rez):-
+    nr_aparitii(H, L2, 1),
+    elimina(T, L2,Rez).
+
+elimina([H | T], L2, [H|Rez1]):-
+    nr_aparitii(H, L2, N),
+    N >= 2,
+    elimina(T, L2, Rez1).
+
+%model de flux: - (i, o)
+main(L, Rez):-
+    elimina(L, L, Rez).
+
+
+%crescatoare(L:lista, V:element, R;lista)
+
+crescatoare([], _, []).
+
+crescatoare([L1], V, Rez):-
+    L1 > V,
+    Rez=[].
+
+crescatoare([L1], V, Rez):-
+    L1 <= V,
+    Rez = [L1].
+
+

@@ -1,0 +1,7 @@
+Duck: 1, Lane: 1, Time: 1.6666666666666667
+Duck: 2, Lane: 2, Time: 2.727272727272727
+Duck: 3, Lane: 3, Time: 4.444444444444445
+Duck: 4, Lane: 4, Time: 7.142857142857143
+Duck: 5, Lane: 5, Time: 12.0
+
+Total time: 12.0

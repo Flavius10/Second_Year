@@ -1,0 +1,83 @@
+A.) Verificare READER PACKAGE
+
+1.) Interfata DataReader:
+	- o metoda --readData--care citeste date dintr-un fisier dat ca si parametru 
+
+2.) Clasa ReadDataClass
+	- implementeaza interfata DataReader
+
+3.) Interfata ProblemContainer<T>:
+	- o interfata generica care poate sa genereze si "Liste" de rate, cat si de culoare
+
+4.) Clasa LaneContainer:
+	- implementeaza interfata ProblemContainer<Lane>
+
+5.) Clasa DuckContainer:
+	- implementeaza interfata ProblemContainer<Duck>
+
+6.) Clasa RaceResultsContainer:
+	- implementeaza interfata ProblemContainer<RaceResult>
+
+7.) Clasa RaceProblemData:
+	- care depinde de interfata ProblemContainer<T>(T e Duck sau Lane in functie de nevoie)
+
+8.) Clasa DataStorage:
+	- Clasa care trebuie sa stocheze datele citite
+
+
+
+
+
+B.) Verificare SORTER PACKAGE
+
+1.)Interfata Sorter:
+	- are metoda --sort-- prin care putem sa sortam un ProblemContainer<Duck>
+
+2.) Clasa DuckSorterResistanceSimple:
+	- implementeaza interfata Sorter prin o sortare din sistem, un sort gata definit
+
+3.) Clasa DuckSorterByResistanceBubble:
+	- implementeaza interfata Sorter prin o sortare pe baza algoritmului Bubble Sort
+
+4.) Clasa SorterService:
+	- clasa care pune in practica sortarea "listei" de rate prin metoda --sortContainer--
+
+5.) Clasa DataSortedStorage:
+	- Clasa care tine datele stocate(adica ratele stocate crescator dupa rezistenta)
+
+
+
+
+C.) Verificare DOMAIN
+
+1.) Clasa Lane:
+	- clasa care reprezinta un Lane din cadrul cursei
+
+2.) Clasa Duck:
+	- clasa care reprezinta un Duck care participa la cursa
+
+3.) Clasa RaceResultEntry:
+	- clasa care reprezinta datele care trebuie afisate despre rate si cursa
+
+
+
+
+D.) Verificare PACKAGE FEASIBILITY
+
+1.) Clasa RaceEvaluator:
+	- clasa care calculeaza pentru fiecare rata in parte timpul in care parcurge un anumit Lane
+	- clasa care calculeaza timpul total a unei curse in functie de M rate date ca si parametru 
+
+2.) Clasa FeasibilityChecker:
+	- clasa care verifica pentru un anumit timp T dat ca si parametru, daca "lista" de rate se incadreaza in timpul dat 
+
+3.) Clasa DuckSelector:
+	- clasa care selecteaza M rate
+
+4.) Clasa RaceService:
+	- aplica logica de verificare a celor M rate alese
+
+ 
+
+
+

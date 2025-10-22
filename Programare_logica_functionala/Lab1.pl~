@@ -1,0 +1,40 @@
+%Subpunctul a.)
+%Sa se scrie un predicat care transforma o lista intr-o multime, in
+%ordinea primei aparitii. Exemplu: [1,2,3,1,2] e transformat in [1,2,3].
+
+%multime(L: Lista, V: lista_vizitate, M: Lista)
+
+multime(L, M):-
+    multime(L, [], M).
+
+multime([], _, []).
+
+multime([H | T] , V , [H | R]):-
+    \+ member(H, V),
+    multime(T, [H | V], R).
+
+multime([H | T], V, R):-
+    member(H, V),
+    multime(T, V, R).
+
+
+%Subpunctul b.)
+%Sa se scrie o functie care descompune o lista de numere intr-o lista de
+%forma [ lista-de-numere-pare lista-de-numere-impare] (deci lista cu
+%doua elemente care sunt liste de intregi), si va intoarce si numarul
+%elementelor pare si impare.
+
+multime_b(L, M) :-
+    multime_b(L, M, 0, 0).
+
+multime_b([], [[], []], 0, 0).
+
+multime_b([H | T], [[H | P], I], Par1, Imp):-
+    0 is H mod 2,
+    Par is Par1 + 1,
+    multime_b(T, [P, I], Par, Imp).
+
+multime_b([H | T],[P, [H | I]], Par, Imp1):-
+    1 is H mod 2,
+    Imp is Imp1 + 1,
+    multime_b(T, [P, I], Par, Imp).
