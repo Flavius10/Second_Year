@@ -13,7 +13,6 @@ public class Main {
     public static void main(String[] args) {
 
         Task executeProblem = new ExecuteProblem("1", "Test");
-
         executeProblem.execute();
     }
 }
