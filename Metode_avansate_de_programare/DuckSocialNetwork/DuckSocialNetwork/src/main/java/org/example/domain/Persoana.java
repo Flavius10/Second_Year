@@ -53,5 +53,31 @@ public class Persoana extends User{
     }
 
 
+    @Override
+    public String toString() {
+        return "Persoana{" +
+                "nume='" + nume + '\'' +
+                ", prenume='" + prenume + '\'' +
+                ", ocupatie='" + ocupatie + '\'' +
+                ", dataNastere=" + dataNastere +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        Persoana other = (Persoana) obj;
+        return other.getId().equals(this.getId());
+    }
+
+    @Override
+    public int hashCode() {
+        return this.getId().hashCode();
+    }
 
 }

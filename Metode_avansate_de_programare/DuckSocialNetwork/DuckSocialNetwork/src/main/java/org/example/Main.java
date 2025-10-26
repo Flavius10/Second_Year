@@ -8,7 +8,8 @@ import org.example.domain.User;
 public class Main {
     public static void main(String[] args) {
 
-        User persoana = new Persoana(1L, "john_doe", "flaviusa1010@gmail.com", "123456");
+        User persoana = new Persoana(1L, "john_doe", "flaviusa1010@gmail.com", "123456",
+                "John", "Doe", "Student", null);
         System.out.println(persoana.getUsername() + ":");
 
 
