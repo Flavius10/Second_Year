@@ -76,11 +76,17 @@ public abstract class User {
 
     /// Mesajul care a fost catre Userul user si cu mesajul message
     public void sendMessage(User user, String message){
-        System.out.println("Message sent succesful!");
+        if (this.isLoggedIn)
+            System.out.println("Message sent succesful!");
+        else
+            System.out.println("You must be logged in to send a message!");
     }
 
     public void receiveMessage(User user, String message){
-        System.out.println("Message received succesful!");
+        if (this.isLoggedIn)
+            System.out.println("Message received succesful!");
+        else
+            System.out.println("You must be logged in to receive a message!");
     }
 
 }
