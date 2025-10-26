@@ -8,9 +8,13 @@ import org.example.domain.User;
 public class Main {
     public static void main(String[] args) {
 
-        User persoana = new Persoana(1L, "john_doe", "flaviusa1010@gmail.com", "123456",
-                "John", "Doe", "Student", null);
-        System.out.println(persoana.getUsername() + ":");
+        User persoana = new Persoana(1L, "john_doe", "flaviusa1010@gmail.com",
+                "123456", "John", "Doe", "Student", null);
+
+        User person_1 = new Persoana(2L, "jane_smith", "email", "password",
+                "Jane", "Smith", "Student", null);
+
+        System.out.println(person_1);
 
 
     }

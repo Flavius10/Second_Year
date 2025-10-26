@@ -1,5 +1,7 @@
 package org.example.domain;
 
+import org.example.repositories.RepoMessage;
+
 public abstract class User {
 
     private Long id;
@@ -59,32 +61,29 @@ public abstract class User {
     }
 
 
-    /// Metode generale
-    public void login(String username, String password){
-        if (username.equals(this.username) && password.equals(this.password)){
-            this.isLoggedIn = true;
-            System.out.println("Login succesful!");
-        } else {
-            System.out.println("Login failed!");
-        }
-    }
-
-    public void logout(){
-        this.isLoggedIn = false;
-        System.out.println("Logout succesful!");
-    }
-
     /// Mesajul care a fost catre Userul user si cu mesajul message
     public void sendMessage(User user, String message){
-        if (this.isLoggedIn)
-            System.out.println("Message sent succesful!");
+        if (this.isLoggedIn){
+            try{
+
+                System.out.println("Message received succesful!");
+            }catch (Exception e){
+                System.out.println(e.getMessage());
+            }
+        }
         else
-            System.out.println("You must be logged in to send a message!");
+            System.out.println("You must be logged in to receive a message!");
     }
 
     public void receiveMessage(User user, String message){
-        if (this.isLoggedIn)
-            System.out.println("Message received succesful!");
+
+        if (this.isLoggedIn){
+            try{
+                System.out.println("Message received succesful!");
+            }catch (Exception e){
+                System.out.println(e.getMessage());
+            }
+        }
         else
             System.out.println("You must be logged in to receive a message!");
     }
