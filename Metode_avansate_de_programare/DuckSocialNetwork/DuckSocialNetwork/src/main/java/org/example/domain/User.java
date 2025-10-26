@@ -74,7 +74,8 @@ public abstract class User {
         System.out.println("Logout succesful!");
     }
 
-    public void sendMessage(){
+    /// Mesajul care a fost catre Userul user si cu mesajul message
+    public void sendMessage(User user, String message){
         System.out.println("Message sent succesful!");
     }
 
