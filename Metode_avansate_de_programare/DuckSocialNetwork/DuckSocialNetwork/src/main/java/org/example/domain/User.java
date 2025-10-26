@@ -79,7 +79,7 @@ public abstract class User {
         System.out.println("Message sent succesful!");
     }
 
-    public void receiveMessage(){
+    public void receiveMessage(User user, String message){
         System.out.println("Message received succesful!");
     }
 
