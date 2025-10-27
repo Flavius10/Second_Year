@@ -16,6 +16,8 @@ public class Ui {
     private AuthService authService;
     private Menu menu;
     private MessageService messageService;
+    private RepoFilePersoana persoanaRepo;
+    private RepoFileDuck duckRepo;
 
     public Ui(AuthService authService, Menu menu, MessageService messageService) {
         this.authService = authService;
@@ -23,29 +25,53 @@ public class Ui {
         this.messageService = messageService;
     }
 
-    public void menuAfterSignUp(){
-        this.menu.showMenuAfterSignUp();
+    public void menuBeforeSignUp() {
+        Scanner scanner = new Scanner(System.in);
+        int choice;
 
-        int choice = this.getUserChoice(4);
-        while (choice != 4) {
-            executeAfterSignUp(choice);
-            choice = this.getUserChoice(4);
+        while (true) {
+            this.menu.showMenuBeforeSignUp();
+            choice = this.getUserChoice(3);
+
+            switch (choice) {
+                case 1:
+                    signUp();
+                    break;
+                case 2:
+                    login();
+                    break;
+                case 3:
+                    finalMessage();
+                    return;
+                default:
+                    System.out.println("Opțiune invalidă!");
+            }
         }
-
-        finalMessage();
-
     }
 
-    public void menuBeforeSignUp(){
-        this.menu.showMenuBeforeSignUp();
+    public void menuAfterSignUp(User loggedInUser) {
+        int choice;
+        while (true) {
+            this.menu.showMenuAfterSignUp();
+            choice = this.getUserChoice(4);
 
-        int choice = this.getUserChoice(3);
-        while (choice != 3) {
-            executeBeforeSignUp(choice);
-            choice = this.getUserChoice(3);
+            switch (choice) {
+                case 1:
+                    System.out.println("Această opțiune este deja folosită pentru login.");
+                    break;
+                case 2:
+                    logout(loggedInUser);
+                    return;
+                case 3:
+                    System.out.println("Funcționalitatea de trimis mesaje va fi implementată aici.");
+                    break;
+                case 4:
+                    System.out.println("Alte opțiuni...");
+                    break;
+                default:
+                    System.out.println("Opțiune invalidă!");
+            }
         }
-
-        finalMessage();
     }
 
     public int getUserChoice(int max) {
@@ -53,60 +79,29 @@ public class Ui {
         int choice = -1;
 
         while (true) {
-            System.out.print("Alege o optiune (1-" + max + "): ");
+            System.out.print("Alege o opțiune (1-" + max + "): ");
             String input = scanner.nextLine();
 
             try {
                 choice = Integer.parseInt(input);
             } catch (NumberFormatException e) {
-                System.out.println("Trebuie sa introduci un numar valid!");
+                System.out.println("Trebuie să introduci un număr valid!");
                 continue;
             }
 
             if (choice >= 1 && choice <= max) {
                 break;
             } else {
-                System.out.println("Optiune invalida! Introduceti un numar intre 1 si 5.");
+                System.out.println("Opțiune invalidă! Introduceți un număr între 1 și " + max + ".");
             }
         }
 
         return choice;
     }
 
-    public void executeAfterSignUp(int choice){
-
-        switch (choice)
-        {            case 1:
-                // login
-                break;
-            case 2:
-                // logout
-                break;
-            case 3:
-                // send message
-                break;
-            default:
-                System.out.println("Optiune invalida!");
-        }
-    }
-
-    public void executeBeforeSignUp(int choice){
-        switch (choice){
-            case 1:
-                signUp();
-                break;
-            case 2:
-                break;
-            default:
-                System.out.println("Optiune invalida!");
-        }
-    }
-
     public void signUp() {
-
-        this.menu.showMenuBeforeSignUp();
-
         Scanner scanner = new Scanner(System.in);
+
         System.out.print("Introduceti numele de utilizator: ");
         String username = scanner.nextLine();
         System.out.print("Introduceti adresa de email: ");
@@ -134,14 +129,13 @@ public class Ui {
             Card card = numeCard.isEmpty() ? null : new Card();
 
             Duck duck = new Duck(id, username, email, password, tip, viteza, rezistenta, card);
-
-            // Salvare în fișier
             RepoUser repo = new RepoFileDuck();
             repo.save(duck, "ducks.txt");
             System.out.println("Rata creata cu succes: " + duck.getUsername());
 
+            menuAfterSignUp(duck);
+
         } else if (userType.equals("persoana")) {
-            // === DATE SPECIFICE PERSOANEI ===
             System.out.print("Introduceti numele: ");
             String nume = scanner.nextLine();
             System.out.print("Introduceti prenumele: ");
@@ -152,19 +146,41 @@ public class Ui {
             LocalDate dataNastere = LocalDate.parse(scanner.nextLine());
 
             Persoana persoana = new Persoana(id, username, email, password, nume, prenume, ocupatie, dataNastere);
-
             RepoUser repo = new RepoFilePersoana();
             repo.save(persoana, "persoane.txt");
             System.out.println("Persoana creata cu succes: " + persoana.getUsername());
+
+            menuAfterSignUp(persoana);
 
         } else {
             System.out.println("Tip de utilizator invalid. Scrie 'rata' sau 'persoana'.");
         }
     }
 
+    public void login() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Introduceti numele de utilizator: ");
+        String username = scanner.nextLine();
+        System.out.print("Introduceti parola: ");
+        String password = scanner.nextLine();
 
-    private void finalMessage(){
-        System.out.println("Asteptare pentru a inchide programul...");
+        try {
+            User loggedInUser = authService.loginAndReturnUser(username, password);
+            System.out.println("Autentificare reușită!");
+            menuAfterSignUp(loggedInUser);
+        } catch (RuntimeException e) {
+            System.out.println("Eroare la autentificare: " + e.getMessage());
+        }
+    }
+
+    public void logout(User user) {
+        authService.logout(user);
+        System.out.println("V-ati deconectat cu succes!");
+        menuBeforeSignUp();
+    }
+
+    private void finalMessage() {
+        System.out.println("Programul se va inchide...");
         try {
             Thread.sleep(1000);
             System.exit(0);
@@ -172,5 +188,4 @@ public class Ui {
             throw new RuntimeException(e);
         }
     }
-
 }
