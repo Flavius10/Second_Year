@@ -8,14 +8,12 @@ public abstract class User {
     private String username;
     private String email;
     private String password;
-    private boolean isLoggedIn;
 
     public User(Long id, String username, String email, String password) {
         this.id = id;
         this.username = username;
         this.email = email;
         this.password = password;
-        this.isLoggedIn = false;
     }
 
     /// Getters
@@ -35,9 +33,6 @@ public abstract class User {
         return this.password;
     }
 
-    public boolean getIsLoggedIn(){
-        return this.isLoggedIn;
-    }
 
     /// Setters
     public void setId(Long id){
@@ -54,10 +49,6 @@ public abstract class User {
 
     public void setPassword(String password){
         this.password = password;
-    }
-
-    public void setIsLoggedIn(boolean isLoggedIn){
-        this.isLoggedIn = isLoggedIn;
     }
 
 
