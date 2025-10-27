@@ -5,11 +5,10 @@ public class Menu {
     public void showMenuAfterSignUp(){
 
         System.out.println("------------Menu--------------");
-        System.out.println("1. Login");
-        System.out.println("2. Logout");
-        System.out.println("3. Send message");
-        System.out.println("4. Get messages");
-        System.out.println("5. Exit");
+        System.out.println("1. Logout");
+        System.out.println("2. Send message");
+        System.out.println("3. Get messages");
+        System.out.println("4. Exit");
     }
 
     public void showMenuBeforeSignUp(){
@@ -18,6 +17,7 @@ public class Menu {
         System.out.println("------------Menu--------------");
         System.out.println("1.Sign up");
         System.out.println("2.Login up");
+        System.out.println("3.Exit");
 
     }
 

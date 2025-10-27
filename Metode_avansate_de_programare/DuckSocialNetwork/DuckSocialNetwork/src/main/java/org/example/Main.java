@@ -15,6 +15,6 @@ public class Main {
         MessageService messageService = new MessageService(repoMessage, authService);
         Ui ui = new Ui(authService, menu, messageService);
 
-        ui.start();
+        ui.menuBeforeSignUp();
     }
 }
