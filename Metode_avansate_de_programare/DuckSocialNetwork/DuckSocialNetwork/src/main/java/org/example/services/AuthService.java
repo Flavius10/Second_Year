@@ -1,5 +1,7 @@
 package org.example.services;
 
+import org.example.domain.Duck;
+import org.example.domain.Persoana;
 import org.example.domain.User;
 import org.example.repositories.RepoFileDuck;
 import org.example.repositories.RepoFilePersoana;
@@ -37,13 +39,21 @@ public class AuthService {
         return this.loggedInUsers.getOrDefault(user.getId(), false);
    }
 
-   public void signUp(User user, String file_name){
-       if (this.loggedInUsers.containsKey(user.getId()))
-           throw new RuntimeException("User already exists!");
+    public void signUp(User user, String file_name) {
+        if (this.loggedInUsers.containsKey(user.getId()))
+            throw new RuntimeException("User already exists!");
 
-       this.repoPersoana.save(user, file_name);
-       this.loggedInUsers.put(user.getId(), true);
-   }
+        if (user instanceof Persoana) {
+            this.repoPersoana.save((Persoana) user, file_name);
+        } else if (user instanceof Duck) {
+            this.repoDuck.save((Duck) user, file_name);
+        } else {
+            throw new RuntimeException("Unknown user type");
+        }
+
+        this.loggedInUsers.put(user.getId(), true);
+    }
+
 
     public User loginAndReturnUser(String username, String password) {
         for (User user : repoPersoana.findAll("persoane.txt")) {

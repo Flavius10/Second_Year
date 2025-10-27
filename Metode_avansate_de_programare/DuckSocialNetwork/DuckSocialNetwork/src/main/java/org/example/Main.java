@@ -15,10 +15,8 @@ public class Main {
         RepoFileDuck duckRepo = new RepoFileDuck();
 
         AuthService authService = new AuthService(persoanaRepo, duckRepo);
-        RepoMessage repoMessage = new RepoMessage();
         Menu menu = new Menu();
 
-        MessageService messageService = new MessageService(repoMessage, authService);
         Ui ui = new Ui(authService, menu, duckRepo, persoanaRepo);
 
         ui.menuBeforeSignUp();

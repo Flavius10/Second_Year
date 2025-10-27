@@ -92,7 +92,7 @@ public class RepoFileDuck implements RepoUser {
 
         Card card = null;
         if (parts.length > 7 && !parts[7].isEmpty()) {
-            card = new Card();
+            card = new Card(parts[7]);
         }
 
         return new Duck(id, username, email, password, tip, viteza, rezistenta, card);
@@ -106,7 +106,7 @@ public class RepoFileDuck implements RepoUser {
                 d.getTip() + ";" +
                 d.getViteza() + ";" +
                 d.getRezistenta() + ";" +
-                d.getCard();
+                (d.getCard() != null ? d.getCard().getNume() : "");
     }
 
     private void writeAll(List<User> users, String file_name) {

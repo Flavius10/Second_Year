@@ -127,7 +127,7 @@ public class Ui {
 
             System.out.print("Introduceti numele cardului (sau lasati gol): ");
             String numeCard = scanner.nextLine();
-            Card card = numeCard.isEmpty() ? null : new Card();
+            Card card = numeCard.isEmpty() ? null : new Card(numeCard);
 
             Duck duck = new Duck(id, username, email, password, tip, viteza, rezistenta, card);
             this.authService.signUp(duck, "ducks.txt");
@@ -185,16 +185,6 @@ public class Ui {
         menuBeforeSignUp();
     }
 
-    private void finalMessage() {
-        System.out.println("Programul se va inchide...");
-        try {
-            Thread.sleep(1000);
-            System.exit(0);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
     private void delete(){
         if (this.loggedInUser != null) {
             if (this.loggedInUser instanceof Persoana) {
@@ -208,4 +198,15 @@ public class Ui {
             menuBeforeSignUp();
         }
     }
+
+    private void finalMessage() {
+        System.out.println("Programul se va inchide...");
+        try {
+            Thread.sleep(1000);
+            System.exit(0);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 }
