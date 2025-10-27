@@ -1,6 +1,7 @@
 package org.example.repositories;
 
 import org.example.domain.Persoana;
+import org.example.domain.User;
 
 import java.io.*;
 import java.time.LocalDate;
@@ -8,52 +9,48 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.StreamSupport;
 
-public class RepoFilePersoana implements RepoFile<Persoana>{
+public class RepoFilePersoana implements RepoUser{
 
     @Override
-    public void save(Persoana entity, String file_name) {
+    public void save(User entity, String file_name) {
+
+        Persoana p = (Persoana) entity;
 
         try{
             BufferedWriter bw = new BufferedWriter(new FileWriter(file_name));
-            bw.write(entity.toString());
+            bw.write(toStringFile(p));
             bw.close();
-        }catch(Exception e){
+        }catch(IOException e){
             throw new RuntimeException(e);
         }
 
     }
 
     @Override
-    public void update(Persoana entity, String file_name) {
+    public void update(User entity, String file_name) {
 
-        List<Persoana> persoane = (List<Persoana>) findAll(file_name);
-        boolean updated = false;
+        List<User> persoane = (List<User>) findAll(file_name);
+        Persoana updated = (Persoana) entity;
 
         for (int i = 0; i < persoane.size(); i++) {
-            if (persoane.get(i).getId().equals(entity.getId())) {
-                persoane.set(i, entity);
-                updated = true;
+            if (persoane.get(i).getId().equals(updated.getId())) {
+                persoane.set(i, updated);
                 break;
             }
         }
 
-        if (!updated) {
-            throw new RuntimeException("Person with ID " + entity.getId() + " not found!");
-        }
-
         writeAll(persoane, file_name);
-
     }
 
     @Override
-    public void delete(Persoana entity, String file_name) {
-        List<Persoana> persoane = (List<Persoana>) findAll(file_name);
+    public void delete(User entity, String file_name) {
+        List<User> persoane = (List<User>) findAll(file_name);
         persoane.removeIf(p -> p.getId().equals(entity.getId()));
         writeAll(persoane, file_name);
     }
 
     @Override
-    public Persoana findById(Long id, String file_name) {
+    public User findById(Long id, String file_name) {
         return StreamSupport.stream(findAll(file_name).spliterator(), false)
                 .filter(p -> p.getId().equals(id))
                 .findFirst()
@@ -61,8 +58,10 @@ public class RepoFilePersoana implements RepoFile<Persoana>{
     }
 
     @Override
-    public Iterable<Persoana> findAll(String file_name) {
-        List<Persoana> persoane = new ArrayList<>();
+    public Iterable<User> findAll(String file_name) {
+
+        List<User> persoane = new ArrayList<>();
+
         try{
             BufferedReader reader = new BufferedReader(new FileReader(file_name));
             String line;
@@ -103,16 +102,24 @@ public class RepoFilePersoana implements RepoFile<Persoana>{
                 p.getDataNastere();
     }
 
-    private void writeAll(List<Persoana> persoane, String file_name) {
+    private void writeAll(List<User> users, String file_name) {
         try {
             BufferedWriter writer = new BufferedWriter(new FileWriter(file_name, false));
-            for (Persoana p : persoane) {
-                writer.write(toStringFile(p));
+            for (User p : users) {
+                writer.write(toStringFile((Persoana)p));
                 writer.newLine();
             }
         } catch (IOException e) {
             throw new RuntimeException("Error writing file: " + e.getMessage());
         }
+    }
+
+    @Override
+    public User findByUsername(String username, String file_name){
+        return StreamSupport.stream(findAll(file_name).spliterator(), false)
+                .filter(p -> p.getUsername().equals(username))
+                .findFirst()
+                .orElse(null);
     }
 
 

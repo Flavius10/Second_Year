@@ -1,6 +1,7 @@
 package org.example.services;
 
 import org.example.domain.User;
+import org.example.repositories.RepoFilePersoana;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -8,6 +9,7 @@ import java.util.Map;
 public class AuthService {
 
    private final Map<Long, Boolean> loggedInUsers = new HashMap<>();
+   private RepoFilePersoana persoanaRepo;
 
    public void login(User user, String password){
        if (user.getPassword().equals(password))
@@ -26,5 +28,13 @@ public class AuthService {
 
    public boolean isLoggedIn(User user){
         return this.loggedInUsers.getOrDefault(user.getId(), false);
+   }
+
+   public void signUp(User user){
+       if (this.loggedInUsers.containsKey(user.getId()))
+           throw new RuntimeException("User already exists!");
+
+       this.persoanaRepo.save(user, "persoane.txt");
+       this.loggedInUsers.put(user.getId(), true);
    }
 }

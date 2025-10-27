@@ -18,7 +18,7 @@ public class Ui {
     }
 
     public void start(){
-        this.menu.showMenu();
+        this.menu.showMenuAfterSignUp();
 
         int choice = this.getUserChoice();
         while (choice != 5) {
@@ -79,6 +79,10 @@ public class Ui {
             default:
                 System.out.println("Optiune invalida!");
         }
+    }
+
+    public void signUp(){
+
     }
 
 }
