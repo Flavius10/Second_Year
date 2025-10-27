@@ -3,6 +3,8 @@ package org.example.ui;
 public class Menu {
 
     public void showMenu(){
+        System.out.println("Bun venit in Duck Social Network");
+
         System.out.println("------------Menu--------------");
         System.out.println("1. Login");
         System.out.println("2. Logout");
