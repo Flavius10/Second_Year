@@ -1,7 +1,13 @@
 package org.example;
 
+import org.example.domain.Message;
 import org.example.domain.Persoana;
 import org.example.domain.User;
+import org.example.repositories.RepoMessage;
+
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
@@ -14,8 +20,13 @@ public class Main {
         User person_1 = new Persoana(2L, "jane_smith", "email", "password",
                 "Jane", "Smith", "Student", null);
 
-        System.out.println(person_1);
+        RepoMessage repoMessage = new RepoMessage();
+        repoMessage.save(new Message(1L, persoana, person_1, "Hello man" , LocalDateTime.now()));
 
+        Iterable<Message> messages = repoMessage.findAll();
+        for (Message message : messages) {
+            System.out.println(message);
+        }
 
     }
 }

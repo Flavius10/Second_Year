@@ -2,14 +2,15 @@ package org.example.repositories;
 
 import org.example.domain.Message;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class RepoMessage implements RepoCrud<Message>{
 
     private List<Message> messages;
 
-    public RepoMessage(List<Message> messages) {
-        this.messages = messages;
+    public RepoMessage() {
+        this.messages = new ArrayList<>();
     }
 
     @Override
