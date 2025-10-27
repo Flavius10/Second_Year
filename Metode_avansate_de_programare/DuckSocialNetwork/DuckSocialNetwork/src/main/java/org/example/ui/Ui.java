@@ -14,12 +14,15 @@ public class Ui {
 
     private AuthService authService;
     private Menu menu;
-
+    private RepoFilePersoana repoFilePersoana;
+    private RepoFileDuck repoFileDuck;
     private User loggedInUser;
 
-    public Ui(AuthService authService, Menu menu) {
+    public Ui(AuthService authService, Menu menu, RepoFileDuck duckRepo, RepoFilePersoana persoanaRepo) {
         this.authService = authService;
         this.menu = menu;
+        this.repoFileDuck =  duckRepo;
+        this.repoFilePersoana = persoanaRepo;
     }
 
     public void menuBeforeSignUp() {
@@ -62,8 +65,10 @@ public class Ui {
                     System.out.println("Functionalitatea de trimis mesaje va fi implementata aici.");
                     break;
                 case 4:
-                    menuBeforeSignUp();
+                    delete();
                     break;
+                case 5:
+                    menuBeforeSignUp();
                 default:
                     System.out.println("Optiune invalida!");
             }
@@ -125,8 +130,7 @@ public class Ui {
             Card card = numeCard.isEmpty() ? null : new Card();
 
             Duck duck = new Duck(id, username, email, password, tip, viteza, rezistenta, card);
-            RepoUser repo = new RepoFileDuck();
-            repo.save(duck, "ducks.txt");
+            this.authService.signUp(duck, "ducks.txt");
             System.out.println("Rata creata cu succes: " + duck.getUsername());
 
             loggedInUser = duck;
@@ -143,8 +147,7 @@ public class Ui {
             LocalDate dataNastere = LocalDate.parse(scanner.nextLine());
 
             Persoana persoana = new Persoana(id, username, email, password, nume, prenume, ocupatie, dataNastere);
-            RepoUser repo = new RepoFilePersoana();
-            repo.save(persoana, "persoane.txt");
+            this.authService.signUp(persoana, "persoane.txt");
             System.out.println("Persoana creata cu succes: " + persoana.getUsername());
 
             loggedInUser = persoana;
@@ -189,6 +192,20 @@ public class Ui {
             System.exit(0);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
+        }
+    }
+
+    private void delete(){
+        if (this.loggedInUser != null) {
+            if (this.loggedInUser instanceof Persoana) {
+                this.repoFilePersoana.delete(this.loggedInUser, "persoane.txt");
+            } else if (this.loggedInUser instanceof Duck) {
+                this.repoFileDuck.delete(this.loggedInUser, "ducks.txt");
+            }
+            System.out.println("Utilizator sters cu succes.");
+            this.loggedInUser = null;
+
+            menuBeforeSignUp();
         }
     }
 }

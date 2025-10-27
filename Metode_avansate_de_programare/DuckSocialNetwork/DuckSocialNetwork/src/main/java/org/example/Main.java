@@ -19,7 +19,7 @@ public class Main {
         Menu menu = new Menu();
 
         MessageService messageService = new MessageService(repoMessage, authService);
-        Ui ui = new Ui(authService, menu);
+        Ui ui = new Ui(authService, menu, duckRepo, persoanaRepo);
 
         ui.menuBeforeSignUp();
     }

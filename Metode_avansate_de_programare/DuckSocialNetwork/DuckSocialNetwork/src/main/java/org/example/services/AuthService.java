@@ -37,11 +37,11 @@ public class AuthService {
         return this.loggedInUsers.getOrDefault(user.getId(), false);
    }
 
-   public void signUp(User user){
+   public void signUp(User user, String file_name){
        if (this.loggedInUsers.containsKey(user.getId()))
            throw new RuntimeException("User already exists!");
 
-       this.repoPersoana.save(user, "persoane.txt");
+       this.repoPersoana.save(user, file_name);
        this.loggedInUsers.put(user.getId(), true);
    }
 
