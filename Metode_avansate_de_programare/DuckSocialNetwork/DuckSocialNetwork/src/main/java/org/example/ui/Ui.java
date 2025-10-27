@@ -8,21 +8,18 @@ import org.example.services.AuthService;
 import org.example.services.MessageService;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Ui {
 
     private AuthService authService;
     private Menu menu;
-    private MessageService messageService;
-    private RepoFilePersoana persoanaRepo;
-    private RepoFileDuck duckRepo;
 
-    public Ui(AuthService authService, Menu menu, MessageService messageService) {
+    private User loggedInUser;
+
+    public Ui(AuthService authService, Menu menu) {
         this.authService = authService;
         this.menu = menu;
-        this.messageService = messageService;
     }
 
     public void menuBeforeSignUp() {
@@ -44,7 +41,7 @@ public class Ui {
                     finalMessage();
                     return;
                 default:
-                    System.out.println("Opțiune invalidă!");
+                    System.out.println("Optiune invalida!");
             }
         }
     }
@@ -57,19 +54,18 @@ public class Ui {
 
             switch (choice) {
                 case 1:
-                    System.out.println("Această opțiune este deja folosită pentru login.");
+                    logout();
                     break;
                 case 2:
-                    logout(loggedInUser);
-                    return;
+                    break;
                 case 3:
-                    System.out.println("Funcționalitatea de trimis mesaje va fi implementată aici.");
+                    System.out.println("Functionalitatea de trimis mesaje va fi implementata aici.");
                     break;
                 case 4:
-                    System.out.println("Alte opțiuni...");
+                    menuBeforeSignUp();
                     break;
                 default:
-                    System.out.println("Opțiune invalidă!");
+                    System.out.println("Optiune invalida!");
             }
         }
     }
@@ -79,20 +75,20 @@ public class Ui {
         int choice = -1;
 
         while (true) {
-            System.out.print("Alege o opțiune (1-" + max + "): ");
+            System.out.print("Alege o optiune (1-" + max + "): ");
             String input = scanner.nextLine();
 
             try {
                 choice = Integer.parseInt(input);
             } catch (NumberFormatException e) {
-                System.out.println("Trebuie să introduci un număr valid!");
+                System.out.println("Trebuie sa introduci un numar valid!");
                 continue;
             }
 
             if (choice >= 1 && choice <= max) {
                 break;
             } else {
-                System.out.println("Opțiune invalidă! Introduceți un număr între 1 și " + max + ".");
+                System.out.println("Optiune invalida! Introduceti un numar intre 1 si " + max + ".");
             }
         }
 
@@ -133,6 +129,7 @@ public class Ui {
             repo.save(duck, "ducks.txt");
             System.out.println("Rata creata cu succes: " + duck.getUsername());
 
+            loggedInUser = duck;
             menuAfterSignUp(duck);
 
         } else if (userType.equals("persoana")) {
@@ -150,6 +147,7 @@ public class Ui {
             repo.save(persoana, "persoane.txt");
             System.out.println("Persoana creata cu succes: " + persoana.getUsername());
 
+            loggedInUser = persoana;
             menuAfterSignUp(persoana);
 
         } else {
@@ -166,16 +164,21 @@ public class Ui {
 
         try {
             User loggedInUser = authService.loginAndReturnUser(username, password);
-            System.out.println("Autentificare reușită!");
+            System.out.println("Autentificare reusita!");
+            this.loggedInUser = loggedInUser;
             menuAfterSignUp(loggedInUser);
         } catch (RuntimeException e) {
             System.out.println("Eroare la autentificare: " + e.getMessage());
         }
     }
 
-    public void logout(User user) {
-        authService.logout(user);
-        System.out.println("V-ati deconectat cu succes!");
+    public void logout() {
+
+        if (loggedInUser != null) {
+            authService.logout(loggedInUser);
+            System.out.println("V-ati deconectat cu succes!");
+            loggedInUser = null;
+        }
         menuBeforeSignUp();
     }
 

@@ -4,6 +4,7 @@ public class Menu {
 
     public void showMenuAfterSignUp(){
 
+        System.out.println();
         System.out.println("------------Menu--------------");
         System.out.println("1. Logout");
         System.out.println("2. Send message");
@@ -12,6 +13,7 @@ public class Menu {
     }
 
     public void showMenuBeforeSignUp(){
+        System.out.println();
         System.out.println("Bun venit in Duck Social Network");
 
         System.out.println("------------Menu--------------");
