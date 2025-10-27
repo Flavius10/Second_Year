@@ -53,7 +53,7 @@ public class Ui {
         int choice;
         while (true) {
             this.menu.showMenuAfterSignUp();
-            choice = this.getUserChoice(4);
+            choice = this.getUserChoice(5);
 
             switch (choice) {
                 case 1:
