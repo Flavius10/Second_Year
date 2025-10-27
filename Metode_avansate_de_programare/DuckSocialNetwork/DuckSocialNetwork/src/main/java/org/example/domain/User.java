@@ -51,21 +51,6 @@ public abstract class User {
         this.password = password;
     }
 
-
-    /// Mesajul care a fost catre Userul user si cu mesajul message
-    public void sendMessage(User user, String message){
-        if (this.isLoggedIn){
-            try{
-
-                System.out.println("Message received succesful!");
-            }catch (Exception e){
-                System.out.println(e.getMessage());
-            }
-        }
-        else
-            System.out.println("You must be logged in to receive a message!");
-    }
-
     public void receiveMessage(User user, String message){
 
         if (this.isLoggedIn){
