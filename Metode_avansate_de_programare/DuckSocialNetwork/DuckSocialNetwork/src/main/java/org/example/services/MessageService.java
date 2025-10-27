@@ -27,7 +27,7 @@ public class MessageService {
             }catch (Exception e){
                 System.out.println(e.getMessage());
             }
-        }g
+        }
         else
             System.out.println("You must be logged in to receive a message!");
     }

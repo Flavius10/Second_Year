@@ -7,13 +7,14 @@ import java.util.Map;
 
 public class AuthService {
 
-   private Map<Long, Boolean> loggedInUsers = new HashMap<>();
+   private final Map<Long, Boolean> loggedInUsers = new HashMap<>();
 
    public void login(User user, String password){
        if (user.getPassword().equals(password))
        {
            this.loggedInUsers.put(user.getId(), true);
            System.out.println("Login succesful!");
+           return;
        }
 
        throw new RuntimeException("Wrong password!");
@@ -24,6 +25,6 @@ public class AuthService {
    }
 
    public boolean isLoggedIn(User user){
-       return this.loggedInUsers.get(user.getId());
+        return this.loggedInUsers.getOrDefault(user.getId(), false);
    }
 }

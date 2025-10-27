@@ -4,6 +4,8 @@ import org.example.domain.Message;
 import org.example.domain.Persoana;
 import org.example.domain.User;
 import org.example.repositories.RepoMessage;
+import org.example.services.AuthService;
+import org.example.services.MessageService;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -21,12 +23,10 @@ public class Main {
                 "Jane", "Smith", "Student", null);
 
         RepoMessage repoMessage = new RepoMessage();
-        repoMessage.save(new Message(1L, persoana, person_1, "Hello man" , LocalDateTime.now()));
+        AuthService authService = new AuthService();
 
-        Iterable<Message> messages = repoMessage.findAll();
-        for (Message message : messages) {
-            System.out.println(message);
-        }
-
+        authService.login(persoana, "123456");
+        authService.logout(persoana);
+        System.out.println(authService.isLoggedIn(persoana));
     }
 }
