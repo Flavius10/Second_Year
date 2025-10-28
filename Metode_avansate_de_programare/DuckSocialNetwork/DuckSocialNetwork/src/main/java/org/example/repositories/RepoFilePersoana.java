@@ -2,6 +2,8 @@ package org.example.repositories;
 
 import org.example.domain.Persoana;
 import org.example.domain.User;
+import org.example.exceptions.UserAlreadyExists;
+import org.example.exceptions.UserNotFound;
 
 import java.io.*;
 import java.time.LocalDate;
@@ -15,6 +17,14 @@ public class RepoFilePersoana implements RepoUser{
     public void save(User entity, String file_name) {
 
         Persoana p = (Persoana) entity;
+        Iterable<User> all = findAll(file_name);
+
+        boolean exists = StreamSupport.stream(all.spliterator(), false)
+                .anyMatch(u -> u.getId().equals(p.getId()) || u.getUsername().equals(p.getUsername()));
+
+        if (exists) {
+            throw new UserAlreadyExists("User already exists!");
+        }
 
         try{
             BufferedWriter bw = new BufferedWriter(new FileWriter(file_name));
@@ -28,6 +38,10 @@ public class RepoFilePersoana implements RepoUser{
 
     @Override
     public void update(User entity, String file_name) {
+
+        if (this.findById(entity.getId(), file_name) == null) {
+            throw new UserNotFound("User not found!");
+        }
 
         List<User> persoane = (List<User>) findAll(file_name);
         Persoana updated = (Persoana) entity;
@@ -44,6 +58,11 @@ public class RepoFilePersoana implements RepoUser{
 
     @Override
     public void delete(User entity, String file_name) {
+
+        if (this.findById(entity.getId(), file_name) == null) {
+            throw new UserNotFound("User not found!");
+        }
+
         List<User> persoane = (List<User>) findAll(file_name);
         persoane.removeIf(p -> p.getId().equals(entity.getId()));
         writeAll(persoane, file_name);

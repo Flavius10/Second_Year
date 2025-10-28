@@ -1,5 +1,7 @@
 package org.example.repositories;
 
+import org.example.exceptions.UserAlreadyExists;
+
 public interface RepoFile<Entity> {
 
     void save(Entity entity, String file_name);

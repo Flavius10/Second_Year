@@ -4,6 +4,8 @@ import org.example.domain.Card;
 import org.example.domain.Duck;
 import org.example.domain.TypeDuck;
 import org.example.domain.User;
+import org.example.exceptions.UserAlreadyExists;
+import org.example.exceptions.UserNotFound;
 
 import java.io.*;
 import java.time.LocalDate;
@@ -14,9 +16,17 @@ import java.util.stream.StreamSupport;
 public class RepoFileDuck implements RepoUser {
 
     @Override
-    public void save(User entity, String file_name) {
+    public void save(User entity, String file_name){
 
         Duck d = (Duck) entity;
+        Iterable<User> all = findAll(file_name);
+
+        boolean exists = StreamSupport.stream(all.spliterator(), false)
+                .anyMatch(u -> u.getId().equals(d.getId()) || u.getUsername().equals(d.getUsername()));
+
+        if (exists) {
+            throw new UserAlreadyExists("User already exists!");
+        }
 
         try{
             BufferedWriter bw = new BufferedWriter(new FileWriter(file_name));
@@ -30,6 +40,10 @@ public class RepoFileDuck implements RepoUser {
 
     @Override
     public void update(User entity, String file_name) {
+
+        if (this.findById(entity.getId(), file_name) == null) {
+            throw new UserNotFound("User not found!");
+        }
 
         List<User> ducks = (List<User>) findAll(file_name);
         Duck updated = (Duck) entity;
@@ -46,6 +60,11 @@ public class RepoFileDuck implements RepoUser {
 
     @Override
     public void delete(User entity, String file_name) {
+
+        if (this.findById(entity.getId(), file_name) == null) {
+            throw new UserNotFound("User not found!");
+        }
+
         List<User> ducks = (List<User>) findAll(file_name);
         ducks.removeIf(d -> d.getId().equals(entity.getId()));
         writeAll(ducks, file_name);

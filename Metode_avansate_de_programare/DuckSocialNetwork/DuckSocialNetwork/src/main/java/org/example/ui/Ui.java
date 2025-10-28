@@ -1,6 +1,7 @@
 package org.example.ui;
 
 import org.example.domain.*;
+import org.example.exceptions.UserAlreadyExists;
 import org.example.repositories.RepoFileDuck;
 import org.example.repositories.RepoFilePersoana;
 import org.example.repositories.RepoUser;
@@ -130,7 +131,13 @@ public class Ui {
             Card card = numeCard.isEmpty() ? null : new Card(numeCard);
 
             Duck duck = new Duck(id, username, email, password, tip, viteza, rezistenta, card);
-            this.authService.signUp(duck, "ducks.txt");
+            try{
+                this.authService.signUp(duck, "ducks.txt");
+            } catch (UserAlreadyExists e) {
+                System.out.println("Eroare la inregistrare: " + e.getMessage());
+                return;
+            }
+
             System.out.println("Rata creata cu succes:\n" + duck.toString());
 
             loggedInUser = duck;
