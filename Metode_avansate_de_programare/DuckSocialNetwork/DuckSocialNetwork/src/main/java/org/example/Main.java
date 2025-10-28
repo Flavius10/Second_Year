@@ -4,7 +4,9 @@ import org.example.repositories.RepoFileDuck;
 import org.example.repositories.RepoFilePersoana;
 import org.example.repositories.RepoMessage;
 import org.example.services.AuthService;
+import org.example.services.DuckService;
 import org.example.services.MessageService;
+import org.example.services.PersoanaService;
 import org.example.ui.Menu;
 import org.example.ui.Ui;
 
@@ -14,11 +16,12 @@ public class Main {
         RepoFilePersoana persoanaRepo = new RepoFilePersoana();
         RepoFileDuck duckRepo = new RepoFileDuck();
 
-        AuthService authService = new AuthService(persoanaRepo, duckRepo);
+        PersoanaService persoanaService = new PersoanaService(persoanaRepo);
+        DuckService duckService = new DuckService(duckRepo);
         Menu menu = new Menu();
 
-        Ui ui = new Ui(authService, menu, duckRepo, persoanaRepo);
+        Ui ui = new Ui(menu, persoanaService, duckService);
 
-        ui.menuBeforeSignUp();
+        ui.startApp();
     }
 }

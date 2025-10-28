@@ -2,11 +2,14 @@ package org.example.ui;
 
 import org.example.domain.*;
 import org.example.exceptions.UserAlreadyExists;
+import org.example.exceptions.UserNotFound;
 import org.example.repositories.RepoFileDuck;
 import org.example.repositories.RepoFilePersoana;
 import org.example.repositories.RepoUser;
 import org.example.services.AuthService;
+import org.example.services.DuckService;
 import org.example.services.MessageService;
+import org.example.services.PersoanaService;
 
 import java.time.LocalDate;
 import java.util.Scanner;
@@ -15,15 +18,23 @@ public class Ui {
 
     private AuthService authService;
     private Menu menu;
-    private RepoFilePersoana repoFilePersoana;
-    private RepoFileDuck repoFileDuck;
+    private PersoanaService persoanaService;
+    private DuckService duckService;
     private User loggedInUser;
 
-    public Ui(AuthService authService, Menu menu, RepoFileDuck duckRepo, RepoFilePersoana persoanaRepo) {
-        this.authService = authService;
+    public Ui(Menu menu, PersoanaService persoanaService, DuckService duckService) {
         this.menu = menu;
-        this.repoFileDuck =  duckRepo;
-        this.repoFilePersoana = persoanaRepo;
+        this.persoanaService =  persoanaService;
+        this.duckService = duckService;
+    }
+
+    public void startApp(){
+        beforeStart();
+        menuBeforeSignUp();
+    }
+
+    public void beforeStart(){
+        this.authService = new AuthService(persoanaService, duckService);
     }
 
     public void menuBeforeSignUp() {
@@ -154,7 +165,13 @@ public class Ui {
             LocalDate dataNastere = LocalDate.parse(scanner.nextLine());
 
             Persoana persoana = new Persoana(id, username, email, password, nume, prenume, ocupatie, dataNastere);
-            this.authService.signUp(persoana, "persoane.txt");
+            try{
+                this.authService.signUp(persoana, "persoane.txt");
+            } catch (UserAlreadyExists e) {
+                System.out.println("Eroare la inregistrare: " + e.getMessage());
+                return;
+            }
+
             System.out.println("Persoana creata cu succes:\n" + persoana.toString());
 
             loggedInUser = persoana;
@@ -195,9 +212,20 @@ public class Ui {
     private void delete(){
         if (this.loggedInUser != null) {
             if (this.loggedInUser instanceof Persoana) {
-                this.repoFilePersoana.delete(this.loggedInUser, "persoane.txt");
+                try{
+                    this.persoanaService.deletePerson(this.loggedInUser, "persoane.txt");
+                } catch(UserNotFound e){
+                    System.out.println("Exception occurred: " + e.getMessage());
+                }
+
             } else if (this.loggedInUser instanceof Duck) {
-                this.repoFileDuck.delete(this.loggedInUser, "ducks.txt");
+
+                try{
+                    this.duckService.deleteDuck(this.loggedInUser, "ducks.txt");
+                } catch(UserNotFound e){
+                    System.out.println("Exception occurred: " + e.getMessage());
+                }
+
             }
             System.out.println("Utilizator sters cu succes.");
             this.loggedInUser = null;

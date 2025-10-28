@@ -9,16 +9,18 @@ import org.example.repositories.RepoFilePersoana;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.stream.Stream;
+import java.util.stream.StreamSupport;
 
 public class AuthService {
 
    private final Map<Long, Boolean> loggedInUsers = new HashMap<>();
-   private RepoFilePersoana repoPersoana;
-   private RepoFileDuck repoDuck;
+   private PersoanaService persoanaService;
+   private DuckService duckService;
 
-   public AuthService(RepoFilePersoana persoanaRepo, RepoFileDuck duckRepo) {
-       this.repoPersoana = persoanaRepo;
-       this.repoDuck = duckRepo;
+   public AuthService(PersoanaService persoanaService, DuckService duckService) {
+       this.persoanaService = persoanaService;
+       this.duckService = duckService;
    }
 
    public void login(User user, String password){
@@ -43,15 +45,19 @@ public class AuthService {
 
     public void signUp(User user, String file_name) {
 
-       if (this.loggedInUsers.containsKey(user.getId()))
-            throw new RuntimeException("User already exists!");
-
         if (user instanceof Persoana) {
-            this.repoPersoana.save((Persoana) user, file_name);
+
+            try{
+                this.persoanaService.savePerson((Persoana) user, file_name);
+            } catch (UserAlreadyExists e)
+            {
+                throw new UserAlreadyExists(e.toString());
+            }
+
         } else if (user instanceof Duck) {
 
             try{
-                this.repoDuck.save((Duck) user, file_name);
+                this.duckService.saveDuck((Duck) user, file_name);
             } catch(UserAlreadyExists e)
             {
                 throw new UserAlreadyExists(e.toString());
@@ -65,20 +71,21 @@ public class AuthService {
     }
 
     public User loginAndReturnUser(String username, String password) {
-        for (User user : repoPersoana.findAll("persoane.txt")) {
-            if (user.getUsername().equals(username) && user.getPassword().equals(password)) {
-                loggedInUsers.put(user.getId(), true);
-                return user;
-            }
-        }
 
-        for (User user : repoDuck.findAll("ducks.txt")) {
-            if (user.getUsername().equals(username) && user.getPassword().equals(password)) {
-                loggedInUsers.put(user.getId(), true);
-                return user;
-            }
-        }
+        Stream<User> persoaneStream = StreamSupport.stream(
+                persoanaService.findAllPersons("persoane.txt").spliterator(), false);
 
-        throw new RuntimeException("Nume de utilizator sau parola incorectă!");
+        Stream<User> ducksStream = StreamSupport.stream(
+                duckService.findAllDucks("ducks.txt").spliterator(), false);
+
+        User user = Stream.concat(persoaneStream, ducksStream)
+                .filter(u -> u.getUsername().equals(username) && u.getPassword().equals(password))
+                .findFirst()
+                .orElseThrow(() -> new RuntimeException("Nume de utilizator sau parola incorectă!"));
+
+        loggedInUsers.put(user.getId(), true);
+        return user;
     }
+
+
 }
