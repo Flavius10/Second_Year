@@ -5,35 +5,44 @@ import java.util.Map;
 
 public class Friendship {
 
-    private User first_friend;
-    private User second_friend;
+    private Long id;
+    private String first_friend_username;
+    private String second_friend_username;
 
-    public Friendship(User first_friend, User second_friend) {
-        this.first_friend = first_friend;
-        this.second_friend = second_friend;
+    public Friendship(Long id, String first_friend_username, String second_friend_username) {
+        this.first_friend_username = first_friend_username;
+        this.second_friend_username = second_friend_username;
     }
 
-    public User getFirst_friend() {
-        return first_friend;
+    public void setId(Long id){
+        this.id = id;
     }
 
-    public User getSecond_friend() {
-        return second_friend;
+    public Long getId() {
+        return id;
     }
 
-    public void setFirst_friend(User first_friend){
-        this.first_friend = first_friend;
+    public String getFirst_friend_username() {
+        return this.first_friend_username;
+    }
+
+    public String getSecond_friend_username() {
+        return second_friend_username;
+    }
+
+    public void setFirst_friend(String first_friend_username){
+        this.first_friend_username = first_friend_username;
     }
 
     public void setSecond_friend(User second_friend){
-        this.second_friend = second_friend;
+        this.second_friend_username = second_friend_username;
     }
 
     @Override
     public String toString() {
         return "Friendship{" +
-                "first_friend=" + first_friend +
-                ", second_friend=" + second_friend +
+                "first_friend=" + first_friend_username +
+                ", second_friend=" + second_friend_username +
                 '}';
     }
 
@@ -44,11 +53,11 @@ public class Friendship {
         if (getClass() != obj.getClass())
             return false;
         Friendship other = (Friendship) obj;
-        return other.getFirst_friend().equals(this.getFirst_friend()) && other.getSecond_friend().equals(this.getSecond_friend());
+        return ((Friendship) obj).getId().equals(this.getId());
     }
 
     @Override
     public int hashCode() {
-        return this.getFirst_friend().hashCode() + this.getSecond_friend().hashCode();
+        return this.getFirst_friend_username().hashCode() + this.getSecond_friend_username().hashCode();
     }
 }

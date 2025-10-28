@@ -25,7 +25,7 @@ public class RepoFileDuck implements RepoUser {
         Iterable<User> all = findAll(file_name);
 
         boolean exists = StreamSupport.stream(all.spliterator(), false)
-                .anyMatch(u -> u.getId().equals(d.getId()) || u.getUsername().equals(d.getUsername()));
+                .anyMatch(u -> u.getUsername().equals(d.getUsername()));
 
         if (exists) {
             throw new UserAlreadyExists("User already exists!");

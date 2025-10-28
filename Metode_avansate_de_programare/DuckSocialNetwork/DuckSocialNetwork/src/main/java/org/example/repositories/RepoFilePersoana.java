@@ -23,7 +23,7 @@ public class RepoFilePersoana implements RepoUser{
         Iterable<User> all = findAll(file_name);
 
         boolean exists = StreamSupport.stream(all.spliterator(), false)
-                .anyMatch(u -> u.getId().equals(p.getId()) || u.getUsername().equals(p.getUsername()));
+                .anyMatch(u -> u.getUsername().equals(p.getUsername()));
 
         if (exists) {
             throw new UserAlreadyExists("User already exists!");
