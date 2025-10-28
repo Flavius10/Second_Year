@@ -18,7 +18,7 @@ public class PersoanaService {
         try {
             this.repoFilePersoana.save(user, file_name);
         } catch (UserAlreadyExists e) {
-            throw new UserAlreadyExists(e.toString());
+            throw new UserAlreadyExists(e.getMessage());
         }
     }
 
@@ -26,7 +26,7 @@ public class PersoanaService {
         try{
             this.repoFilePersoana.delete(user, file_name);
         } catch(UserNotFound e){
-            throw new UserNotFound(e.toString());
+            throw new UserNotFound(e.getMessage());
         }
     }
 
@@ -34,7 +34,7 @@ public class PersoanaService {
         try{
             this.repoFilePersoana.update(user, file_name);
         } catch(UserNotFound e){
-            throw new UserNotFound(e.toString());
+            throw new UserNotFound(e.getMessage());
         }
     }
 

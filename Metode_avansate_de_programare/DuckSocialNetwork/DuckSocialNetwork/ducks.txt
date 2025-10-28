@@ -1,1 +1,1 @@
-1761635826919;rata_user;email_rata@gmail.com;Ratoiu;SWIMMING;4.5;6.7;Card
+1761639829654;rata;email;parola;FLYING;4.5;6.7;card

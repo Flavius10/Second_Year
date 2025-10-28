@@ -51,7 +51,7 @@ public class AuthService {
                 this.persoanaService.savePerson((Persoana) user, file_name);
             } catch (UserAlreadyExists e)
             {
-                throw new UserAlreadyExists(e.toString());
+                throw new UserAlreadyExists(e.getMessage());
             }
 
         } else if (user instanceof Duck) {
@@ -60,7 +60,7 @@ public class AuthService {
                 this.duckService.saveDuck((Duck) user, file_name);
             } catch(UserAlreadyExists e)
             {
-                throw new UserAlreadyExists(e.toString());
+                throw new UserAlreadyExists(e.getMessage());
             }
 
         } else {
