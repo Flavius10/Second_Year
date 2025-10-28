@@ -1,7 +1,5 @@
 package org.example.domain;
 
-import org.example.repositories.RepoMessage;
-
 /**
  * The type User.
  */

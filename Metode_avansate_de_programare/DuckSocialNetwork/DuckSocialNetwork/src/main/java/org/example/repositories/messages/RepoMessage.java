@@ -1,4 +1,4 @@
-package org.example.repositories;
+package org.example.repositories.messages;
 
 import org.example.domain.Message;
 

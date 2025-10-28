@@ -2,7 +2,7 @@ package org.example.services;
 
 import org.example.domain.Message;
 import org.example.domain.User;
-import org.example.repositories.RepoMessage;
+import org.example.repositories.messages.RepoMessage;
 
 import java.time.LocalDateTime;
 

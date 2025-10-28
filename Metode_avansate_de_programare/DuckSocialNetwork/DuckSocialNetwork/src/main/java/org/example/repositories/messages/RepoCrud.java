@@ -1,4 +1,4 @@
-package org.example.repositories;
+package org.example.repositories.messages;
 
 /**
  * The interface Repo crud.

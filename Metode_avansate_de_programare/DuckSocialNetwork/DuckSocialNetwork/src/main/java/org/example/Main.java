@@ -2,10 +2,7 @@ package org.example;
 
 import org.example.repositories.RepoFileDuck;
 import org.example.repositories.RepoFilePersoana;
-import org.example.repositories.RepoMessage;
-import org.example.services.AuthService;
 import org.example.services.DuckService;
-import org.example.services.MessageService;
 import org.example.services.PersoanaService;
 import org.example.ui.Menu;
 import org.example.ui.Ui;
