@@ -1,6 +1,7 @@
 package org.example.ui;
 
 import org.example.domain.*;
+import org.example.exceptions.FriendshipNotFound;
 import org.example.exceptions.UserAlreadyExists;
 import org.example.exceptions.UserNotFound;
 import org.example.services.*;
@@ -25,9 +26,10 @@ public class Ui {
     /**
      * Instantiates a new Ui.
      *
-     * @param menu            the menu
-     * @param persoanaService the persoana service
-     * @param duckService     the duck service
+     * @param menu              the menu
+     * @param persoanaService   the persoana service
+     * @param duckService       the duck service
+     * @param friendshipService the friendship service
      */
     public Ui(Menu menu, PersoanaService persoanaService, DuckService duckService,
               FriendshipService friendshipService) {
@@ -98,7 +100,7 @@ public class Ui {
                     addFriend();
                     break;
                 case 3:
-                    System.out.println("Functionalitatea de trimis mesaje va fi implementata aici.");
+                    removeFriend();
                     break;
                 case 4:
                     deleteAccount();
@@ -248,6 +250,9 @@ public class Ui {
         menuBeforeSignUp();
     }
 
+    /**
+     * Add friend.
+     */
     public void addFriend(){
         Scanner scanner = new Scanner(System.in);
 
@@ -287,6 +292,22 @@ public class Ui {
                 }
             }
         }
+    }
+
+    public void removeFriend(){
+
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("Introduceti numele userului pe care vreti sa il stergeti ca prieten: ");
+        String username_friend = scanner.nextLine();
+
+        try{
+            Friendship friendship = this.friendshipService.findByNames(this.loggedInUser.getUsername(), username_friend, "friendships.txt");
+            this.friendshipService.deleteFriendship(friendship, "friendships.txt");
+        }catch(FriendshipNotFound e){
+            System.out.println("Exception occurred: " + e.getMessage());
+        }
+
     }
 
     private void deleteAccount(){
