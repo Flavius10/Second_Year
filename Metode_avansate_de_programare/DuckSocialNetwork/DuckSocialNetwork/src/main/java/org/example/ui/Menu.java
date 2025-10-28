@@ -13,8 +13,8 @@ public class Menu {
         System.out.println();
         System.out.println("------------Menu--------------");
         System.out.println("1. Logout");
-        System.out.println("2. Send message");
-        System.out.println("3. Get messages");
+        System.out.println("2. Add friend");
+        System.out.println("3. Remove friend");
         System.out.println("4. Delete account");
         System.out.println("5. Exit");
     }
