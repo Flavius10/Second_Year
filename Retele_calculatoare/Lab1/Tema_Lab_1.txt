@@ -1,0 +1,129 @@
+-----------------------PROBLEMA----------------------------------
+
+	Un client trimite unui server un sir de caractere. Serverul va returna clientului acest sir oglindit (caracterele sirului in ordine inversa).
+
+----------------------------COD SERVER---------------------------
+
+#include <sys/types.h>
+#include <sys/socket.h>
+#include <stdio.h>
+#include <netinet/in.h>
+#include <netinet/ip.h>
+#include <string.h>
+#include <unistd.h>
+
+void reverse_string(char* str) {
+    int n = strlen(str);
+    for (int i = 0; i < n / 2; ++i) {
+        char temp = str[i];
+        str[i] = str[n - i - 1];
+        str[n - i - 1] = temp;
+    }
+}
+
+void deservire_client(int c) {
+    char buffer[1024];
+    memset(buffer, 0, sizeof(buffer));
+    recv(c, buffer, sizeof(buffer), 0);
+    printf("Primit: %s\n", buffer);
+
+    reverse_string(buffer);
+
+    send(c, buffer, strlen(buffer) + 1, 0);
+
+    close(c);
+}
+
+int main() {
+    int s;
+    struct sockaddr_in server, client;
+    int c, l;
+
+    s = socket(AF_INET, SOCK_STREAM, 0);
+    if (s < 0) {
+        printf("Eroare la crearea socketului server\n");
+        return 1;
+    }
+
+    memset(&server, 0, sizeof(server));
+    server.sin_port = htons(8080);
+    server.sin_family = AF_INET;
+    server.sin_addr.s_addr = INADDR_ANY;
+
+    if (bind(s, (struct sockaddr *) &server, sizeof(server)) < 0) {
+        printf("Eroare la bind\n");
+        return 1;
+    }
+
+    listen(s, 5);
+
+    l = sizeof(client);
+    memset(&client, 0, sizeof(client));
+
+    while (1) {
+        c = accept(s, (struct sockaddr *) &client, &l);
+        if (c < 0) {
+            printf("Eroare la accept\n");
+            continue;
+        }
+
+        printf("S-a conectat un client.\n");
+
+        if (fork() == 0) {
+            deservire_client(c);
+            return 0;
+        }
+    }
+
+    close(s);
+    return 0;
+}
+
+------------------COD CLIENT---------------------------------
+
+#include <sys/types.h>
+#include <sys/socket.h>
+#include <stdio.h>
+#include <netinet/in.h>
+#include <netinet/ip.h>
+#include <string.h>
+#include <arpa/inet.h>
+#include <unistd.h>
+
+int main() {
+    int c;
+    struct sockaddr_in server;
+    char buffer[1024];
+
+    c = socket(AF_INET, SOCK_STREAM, 0);
+    if (c < 0) {
+        printf("Eroare la crearea socketului client\n");
+        return 1;
+    }
+
+    memset(&server, 0, sizeof(server));
+    server.sin_port = htons(8080);
+    server.sin_family = AF_INET;
+    server.sin_addr.s_addr = inet_addr("127.0.0.1");
+
+    if (connect(c, (struct sockaddr *) &server, sizeof(server)) < 0) {
+        printf("Eroare la conectarea la server\n");
+        return 1;
+    }
+
+    printf("Introdu un sir: ");
+    fgets(buffer, sizeof(buffer), stdin);
+
+    size_t len = strlen(buffer);
+    if (len > 0 && buffer[len - 1] == '\n') {
+        buffer[len - 1] = '\0';
+    }
+
+    send(c, buffer, strlen(buffer) + 1, 0);
+    recv(c, buffer, sizeof(buffer), 0);
+
+    printf("Raspuns de la server: %s\n", buffer);
+
+    close(c);
+    return 0;
+}

@@ -131,7 +131,7 @@ public class Ui {
 
             Duck duck = new Duck(id, username, email, password, tip, viteza, rezistenta, card);
             this.authService.signUp(duck, "ducks.txt");
-            System.out.println("Rata creata cu succes: " + duck.getUsername());
+            System.out.println("Rata creata cu succes:\n" + duck.toString());
 
             loggedInUser = duck;
             menuAfterSignUp(duck);
@@ -148,7 +148,7 @@ public class Ui {
 
             Persoana persoana = new Persoana(id, username, email, password, nume, prenume, ocupatie, dataNastere);
             this.authService.signUp(persoana, "persoane.txt");
-            System.out.println("Persoana creata cu succes: " + persoana.getUsername());
+            System.out.println("Persoana creata cu succes:\n" + persoana.toString());
 
             loggedInUser = persoana;
             menuAfterSignUp(persoana);

@@ -11,9 +11,10 @@ INTEROGARI - 10
 
 */
 
-/*
+
 --VREM SA SELECTAM CATE ALARME ARE FIECARE CAMERA IN PARTE--
 --am utilizat un WHERE si un GROUP BY--
+/*
 SELECT 
 	c.nume_camera,
 	COUNT(a.id_alarma) AS numar_alarme
@@ -26,8 +27,9 @@ GROUP BY c.nume_camera;
 */
 
 
-/*
+
 --VREM SA SELECTAM CATI ACUTATORI ARE UN SENZOR CARE ARE ID-UL MAI MARE CA 2--
+/*
 SELECT 
 	s.id_senzor,
 	COUNT(a.id_acutator) AS numar_acutator
