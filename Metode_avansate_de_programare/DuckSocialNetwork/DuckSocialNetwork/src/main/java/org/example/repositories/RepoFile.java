@@ -1,7 +1,5 @@
 package org.example.repositories;
 
-import org.example.exceptions.UserAlreadyExists;
-
 /**
  * The interface Repo file.
  *

@@ -4,8 +4,6 @@ import org.example.domain.Duck;
 import org.example.domain.Persoana;
 import org.example.domain.User;
 import org.example.exceptions.UserAlreadyExists;
-import org.example.repositories.RepoFileDuck;
-import org.example.repositories.RepoFilePersoana;
 
 import java.util.HashMap;
 import java.util.Map;

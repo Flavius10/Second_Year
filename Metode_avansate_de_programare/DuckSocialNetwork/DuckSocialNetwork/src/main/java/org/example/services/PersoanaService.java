@@ -3,7 +3,7 @@ package org.example.services;
 import org.example.domain.User;
 import org.example.exceptions.UserAlreadyExists;
 import org.example.exceptions.UserNotFound;
-import org.example.repositories.RepoFilePersoana;
+import org.example.repositories.repo_file.RepoFilePersoana;
 
 /**
  * The type Persoana service.

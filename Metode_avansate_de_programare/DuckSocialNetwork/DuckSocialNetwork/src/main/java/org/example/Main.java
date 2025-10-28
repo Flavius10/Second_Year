@@ -1,8 +1,8 @@
 package org.example;
 
-import org.example.repositories.RepoFileDuck;
-import org.example.repositories.RepoFilePersoana;
-import org.example.repositories.RepoFriendship;
+import org.example.repositories.repo_file.RepoFileDuck;
+import org.example.repositories.repo_file.RepoFilePersoana;
+import org.example.repositories.repo_file.RepoFileFriendship;
 import org.example.services.DuckService;
 import org.example.services.FriendshipService;
 import org.example.services.PersoanaService;
@@ -22,7 +22,7 @@ public class Main {
 
         RepoFilePersoana persoanaRepo = new RepoFilePersoana();
         RepoFileDuck duckRepo = new RepoFileDuck();
-        RepoFriendship friendshipRepo = new RepoFriendship();
+        RepoFileFriendship friendshipRepo = new RepoFileFriendship();
 
         PersoanaService persoanaService = new PersoanaService(persoanaRepo);
         DuckService duckService = new DuckService(duckRepo);

@@ -3,9 +3,6 @@ package org.example.ui;
 import org.example.domain.*;
 import org.example.exceptions.UserAlreadyExists;
 import org.example.exceptions.UserNotFound;
-import org.example.repositories.RepoFileDuck;
-import org.example.repositories.RepoFilePersoana;
-import org.example.repositories.RepoUser;
 import org.example.services.*;
 
 import java.time.LocalDate;

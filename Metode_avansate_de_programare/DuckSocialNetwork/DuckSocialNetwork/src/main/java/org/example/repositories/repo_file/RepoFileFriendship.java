@@ -1,19 +1,17 @@
-package org.example.repositories;
+package org.example.repositories.repo_file;
 
 import org.example.domain.Friendship;
-import org.example.domain.Persoana;
-import org.example.domain.User;
 import org.example.exceptions.FriendshipAlreadyExists;
 import org.example.exceptions.FriendshipNotFound;
 import org.example.exceptions.UserNotFound;
+import org.example.repositories.RepoFile;
 
 import java.io.*;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.StreamSupport;
 
-public class RepoFriendship implements RepoFile<Friendship> {
+public class RepoFileFriendship implements RepoFile<Friendship> {
 
 
     @Override

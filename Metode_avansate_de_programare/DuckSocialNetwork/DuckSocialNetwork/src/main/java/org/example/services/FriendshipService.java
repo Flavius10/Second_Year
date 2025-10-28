@@ -1,20 +1,20 @@
 package org.example.services;
 
 import org.example.domain.Friendship;
-import org.example.repositories.RepoFriendship;
+import org.example.repositories.repo_file.RepoFileFriendship;
 
 public class FriendshipService {
 
-    private RepoFriendship repoFriendship;
+    private RepoFileFriendship repoFileFriendship;
 
-    public FriendshipService(RepoFriendship repoFriendship) {
-        this.repoFriendship = repoFriendship;
+    public FriendshipService(RepoFileFriendship repoFileFriendship) {
+        this.repoFileFriendship = repoFileFriendship;
     }
 
     public void saveFriendship(Friendship friendship, String file_name){
 
         try{
-            this.repoFriendship.save(friendship, file_name);
+            this.repoFileFriendship.save(friendship, file_name);
         } catch(Exception e){
             throw new RuntimeException(e.getMessage());
         }
@@ -22,7 +22,7 @@ public class FriendshipService {
 
     public void deleteFriendship(Friendship friendship, String file_name){
         try{
-            this.repoFriendship.delete(friendship, file_name);
+            this.repoFileFriendship.delete(friendship, file_name);
         } catch(Exception e){
             throw new RuntimeException(e.getMessage());
         }

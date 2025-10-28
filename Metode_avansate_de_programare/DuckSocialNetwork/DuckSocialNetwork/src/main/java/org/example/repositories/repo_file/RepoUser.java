@@ -1,11 +1,12 @@
-package org.example.repositories;
+package org.example.repositories.repo_file;
 
 import org.example.domain.User;
+import org.example.repositories.RepoFile;
 
 /**
  * The interface Repo user.
  */
-public interface RepoUser extends RepoFile<User>{
+public interface RepoUser extends RepoFile<User> {
 
     /**
      * Find by username user.
