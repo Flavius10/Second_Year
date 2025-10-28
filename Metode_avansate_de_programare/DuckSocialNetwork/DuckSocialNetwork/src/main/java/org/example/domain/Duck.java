@@ -1,5 +1,8 @@
 package org.example.domain;
 
+/**
+ * The type Duck.
+ */
 public class Duck extends User{
 
     private TypeDuck tip;
@@ -7,6 +10,18 @@ public class Duck extends User{
     private double rezistenta;
     private Card card;
 
+    /**
+     * Instantiates a new Duck.
+     *
+     * @param id         the id
+     * @param name       the name
+     * @param email      the email
+     * @param password   the password
+     * @param tip        the tip
+     * @param viteza     the viteza
+     * @param rezistenta the rezistenta
+     * @param card       the card
+     */
     public Duck(Long id, String name, String email, String password,
                 TypeDuck tip, double viteza, double rezistenta, Card card){
         super(id, name, email, password);
@@ -16,36 +31,70 @@ public class Duck extends User{
         this.card = card;
     }
 
-    /// Getters
+    /**
+     * Getters @return  the tip
+     */
     public TypeDuck getTip() {
         return this.tip;
     }
 
+    /**
+     * Gets viteza.
+     *
+     * @return the viteza
+     */
     public double getViteza() {
         return this.viteza;
     }
 
+    /**
+     * Gets rezistenta.
+     *
+     * @return the rezistenta
+     */
     public double getRezistenta() {
         return this.rezistenta;
     }
 
+    /**
+     * Gets card.
+     *
+     * @return the card
+     */
     public Card getCard() {
         return this.card;
     }
 
-    /// Setters
+    /**
+     * Setters @param tip the tip
+     */
     public void setTip(TypeDuck tip) {
         this.tip = tip;
     }
 
+    /**
+     * Sets viteza.
+     *
+     * @param viteza the viteza
+     */
     public void setViteza(double viteza) {
         this.viteza = viteza;
     }
 
+    /**
+     * Sets rezistenta.
+     *
+     * @param rezistenta the rezistenta
+     */
     public void setRezistenta(double rezistenta) {
         this.rezistenta = rezistenta;
     }
 
+    /**
+     * Sets card.
+     *
+     * @param card the card
+     */
     public void setCard(Card card) {
         this.card = card;
     }

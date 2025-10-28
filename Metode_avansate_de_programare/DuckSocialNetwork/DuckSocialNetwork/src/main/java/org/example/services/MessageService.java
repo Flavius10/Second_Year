@@ -6,17 +6,33 @@ import org.example.repositories.RepoMessage;
 
 import java.time.LocalDateTime;
 
+/**
+ * The type Message service.
+ */
 public class MessageService {
 
     private RepoMessage repoMessage;
     private AuthService authService;
     private Long messageCount = 0L;
 
+    /**
+     * Instantiates a new Message service.
+     *
+     * @param repoMessage the repo message
+     * @param authService the auth service
+     */
     public MessageService(RepoMessage repoMessage, AuthService authService) {
         this.repoMessage = repoMessage;
         this.authService = authService;
     }
 
+    /**
+     * Send message.
+     *
+     * @param sender   the sender
+     * @param receiver the receiver
+     * @param content  the content
+     */
     public void sendMessage(User sender, User receiver, String content){
         if (this.authService.isLoggedIn(sender)){
             try{
@@ -32,6 +48,13 @@ public class MessageService {
             System.out.println("You must be logged in to receive a message!");
     }
 
+    /**
+     * Receive message.
+     *
+     * @param sender   the sender
+     * @param receiver the receiver
+     * @param message  the message
+     */
     public void receiveMessage(User sender, User receiver, Message message){
 
         if (authService.isLoggedIn(receiver)) {

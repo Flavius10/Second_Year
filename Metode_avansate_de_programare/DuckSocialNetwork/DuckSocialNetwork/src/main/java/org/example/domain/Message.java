@@ -2,6 +2,9 @@ package org.example.domain;
 
 import java.time.LocalDateTime;
 
+/**
+ * The type Message.
+ */
 public class Message {
 
     private Long id;
@@ -10,6 +13,15 @@ public class Message {
     private String content;
     private LocalDateTime timestamp;
 
+    /**
+     * Instantiates a new Message.
+     *
+     * @param id        the id
+     * @param sender    the sender
+     * @param receiver  the receiver
+     * @param content   the content
+     * @param timestamp the timestamp
+     */
     public Message(Long id, User sender, User receiver,
                    String content, LocalDateTime timestamp) {
         this.id = id;
@@ -19,44 +31,88 @@ public class Message {
         this.timestamp = timestamp;
     }
 
-    /// Getters
+    /**
+     * Getters @return  the long
+     */
     public Long getId(){
         return this.id;
     }
 
+    /**
+     * Get sender user.
+     *
+     * @return the user
+     */
     public User getSender(){
         return this.sender;
     }
 
+    /**
+     * Get receiver user.
+     *
+     * @return the user
+     */
     public User getReceiver(){
         return this.receiver;
     }
 
+    /**
+     * Get content string.
+     *
+     * @return the string
+     */
     public String getContent(){
         return this.content;
     }
 
+    /**
+     * Gets timestamp.
+     *
+     * @return the timestamp
+     */
     public LocalDateTime getTimestamp() {
         return this.timestamp;
     }
 
-    /// Setters
+    /**
+     * Setters @param id the id
+     */
     public void setId(Long id){
         this.id = id;
     }
 
+    /**
+     * Set sender.
+     *
+     * @param sender the sender
+     */
     public void setSender(User sender){
         this.sender = sender;
     }
 
+    /**
+     * Set receiver.
+     *
+     * @param receiver the receiver
+     */
     public void setReceiver(User receiver){
         this.receiver = receiver;
     }
 
+    /**
+     * Set content.
+     *
+     * @param content the content
+     */
     public void setContent(String content){
         this.content = content;
     }
 
+    /**
+     * Sets timestamp.
+     *
+     * @param timestamp the timestamp
+     */
     public void setTimestamp(LocalDateTime timestamp) {
         this.timestamp = timestamp;
     }

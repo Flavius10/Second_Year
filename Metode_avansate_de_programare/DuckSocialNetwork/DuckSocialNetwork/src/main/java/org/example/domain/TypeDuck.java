@@ -1,7 +1,21 @@
 package org.example.domain;
 
+/**
+ * The enum Type duck.
+ */
 public enum TypeDuck {
 
-    FLYING, SWIMMING, FLYING_AND_SWIMMING
+    /**
+     * Flying type duck.
+     */
+    FLYING,
+    /**
+     * Swimming type duck.
+     */
+    SWIMMING,
+    /**
+     * Flying and swimming type duck.
+     */
+    FLYING_AND_SWIMMING
 
 }

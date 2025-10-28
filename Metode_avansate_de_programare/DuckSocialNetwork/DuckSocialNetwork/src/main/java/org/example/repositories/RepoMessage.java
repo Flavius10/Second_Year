@@ -5,10 +5,16 @@ import org.example.domain.Message;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The type Repo message.
+ */
 public class RepoMessage implements RepoCrud<Message>{
 
     private List<Message> messages;
 
+    /**
+     * Instantiates a new Repo message.
+     */
     public RepoMessage() {
         this.messages = new ArrayList<>();
     }

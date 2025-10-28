@@ -14,6 +14,9 @@ import org.example.services.PersoanaService;
 import java.time.LocalDate;
 import java.util.Scanner;
 
+/**
+ * The type Ui.
+ */
 public class Ui {
 
     private AuthService authService;
@@ -22,21 +25,37 @@ public class Ui {
     private DuckService duckService;
     private User loggedInUser;
 
+    /**
+     * Instantiates a new Ui.
+     *
+     * @param menu            the menu
+     * @param persoanaService the persoana service
+     * @param duckService     the duck service
+     */
     public Ui(Menu menu, PersoanaService persoanaService, DuckService duckService) {
         this.menu = menu;
         this.persoanaService =  persoanaService;
         this.duckService = duckService;
     }
 
+    /**
+     * Start app.
+     */
     public void startApp(){
         beforeStart();
         menuBeforeSignUp();
     }
 
+    /**
+     * Before start.
+     */
     public void beforeStart(){
         this.authService = new AuthService(persoanaService, duckService);
     }
 
+    /**
+     * Menu before sign up.
+     */
     public void menuBeforeSignUp() {
         Scanner scanner = new Scanner(System.in);
         int choice;
@@ -61,6 +80,11 @@ public class Ui {
         }
     }
 
+    /**
+     * Menu after sign up.
+     *
+     * @param loggedInUser the logged in user
+     */
     public void menuAfterSignUp(User loggedInUser) {
         int choice;
         while (true) {
@@ -87,6 +111,12 @@ public class Ui {
         }
     }
 
+    /**
+     * Gets user choice.
+     *
+     * @param max the max
+     * @return the user choice
+     */
     public int getUserChoice(int max) {
         Scanner scanner = new Scanner(System.in);
         int choice = -1;
@@ -112,6 +142,9 @@ public class Ui {
         return choice;
     }
 
+    /**
+     * Sign up.
+     */
     public void signUp() {
         Scanner scanner = new Scanner(System.in);
 
@@ -182,6 +215,9 @@ public class Ui {
         }
     }
 
+    /**
+     * Login.
+     */
     public void login() {
         Scanner scanner = new Scanner(System.in);
         System.out.print("Introduceti numele de utilizator: ");
@@ -199,6 +235,9 @@ public class Ui {
         }
     }
 
+    /**
+     * Logout.
+     */
     public void logout() {
 
         if (loggedInUser != null) {

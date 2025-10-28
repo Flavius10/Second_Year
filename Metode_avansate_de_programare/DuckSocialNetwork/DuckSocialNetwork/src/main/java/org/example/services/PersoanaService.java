@@ -5,14 +5,28 @@ import org.example.exceptions.UserAlreadyExists;
 import org.example.exceptions.UserNotFound;
 import org.example.repositories.RepoFilePersoana;
 
+/**
+ * The type Persoana service.
+ */
 public class PersoanaService {
 
     private RepoFilePersoana repoFilePersoana;
 
+    /**
+     * Instantiates a new Persoana service.
+     *
+     * @param repoFilePersoana the repo file persoana
+     */
     public PersoanaService(RepoFilePersoana repoFilePersoana){
         this.repoFilePersoana = repoFilePersoana;
     }
 
+    /**
+     * Save person.
+     *
+     * @param user      the user
+     * @param file_name the file name
+     */
     public void savePerson(User user, String file_name){
 
         try {
@@ -22,6 +36,12 @@ public class PersoanaService {
         }
     }
 
+    /**
+     * Delete person.
+     *
+     * @param user      the user
+     * @param file_name the file name
+     */
     public void deletePerson(User user, String file_name){
         try{
             this.repoFilePersoana.delete(user, file_name);
@@ -30,6 +50,12 @@ public class PersoanaService {
         }
     }
 
+    /**
+     * Update person.
+     *
+     * @param user      the user
+     * @param file_name the file name
+     */
     public void updatePerson(User user, String file_name){
         try{
             this.repoFilePersoana.update(user, file_name);
@@ -38,14 +64,34 @@ public class PersoanaService {
         }
     }
 
+    /**
+     * Find by id person user.
+     *
+     * @param id        the id
+     * @param file_name the file name
+     * @return the user
+     */
     public User findByIdPerson(Long id, String file_name){
         return this.repoFilePersoana.findById(id, file_name);
     }
 
+    /**
+     * Find all persons iterable.
+     *
+     * @param file_name the file name
+     * @return the iterable
+     */
     public Iterable<User> findAllPersons(String file_name){
         return this.repoFilePersoana.findAll(file_name);
     }
 
+    /**
+     * Find by username person user.
+     *
+     * @param username  the username
+     * @param file_name the file name
+     * @return the user
+     */
     public User findByUsernamePerson(String username, String file_name){
         return this.repoFilePersoana.findByUsername(username, file_name);
     }
