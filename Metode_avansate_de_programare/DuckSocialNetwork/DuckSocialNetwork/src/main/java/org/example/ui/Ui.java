@@ -294,6 +294,9 @@ public class Ui {
         }
     }
 
+    /**
+     * Remove friend.
+     */
     public void removeFriend(){
 
         Scanner scanner = new Scanner(System.in);

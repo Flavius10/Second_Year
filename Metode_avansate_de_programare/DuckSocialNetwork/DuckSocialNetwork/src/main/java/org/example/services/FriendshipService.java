@@ -6,14 +6,28 @@ import org.example.repositories.repo_file.RepoFileFriendship;
 import java.util.List;
 import java.util.stream.StreamSupport;
 
+/**
+ * The type Friendship service.
+ */
 public class FriendshipService {
 
     private RepoFileFriendship repoFileFriendship;
 
+    /**
+     * Instantiates a new Friendship service.
+     *
+     * @param repoFileFriendship the repo file friendship
+     */
     public FriendshipService(RepoFileFriendship repoFileFriendship) {
         this.repoFileFriendship = repoFileFriendship;
     }
 
+    /**
+     * Save friendship.
+     *
+     * @param friendship the friendship
+     * @param file_name  the file name
+     */
     public void saveFriendship(Friendship friendship, String file_name){
 
         try{
@@ -23,6 +37,12 @@ public class FriendshipService {
         }
     }
 
+    /**
+     * Delete friendship.
+     *
+     * @param friendship the friendship
+     * @param file_name  the file name
+     */
     public void deleteFriendship(Friendship friendship, String file_name){
         try{
             this.repoFileFriendship.delete(friendship, file_name);
@@ -31,6 +51,14 @@ public class FriendshipService {
         }
     }
 
+    /**
+     * Find by names friendship.
+     *
+     * @param first_friend  the first friend
+     * @param second_friend the second friend
+     * @param file_name     the file name
+     * @return the friendship
+     */
     public Friendship findByNames(String first_friend, String second_friend, String file_name){
         Iterable<Friendship> friends = this.findAllFriendships(file_name);
 
@@ -44,6 +72,12 @@ public class FriendshipService {
 
     }
 
+    /**
+     * Find all friendships iterable.
+     *
+     * @param file_name the file name
+     * @return the iterable
+     */
     public Iterable<Friendship> findAllFriendships(String file_name){
         return this.repoFileFriendship.findAll(file_name);
     }

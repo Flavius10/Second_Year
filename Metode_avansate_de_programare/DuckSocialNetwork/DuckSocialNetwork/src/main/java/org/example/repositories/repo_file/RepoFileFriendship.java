@@ -11,6 +11,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.StreamSupport;
 
+/**
+ * The type Repo file friendship.
+ */
 public class RepoFileFriendship implements RepoFile<Friendship> {
 
 
