@@ -2,7 +2,9 @@ package org.example;
 
 import org.example.repositories.RepoFileDuck;
 import org.example.repositories.RepoFilePersoana;
+import org.example.repositories.RepoFriendship;
 import org.example.services.DuckService;
+import org.example.services.FriendshipService;
 import org.example.services.PersoanaService;
 import org.example.ui.Menu;
 import org.example.ui.Ui;
@@ -20,12 +22,15 @@ public class Main {
 
         RepoFilePersoana persoanaRepo = new RepoFilePersoana();
         RepoFileDuck duckRepo = new RepoFileDuck();
+        RepoFriendship friendshipRepo = new RepoFriendship();
 
         PersoanaService persoanaService = new PersoanaService(persoanaRepo);
         DuckService duckService = new DuckService(duckRepo);
+        FriendshipService friendshipService = new FriendshipService(friendshipRepo);
+
         Menu menu = new Menu();
 
-        Ui ui = new Ui(menu, persoanaService, duckService);
+        Ui ui = new Ui(menu, persoanaService, duckService, friendshipService);
 
         ui.startApp();
     }

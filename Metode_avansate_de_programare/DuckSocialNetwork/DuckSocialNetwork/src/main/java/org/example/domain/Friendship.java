@@ -10,6 +10,7 @@ public class Friendship {
     private String second_friend_username;
 
     public Friendship(Long id, String first_friend_username, String second_friend_username) {
+        this.id = id;
         this.first_friend_username = first_friend_username;
         this.second_friend_username = second_friend_username;
     }

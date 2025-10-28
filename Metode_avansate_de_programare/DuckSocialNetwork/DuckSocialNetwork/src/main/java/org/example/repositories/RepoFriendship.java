@@ -30,7 +30,7 @@ public class RepoFriendship implements RepoFile<Friendship> {
 
         try{
             BufferedWriter writer = new BufferedWriter(new FileWriter(file_name));
-            writer.write(entity.toString());
+            writer.write(toStringFile(entity));
             writer.close();
         } catch (IOException e) {
             throw new RuntimeException("Error writing file: " + e.getMessage());

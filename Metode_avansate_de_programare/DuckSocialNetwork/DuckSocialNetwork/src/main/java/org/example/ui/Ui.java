@@ -6,10 +6,7 @@ import org.example.exceptions.UserNotFound;
 import org.example.repositories.RepoFileDuck;
 import org.example.repositories.RepoFilePersoana;
 import org.example.repositories.RepoUser;
-import org.example.services.AuthService;
-import org.example.services.DuckService;
-import org.example.services.MessageService;
-import org.example.services.PersoanaService;
+import org.example.services.*;
 
 import java.time.LocalDate;
 import java.util.Scanner;
@@ -21,8 +18,11 @@ public class Ui {
 
     private AuthService authService;
     private Menu menu;
+
     private PersoanaService persoanaService;
     private DuckService duckService;
+    private FriendshipService friendshipService;
+
     private User loggedInUser;
 
     /**
@@ -32,10 +32,12 @@ public class Ui {
      * @param persoanaService the persoana service
      * @param duckService     the duck service
      */
-    public Ui(Menu menu, PersoanaService persoanaService, DuckService duckService) {
+    public Ui(Menu menu, PersoanaService persoanaService, DuckService duckService,
+              FriendshipService friendshipService) {
         this.menu = menu;
         this.persoanaService =  persoanaService;
         this.duckService = duckService;
+        this.friendshipService = friendshipService;
     }
 
     /**
@@ -96,12 +98,13 @@ public class Ui {
                     logout();
                     break;
                 case 2:
+                    addFriend();
                     break;
                 case 3:
                     System.out.println("Functionalitatea de trimis mesaje va fi implementata aici.");
                     break;
                 case 4:
-                    delete();
+                    deleteAccount();
                     break;
                 case 5:
                     menuBeforeSignUp();
@@ -248,7 +251,48 @@ public class Ui {
         menuBeforeSignUp();
     }
 
-    private void delete(){
+    public void addFriend(){
+        Scanner scanner = new Scanner(System.in);
+
+        String username_loggedInUser = this.loggedInUser.getUsername();
+        System.out.println("Introduceti numele userului cu care vreti sa fiti prieten: ");
+        String username_friend = scanner.nextLine();
+
+        User user_duck = this.duckService.findByUsernameDuck(username_friend, "ducks.txt");
+        if (user_duck != null) {
+            String user_duck_username = user_duck.getUsername();
+
+            if (user_duck_username != null && !user_duck_username.equals(username_loggedInUser))
+            {
+                Long id = System.currentTimeMillis();
+                Friendship friendship = new Friendship(id, username_loggedInUser, username_friend);
+                try{
+                    this.friendshipService.saveFriendship(friendship, "friendships.txt");
+                } catch(UserNotFound e){
+                    System.out.println("Exception occurred: " + e.getMessage());
+                }
+            }
+        }
+
+
+        User user_person = this.persoanaService.findByUsernamePerson(username_friend, "persoane.txt");
+        if (user_person != null) {
+            String user_person_username = user_person.getUsername();
+
+            if (user_person_username != null && !user_person_username.equals(username_loggedInUser))
+            {
+                Long id = System.currentTimeMillis();
+                Friendship friendship = new Friendship(id, username_loggedInUser, username_friend);
+                try{
+                    this.friendshipService.saveFriendship(friendship, "friendships.txt");
+                } catch(UserNotFound e){
+                    System.out.println("Exception occurred: " + e.getMessage());
+                }
+            }
+        }
+    }
+
+    private void deleteAccount(){
         if (this.loggedInUser != null) {
             if (this.loggedInUser instanceof Persoana) {
                 try{
