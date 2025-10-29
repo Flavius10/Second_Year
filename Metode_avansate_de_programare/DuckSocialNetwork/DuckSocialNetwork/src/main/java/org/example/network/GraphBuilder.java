@@ -8,8 +8,18 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * The type Graph builder.
+ */
 public class GraphBuilder {
 
+    /**
+     * Build graph map.
+     *
+     * @param users       the users
+     * @param friendships the friendships
+     * @return the map
+     */
     public Map<String, List<String>> buildGraph(Iterable<User> users, Iterable<Friendship> friendships){
 
         Map<String, List<String>> graph = new HashMap<>();

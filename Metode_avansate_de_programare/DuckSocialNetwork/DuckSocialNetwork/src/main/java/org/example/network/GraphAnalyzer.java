@@ -2,6 +2,9 @@ package org.example.network;
 
 import java.util.*;
 
+/**
+ * The type Graph analyzer.
+ */
 public class GraphAnalyzer{
 
     private void dfs(String node, Map<String, List<String>> graph, Set<String> visited){
@@ -13,6 +16,12 @@ public class GraphAnalyzer{
         }
     }
 
+    /**
+     * Count communities int.
+     *
+     * @param graph the graph
+     * @return the int
+     */
     public int countCommunities(Map<String, List<String>> graph){
         Set<String> visited = new java.util.HashSet<>();
         int count = 0;
@@ -25,6 +34,12 @@ public class GraphAnalyzer{
         return count;
     }
 
+    /**
+     * Find most sociable community list.
+     *
+     * @param graph the graph
+     * @return the list
+     */
     public List<String> findMostSociableCommunity(Map<String, List<String>> graph){
         Set<String> visited = new HashSet<>();
         List<String> mostSociable = new ArrayList<>();
