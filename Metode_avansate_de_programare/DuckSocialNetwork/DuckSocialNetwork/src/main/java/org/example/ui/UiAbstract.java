@@ -32,7 +32,7 @@ public abstract class UiAbstract {
             try {
                 choice = Integer.parseInt(input);
             } catch (NumberFormatException e) {
-                System.out.println("Trebuie să introduci un numar valid!");
+                System.out.println("Trebuie sa introduci un numar valid!");
                 continue;
             }
 

@@ -83,7 +83,7 @@ public class UiAfterSignUp extends UiAbstract{
                     break;
 
                 default:
-                    System.out.println("Opțiune invalidă!");
+                    System.out.println("Optiune invalida!");
                     break;
             }
         }
