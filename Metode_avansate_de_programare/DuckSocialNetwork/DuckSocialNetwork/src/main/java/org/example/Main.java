@@ -1,5 +1,6 @@
 package org.example;
 
+import org.example.network.NetworkService;
 import org.example.repositories.repo_file.RepoFileDuck;
 import org.example.repositories.repo_file.RepoFilePersoana;
 import org.example.repositories.repo_file.RepoFileFriendship;
@@ -28,9 +29,11 @@ public class Main {
         DuckService duckService = new DuckService(duckRepo);
         FriendshipService friendshipService = new FriendshipService(friendshipRepo);
 
+        NetworkService networkService = new NetworkService(persoanaService, duckService, friendshipService);
+
         Menu menu = new Menu();
 
-        Ui ui = new Ui(menu, persoanaService, duckService, friendshipService);
+        Ui ui = new Ui(menu, persoanaService, duckService, friendshipService, networkService);
 
         ui.startApp();
     }

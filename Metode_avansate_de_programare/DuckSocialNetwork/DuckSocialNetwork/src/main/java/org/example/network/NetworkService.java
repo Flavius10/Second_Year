@@ -43,7 +43,7 @@ public class NetworkService {
                 StreamSupport.stream(duckService.findAllDucks("ducks.txt").spliterator(), false)
         ).toList();
 
-        Iterable<Friendship> friendships = friendshipService.findAllFriendships("prieteni.txt");
+        Iterable<Friendship> friendships = friendshipService.findAllFriendships("friendships.txt");
 
         return graphBuilder.buildGraph(allUsers, friendships);
     }
@@ -54,7 +54,7 @@ public class NetworkService {
     public void printNumberOfCommunities() {
         Map<String, List<String>> graph = buildNetworkGraph();
         int communities = graphAnalyzer.countCommunities(graph);
-        System.out.println("Număr de comunități: " + communities);
+        System.out.println("Numar de comunitati: " + communities);
     }
 
     /**
@@ -63,7 +63,7 @@ public class NetworkService {
     public void printMostSociableCommunity() {
         Map<String, List<String>> graph = buildNetworkGraph();
         List<String> sociable = graphAnalyzer.findMostSociableCommunity(graph);
-        System.out.println("Cea mai sociabilă comunitate: " + sociable);
+        System.out.println("Cea mai sociabila comunitate: " + sociable);
     }
 
     /**

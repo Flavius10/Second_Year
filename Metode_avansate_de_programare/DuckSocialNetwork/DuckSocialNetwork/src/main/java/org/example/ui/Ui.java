@@ -4,6 +4,7 @@ import org.example.domain.*;
 import org.example.exceptions.FriendshipNotFound;
 import org.example.exceptions.UserAlreadyExists;
 import org.example.exceptions.UserNotFound;
+import org.example.network.NetworkService;
 import org.example.services.*;
 
 import java.time.LocalDate;
@@ -20,6 +21,7 @@ public class Ui {
     private PersoanaService persoanaService;
     private DuckService duckService;
     private FriendshipService friendshipService;
+    private NetworkService networkService;
 
     private User loggedInUser;
 
@@ -32,11 +34,12 @@ public class Ui {
      * @param friendshipService the friendship service
      */
     public Ui(Menu menu, PersoanaService persoanaService, DuckService duckService,
-              FriendshipService friendshipService) {
+              FriendshipService friendshipService, NetworkService networkService) {
         this.menu = menu;
         this.persoanaService =  persoanaService;
         this.duckService = duckService;
         this.friendshipService = friendshipService;
+        this.networkService = networkService;
     }
 
     /**
@@ -106,8 +109,10 @@ public class Ui {
                     deleteAccount();
                     break;
                 case 5:
+                    printNrCommunities();
                     break;
                 case 6:
+                    printMostSociableCommunity();
                     break;
                 case 7:
                     menuBeforeSignUp();
@@ -353,7 +358,11 @@ public class Ui {
     }
 
     private void printNrCommunities(){
+        this.networkService.printNumberOfCommunities();
+    }
 
+    private void printMostSociableCommunity(){
+        this.networkService.printMostSociableCommunity();
     }
 
 }
