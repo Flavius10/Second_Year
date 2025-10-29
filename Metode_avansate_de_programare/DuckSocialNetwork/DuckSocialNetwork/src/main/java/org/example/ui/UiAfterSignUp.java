@@ -120,7 +120,7 @@ public class UiAfterSignUp extends UiAbstract{
                 Friendship friendship = new Friendship(id, username_loggedInUser, username_friend);
                 try{
                     this.friendshipService.saveFriendship(friendship, "friendships.txt");
-                } catch(UserNotFound e){
+                } catch(Exception e){
                     System.out.println("Exception occurred: " + e.getMessage());
                 }
             }
@@ -137,7 +137,7 @@ public class UiAfterSignUp extends UiAbstract{
                 Friendship friendship = new Friendship(id, username_loggedInUser, username_friend);
                 try{
                     this.friendshipService.saveFriendship(friendship, "friendships.txt");
-                } catch(UserNotFound e){
+                } catch(Exception e){
                     System.out.println("Exception occurred: " + e.getMessage());
                 }
             }
