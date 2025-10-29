@@ -1,8 +1,8 @@
 package org.example.validator;
 
-public class Validator {
+public class Validator implements Validation<String, String>{
 
-    public static boolean validateFriendship(String first_friend_username, String second_friend_username){
+    public boolean validate(String first_friend_username, String second_friend_username){
         return first_friend_username != null && second_friend_username != null;
     }
 
