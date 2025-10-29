@@ -90,7 +90,7 @@ public class Ui {
         int choice;
         while (true) {
             this.menu.showMenuAfterSignUp();
-            choice = this.getUserChoice(5);
+            choice = this.getUserChoice(7);
 
             switch (choice) {
                 case 1:
@@ -106,6 +106,10 @@ public class Ui {
                     deleteAccount();
                     break;
                 case 5:
+                    break;
+                case 6:
+                    break;
+                case 7:
                     menuBeforeSignUp();
                 default:
                     System.out.println("Optiune invalida!");
@@ -346,6 +350,10 @@ public class Ui {
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    private void printNrCommunities(){
+
     }
 
 }
