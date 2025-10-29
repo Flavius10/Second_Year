@@ -2,6 +2,7 @@ package org.example.services;
 
 import org.example.domain.Friendship;
 import org.example.repositories.repo_file.RepoFileFriendship;
+import org.example.validator.ValidatorFriendship;
 
 import java.util.List;
 import java.util.stream.StreamSupport;
@@ -12,6 +13,7 @@ import java.util.stream.StreamSupport;
 public class FriendshipService {
 
     private RepoFileFriendship repoFileFriendship;
+    private ValidatorFriendship validatorFriendship = new ValidatorFriendship();
 
     /**
      * Instantiates a new Friendship service.
@@ -31,7 +33,13 @@ public class FriendshipService {
     public void saveFriendship(Friendship friendship, String file_name){
 
         try{
-            this.repoFileFriendship.save(friendship, file_name);
+            if(this.validatorFriendship.validate(friendship.getSecond_friend_username(),
+                    friendship.getSecond_friend_username()))
+            {
+                this.repoFileFriendship.save(friendship, file_name);
+            } else {
+                throw new RuntimeException("Friendship is not valid!");
+            }
         } catch(Exception e){
             throw new RuntimeException(e.getMessage());
         }
