@@ -1,6 +1,6 @@
 package org.example;
 
-import org.example.network.NetworkService;
+import org.example.network.*;
 import org.example.repositories.repo_file.RepoFileDuck;
 import org.example.repositories.repo_file.RepoFilePersoana;
 import org.example.repositories.repo_file.RepoFileFriendship;
@@ -29,7 +29,13 @@ public class Main {
         DuckService duckService = new DuckService(duckRepo);
         FriendshipService friendshipService = new FriendshipService(friendshipRepo);
 
-        NetworkService networkService = new NetworkService(persoanaService, duckService, friendshipService);
+        GraphAnalyzer graphAnalyzer = new GraphAnalyzer();
+        GraphBuilder graphBuilder = new GraphBuilder();
+
+        DataProvider dataProvider = new DataProvider(friendshipService, persoanaService, duckService);
+        GraphService graphService = new GraphService(graphAnalyzer, graphBuilder);
+
+        NetworkService networkService = new NetworkService(dataProvider, graphService);
 
         Menu menu = new Menu();
 
