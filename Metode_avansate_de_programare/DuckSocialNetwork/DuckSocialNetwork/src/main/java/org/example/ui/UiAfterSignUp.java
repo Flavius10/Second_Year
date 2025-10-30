@@ -187,7 +187,7 @@ public class UiAfterSignUp extends UiAbstract{
         if (this.loggedInUser != null) {
             if (this.loggedInUser instanceof Persoana) {
                 try{
-                    this.persoanaService.deletePerson(this.loggedInUser, "persoane.txt");
+                    this.persoanaService.deletePerson((Persoana) this.loggedInUser, "persoane.txt");
                 } catch(UserNotFound e){
                     System.out.println("Exception occurred: " + e.getMessage());
                 }
@@ -195,7 +195,7 @@ public class UiAfterSignUp extends UiAbstract{
             } else if (this.loggedInUser instanceof Duck) {
 
                 try{
-                    this.duckService.deleteDuck(this.loggedInUser, "ducks.txt");
+                    this.duckService.deleteDuck((Duck)this.loggedInUser, "ducks.txt");
                 } catch(UserNotFound e){
                     System.out.println("Exception occurred: " + e.getMessage());
                 }

@@ -1,5 +1,6 @@
 package org.example.services;
 
+import org.example.domain.Persoana;
 import org.example.domain.User;
 import org.example.exceptions.UserAlreadyExists;
 import org.example.exceptions.UserNotFound;
@@ -27,7 +28,7 @@ public class PersoanaService {
      * @param user      the user
      * @param file_name the file name
      */
-    public void savePerson(User user, String file_name){
+    public void savePerson(Persoana user, String file_name){
 
         try {
             this.repoFilePersoana.save(user, file_name);
@@ -42,7 +43,7 @@ public class PersoanaService {
      * @param user      the user
      * @param file_name the file name
      */
-    public void deletePerson(User user, String file_name){
+    public void deletePerson(Persoana user, String file_name){
         try{
             this.repoFilePersoana.delete(user, file_name);
         } catch(UserNotFound e){
@@ -56,7 +57,7 @@ public class PersoanaService {
      * @param user      the user
      * @param file_name the file name
      */
-    public void updatePerson(User user, String file_name){
+    public void updatePerson(Persoana user, String file_name){
         try{
             this.repoFilePersoana.update(user, file_name);
         } catch(UserNotFound e){
@@ -81,7 +82,7 @@ public class PersoanaService {
      * @param file_name the file name
      * @return the iterable
      */
-    public Iterable<User> findAllPersons(String file_name){
+    public Iterable<Persoana> findAllPersons(String file_name){
         return this.repoFilePersoana.findAll(file_name);
     }
 

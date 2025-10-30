@@ -109,10 +109,10 @@ public class AuthService {
      */
     public User loginAndReturnUser(String username, String password) {
 
-        Stream<User> persoaneStream = StreamSupport.stream(
+        Stream<Persoana> persoaneStream = StreamSupport.stream(
                 persoanaService.findAllPersons("persoane.txt").spliterator(), false);
 
-        Stream<User> ducksStream = StreamSupport.stream(
+        Stream<Duck> ducksStream = StreamSupport.stream(
                 duckService.findAllDucks("ducks.txt").spliterator(), false);
 
         User user = Stream.concat(persoaneStream, ducksStream)

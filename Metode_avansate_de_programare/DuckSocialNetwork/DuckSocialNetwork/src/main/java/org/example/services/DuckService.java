@@ -1,5 +1,6 @@
 package org.example.services;
 
+import org.example.domain.Duck;
 import org.example.domain.User;
 import org.example.exceptions.UserAlreadyExists;
 import org.example.exceptions.UserNotFound;
@@ -27,7 +28,7 @@ public class DuckService {
      * @param user      the user
      * @param file_name the file name
      */
-    public void saveDuck(User user, String file_name){
+    public void saveDuck(Duck user, String file_name){
 
         try {
             this.repoFileDuck.save(user, file_name);
@@ -42,7 +43,7 @@ public class DuckService {
      * @param user      the user
      * @param file_name the file name
      */
-    public void deleteDuck(User user, String file_name){
+    public void deleteDuck(Duck user, String file_name){
         try{
             this.repoFileDuck.delete(user, file_name);
         } catch(UserNotFound e){
@@ -56,7 +57,7 @@ public class DuckService {
      * @param user      the user
      * @param file_name the file name
      */
-    public void updateDuck(User user, String file_name){
+    public void updateDuck(Duck user, String file_name){
         try{
             this.repoFileDuck.update(user, file_name);
         } catch(UserNotFound e){
@@ -81,7 +82,7 @@ public class DuckService {
      * @param file_name the file name
      * @return the iterable
      */
-    public Iterable<User> findAllDucks(String file_name){
+    public Iterable<Duck> findAllDucks(String file_name){
         return this.repoFileDuck.findAll(file_name);
     }
 
