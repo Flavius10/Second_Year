@@ -14,6 +14,9 @@ import org.example.services.PersoanaService;
 
 import java.util.Scanner;
 
+/**
+ * The type Ui after sign up.
+ */
 public class UiAfterSignUp extends UiAbstract{
 
     private final PersoanaService persoanaService;
@@ -22,6 +25,17 @@ public class UiAfterSignUp extends UiAbstract{
     private final NetworkService networkService;
     private User loggedInUser;
 
+    /**
+     * Instantiates a new Ui after sign up.
+     *
+     * @param authService       the auth service
+     * @param menu              the menu
+     * @param persoanaService   the persoana service
+     * @param duckService       the duck service
+     * @param friendshipService the friendship service
+     * @param networkService    the network service
+     * @param user              the user
+     */
     public UiAfterSignUp(AuthService authService, Menu menu,
                          PersoanaService persoanaService, DuckService duckService,
                          FriendshipService friendshipService, NetworkService networkService,
@@ -43,6 +57,9 @@ public class UiAfterSignUp extends UiAbstract{
     @Override
     public void showMenu() {}
 
+    /**
+     * Execute commands.
+     */
     public void execute_commands() {
         boolean running = true;
         Scanner scanner = new Scanner(System.in);
@@ -90,6 +107,9 @@ public class UiAfterSignUp extends UiAbstract{
     }
 
 
+    /**
+     * Logout.
+     */
     public void logout() {
 
         if (loggedInUser != null) {

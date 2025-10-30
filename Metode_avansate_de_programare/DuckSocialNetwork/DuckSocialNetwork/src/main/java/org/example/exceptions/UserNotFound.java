@@ -10,6 +10,6 @@ public class UserNotFound extends RuntimeException {
      * @param message the message
      */
     public UserNotFound(String message) {
-        super(message);
+        super(message + "not found");
     }
 }

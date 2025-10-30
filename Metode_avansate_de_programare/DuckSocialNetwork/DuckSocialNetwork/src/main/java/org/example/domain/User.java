@@ -59,7 +59,6 @@ public abstract class User {
         return this.password;
     }
 
-
     /**
      * Setters @param id the id
      */

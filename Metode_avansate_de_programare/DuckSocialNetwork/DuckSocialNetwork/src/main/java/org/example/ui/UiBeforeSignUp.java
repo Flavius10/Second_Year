@@ -11,6 +11,9 @@ import org.example.network.NetworkService;
 import java.time.LocalDate;
 import java.util.Scanner;
 
+/**
+ * The type Ui before sign up.
+ */
 public class UiBeforeSignUp extends UiAbstract {
 
     private final PersoanaService persoanaService;
@@ -19,6 +22,16 @@ public class UiBeforeSignUp extends UiAbstract {
     private final NetworkService networkService;
     private User loggedInUser;
 
+    /**
+     * Instantiates a new Ui before sign up.
+     *
+     * @param authService       the auth service
+     * @param menu              the menu
+     * @param persoanaService   the persoana service
+     * @param duckService       the duck service
+     * @param friendshipService the friendship service
+     * @param networkService    the network service
+     */
     public UiBeforeSignUp(AuthService authService, Menu menu,
                           PersoanaService persoanaService, DuckService duckService,
                           FriendshipService friendshipService, NetworkService networkService) {
@@ -60,6 +73,9 @@ public class UiBeforeSignUp extends UiAbstract {
         } catch (InterruptedException ignored) {}
     }
 
+    /**
+     * Sign up.
+     */
     public void signUp() {
         Scanner scanner = new Scanner(System.in);
 
@@ -127,6 +143,9 @@ public class UiBeforeSignUp extends UiAbstract {
         }
     }
 
+    /**
+     * Login.
+     */
     public void login() {
         Scanner scanner = new Scanner(System.in);
         System.out.print("Introduceti numele de utilizator: ");
@@ -144,6 +163,11 @@ public class UiBeforeSignUp extends UiAbstract {
         }
     }
 
+    /**
+     * Get logged in user user.
+     *
+     * @return the user
+     */
     public User getLoggedInUser(){
         return this.loggedInUser;
     }

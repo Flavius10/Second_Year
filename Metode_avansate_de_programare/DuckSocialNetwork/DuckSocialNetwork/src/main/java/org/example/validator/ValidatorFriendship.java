@@ -1,5 +1,8 @@
 package org.example.validator;
 
+/**
+ * The type Validator friendship.
+ */
 public class ValidatorFriendship implements Validation<String, String>{
 
     public boolean validate(String first_friend_username, String second_friend_username){
