@@ -1,0 +1,71 @@
+%metode ajutatoare
+
+member(X, [X | _]):- !.
+
+member(X, [_ | T]):-
+    member(X, T).
+
+
+
+insert(X, [], [X]).
+
+insert(X, [Y | T], [X, Y | T]):-
+    X =< Y,
+    !.
+
+insert(X, [Y | T], [Y | T_Noua]):-
+    X > Y,
+    insert(X, T, T_Noua).
+
+
+
+sorteaza([], []).
+
+sorteaza([H | T], LSort):-
+    sorteaza(T, CSort),
+    !,
+    insert(H, CSort, LSort).
+
+%a) Sa se sorteze o lista cu eliminarea dublurilor. De ex: [4 2 6 2 3 4]
+% => [2 3 4 6]
+
+sub_a_set(L, Rez):-
+    sub_a_set_helper(L, [], RezInvers),
+    reverse(RezInvers, Rez).
+
+sub_a_set_helper([], Ac, Ac).
+
+sub_a_set_helper([H | T], Ac, Rez) :-
+    \+ member(H, Ac),
+    !,
+    sub_a_set_helper(T, [H | Ac], Rez).
+
+sub_a_set_helper([H | T], Ac, Rez) :-
+    member(H, Ac),
+    sub_a_set_helper(T, Ac, Rez).
+
+
+sub_a(Lista_initiala, Rezultatul_final):-
+    sub_a_set(Lista_initiala, Set),
+    sorteaza(Set, Rezultatul_final).
+
+% Se da o lista eterogena, formata din numere intregi si liste de numere.
+% Sa se sorteze fiecare sublista fara pastrarea dublurilor. De ex:
+%[1, 2, [4, 1, 4], 3, 6, [7, 10, 1, 3, 9], 5, [1, 1, 1], 7] =>
+%[1, 2, [1, 4], 3, 6, [1, 3, 7, 9, 10], 5, [1], 7].
+
+sub_b([], []).
+
+sub_b([H | T], [HSort | TSort]):-
+    is_list(H),
+    !,
+    sub_a(H, HSort),
+    sub_b(T, TSort).
+
+sub_b([H | T], [H | TSort]):-
+    sub_b(T, TSort).
+
+
+
+
+

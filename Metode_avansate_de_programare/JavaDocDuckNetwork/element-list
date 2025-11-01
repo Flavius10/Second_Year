@@ -1,0 +1,11 @@
+org.example
+org.example.domain
+org.example.exceptions
+org.example.network
+org.example.repositories
+org.example.repositories.messages
+org.example.repositories.repo_file
+org.example.services
+org.example.ui
+org.example.utils
+org.example.validator
