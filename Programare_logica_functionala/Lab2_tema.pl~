@@ -1,0 +1,78 @@
+%metode care sunt folosite pentru a fi Utils
+
+%imparte(i, i) - determinist
+%imparte(X: integer, Y: integer)
+imparte(X, Y):-
+    0 is X mod Y.
+
+
+%my_append(i, i, o) - deterinist
+%my_append(T1: list, L2: list, RezFinal: lista)
+my_append([], L, L).
+
+my_append([H | T1], L2, [H | RezFinal]):-
+    my_append(T1, L2, RezFinal).
+
+
+%gaseste_divizori(i, o) - determinist
+gaseste_divizori(N, RezFinal):-
+    gaseste_divizori_helper(N, 2, RezFinal).
+
+gaseste_divizori_helper(N, Contor, []):-
+    Contor >= N,
+    !.
+
+gaseste_divizori_helper(N, Contor, [Contor | RezFinal]):-
+    0 is N mod Contor,
+    !,
+    ContorUrmator is Contor + 1,
+    gaseste_divizori_helper(N, ContorUrmator, RezFinal).
+
+gaseste_divizori_helper(N, Contor, RezFinal):-
+    ContorUrmator is Contor + 1,
+    gaseste_divizori_helper(N, ContorUrmator, RezFinal).
+
+
+%Sa se adauge dupa fiecare element dintr-o lista divizorii elementului.
+
+%sub_a(i, o) - determinist
+%sub_a(L: lista, Rez: lista)
+sub_a([], []).
+
+sub_a([H | T], RezFinalComplet):-
+    gaseste_divizori(H, ListaDiv),
+
+    sub_a(T, RezFinal),
+
+    my_append([H], ListaDiv, ListaDivizoriAflata),
+
+    my_append(ListaDivizoriAflata, RezFinal, RezFinalComplet).
+
+
+% Se da o lista eterogena, formata din numere intregi si liste de numere
+% intregi. S%e cere ca in fiecare sublista sa se adauge dupa fiecare
+% element divizorii elementului. De ex:
+%[1, [2, 5, 7], 4, 5, [1, 4], 3, 2, [6, 2, 1], 4, [7, 2, 8, 1], 2] =>
+% [1, [2, 5, 7], 4, 5, [1, 4, 2], 3, 2, [6, 2, 3, 2, 1], 4, [7, 2, 8, 2,
+% 4, 1], 2]
+
+%sub_b()
+sub_b([], []).
+
+sub_b([H | T], [RezFinalDiv | RezFinal]):-
+    is_list(H),
+    !,
+    sub_a(H, RezFinalDiv),
+    sub_b(T, RezFinal).
+
+sub_b([H | T], [H | RezFinal]):-
+    sub_b(T, RezFinal).
+
+
+
+
+
+
+
+
+
