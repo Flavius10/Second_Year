@@ -24,11 +24,11 @@ BEGIN
         PRINT 'Facem upgrade de la ' + CAST(@VersiuneaCurenta AS VARCHAR(10)) + ' la ' + CAST(@VersiuneaCurenta + 1 AS VARCHAR(10));
         
         IF @VersiuneaCurenta = 0
-            EXEC do_proc_3;
+            EXEC do_proc_1;
         ELSE IF @VersiuneaCurenta = 1
             EXEC do_proc_2;
         ELSE IF @VersiuneaCurenta = 2
-            EXEC do_proc_1;
+            EXEC do_proc_3;
         ELSE IF @VersiuneaCurenta = 3
             EXEC do_proc_4;
         ELSE IF @VersiuneaCurenta = 4
@@ -48,11 +48,11 @@ BEGIN
         ELSE IF @VersiuneaCurenta = 4
             EXEC undo_proc_4;
         ELSE IF @VersiuneaCurenta = 3
-            EXEC undo_proc_1;
+            EXEC undo_proc_3;
         ELSE IF @VersiuneaCurenta = 2
             EXEC undo_proc_2;
         ELSE IF @VersiuneaCurenta = 1
-            EXEC undo_proc_3;
+            EXEC undo_proc_1;
             
         SET @VersiuneaCurenta = @VersiuneaCurenta - 1;
         UPDATE VersiuneDB SET Versiune = @VersiuneaCurenta;

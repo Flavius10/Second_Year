@@ -103,7 +103,7 @@ public class UiBeforeSignUp extends UiAbstract {
 
             System.out.print("Introduceti numele cardului (sau lasati gol): ");
             String numeCard = scanner.nextLine();
-            Card card = numeCard.isEmpty() ? null : new Card(numeCard);
+            Card card = numeCard.isEmpty() ? null : new Card(10L, numeCard);
 
             Duck duck = new Duck(id, username, email, password, tip, viteza, rezistenta, card);
             try {

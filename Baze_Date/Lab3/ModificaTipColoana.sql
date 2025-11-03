@@ -11,16 +11,16 @@ GO
 
 CREATE PROCEDURE do_proc_1 AS
 BEGIN
-	ALTER TABLE Cost
-	ALTER COLUMN Limit_cost FLOAT;
-	PRINT 'Executat: proc_do_1 - Cost are acum Limit DOUBLE';
+	ALTER TABLE Utilizator
+	ALTER COLUMN nivel_acces NVARCHAR(100);
+	PRINT 'Executat: proc_do_1 - Utilizator are acum nivel_acces NVARCHAR';
 END
 GO
 
 CREATE PROCEDURE undo_proc_1 AS
 BEGIN
-	ALTER TABLE Cost
-	ALTER COLUMN Limit_cost INT
-	PRINT 'Executat: undo_proc_1 - Cost are Limit INT';
+	ALTER TABLE Utilizator
+	ALTER COLUMN nivel_acces VARCHAR(100);
+	PRINT 'Executat: undo_proc_1 - Utilizator are nivel_acces VARCHAR';
 END
 GO

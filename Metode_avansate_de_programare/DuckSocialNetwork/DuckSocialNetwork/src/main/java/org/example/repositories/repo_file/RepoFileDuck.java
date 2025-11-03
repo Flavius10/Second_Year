@@ -20,7 +20,7 @@ public class RepoFileDuck extends AbstractFileRepo<Duck> {
 
         Card card = null;
         if (parts.length > 7 && !parts[7].isEmpty()) {
-            card = new Card(parts[7]);
+            card = new Card(10L, parts[7]);
         }
 
         return new Duck(id, username, email, password, tip, viteza, rezistenta, card);
@@ -35,7 +35,7 @@ public class RepoFileDuck extends AbstractFileRepo<Duck> {
                 d.getTip() + ";" +
                 d.getViteza() + ";" +
                 d.getRezistenta() + ";" +
-                (d.getCard() != null ? d.getCard().getNume() : "");
+                (d.getCard() != null ? d.getCard().getNumeCard() : "");
     }
 
     @Override
