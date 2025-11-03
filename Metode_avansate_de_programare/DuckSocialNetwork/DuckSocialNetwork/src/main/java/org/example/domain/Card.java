@@ -1,5 +1,7 @@
 package org.example.domain;
 
+import java.util.List;
+
 /**
  * The type Card.
  */
@@ -8,16 +10,19 @@ public class Card {
     private Long id;
     private String numeCard;
     private double medie_performanta;
+    private List<Duck> membri;
 
     /**
      * Instantiates a new Card.
      *
      * @param id       the id
      * @param numeCard the nume
+     * @param membri   the membri
      */
-    public Card(Long id, String numeCard) {
+    public Card(Long id, String numeCard, List<Duck> membri) {
         this.id = id;
         this.numeCard = numeCard;
+        this.membri = membri;
     }
 
     /**
@@ -72,6 +77,24 @@ public class Card {
      */
     public void setMediePerformanta(double medie_performanta) {
         this.medie_performanta = medie_performanta;
+    }
+
+    /**
+     * Get membri list.
+     *
+     * @return the list
+     */
+    public List<Duck> getMembri(){
+        return this.membri;
+    }
+
+    /**
+     * Set membri.
+     *
+     * @param membri the membri
+     */
+    public void setMembri(List<Duck> membri){
+        this.membri = membri;
     }
 
     @Override

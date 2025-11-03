@@ -4,6 +4,7 @@ GO
 IF OBJECT_ID('BringDatabaseAtVersion', 'P') IS NOT NULL
     DROP PROCEDURE BringDatabaseAtVersion;
 GO
+
 PRINT 'Am sters procedura veche. O cream din nou...';
 GO
 

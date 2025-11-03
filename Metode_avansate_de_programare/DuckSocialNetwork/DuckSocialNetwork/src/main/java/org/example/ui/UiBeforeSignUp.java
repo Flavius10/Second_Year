@@ -9,6 +9,8 @@ import org.example.services.FriendshipService;
 import org.example.network.NetworkService;
 
 import java.time.LocalDate;
+import java.util.Collections;
+import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -103,7 +105,8 @@ public class UiBeforeSignUp extends UiAbstract {
 
             System.out.print("Introduceti numele cardului (sau lasati gol): ");
             String numeCard = scanner.nextLine();
-            Card card = numeCard.isEmpty() ? null : new Card(10L, numeCard);
+            List<Duck> membri = Collections.emptyList();
+            Card card = numeCard.isEmpty() ? null : new Card(10L, numeCard, membri );
 
             Duck duck = new Duck(id, username, email, password, tip, viteza, rezistenta, card);
             try {

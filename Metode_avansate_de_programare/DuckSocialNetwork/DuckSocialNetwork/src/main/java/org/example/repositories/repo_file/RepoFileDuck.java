@@ -4,6 +4,9 @@ import org.example.domain.Card;
 import org.example.domain.Duck;
 import org.example.domain.TypeDuck;
 
+import java.util.Collections;
+import java.util.List;
+
 public class RepoFileDuck extends AbstractFileRepo<Duck> {
 
     @Override
@@ -20,7 +23,8 @@ public class RepoFileDuck extends AbstractFileRepo<Duck> {
 
         Card card = null;
         if (parts.length > 7 && !parts[7].isEmpty()) {
-            card = new Card(10L, parts[7]);
+            List<Duck> list = Collections.emptyList();
+            card = new Card(10L, parts[7], list);
         }
 
         return new Duck(id, username, email, password, tip, viteza, rezistenta, card);
