@@ -7,11 +7,11 @@ import org.example.domain.User;
 import org.example.exceptions.FriendshipNotFound;
 import org.example.exceptions.UserNotFound;
 import org.example.network.NetworkService;
-import org.example.services.AuthService;
-import org.example.services.DuckService;
-import org.example.services.FriendshipService;
-import org.example.services.PersoanaService;
+import org.example.services.*;
+import org.example.domain.ducks.Card;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -23,6 +23,7 @@ public class UiAfterSignUp extends UiAbstract{
     private final DuckService duckService;
     private final FriendshipService friendshipService;
     private final NetworkService networkService;
+    public final CardService cardService;
     private User loggedInUser;
 
     /**
@@ -38,7 +39,7 @@ public class UiAfterSignUp extends UiAbstract{
      */
     public UiAfterSignUp(AuthService authService, Menu menu,
                          PersoanaService persoanaService, DuckService duckService,
-                         FriendshipService friendshipService, NetworkService networkService,
+                         FriendshipService friendshipService, NetworkService networkService, CardService cardService,
                          User user) {
         super(authService, menu);
 
@@ -47,6 +48,7 @@ public class UiAfterSignUp extends UiAbstract{
         this.friendshipService = friendshipService;
         this.networkService = networkService;
         this.loggedInUser = user;
+        this.cardService = cardService;
     }
 
     @Override
@@ -67,12 +69,12 @@ public class UiAfterSignUp extends UiAbstract{
         while (running) {
             menu.showMenuAfterSignUp();
 
-            int choice = getUserChoice(7);
+            int choice = getUserChoice(8);
 
             switch (choice) {
                 case 1:
                     logout();
-                    new UiBeforeSignUp(authService, menu, persoanaService, duckService, friendshipService, networkService).execute();
+                    new UiBeforeSignUp(authService, menu, persoanaService, duckService, friendshipService, networkService, cardService).execute();
                     break;
 
                 case 2:
@@ -96,7 +98,11 @@ public class UiAfterSignUp extends UiAbstract{
                     break;
 
                 case 7:
-                    new UiBeforeSignUp(authService, menu, persoanaService, duckService, friendshipService, networkService).execute();
+                    addCard();
+                    break;
+
+                case 8:
+                    new UiBeforeSignUp(authService, menu, persoanaService, duckService, friendshipService, networkService, cardService).execute();
                     break;
 
                 default:
@@ -117,7 +123,7 @@ public class UiAfterSignUp extends UiAbstract{
             System.out.println("V-ati deconectat cu succes!");
             loggedInUser = null;
         }
-        new UiBeforeSignUp(authService, menu, persoanaService, duckService, friendshipService, networkService).execute();
+        new UiBeforeSignUp(authService, menu, persoanaService, duckService, friendshipService, networkService, cardService).execute();
     }
 
     /**
@@ -204,7 +210,7 @@ public class UiAfterSignUp extends UiAbstract{
             System.out.println("Utilizator sters cu succes.");
             this.loggedInUser = null;
 
-            new UiBeforeSignUp(authService, menu, persoanaService, duckService, friendshipService, networkService).execute();
+            new UiBeforeSignUp(authService, menu, persoanaService, duckService, friendshipService, networkService, cardService).execute();
         }
     }
 
@@ -214,6 +220,52 @@ public class UiAfterSignUp extends UiAbstract{
 
     private void printMostSociableCommunity(){
         this.networkService.printMostSociableCommunity();
+    }
+
+    private void addCard(){
+
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("Introduceti id-ul cardului: ");
+        Long id = Long.parseLong(scanner.nextLine());
+
+        System.out.println("Adaugati numele cardului: ");
+        String numeCard = scanner.nextLine();
+
+        List<Duck> membri = new ArrayList<>();
+        System.out.println("Adaugati lista de rate: ");
+        System.out.println("Adaugati rațele membre (introduceți username-ul):");
+
+        while (true) {
+            System.out.print("   -> Username rata (sau 'gata' pentru a termina): ");
+            String username = scanner.nextLine();
+
+            if (username.equalsIgnoreCase("gata")) {
+                break;
+            }
+
+            User foundUser = this.duckService.findByUsernameDuck(username, "ducks.txt");
+
+            if (foundUser != null) {
+                Duck duckToAdd = (Duck) foundUser;
+
+                if (!membri.contains(duckToAdd)) {
+                    membri.add(duckToAdd);
+                    System.out.println("   + Rata '" + duckToAdd.getUsername() + "' a fost adaugata.");
+                } else {
+                    System.out.println("   ! Rata '" + duckToAdd.getUsername() + "' este deja în lista.");
+                }
+            } else {
+                System.out.println("   ! EROARE: Rata cu username-ul '" + username + "' nu a fost gasita.");
+            }
+        }
+
+        Card<Duck> newCard = new Card<>(id, numeCard, membri);
+        this.cardService.saveCard(newCard, "cards.txt");
+
+        System.out.println("Cardul '" + newCard.getNumeCard() + "' a fost creat cu " + membri.size() + " membri.");
+        System.out.println("Performanta medie a cardului: " + newCard.getMediePerformanta());
+
     }
 
 }

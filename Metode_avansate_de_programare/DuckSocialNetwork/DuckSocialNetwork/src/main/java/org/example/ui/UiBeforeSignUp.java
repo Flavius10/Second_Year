@@ -6,10 +6,7 @@ import org.example.domain.ducks.Duck;
 import org.example.domain.ducks.FlyingDuck;
 import org.example.domain.ducks.SwimmingDuck;
 import org.example.exceptions.UserAlreadyExists;
-import org.example.services.AuthService;
-import org.example.services.PersoanaService;
-import org.example.services.DuckService;
-import org.example.services.FriendshipService;
+import org.example.services.*;
 import org.example.network.NetworkService;
 
 import java.time.LocalDate;
@@ -26,6 +23,7 @@ public class UiBeforeSignUp extends UiAbstract {
     private final DuckService duckService;
     private final FriendshipService friendshipService;
     private final NetworkService networkService;
+    private final CardService cardService;
     private User loggedInUser;
 
     /**
@@ -40,12 +38,13 @@ public class UiBeforeSignUp extends UiAbstract {
      */
     public UiBeforeSignUp(AuthService authService, Menu menu,
                           PersoanaService persoanaService, DuckService duckService,
-                          FriendshipService friendshipService, NetworkService networkService) {
+                          FriendshipService friendshipService, NetworkService networkService, CardService cardService) {
         super(authService, menu);
         this.persoanaService = persoanaService;
         this.duckService = duckService;
         this.friendshipService = friendshipService;
         this.networkService = networkService;
+        this.cardService = cardService;
     }
 
     @Override
@@ -127,7 +126,7 @@ public class UiBeforeSignUp extends UiAbstract {
 
             System.out.println("Rata creata cu succes!");
             loggedInUser = duck;
-            new UiAfterSignUp(authService, menu, persoanaService, duckService, friendshipService, networkService, loggedInUser).execute();
+            new UiAfterSignUp(authService, menu, persoanaService, duckService, friendshipService, networkService, cardService, loggedInUser).execute();
 
         } else if (userType.equals("persoana")) {
             System.out.print("Introduceti numele: ");
@@ -149,7 +148,7 @@ public class UiBeforeSignUp extends UiAbstract {
 
             System.out.println("Persoana creata cu succes!");
             loggedInUser = persoana;
-            new UiAfterSignUp(authService, menu, persoanaService, duckService, friendshipService, networkService, loggedInUser).execute();
+            new UiAfterSignUp(authService, menu, persoanaService, duckService, friendshipService, networkService,cardService, loggedInUser).execute();
         } else {
             System.out.println("Tip invalid. Scrie 'rata' sau 'persoana'.");
         }
@@ -169,7 +168,7 @@ public class UiBeforeSignUp extends UiAbstract {
             User user = authService.loginAndReturnUser(username, password);
             System.out.println("Autentificare reusita!");
             loggedInUser = user;
-            new UiAfterSignUp(authService, menu, persoanaService, duckService, friendshipService, networkService, user).execute();
+            new UiAfterSignUp(authService, menu, persoanaService, duckService, friendshipService, networkService, cardService, user).execute();
         } catch (RuntimeException e) {
             System.out.println("Eroare la autentificare: " + e.getMessage());
         }

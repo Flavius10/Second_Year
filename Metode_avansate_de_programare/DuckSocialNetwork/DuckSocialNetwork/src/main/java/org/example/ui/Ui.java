@@ -11,6 +11,7 @@ public class Ui {
     private final DuckService duckService;
     private final FriendshipService friendshipService;
     private final NetworkService networkService;
+    private final CardService cardService;
     private AuthService authService;
 
     private User loggedInUser;
@@ -19,12 +20,13 @@ public class Ui {
               PersoanaService persoanaService,
               DuckService duckService,
               FriendshipService friendshipService,
-              NetworkService networkService) {
+              NetworkService networkService, CardService cardService) {
         this.menu = menu;
         this.persoanaService = persoanaService;
         this.duckService = duckService;
         this.friendshipService = friendshipService;
         this.networkService = networkService;
+        this.cardService = cardService;
     }
 
     public void startApp() {
@@ -32,7 +34,7 @@ public class Ui {
 
         UiBeforeSignUp uiBefore = new UiBeforeSignUp(
                 authService, menu,
-                persoanaService, duckService, friendshipService, networkService
+                persoanaService, duckService, friendshipService, networkService, cardService
         );
 
         uiBefore.execute();
@@ -42,7 +44,7 @@ public class Ui {
         if (loggedInUser != null) {
             UiAfterSignUp uiAfter = new UiAfterSignUp(
                     authService, menu,
-                    persoanaService, duckService, friendshipService, networkService,
+                    persoanaService, duckService, friendshipService, networkService, cardService,
                     loggedInUser
             );
 
