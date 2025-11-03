@@ -3,6 +3,8 @@ package org.example.repositories.repo_file;
 import org.example.domain.ducks.Card;
 import org.example.domain.ducks.Duck;
 import org.example.domain.TypeDuck;
+import org.example.domain.ducks.FlyingDuck;
+import org.example.domain.ducks.SwimmingDuck;
 
 import java.util.Collections;
 import java.util.List;
@@ -27,7 +29,12 @@ public class RepoFileDuck extends AbstractFileRepo<Duck> {
             card = new Card(10L, parts[7], list);
         }
 
-        return new Duck(id, username, email, password, tip, viteza, rezistenta, card);
+        if (tip == TypeDuck.FLYING) {
+            return new FlyingDuck(id, username, email, password, tip, viteza, rezistenta, card);
+        } else {
+            return new SwimmingDuck(id, username, email, password, tip, viteza, rezistenta, card);
+        }
+
     }
 
     @Override

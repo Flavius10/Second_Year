@@ -6,7 +6,7 @@ import org.example.domain.User;
 /**
  * The type Duck.
  */
-public class Duck extends User {
+public abstract class Duck extends User {
 
     private TypeDuck tip;
     private double viteza;

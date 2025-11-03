@@ -3,6 +3,8 @@ package org.example.ui;
 import org.example.domain.*;
 import org.example.domain.ducks.Card;
 import org.example.domain.ducks.Duck;
+import org.example.domain.ducks.FlyingDuck;
+import org.example.domain.ducks.SwimmingDuck;
 import org.example.exceptions.UserAlreadyExists;
 import org.example.services.AuthService;
 import org.example.services.PersoanaService;
@@ -110,7 +112,12 @@ public class UiBeforeSignUp extends UiAbstract {
             List<Duck> membri = Collections.emptyList();
             Card card = numeCard.isEmpty() ? null : new Card(10L, numeCard, membri );
 
-            Duck duck = new Duck(id, username, email, password, tip, viteza, rezistenta, card);
+            Duck duck;
+            if (tip == TypeDuck.FLYING)
+                duck = new SwimmingDuck(id, username, email, password, tip, viteza, rezistenta, card);
+            else
+                duck = new FlyingDuck(id, username, email, password, tip, viteza, rezistenta, card);
+
             try {
                 authService.signUp(duck, "ducks.txt");
             } catch (UserAlreadyExists e) {
