@@ -18,6 +18,7 @@ public class Menu {
         System.out.println("4. Delete account");
         System.out.println("5. View number of communities");
         System.out.println("6. View the most sociable community");
+        System.out.println("7. Add Card");
         System.out.println("7. Exit");
     }
 
