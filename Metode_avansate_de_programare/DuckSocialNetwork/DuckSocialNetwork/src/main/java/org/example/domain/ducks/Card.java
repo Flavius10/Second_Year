@@ -5,12 +5,11 @@ import java.util.List;
 /**
  * The type Card.
  */
-public class Card {
+public class Card<T extends Duck>{
 
     private Long id;
     private String numeCard;
-    private double medie_performanta;
-    private List<Duck> membri;
+    private List<T> membri;
 
     /**
      * Instantiates a new Card.
@@ -19,7 +18,7 @@ public class Card {
      * @param numeCard the nume
      * @param membri   the membri
      */
-    public Card(Long id, String numeCard, List<Duck> membri) {
+    public Card(Long id, String numeCard, List<T> membri) {
         this.id = id;
         this.numeCard = numeCard;
         this.membri = membri;
@@ -67,16 +66,35 @@ public class Card {
      * @return the medie performanta
      */
     public double getMediePerformanta() {
-        return this.medie_performanta;
-    }
 
-    /**
-     * Sets medie performanta.
-     *
-     * @param medie_performanta the medie performanta
-     */
-    public void setMediePerformanta(double medie_performanta) {
-        this.medie_performanta = medie_performanta;
+        double medie_performanta;
+
+        if (this.membri == null || this.membri.isEmpty()) {
+            return 0;
+        }
+
+        medie_performanta = 0;
+        int nr_ducks = 0;
+        for (T duck : this.membri) {
+            double viteza = duck.getViteza();
+            double rezistenta = duck.getRezistenta();
+
+            if (rezistenta != 0){
+                double performanta = viteza / rezistenta;
+                medie_performanta += performanta;
+
+                nr_ducks++;
+            }
+
+        }
+
+        if (nr_ducks == 0) {
+            return 0;
+        }
+
+        medie_performanta = medie_performanta / nr_ducks;
+
+        return medie_performanta;
     }
 
     /**
@@ -84,7 +102,7 @@ public class Card {
      *
      * @return the list
      */
-    public List<Duck> getMembri(){
+    public List<T> getMembri(){
         return this.membri;
     }
 
@@ -93,7 +111,7 @@ public class Card {
      *
      * @param membri the membri
      */
-    public void setMembri(List<Duck> membri){
+    public void setMembri(List<T> membri){
         this.membri = membri;
     }
 
