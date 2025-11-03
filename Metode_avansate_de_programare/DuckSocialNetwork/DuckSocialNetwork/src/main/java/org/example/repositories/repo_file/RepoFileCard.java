@@ -73,9 +73,8 @@ public class RepoFileCard {
 
             for (String idStr : idMembri) {
                 try {
-                    Long idDuck = Long.parseLong(idStr);
 
-                    Duck membruGasit = repoFileDuck.findById(idDuck, "ducks.txt");
+                    Duck membruGasit = repoFileDuck.findByUsername(idStr, "ducks.txt");
 
                     if (membruGasit != null) {
                         membri.add(membruGasit);
@@ -95,7 +94,7 @@ public class RepoFileCard {
 
     protected String toStringFile(Card<Duck> d) {
         String idMembri = d.getMembri().stream()
-                .map(duck -> duck.getClass().toString())
+                .map(duck -> duck.getUsername().toString())
                 .collect(Collectors.joining(";"));
 
         return d.getId() + ";" +

@@ -234,7 +234,7 @@ public class UiAfterSignUp extends UiAbstract{
 
         List<Duck> membri = new ArrayList<>();
         System.out.println("Adaugati lista de rate: ");
-        System.out.println("Adaugati rațele membre (introduceți username-ul):");
+        System.out.println("Adaugati ratele membre (introduceti username-ul):");
 
         while (true) {
             System.out.print("   -> Username rata (sau 'gata' pentru a termina): ");
