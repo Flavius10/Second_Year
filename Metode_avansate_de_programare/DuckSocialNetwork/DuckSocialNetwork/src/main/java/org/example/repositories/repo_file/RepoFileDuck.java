@@ -1,7 +1,7 @@
 package org.example.repositories.repo_file;
 
-import org.example.domain.Card;
-import org.example.domain.Duck;
+import org.example.domain.ducks.Card;
+import org.example.domain.ducks.Duck;
 import org.example.domain.TypeDuck;
 
 import java.util.Collections;

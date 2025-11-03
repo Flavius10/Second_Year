@@ -1,4 +1,4 @@
-package org.example.domain;
+package org.example.domain.ducks;
 
 import java.util.List;
 

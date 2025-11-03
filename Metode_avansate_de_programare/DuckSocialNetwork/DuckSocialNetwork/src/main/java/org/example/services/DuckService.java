@@ -1,6 +1,6 @@
 package org.example.services;
 
-import org.example.domain.Duck;
+import org.example.domain.ducks.Duck;
 import org.example.domain.User;
 import org.example.exceptions.UserAlreadyExists;
 import org.example.exceptions.UserNotFound;

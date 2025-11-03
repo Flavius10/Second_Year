@@ -1,9 +1,12 @@
-package org.example.domain;
+package org.example.domain.ducks;
+
+import org.example.domain.TypeDuck;
+import org.example.domain.User;
 
 /**
  * The type Duck.
  */
-public class Duck extends User{
+public class Duck extends User {
 
     private TypeDuck tip;
     private double viteza;

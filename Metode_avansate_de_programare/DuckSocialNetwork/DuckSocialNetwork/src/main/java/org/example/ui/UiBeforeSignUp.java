@@ -1,6 +1,8 @@
 package org.example.ui;
 
 import org.example.domain.*;
+import org.example.domain.ducks.Card;
+import org.example.domain.ducks.Duck;
 import org.example.exceptions.UserAlreadyExists;
 import org.example.services.AuthService;
 import org.example.services.PersoanaService;
