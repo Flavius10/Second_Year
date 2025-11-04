@@ -4,6 +4,8 @@ import org.example.domain.ducks.Duck;
 import org.example.domain.Friendship;
 import org.example.domain.Persoana;
 import org.example.domain.User;
+import org.example.domain.ducks.FlyingDuck;
+import org.example.domain.ducks.SwimmingDuck;
 import org.example.exceptions.FriendshipNotFound;
 import org.example.exceptions.UserNotFound;
 import org.example.network.NetworkService;
@@ -67,7 +69,15 @@ public class UiAfterSignUp extends UiAbstract{
         Scanner scanner = new Scanner(System.in);
 
         while (running) {
-            menu.showMenuAfterSignUp();
+
+            if (loggedInUser.getClass().equals(SwimmingDuck.class)) {
+                menu.showMenuAfterSignUpDucks();
+            } else if (loggedInUser.getClass().equals(FlyingDuck.class)) {
+                menu.showMenuAfterSignUpDucks();
+            } else {
+                this.menu.showMenuAfterSignUpPersons();
+            }
+
 
             int choice = getUserChoice(8);
 
@@ -98,7 +108,14 @@ public class UiAfterSignUp extends UiAbstract{
                     break;
 
                 case 7:
-                    addCard();
+                    if (loggedInUser.getClass().equals(SwimmingDuck.class)) {
+                        addCard();
+                    } else if (loggedInUser.getClass().equals(FlyingDuck.class)) {
+                        addCard();
+                    }else{
+
+                    }
+
                     break;
 
                 case 8:

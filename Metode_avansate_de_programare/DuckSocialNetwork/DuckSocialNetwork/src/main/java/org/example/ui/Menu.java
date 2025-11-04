@@ -8,7 +8,7 @@ public class Menu {
     /**
      * Show menu after sign up.
      */
-    public void showMenuAfterSignUp(){
+    public void showMenuAfterSignUpDucks(){
 
         System.out.println();
         System.out.println("------------Menu--------------");
@@ -19,6 +19,20 @@ public class Menu {
         System.out.println("5. View number of communities");
         System.out.println("6. View the most sociable community");
         System.out.println("7. Add Card");
+        System.out.println("8. Exit");
+    }
+
+    public void showMenuAfterSignUpPersons(){
+
+        System.out.println();
+        System.out.println("------------Menu--------------");
+        System.out.println("1. Logout");
+        System.out.println("2. Add friend");
+        System.out.println("3. Remove friend");
+        System.out.println("4. Delete account");
+        System.out.println("5. View number of communities");
+        System.out.println("6. View the most sociable community");
+        System.out.println("7. Add Event");
         System.out.println("8. Exit");
     }
 
