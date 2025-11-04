@@ -1,16 +1,13 @@
 package org.example.ui;
 
-import org.example.domain.ducks.Duck;
+import org.example.domain.ducks.*;
 import org.example.domain.Friendship;
 import org.example.domain.Persoana;
 import org.example.domain.User;
-import org.example.domain.ducks.FlyingDuck;
-import org.example.domain.ducks.SwimmingDuck;
 import org.example.exceptions.FriendshipNotFound;
 import org.example.exceptions.UserNotFound;
 import org.example.network.NetworkService;
 import org.example.services.*;
-import org.example.domain.ducks.Card;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -294,17 +291,20 @@ public class UiAfterSignUp extends UiAbstract{
         System.out.println("Introduceti numarul de rate care sa participe: ");
         int nrRate = Integer.parseInt(scanner.nextLine());
 
-        List<Integer> lanes = new ArrayList<>();
+        List<Lane> lanes = new ArrayList<>();
         System.out.println("Adaugati lista de lane-uri: ");
         System.out.println("Adaugati lane-urile membre (se va citi pana la introducerea cifrei 0):" );
 
+        Long i = 0L;
         while (true) {
             String lane = scanner.nextLine();
             int laneInt = Integer.parseInt(lane);
+            Lane laneToAdd = new Lane(i, laneInt);
+            i++;
             if (laneInt == 0) {
                 break;
             }
-            lanes.add(laneInt);
+            lanes.add(laneToAdd);
         }
 
         if (lanes.size() < nrRate){
@@ -312,13 +312,17 @@ public class UiAfterSignUp extends UiAbstract{
 
             System.out.println("Adaugati lista de lane-uri: ");
             System.out.println("Adaugati lane-urile membre (se va citi pana la introducerea cifrei 0):" );
+
+            i = 0L;
             while (true) {
                 String lane = scanner.nextLine();
                 int laneInt = Integer.parseInt(lane);
+                Lane laneToAdd = new Lane(i, laneInt);
+                i++;
                 if (laneInt == 0) {
                     break;
                 }
-                lanes.add(laneInt);
+                lanes.add(laneToAdd);
             }
         }
 
