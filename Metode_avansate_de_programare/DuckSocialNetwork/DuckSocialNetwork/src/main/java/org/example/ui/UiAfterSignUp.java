@@ -113,7 +113,7 @@ public class UiAfterSignUp extends UiAbstract{
                     } else if (loggedInUser.getClass().equals(FlyingDuck.class)) {
                         addCard();
                     }else{
-
+                        addEvent();
                     }
 
                     break;
@@ -282,6 +282,47 @@ public class UiAfterSignUp extends UiAbstract{
 
         System.out.println("Cardul '" + newCard.getNumeCard() + "' a fost creat cu " + membri.size() + " membri.");
         System.out.println("Performanta medie a cardului: " + newCard.getMediePerformanta());
+
+    }
+
+    private void addEvent(){
+
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Introduceti numele evenimentului: ");
+        String numeEvent = scanner.nextLine();
+
+        System.out.println("Introduceti numarul de rate care sa participe: ");
+        int nrRate = Integer.parseInt(scanner.nextLine());
+
+        List<Integer> lanes = new ArrayList<>();
+        System.out.println("Adaugati lista de lane-uri: ");
+        System.out.println("Adaugati lane-urile membre (se va citi pana la introducerea cifrei 0):" );
+
+        while (true) {
+            String lane = scanner.nextLine();
+            int laneInt = Integer.parseInt(lane);
+            if (laneInt == 0) {
+                break;
+            }
+            lanes.add(laneInt);
+        }
+
+        if (lanes.size() < nrRate){
+            System.out.println("Numarul de lane-uri nu poate fi mai mare ca numarul de rate!");
+
+            System.out.println("Adaugati lista de lane-uri: ");
+            System.out.println("Adaugati lane-urile membre (se va citi pana la introducerea cifrei 0):" );
+            while (true) {
+                String lane = scanner.nextLine();
+                int laneInt = Integer.parseInt(lane);
+                if (laneInt == 0) {
+                    break;
+                }
+                lanes.add(laneInt);
+            }
+        }
+
+
 
     }
 
