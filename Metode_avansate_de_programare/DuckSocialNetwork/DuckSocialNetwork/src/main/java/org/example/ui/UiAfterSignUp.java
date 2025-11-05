@@ -1,9 +1,14 @@
 package org.example.ui;
 
+import org.example.domain.TypeDuck;
 import org.example.domain.ducks.*;
 import org.example.domain.Friendship;
 import org.example.domain.Persoana;
 import org.example.domain.User;
+import org.example.domain.ducks.card.Card;
+import org.example.domain.ducks.card.FlyingCard;
+import org.example.domain.ducks.card.SwimmingCard;
+import org.example.domain.ducks.card.TypeCard;
 import org.example.exceptions.FriendshipNotFound;
 import org.example.exceptions.UserNotFound;
 import org.example.network.NetworkService;
@@ -12,6 +17,7 @@ import org.example.services.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 /**
  * The type Ui after sign up.
@@ -246,6 +252,10 @@ public class UiAfterSignUp extends UiAbstract{
         System.out.println("Adaugati numele cardului: ");
         String numeCard = scanner.nextLine();
 
+        System.out.println("Introduceti tipul cardului(FLYING/SWIMMING): ");
+        String type = scanner.nextLine();
+        TypeCard typeCard = TypeCard.valueOf(type.toUpperCase());
+
         List<Duck> membri = new ArrayList<>();
         System.out.println("Adaugati lista de rate: ");
         System.out.println("Adaugati ratele membre (introduceti username-ul):");
@@ -263,7 +273,7 @@ public class UiAfterSignUp extends UiAbstract{
             if (foundUser != null) {
                 Duck duckToAdd = (Duck) foundUser;
 
-                if (!membri.contains(duckToAdd)) {
+                if (!membri.contains(duckToAdd) && duckToAdd.getTip().equals(TypeDuck.valueOf(type.toUpperCase()))) {
                     membri.add(duckToAdd);
                     System.out.println("   + Rata '" + duckToAdd.getUsername() + "' a fost adaugata.");
                 } else {
@@ -274,11 +284,33 @@ public class UiAfterSignUp extends UiAbstract{
             }
         }
 
-        Card<Duck> newCard = new Card<>(id, numeCard, membri);
-        this.cardService.saveCard(newCard, "cards.txt");
+        Card<? extends Duck> newCard;
 
-        System.out.println("Cardul '" + newCard.getNumeCard() + "' a fost creat cu " + membri.size() + " membri.");
-        System.out.println("Performanta medie a cardului: " + newCard.getMediePerformanta());
+        if (type.equals("SWIMMING")){
+
+            List<SwimmingDuck> general_list = membri.stream()
+                    .filter(duck -> duck instanceof SwimmingDuck)
+                    .map(duck -> (SwimmingDuck) duck)
+                    .toList();
+
+            newCard = new SwimmingCard(id, numeCard, general_list, typeCard);
+        } else {
+            List<FlyingDuck> general_list = membri.stream()
+                    .filter(duck -> duck instanceof FlyingDuck)
+                    .map(duck -> (FlyingDuck) duck)
+                    .toList();
+
+            newCard = new FlyingCard(id, numeCard, general_list, typeCard);
+        }
+
+        try{
+            this.cardService.saveCard(newCard, "cards.txt");
+
+            System.out.println("Cardul '" + newCard.getNumeCard() + "' a fost creat cu " + membri.size() + " membri.");
+            System.out.println("Performanta medie a cardului: " + newCard.getMediePerformanta());
+        } catch (Exception e){
+            System.out.println("Exception occurred: " + e.getMessage());
+        }
 
     }
 
@@ -306,24 +338,10 @@ public class UiAfterSignUp extends UiAbstract{
             }
             lanes.add(laneToAdd);
         }
-
-        if (lanes.size() < nrRate){
-            System.out.println("Numarul de lane-uri nu poate fi mai mare ca numarul de rate!");
-
-            System.out.println("Adaugati lista de lane-uri: ");
-            System.out.println("Adaugati lane-urile membre (se va citi pana la introducerea cifrei 0):" );
-
-            i = 0L;
-            while (true) {
-                String lane = scanner.nextLine();
-                int laneInt = Integer.parseInt(lane);
-                Lane laneToAdd = new Lane(i, laneInt);
-                i++;
-                if (laneInt == 0) {
-                    break;
-                }
-                lanes.add(laneToAdd);
-            }
+        if (nrRate > lanes.size()) {
+            System.out.println("EROARE: Nu pot participa " + nrRate + " rațe pe doar " + lanes.size() + " culoare!");
+            System.out.println("Evenimentul a fost anulat.");
+            return;
         }
 
 

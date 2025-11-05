@@ -1,6 +1,6 @@
 package org.example.repositories.repo_file;
 
-import org.example.domain.ducks.Card;
+import org.example.domain.ducks.card.Card;
 import org.example.domain.ducks.Duck;
 import org.example.domain.TypeDuck;
 import org.example.domain.ducks.FlyingDuck;
@@ -26,7 +26,7 @@ public class RepoFileDuck extends AbstractFileRepo<Duck> {
         Card card = null;
         if (parts.length > 7 && !parts[7].isEmpty()) {
             List<Duck> list = Collections.emptyList();
-            card = new Card(10L, parts[7], list);
+            card = null;
         }
 
         if (tip == TypeDuck.FLYING) {

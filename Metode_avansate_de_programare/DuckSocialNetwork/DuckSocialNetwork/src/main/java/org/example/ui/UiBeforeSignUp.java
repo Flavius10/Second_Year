@@ -1,7 +1,7 @@
 package org.example.ui;
 
 import org.example.domain.*;
-import org.example.domain.ducks.Card;
+import org.example.domain.ducks.card.Card;
 import org.example.domain.ducks.Duck;
 import org.example.domain.ducks.FlyingDuck;
 import org.example.domain.ducks.SwimmingDuck;
@@ -109,7 +109,7 @@ public class UiBeforeSignUp extends UiAbstract {
             System.out.print("Introduceti numele cardului (sau lasati gol): ");
             String numeCard = scanner.nextLine();
             List<Duck> membri = Collections.emptyList();
-            Card card = numeCard.isEmpty() ? null : new Card(10L, numeCard, membri );
+            Card card = null;
 
             Duck duck;
             if (tip == TypeDuck.FLYING)

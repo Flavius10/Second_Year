@@ -2,6 +2,7 @@ package org.example.domain.ducks;
 
 import org.example.domain.TypeDuck;
 import org.example.domain.User;
+import org.example.domain.ducks.card.Card;
 
 /**
  * The type Duck.

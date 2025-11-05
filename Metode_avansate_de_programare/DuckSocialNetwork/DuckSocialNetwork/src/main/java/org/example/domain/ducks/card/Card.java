@@ -1,15 +1,18 @@
-package org.example.domain.ducks;
+package org.example.domain.ducks.card;
+
+import org.example.domain.ducks.Duck;
 
 import java.util.List;
 
 /**
  * The type Card.
  */
-public class Card<T extends Duck>{
+public abstract class Card<T extends Duck>{
 
     private Long id;
     private String numeCard;
     private List<T> membri;
+    private TypeCard typeCard;
 
     /**
      * Instantiates a new Card.
@@ -18,10 +21,11 @@ public class Card<T extends Duck>{
      * @param numeCard the nume
      * @param membri   the membri
      */
-    public Card(Long id, String numeCard, List<T> membri) {
+    public Card(Long id, String numeCard, List<T> membri, TypeCard typeCard) {
         this.id = id;
         this.numeCard = numeCard;
         this.membri = membri;
+        this.typeCard = typeCard;
     }
 
     /**
@@ -113,6 +117,14 @@ public class Card<T extends Duck>{
      */
     public void setMembri(List<T> membri){
         this.membri = membri;
+    }
+
+    public TypeCard getTypeCard() {
+        return typeCard;
+    }
+
+    public void setTypeCard(TypeCard typeCard) {
+        this.typeCard = typeCard;
     }
 
     @Override

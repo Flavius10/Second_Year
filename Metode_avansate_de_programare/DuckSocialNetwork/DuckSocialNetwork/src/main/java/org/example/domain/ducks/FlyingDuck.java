@@ -1,6 +1,7 @@
 package org.example.domain.ducks;
 
 import org.example.domain.TypeDuck;
+import org.example.domain.ducks.card.Card;
 
 public class FlyingDuck extends Duck implements Zburator{
 

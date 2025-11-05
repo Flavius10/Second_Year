@@ -33,4 +33,8 @@ public class Event {
         System.out.println("Notifying subscribers...");
     }
 
+    public List<User> getSubscribers() {
+        return this.subscribers;
+    }
+
 }
