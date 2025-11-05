@@ -7,6 +7,7 @@ import org.example.domain.ducks.Duck;
 import org.example.domain.ducks.card.FlyingCard;
 import org.example.domain.ducks.card.SwimmingCard;
 import org.example.domain.ducks.card.TypeCard;
+import org.example.exceptions.CardAlreadyExist;
 import org.example.exceptions.UserAlreadyExists;
 import org.example.exceptions.UserNotFound;
 
@@ -30,7 +31,7 @@ public class RepoFileCard {
                 .anyMatch(e -> e.getId().equals(card.getId()));
 
         if (exists) {
-            throw new UserAlreadyExists("User already exists!");
+            throw new CardAlreadyExist("User already exists!");
         }
 
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(file_path, true))) {
