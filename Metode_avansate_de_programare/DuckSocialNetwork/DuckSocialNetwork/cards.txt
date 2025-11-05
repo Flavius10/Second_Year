@@ -1,3 +1,1 @@
-1;NumeCard;BestDuck
-2;NumeCard2;BestDuck;RataMare
-3;NumeCard3;
+1;CardZburator;BestDuck;RataMijlocie;RataMare

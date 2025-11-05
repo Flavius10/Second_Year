@@ -273,11 +273,16 @@ public class UiAfterSignUp extends UiAbstract{
             if (foundUser != null) {
                 Duck duckToAdd = (Duck) foundUser;
 
-                if (!membri.contains(duckToAdd) && duckToAdd.getTip().equals(TypeDuck.valueOf(type.toUpperCase()))) {
-                    membri.add(duckToAdd);
-                    System.out.println("   + Rata '" + duckToAdd.getUsername() + "' a fost adaugata.");
+                if (!membri.contains(duckToAdd)){
+                    if (duckToAdd.getTip().equals(TypeDuck.valueOf(type.toUpperCase()))) {
+                        membri.add(duckToAdd);
+                        System.out.println("   + Rata '" + duckToAdd.getUsername() + "' a fost adaugata.");
+                    }else{
+                        System.out.println("Rata trebuie sa fie de tipul " + type.toUpperCase() + " si nu " + duckToAdd.getTip() + ".");
+                    }
+
                 } else {
-                    System.out.println("   ! Rata '" + duckToAdd.getUsername() + "' este deja în lista.");
+                    System.out.println("   ! Rata '" + duckToAdd.getUsername() + "' este deja in lista.");
                 }
             } else {
                 System.out.println("   ! EROARE: Rata cu username-ul '" + username + "' nu a fost gasita.");
