@@ -1,12 +1,10 @@
-package org.example.domain;
+package org.example.domain.events;
 
-import org.example.domain.ducks.Duck;
 import org.example.domain.ducks.Lane;
-import org.example.domain.ducks.SwimmingDuck;
 
 import java.util.List;
 
-public class RaceEvent extends Event{
+public class RaceEvent extends Event {
 
         private Long id;
         private String name;

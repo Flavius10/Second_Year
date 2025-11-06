@@ -9,6 +9,7 @@ import org.example.domain.ducks.card.Card;
 import org.example.domain.ducks.card.FlyingCard;
 import org.example.domain.ducks.card.SwimmingCard;
 import org.example.domain.ducks.card.TypeCard;
+import org.example.domain.events.DuckSelector;
 import org.example.exceptions.FriendshipNotFound;
 import org.example.exceptions.UserNotFound;
 import org.example.network.NetworkService;
@@ -17,7 +18,7 @@ import org.example.services.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 /**
  * The type Ui after sign up.
@@ -349,6 +350,14 @@ public class UiAfterSignUp extends UiAbstract{
             return;
         }
 
+        Iterable<Duck> allDucksIterable = this.duckService.findAllDucks("ducks.txt");
+
+        List<SwimmingDuck> swimmingDucks = StreamSupport.stream(allDucksIterable.spliterator(), false)
+                .filter(duck -> duck instanceof SwimmingDuck)
+                .map(duck -> (SwimmingDuck) duck)
+                .toList();
+
+        DuckSelector selector = new DuckSelector();
 
 
     }

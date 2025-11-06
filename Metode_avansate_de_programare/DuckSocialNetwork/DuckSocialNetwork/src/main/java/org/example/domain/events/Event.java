@@ -1,4 +1,6 @@
-package org.example.domain;
+package org.example.domain.events;
+
+import org.example.domain.User;
 
 import java.util.ArrayList;
 import java.util.List;

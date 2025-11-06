@@ -23,8 +23,6 @@ public class RaceEvaluator {
         return this.tolerance;
     }
 
-    //practic pentru fiecare alegere a M rate, verificam
-    // timpul maxim pentru acea alegere asa incat sa se termine cursa cat mai lent
     public double computeTotalTime(DuckContainer ducks, LaneContainer lanes) {
         Duck[] ducksArray = ducks.getAll();
         Lane[] lanesArray = lanes.getAll();
