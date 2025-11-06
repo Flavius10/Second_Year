@@ -13,13 +13,13 @@ public class DuckSelector {
     private double bestTime;
 
     public List<SwimmingDuck> selectDucks(List<SwimmingDuck> allDucks, List<Lane> lanes,
-                                     int numberOfRows, double timeLimit, RaceEvaluator raceEvaluator) {
+                                          int numberOfRows, double timeLimit, RaceEvaluator raceEvaluator) {
 
 
         bestCombination = null;
         bestTime = Double.MAX_VALUE;
 
-        List<SwimmingDuck> current = new ArrayList<>(numberOfRows);
+        List<SwimmingDuck> current = new ArrayList<>();
 
         generateCombinations(allDucks, lanes, raceEvaluator, timeLimit,
                 current, 0, 0, numberOfRows);
@@ -35,8 +35,7 @@ public class DuckSelector {
 
         if (depth == m) {
 
-            List<SwimmingDuck> candidate = new ArrayList<>(m);
-            for (int i = 0; i < m; i++) candidate.add(current.get(i));
+            List<SwimmingDuck> candidate = new ArrayList<>(current);
 
             List<Lane> lanes_container = new ArrayList<>(lanes.size());
             for (int i = 0; i < lanes.size(); i++) lanes_container.add(lanes.get(i));
@@ -51,8 +50,10 @@ public class DuckSelector {
         }
 
         for (int i = start; i < all.size(); i++) {
-            current.set(depth, all.get(i));
+            current.add(all.get(i));
+
             generateCombinations(all, lanes, evaluator, timeLimit, current, i + 1, depth + 1, m);
+            current.remove(current.size() - 1);
         }
     }
 

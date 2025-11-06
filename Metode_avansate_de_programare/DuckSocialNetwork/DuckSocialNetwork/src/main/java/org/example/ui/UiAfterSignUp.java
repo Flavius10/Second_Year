@@ -356,29 +356,38 @@ public class UiAfterSignUp extends UiAbstract{
             return;
         }
 
-        Iterable<Duck> allDucksIterable = this.duckService.findAllDucks("ducks.txt");
+        try{
+            Iterable<Duck> allDucksIterable = this.duckService.findAllDucks("ducks.txt");
 
-        List<SwimmingDuck> swimmingDucks = StreamSupport.stream(allDucksIterable.spliterator(), false)
-                .filter(duck -> duck instanceof SwimmingDuck)
-                .map(duck -> (SwimmingDuck) duck)
-                .toList();
+            List<SwimmingDuck> swimmingDucks = StreamSupport.stream(allDucksIterable.spliterator(), false)
+                    .filter(duck -> duck instanceof SwimmingDuck)
+                    .map(duck -> (SwimmingDuck) duck)
+                    .toList();
 
-        List<SwimmingDuck> ducksSortedBySpeed = swimmingDucks.stream()
-                .sorted(Comparator.comparingDouble(SwimmingDuck::getViteza))
-                .toList();
+            List<SwimmingDuck> ducksSortedBySpeed = swimmingDucks.stream()
+                    .sorted(Comparator.comparingDouble(SwimmingDuck::getViteza))
+                    .toList();
 
-        List<Lane> sortedLanes = lanes.stream()
-                .sorted(Comparator.comparingDouble(Lane::getLength))
-                .toList();
+            List<Lane> sortedLanes = lanes.stream()
+                    .sorted(Comparator.comparingDouble(Lane::getLength))
+                    .toList();
 
 
-        DuckSelector selector = new DuckSelector();
-        RaceEvaluator raceEvaluator = new RaceEvaluator(0.0);
-        FeasibilityChecker checker = new FeasibilityChecker(raceEvaluator);
-        RaceService raceService = new RaceService(checker, selector, ducksSortedBySpeed, sortedLanes);
 
-        raceService.runRace(Constants.CONSTANT_TIME);
-        List<SwimmingDuck> ducks = raceService.getRaceResult();
+            DuckSelector selector = new DuckSelector();
+            RaceEvaluator raceEvaluator = new RaceEvaluator(0.0);
+            FeasibilityChecker checker = new FeasibilityChecker(raceEvaluator);
+            RaceService raceService = new RaceService(checker, selector, ducksSortedBySpeed, sortedLanes);
+
+            raceService.runRace(Constants.CONSTANT_TIME);
+            List<SwimmingDuck> ducks = raceService.getRaceResult();
+
+
+        } catch(Exception e){
+            System.out.println("Exception occurred: " + e.getMessage());
+        }
+
+
 
     }
 

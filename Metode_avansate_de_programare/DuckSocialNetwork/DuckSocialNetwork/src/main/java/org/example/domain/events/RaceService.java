@@ -32,6 +32,7 @@ public class RaceService{
         RaceEvaluator evaluator = this.checker.getRaceEvaluator();
 
         List<SwimmingDuck> ducks = this.selector.selectDucks(sortedDucks, lanes, lanes.size(), time, evaluator);
+        this.container_principal = ducks;
 
         if (ducks == null) return false;
 
