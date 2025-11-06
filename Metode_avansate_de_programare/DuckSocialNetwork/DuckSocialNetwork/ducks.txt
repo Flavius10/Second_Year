@@ -1,4 +1,4 @@
-1761663662227;BestDuck;email@duck.ro;parola_rata;FLYING;4.5;4.6
-1762198668174;RataMare;email_ratoi@email.com;parola_rata;FLYING;45.67;67.45;NumeCard2
+1761663662227;BestDuck;email@duck.ro;parola_rata;SWIMMING;4.5;4.6
+1762198668174;RataMare;email_ratoi@email.com;parola_rata;SWIMMING;45.67;67.45;NumeCard2
 1762199346199;RataMica;email_ratusca@email.com;parola_mica;SWIMMING;45.6;6.45;
-1762199419743;RataMijlocie;email_mijlocie@gmail.com;parola_mijlocie;FLYING;456.0;6.7;
+1762199419743;RataMijlocie;email_mijlocie@gmail.com;parola_mijlocie;SWIMMING;456.0;6.7;

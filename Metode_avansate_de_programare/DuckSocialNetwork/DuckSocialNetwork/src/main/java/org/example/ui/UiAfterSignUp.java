@@ -10,14 +10,20 @@ import org.example.domain.ducks.card.FlyingCard;
 import org.example.domain.ducks.card.SwimmingCard;
 import org.example.domain.ducks.card.TypeCard;
 import org.example.domain.events.DuckSelector;
+import org.example.domain.events.FeasibilityChecker;
+import org.example.domain.events.RaceEvaluator;
+import org.example.domain.events.RaceService;
 import org.example.exceptions.FriendshipNotFound;
 import org.example.exceptions.UserNotFound;
 import org.example.network.NetworkService;
 import org.example.services.*;
+import org.example.utils.Constants;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
 /**
@@ -344,8 +350,8 @@ public class UiAfterSignUp extends UiAbstract{
             }
             lanes.add(laneToAdd);
         }
-        if (nrRate > lanes.size()) {
-            System.out.println("EROARE: Nu pot participa " + nrRate + " rațe pe doar " + lanes.size() + " culoare!");
+        if (nrRate < lanes.size()) {
+            System.out.println("EROARE: Nu pot participa " + nrRate + " rate pe doar " + lanes.size() + " culoare!");
             System.out.println("Evenimentul a fost anulat.");
             return;
         }
@@ -357,8 +363,22 @@ public class UiAfterSignUp extends UiAbstract{
                 .map(duck -> (SwimmingDuck) duck)
                 .toList();
 
-        DuckSelector selector = new DuckSelector();
+        List<SwimmingDuck> ducksSortedBySpeed = swimmingDucks.stream()
+                .sorted(Comparator.comparingDouble(SwimmingDuck::getViteza))
+                .toList();
 
+        List<Lane> sortedLanes = lanes.stream()
+                .sorted(Comparator.comparingDouble(Lane::getLength))
+                .toList();
+
+
+        DuckSelector selector = new DuckSelector();
+        RaceEvaluator raceEvaluator = new RaceEvaluator(0.0);
+        FeasibilityChecker checker = new FeasibilityChecker(raceEvaluator);
+        RaceService raceService = new RaceService(checker, selector, ducksSortedBySpeed, sortedLanes);
+
+        raceService.runRace(Constants.CONSTANT_TIME);
+        List<SwimmingDuck> ducks = raceService.getRaceResult();
 
     }
 
