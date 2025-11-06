@@ -31,8 +31,12 @@ public class Event {
         }
     }
 
-    public void notifySubscribers(){
-        System.out.println("Notifying subscribers...");
+    public void notifySubscribers(String message){
+
+        for (User user : subscribers){
+            user.update(message);
+        }
+
     }
 
     public List<User> getSubscribers() {

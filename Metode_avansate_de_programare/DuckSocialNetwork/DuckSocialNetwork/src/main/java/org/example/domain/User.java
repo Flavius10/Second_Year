@@ -1,9 +1,12 @@
 package org.example.domain;
 
+import java.util.List;
+import java.util.Random;
+
 /**
  * The type User.
  */
-public abstract class User {
+public abstract class User implements Observer {
 
     private Long id;
     private String username;
@@ -91,6 +94,18 @@ public abstract class User {
      */
     public void setPassword(String password){
         this.password = password;
+    }
+
+    @Override
+    public void update(String message){
+
+        List<String> listaDeNume = List.of(message.split(" "));
+        Random random = new Random();
+
+        int randomInt = random.nextInt(listaDeNume.size());
+
+        System.out.println("Eu tin cu " + listaDeNume.get(randomInt) + "! Haide " + listaDeNume.get(randomInt) + "!");
+
     }
 
 }

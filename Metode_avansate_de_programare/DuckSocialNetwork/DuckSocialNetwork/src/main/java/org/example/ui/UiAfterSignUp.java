@@ -9,10 +9,7 @@ import org.example.domain.ducks.card.Card;
 import org.example.domain.ducks.card.FlyingCard;
 import org.example.domain.ducks.card.SwimmingCard;
 import org.example.domain.ducks.card.TypeCard;
-import org.example.domain.events.DuckSelector;
-import org.example.domain.events.FeasibilityChecker;
-import org.example.domain.events.RaceEvaluator;
-import org.example.domain.events.RaceService;
+import org.example.domain.events.*;
 import org.example.exceptions.FriendshipNotFound;
 import org.example.exceptions.UserNotFound;
 import org.example.network.NetworkService;
@@ -23,7 +20,6 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Scanner;
-import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
 /**
@@ -372,22 +368,19 @@ public class UiAfterSignUp extends UiAbstract{
                     .sorted(Comparator.comparingDouble(Lane::getLength))
                     .toList();
 
+            RaceEvent raceEvent = new RaceEvent(i, numeEvent);
+            raceEvent.subscribe(loggedInUser);
+            raceEvent.startRace(ducksSortedBySpeed, sortedLanes);
+            List<SwimmingDuck> swimmingDucksFinal = raceEvent.getDucks_final();
+            for(SwimmingDuck swimmingDuck : swimmingDucksFinal){
+                raceEvent.subscribe(swimmingDuck);
+            }
 
-
-            DuckSelector selector = new DuckSelector();
-            RaceEvaluator raceEvaluator = new RaceEvaluator(0.0);
-            FeasibilityChecker checker = new FeasibilityChecker(raceEvaluator);
-            RaceService raceService = new RaceService(checker, selector, ducksSortedBySpeed, sortedLanes);
-
-            raceService.runRace(Constants.CONSTANT_TIME);
-            List<SwimmingDuck> ducks = raceService.getRaceResult();
-
+            raceEvent.notifySubscribers(raceEvent.getMessage());
 
         } catch(Exception e){
             System.out.println("Exception occurred: " + e.getMessage());
         }
-
-
 
     }
 
