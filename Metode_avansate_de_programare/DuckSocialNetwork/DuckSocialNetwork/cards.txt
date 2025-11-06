@@ -1,1 +1,2 @@
-1;CardZburator;BestDuck;RataMijlocie;RataMare
+3;NumeCard;SWIMMING;BestDuck
+2;Card;SWIMMING;BestDuck;RataMijlocie

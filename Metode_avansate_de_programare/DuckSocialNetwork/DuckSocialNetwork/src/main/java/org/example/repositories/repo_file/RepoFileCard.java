@@ -31,7 +31,7 @@ public class RepoFileCard {
                 .anyMatch(e -> e.getId().equals(card.getId()));
 
         if (exists) {
-            throw new CardAlreadyExist("User already exists!");
+            throw new CardAlreadyExist("Card already exists!");
         }
 
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(file_path, true))) {
@@ -68,41 +68,39 @@ public class RepoFileCard {
 
         Long id = Long.parseLong(parts[0]);
         String numeCard = parts[1];
+
+        String type = parts[2];
+        TypeCard typeCard = TypeCard.valueOf(type);
+
         List<Duck> membri = new ArrayList<>();
 
-        if (parts.length > 2 && !parts[2].isEmpty()) {
-            String[] idMembri = parts[2].split(";");
+        if (parts.length > 3) {
+            for (int i = 3; i < parts.length; i++) {
+                String idStr = parts[i];
+                if (idStr.isEmpty()) continue;
 
-            for (String idStr : idMembri) {
                 try {
-
                     Duck membruGasit = repoFileDuck.findByUsername(idStr, "ducks.txt");
 
                     if (membruGasit != null) {
                         membri.add(membruGasit);
                     } else {
-                        throw new UserNotFound("UserNotFound: ID membru invalid '" + idStr + "'");
+                        throw new UserNotFound("UserNotFound: ID membru invalid '" + idStr + "' not found");
                     }
                 } catch (NumberFormatException e) {
                     System.err.println("RepoFileCard Eroare: ID membru invalid '" + idStr + "'");
                 }
             }
-
         }
 
-        String type = parts.length > 3 ? parts[3] : "";
-        TypeCard typeCard = TypeCard.valueOf(type);
-
         if (type.equals("SWIMMING")){
-
             List<SwimmingDuck> general_list = membri.stream()
                     .filter(duck -> duck instanceof SwimmingDuck)
                     .map(duck -> (SwimmingDuck) duck)
                     .collect(Collectors.toList());
 
             return new SwimmingCard(id, numeCard, general_list, typeCard);
-        }
-        else {
+        } else {
             List<FlyingDuck> general_list = membri.stream()
                     .filter(duck -> duck instanceof FlyingDuck)
                     .map(duck -> (FlyingDuck) duck)
@@ -118,8 +116,9 @@ public class RepoFileCard {
                 .collect(Collectors.joining(";"));
 
         return d.getId() + ";" +
-                d.getNumeCard() + ";" + idMembri;
-
+                d.getNumeCard() + ";" +
+                d.getTypeCard().toString() + ";" +
+                idMembri;
     }
 
     protected String getUsername(Card<Duck> entity) {
