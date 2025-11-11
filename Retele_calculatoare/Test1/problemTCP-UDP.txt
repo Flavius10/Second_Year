@@ -1,0 +1,222 @@
+----------------------serverTCP-UDP------------------------
+
+#include <sys/types.h>
+#include <sys/socket.h>
+#include <stdio.h>
+#include <netinet/in.h>
+#include <netinet/ip.h>
+#include <string.h>
+#include <arpa/inet.h>
+#include <unistd.h>
+#include <stdlib.h>     
+#include <signal.h>     
+#include <stdint.h>   
+#include <limits.h>
+
+int cmmdc(int a, int b) {
+    if (b == 0) return a;
+    return cmmdc(b, a % b);
+}
+
+int cmmmc(int a, int b) {
+    if (a == 0 || b == 0) return 0;
+    return (a * b) / cmmdc(a, b);
+}
+
+void functie_client(int c, int maximever) {
+
+    int s_udp_copil = socket(AF_INET, SOCK_DGRAM, 0);
+
+    struct sockaddr_in adresa_parinte;
+    memset(&adresa_parinte, 0, sizeof(adresa_parinte));
+    adresa_parinte.sin_port = htons(8081);
+    adresa_parinte.sin_family = AF_INET;
+    adresa_parinte.sin_addr.s_addr = inet_addr("127.0.0.1");
+
+
+    uint16_t cnt = 0;
+    recv(c, &cnt, sizeof(cnt), MSG_WAITALL);
+    cnt = ntohs(cnt);
+
+    int* numere = malloc(cnt * sizeof(int));
+    if (numere == NULL) {
+        printf("Eroare malloc\n");
+        close(c); close(s_udp_copil);
+        return;
+    }
+    recv(c, numere, sizeof(int) * cnt, MSG_WAITALL);
+
+    int maxim = INT_MIN;
+    if (cnt == 0) maxim = 0;
+    for (size_t i = 0; i < cnt; ++i) {
+        if (numere[i] > maxim)
+            maxim = numere[i];
+    }
+    free(numere);
+
+    int dc = cmmmc(maxim, maximever);
+    printf("Copil: CMMMC(%d, %d) = %u\n", maxim, maximever, dc);
+
+    int dc_net = htonl(dc);
+    send(c, &dc_net, sizeof(dc_net), 0);
+
+    printf("Copil: Trimit maximul %d la părinte pe UDP...\n", maxim);
+    int maxim_net = htonl(maxim);
+    sendto(s_udp_copil, &maxim_net, sizeof(maxim_net), 0,
+           (struct sockaddr*)&adresa_parinte, sizeof(adresa_parinte));
+
+    close(s_udp_copil);
+    close(c);
+}
+
+int main() {
+    int s_tcp, s_udp, c;
+    struct sockaddr_in server_tcp, server_udp, client, client_udp;
+    socklen_t l;
+    int maximever = INT_MIN;
+
+    s_tcp = socket(AF_INET, SOCK_STREAM, 0);
+
+    s_udp = socket(AF_INET, SOCK_DGRAM, 0);
+
+    memset(&server_tcp, 0, sizeof(server_tcp));
+    server_tcp.sin_port = htons(8080);
+    server_tcp.sin_family = AF_INET;
+    server_tcp.sin_addr.s_addr = INADDR_ANY;
+
+    memset(&server_udp, 0, sizeof(server_udp));
+    server_udp.sin_port = htons(8081);
+    server_udp.sin_family = AF_INET;
+    server_udp.sin_addr.s_addr = INADDR_ANY;
+
+    bind(s_tcp, (struct sockaddr *) &server_tcp, sizeof(server_tcp));
+    bind(s_udp, (struct sockaddr *) &server_udp, sizeof(server_udp));
+    listen(s_tcp, 5);
+
+    printf("Părinte: Aștept pe TCP (8080) și UDP (8081)...\n");
+
+    while (1) {
+
+        if (fork() == 0) {
+
+            close(s_udp);
+
+            l = sizeof(client);
+            c = accept(s_tcp, (struct sockaddr *) &client, &l);
+
+            close(s_tcp);
+
+            functie_client(c, maximever);
+            exit(0);
+        }
+        else {
+            int new_local;
+            l = sizeof(client_udp);
+
+            memset(&client_udp, 0, sizeof(client_udp));
+
+            recvfrom(s_udp, &new_local, sizeof(new_local), 0, (struct sockaddr *) &client_udp, &l);
+
+            new_local = ntohl(new_local);
+
+            if (new_local > maximever) {
+                maximever = new_local;
+                printf("Părinte: !!! RECORD NOU !!! maximever este acum %d\n", maximever);
+            } else {
+                printf("Părinte: Am primit raport UDP cu %d (nu e record).\n", new_local);
+            }
+        }
+    }
+
+    close(s_tcp);
+    close(s_udp);
+    return 0;
+}
+
+
+
+
+-------------------clientTCP-UDP------------------------
+
+#include <sys/types.h>
+#include <sys/socket.h>
+#include <stdio.h>
+#include <netinet/in.h>
+#include <netinet/ip.h>
+#include <string.h>
+#include <arpa/inet.h>
+
+int main(){
+
+        int c;
+        struct sockaddr_in server;
+
+        c = socket(AF_INET, SOCK_STREAM, 0);
+        if (c < 0){
+                printf("Nu merge sa fac un socket amarat\n");
+                return 1;
+        }
+
+        memset(&server, 0, sizeof(server));
+        server.sin_port = htons(8080);
+        server.sin_family = AF_INET;
+        server.sin_addr.s_addr = inet_addr("127.0.0.1");
+
+        if (connect(c, (struct sockaddr *) &server, sizeof(server)) < 0)
+        {
+                printf("Nu merge sa ma conectez\n");
+                return 1;
+        }
+
+        int numere[1024];
+        uint16_t cnt = 0;
+
+        int numar_citit = -1;
+
+        while(numar_citit != 0){
+                printf("Numar:");
+                scanf("%d", &numar_citit);
+
+                if (numar_citit == 0)
+                        break;
+
+                numere[cnt++] = numar_citit;
+        }
+
+
+
+        uint16_t numar_cnt = htons(cnt);
+        send(c, &numar_cnt, sizeof(numar_cnt), 0);
+        send(c, numere, sizeof(int) * cnt, 0);
+
+
+        uint16_t cmmmc;
+        recv(c, &cmmmc, sizeof(cmmmc), MSG_WAITALL);
+
+        cmmmc = ntohs(cmmmc);
+
+        printf("%hu", cmmmc);
+}
+
+---------citire sir caractere-------------------
+#include <stdio.h>
+#include <string.h> // Pentru strcspn
+
+int main() {
+    // 1. Declari un buffer de o mărime fixă
+    char sir[100]; 
+
+    printf("Introduceți un șir: ");
+
+    // 2. Citești cu fgets (maxim 100 de octeți, de la stdin - tastatura)
+    // Va citi maxim 99 de caractere + 1 loc pentru '\0'
+    fgets(sir, 100, stdin);
+
+    // 3. (Magic) Elimini caracterul '\n' (Enter) de la sfârșit
+    // strcspn găsește prima apariție a lui "\n" și îi returnează indexul
+    sir[strcspn(sir, "\n")] = '\0';
+
+    printf("Ați introdus: '%s'\n", sir);
+
+    return 0;
+}

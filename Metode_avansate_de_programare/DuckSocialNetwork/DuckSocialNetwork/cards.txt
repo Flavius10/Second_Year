@@ -1,2 +1,3 @@
 3;NumeCard;SWIMMING;BestDuck
 2;Card;SWIMMING;BestDuck;RataMijlocie
+4;NumeCard1;SWIMMING;BestDuck;RataMijlocie

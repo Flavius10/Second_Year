@@ -13,6 +13,7 @@ import org.example.domain.events.*;
 import org.example.exceptions.FriendshipNotFound;
 import org.example.exceptions.UserNotFound;
 import org.example.network.NetworkService;
+import org.example.repositories.RepoEvent;
 import org.example.services.*;
 import org.example.utils.Constants;
 
@@ -369,6 +370,10 @@ public class UiAfterSignUp extends UiAbstract{
                     .toList();
 
             RaceEvent raceEvent = new RaceEvent(i, numeEvent);
+            RepoEvent repoEvent = new RepoEvent();
+            EventService eventService = new EventService(repoEvent);
+            eventService.add(raceEvent);
+
             raceEvent.subscribe(loggedInUser);
             raceEvent.startRace(ducksSortedBySpeed, sortedLanes);
             List<SwimmingDuck> swimmingDucksFinal = raceEvent.getDucks_final();

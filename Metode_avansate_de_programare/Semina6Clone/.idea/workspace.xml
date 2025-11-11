@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="90a94e5c-abae-4251-98ff-ad12a414d2a1" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/../DuckSocialNetwork/DuckSocialNetwork/src/main/java/org/example/repositories/RepoEvent.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../DuckSocialNetwork/DuckSocialNetwork/src/main/java/org/example/services/EventService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Seminar6/src/main/java/org/example/domain/Entity.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Seminar6/src/main/java/org/example/domain/Movie.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Seminar6/src/main/java/org/example/repository/MovieDBRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Seminar6/src/main/java/org/example/repository/Repository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../DuckSocialNetwork/DuckSocialNetwork/cards.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../DuckSocialNetwork/DuckSocialNetwork/cards.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../DuckSocialNetwork/DuckSocialNetwork/src/main/java/org/example/ui/UiAfterSignUp.java" beforeDir="false" afterPath="$PROJECT_DIR$/../DuckSocialNetwork/DuckSocialNetwork/src/main/java/org/example/ui/UiAfterSignUp.java" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ExternalProjectsData">
+    <projectState path="$PROJECT_DIR$">
+      <ProjectState />
+    </projectState>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
+  </component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "associatedIndex": 2
+}]]></component>
+  <component name="ProjectId" id="359FfvX5QVmzxXRzlQVc8F6x7z8" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultAutoModeForALLUsers.v1": "true",
+    "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1": "true",
+    "git-widget-placeholder": "main",
+    "junie.onboarding.icon.badge.shown": "true",
+    "kotlin-language-version-configured": "true",
+    "nodejs_package_manager_path": "npm",
+    "onboarding.tips.debug.path": "C:/Folders/Facultate/Anul_2/Metode_avansate_de_programare/Semina6Clone/src/main/java/org/sem6_db/Main.java",
+    "to.speed.mode.migration.done": "true",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Folders\Facultate\Anul_2\Metode_avansate_de_programare\Semina6Clone\src\main\java\org\sem6_db\domain" />
+    </key>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-9823dce3aa75-bf35d07a577b-intellij.indexing.shared.core-IU-252.27397.103" />
+        <option value="bundled-js-predefined-d6986cc7102b-3aa1da707db6-JavaScript-IU-252.27397.103" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="90a94e5c-abae-4251-98ff-ad12a414d2a1" name="Changes" comment="" />
+      <created>1762514488842</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1762514488842</updated>
+      <workItem from="1762514489991" duration="96000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>
