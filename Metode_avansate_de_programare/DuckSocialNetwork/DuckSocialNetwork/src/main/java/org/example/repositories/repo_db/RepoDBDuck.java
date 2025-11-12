@@ -136,7 +136,7 @@ public class RepoDBDuck implements RepoDB<Long, Duck> {
             throw new IllegalArgumentException("Entity cannot be null");
         }
         String updateSQL = "UPDATE duck SET name = ?, email = ?, password = ?, tip = ?, viteza = ?, rezistenta = ? WHERE id = ?";
-        try (var connection = DriverManager.getConnection(url, username, password);
+        try (Connection connection = DriverManager.getConnection(url, username, password);
              PreparedStatement statement = connection.prepareStatement(updateSQL);) {
             statement.setString(1, entity.getUsername());
             statement.setString(2, entity.getEmail());
