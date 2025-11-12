@@ -87,7 +87,7 @@ public class AuthService {
         } else if (user instanceof Duck) {
 
             try{
-                this.duckService.saveDuck((Duck) user, file_name);
+                this.duckService.saveDuck((Duck) user);
             } catch(UserAlreadyExists e)
             {
                 throw new UserAlreadyExists(e.getMessage());
@@ -113,7 +113,7 @@ public class AuthService {
                 persoanaService.findAllPersons("persoane.txt").spliterator(), false);
 
         Stream<Duck> ducksStream = StreamSupport.stream(
-                duckService.findAllDucks("ducks.txt").spliterator(), false);
+                duckService.findAllDucks().spliterator(), false);
 
         User user = Stream.concat(persoaneStream, ducksStream)
                 .filter(u -> u.getUsername().equals(username) && u.getPassword().equals(password))

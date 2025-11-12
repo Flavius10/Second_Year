@@ -29,7 +29,7 @@ public class DataProvider {
     public Iterable<User> loadAllUsers(){
         return Stream.concat(
                 StreamSupport.stream(this.persoanaService.findAllPersons(Constants.FILE_PATH_PERSOANA).spliterator(), false),
-                StreamSupport.stream(this.duckService.findAllDucks(Constants.FILE_PATH_DUCK).spliterator(), false)
+                StreamSupport.stream(this.duckService.findAllDucks().spliterator(), false)
         ).toList();
     }
 

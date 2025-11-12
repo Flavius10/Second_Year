@@ -4,64 +4,59 @@ import org.example.domain.ducks.Duck;
 import org.example.domain.User;
 import org.example.exceptions.UserAlreadyExists;
 import org.example.exceptions.UserNotFound;
+import org.example.repositories.repo_db.RepoDBDuck;
 import org.example.repositories.repo_file.RepoFileDuck;
+
+import java.util.Optional;
 
 /**
  * The type Duck service.
  */
 public class DuckService {
 
-    private RepoFileDuck repoFileDuck;
+    private RepoDBDuck repoDBDuck;
 
     /**
      * Instantiates a new Duck service.
      *
-     * @param repoFileDuck the repo file duck
+     * @param repoDBDuck the repo file duck
      */
-    public DuckService(RepoFileDuck repoFileDuck){
-        this.repoFileDuck = repoFileDuck;
+    public DuckService(RepoDBDuck repoDBDuck){
+        this.repoDBDuck = repoDBDuck;
     }
 
     /**
      * Save duck.
      *
      * @param user      the user
-     * @param file_name the file name
      */
-    public void saveDuck(Duck user, String file_name){
+    public void saveDuck(Duck user){
 
-        try {
-            this.repoFileDuck.save(user, file_name);
-        } catch (UserAlreadyExists e) {
-            throw new UserAlreadyExists(e.getMessage());
-        }
+        Optional<Duck> result = repoDBDuck.save(user);
+        if (result.isPresent())
+            throw new UserAlreadyExists("User already exists!");
     }
 
     /**
      * Delete duck.
      *
      * @param user      the user
-     * @param file_name the file name
      */
-    public void deleteDuck(Duck user, String file_name){
-        try{
-            this.repoFileDuck.delete(user, file_name);
-        } catch(UserNotFound e){
-            throw new UserNotFound(e.getMessage());
-        }
+    public void deleteDuck(Duck user){
+        Optional<Duck> result = this.repoDBDuck.delete(user.getId());
+        if (result.isEmpty())
+            throw new UserNotFound("User not found!");
     }
 
     /**
      * Update duck.
      *
      * @param user      the user
-     * @param file_name the file name
      */
-    public void updateDuck(Duck user, String file_name){
-        try{
-            this.repoFileDuck.update(user, file_name);
-        } catch(UserNotFound e){
-            throw new UserNotFound(e.getMessage());
+    public void updateDuck(Duck user){
+        Optional<Duck> updated = repoDBDuck.update(user);
+        if (updated.isPresent()) {
+            throw new UserNotFound("Nu s-a putut actualiza rata (nu a fost găsită în DB).");
         }
     }
 
@@ -69,32 +64,29 @@ public class DuckService {
      * Find by id duck user.
      *
      * @param id        the id
-     * @param file_name the file name
      * @return the user
      */
-    public User findByIdDuck(Long id, String file_name){
-        return this.repoFileDuck.findById(id, file_name);
+    public User findByIdDuck(Long id) {
+        return repoDBDuck.findOne(id).orElse(null);
     }
 
     /**
      * Find all ducks iterable.
      *
-     * @param file_name the file name
      * @return the iterable
      */
-    public Iterable<Duck> findAllDucks(String file_name){
-        return this.repoFileDuck.findAll(file_name);
+    public Iterable<Duck> findAllDucks() {
+        return repoDBDuck.findAll();
     }
 
     /**
      * Find by username duck user.
      *
      * @param username  the username
-     * @param file_name the file name
      * @return the user
      */
-    public User findByUsernameDuck(String username, String file_name){
-        return this.repoFileDuck.findByUsername(username, file_name);
+    public Duck findByUsernameDuck(String username) {
+        return repoDBDuck.findByUsername(username).orElse(null);
     }
 
 }

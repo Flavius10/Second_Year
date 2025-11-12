@@ -159,7 +159,7 @@ public class UiAfterSignUp extends UiAbstract{
         System.out.println("Introduceti numele userului cu care vreti sa fiti prieten: ");
         String username_friend = scanner.nextLine();
 
-        User user_duck = this.duckService.findByUsernameDuck(username_friend, "ducks.txt");
+        User user_duck = this.duckService.findByUsernameDuck(username_friend);
         if (user_duck != null) {
             String user_duck_username = user_duck.getUsername();
 
@@ -224,7 +224,7 @@ public class UiAfterSignUp extends UiAbstract{
             } else if (this.loggedInUser instanceof Duck) {
 
                 try{
-                    this.duckService.deleteDuck((Duck)this.loggedInUser, "ducks.txt");
+                    this.duckService.deleteDuck((Duck)this.loggedInUser);
                 } catch(UserNotFound e){
                     System.out.println("Exception occurred: " + e.getMessage());
                 }
@@ -271,7 +271,7 @@ public class UiAfterSignUp extends UiAbstract{
                 break;
             }
 
-            User foundUser = this.duckService.findByUsernameDuck(username, "ducks.txt");
+            User foundUser = this.duckService.findByUsernameDuck(username);
 
             if (foundUser != null) {
                 Duck duckToAdd = (Duck) foundUser;
@@ -353,7 +353,7 @@ public class UiAfterSignUp extends UiAbstract{
         }
 
         try{
-            Iterable<Duck> allDucksIterable = this.duckService.findAllDucks("ducks.txt");
+            Iterable<Duck> allDucksIterable = this.duckService.findAllDucks();
 
             List<SwimmingDuck> swimmingDucks = StreamSupport.stream(allDucksIterable.spliterator(), false)
                     .filter(duck -> duck instanceof SwimmingDuck)

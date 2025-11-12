@@ -1,6 +1,7 @@
 package org.example;
 
 import org.example.network.*;
+import org.example.repositories.repo_db.RepoDBDuck;
 import org.example.repositories.repo_file.RepoFileCard;
 import org.example.repositories.repo_file.RepoFileDuck;
 import org.example.repositories.repo_file.RepoFilePersoana;
@@ -11,6 +12,7 @@ import org.example.services.FriendshipService;
 import org.example.services.PersoanaService;
 import org.example.ui.Menu;
 import org.example.ui.Ui;
+import org.example.utils.Constants;
 
 /**
  * The type Main.
@@ -23,13 +25,16 @@ public class Main {
      */
     public static void main(String[] args) {
 
+        // Partea de fisiere
         RepoFilePersoana persoanaRepo = new RepoFilePersoana();
         RepoFileDuck duckRepo = new RepoFileDuck();
         RepoFileFriendship friendshipRepo = new RepoFileFriendship();
         RepoFileCard repoFileCard = new RepoFileCard(duckRepo);
 
+        RepoDBDuck repoDBDuck = new RepoDBDuck(Constants.PATH_DB, Constants.USERNAME, Constants.PASSWORD);
+
         PersoanaService persoanaService = new PersoanaService(persoanaRepo);
-        DuckService duckService = new DuckService(duckRepo);
+        DuckService duckService = new DuckService(repoDBDuck);
         FriendshipService friendshipService = new FriendshipService(friendshipRepo);
         CardService cardService = new CardService(repoFileCard);
 
