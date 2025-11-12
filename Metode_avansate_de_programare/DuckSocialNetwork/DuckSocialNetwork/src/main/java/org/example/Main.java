@@ -2,6 +2,7 @@ package org.example;
 
 import org.example.network.*;
 import org.example.repositories.repo_db.RepoDBDuck;
+import org.example.repositories.repo_db.RepoDBPersoana;
 import org.example.repositories.repo_file.RepoFileCard;
 import org.example.repositories.repo_file.RepoFileDuck;
 import org.example.repositories.repo_file.RepoFilePersoana;
@@ -32,8 +33,9 @@ public class Main {
         RepoFileCard repoFileCard = new RepoFileCard(duckRepo);
 
         RepoDBDuck repoDBDuck = new RepoDBDuck(Constants.PATH_DB, Constants.USERNAME, Constants.PASSWORD);
+        RepoDBPersoana persoanaRepoDB = new RepoDBPersoana(Constants.PATH_DB, Constants.USERNAME, Constants.PASSWORD);
 
-        PersoanaService persoanaService = new PersoanaService(persoanaRepo);
+        PersoanaService persoanaService = new PersoanaService(persoanaRepoDB);
         DuckService duckService = new DuckService(repoDBDuck);
         FriendshipService friendshipService = new FriendshipService(friendshipRepo);
         CardService cardService = new CardService(repoFileCard);

@@ -176,7 +176,7 @@ public class UiAfterSignUp extends UiAbstract{
         }
 
 
-        User user_person = this.persoanaService.findByUsernamePerson(username_friend, "persoane.txt");
+        User user_person = this.persoanaService.findByUsernamePerson(username_friend);
         if (user_person != null) {
             String user_person_username = user_person.getUsername();
 
@@ -216,7 +216,7 @@ public class UiAfterSignUp extends UiAbstract{
         if (this.loggedInUser != null) {
             if (this.loggedInUser instanceof Persoana) {
                 try{
-                    this.persoanaService.deletePerson((Persoana) this.loggedInUser, "persoane.txt");
+                    this.persoanaService.deletePerson((Persoana) this.loggedInUser);
                 } catch(UserNotFound e){
                     System.out.println("Exception occurred: " + e.getMessage());
                 }

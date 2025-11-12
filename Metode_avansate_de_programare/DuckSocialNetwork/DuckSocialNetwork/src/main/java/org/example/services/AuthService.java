@@ -78,7 +78,7 @@ public class AuthService {
         if (user instanceof Persoana) {
 
             try{
-                this.persoanaService.savePerson((Persoana) user, file_name);
+                this.persoanaService.savePerson((Persoana) user);
             } catch (UserAlreadyExists e)
             {
                 throw new UserAlreadyExists(e.getMessage());
@@ -110,7 +110,7 @@ public class AuthService {
     public User loginAndReturnUser(String username, String password) {
 
         Stream<Persoana> persoaneStream = StreamSupport.stream(
-                persoanaService.findAllPersons("persoane.txt").spliterator(), false);
+                persoanaService.findAllPersons().spliterator(), false);
 
         Stream<Duck> ducksStream = StreamSupport.stream(
                 duckService.findAllDucks().spliterator(), false);
