@@ -1,8 +1,6 @@
-package org.example.domain.ducks.card;
+package org.example.domain.card;
 
 import org.example.domain.ducks.FlyingDuck;
-import org.example.domain.ducks.Inotator;
-import org.example.domain.ducks.SwimmingDuck;
 import org.example.domain.ducks.Zburator;
 
 import java.util.List;

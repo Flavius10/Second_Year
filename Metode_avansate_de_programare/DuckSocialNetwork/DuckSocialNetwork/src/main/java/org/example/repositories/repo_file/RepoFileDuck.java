@@ -1,6 +1,6 @@
 package org.example.repositories.repo_file;
 
-import org.example.domain.ducks.card.Card;
+import org.example.domain.card.Card;
 import org.example.domain.ducks.Duck;
 import org.example.domain.TypeDuck;
 import org.example.domain.ducks.FlyingDuck;

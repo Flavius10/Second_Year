@@ -1,4 +1,4 @@
-package org.example.domain.ducks.card;
+package org.example.domain.card;
 
 import org.example.domain.ducks.Duck;
 

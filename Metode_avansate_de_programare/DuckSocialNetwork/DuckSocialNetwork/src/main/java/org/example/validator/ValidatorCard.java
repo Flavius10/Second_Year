@@ -1,8 +1,6 @@
 package org.example.validator;
 
-import org.example.domain.ducks.card.TypeCard;
-
-import java.lang.reflect.Type;
+import org.example.domain.card.TypeCard;
 
 public class ValidatorCard implements Validation<String, String>{
 

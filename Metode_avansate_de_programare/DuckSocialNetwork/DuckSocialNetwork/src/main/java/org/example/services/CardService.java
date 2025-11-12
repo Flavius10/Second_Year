@@ -1,6 +1,6 @@
 package org.example.services;
 
-import org.example.domain.ducks.card.Card;
+import org.example.domain.card.Card;
 import org.example.domain.ducks.Duck;
 import org.example.repositories.repo_file.RepoFileCard;
 import org.example.validator.ValidatorCard;

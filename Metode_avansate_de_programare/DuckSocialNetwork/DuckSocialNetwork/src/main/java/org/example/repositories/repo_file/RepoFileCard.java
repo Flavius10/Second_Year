@@ -2,13 +2,12 @@ package org.example.repositories.repo_file;
 
 import org.example.domain.ducks.FlyingDuck;
 import org.example.domain.ducks.SwimmingDuck;
-import org.example.domain.ducks.card.Card;
+import org.example.domain.card.Card;
 import org.example.domain.ducks.Duck;
-import org.example.domain.ducks.card.FlyingCard;
-import org.example.domain.ducks.card.SwimmingCard;
-import org.example.domain.ducks.card.TypeCard;
+import org.example.domain.card.FlyingCard;
+import org.example.domain.card.SwimmingCard;
+import org.example.domain.card.TypeCard;
 import org.example.exceptions.CardAlreadyExist;
-import org.example.exceptions.UserAlreadyExists;
 import org.example.exceptions.UserNotFound;
 
 import java.io.*;

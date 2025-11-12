@@ -1,7 +1,7 @@
 package org.example.ui;
 
 import org.example.domain.*;
-import org.example.domain.ducks.card.Card;
+import org.example.domain.card.Card;
 import org.example.domain.ducks.Duck;
 import org.example.domain.ducks.FlyingDuck;
 import org.example.domain.ducks.SwimmingDuck;
