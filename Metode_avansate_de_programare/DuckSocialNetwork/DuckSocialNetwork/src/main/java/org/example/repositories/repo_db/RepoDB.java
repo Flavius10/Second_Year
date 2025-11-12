@@ -4,7 +4,7 @@ import org.example.domain.User;
 
 import java.util.Optional;
 
-public interface ReopDB<ID, E extends User> {
+public interface RepoDB<ID, E extends User> {
     /**
      *
      * @param id

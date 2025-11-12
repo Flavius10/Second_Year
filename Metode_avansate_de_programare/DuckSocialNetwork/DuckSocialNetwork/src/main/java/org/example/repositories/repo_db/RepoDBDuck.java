@@ -8,14 +8,13 @@ import org.example.domain.ducks.Duck;
 import org.example.domain.ducks.FlyingDuck;
 import org.example.domain.ducks.SwimmingDuck;
 
-import java.math.BigDecimal;
 import java.sql.*;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
-public class RepoDBDuck implements ReopDB<Long, Duck>{
+public class RepoDBDuck implements RepoDB<Long, Duck> {
 
     private String url;
     private String username;
