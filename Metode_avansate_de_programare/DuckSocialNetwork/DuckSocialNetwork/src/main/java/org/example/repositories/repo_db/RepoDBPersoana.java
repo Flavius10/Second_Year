@@ -1,13 +1,20 @@
 package org.example.repositories.repo_db;
 
 import org.example.domain.Persoana;
+import org.example.domain.TypeDuck;
+import org.example.domain.card.FlyingCard;
+import org.example.domain.card.SwimmingCard;
+import org.example.domain.card.TypeCard;
 import org.example.domain.ducks.Duck;
+import org.example.domain.ducks.FlyingDuck;
+import org.example.domain.ducks.SwimmingDuck;
+import org.example.utils.paging.Page;
+import org.example.utils.paging.Pageable;
 
 import java.sql.*;
+import java.sql.Date;
 import java.time.LocalDate;
-import java.util.HashSet;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
 public class RepoDBPersoana implements RepoDB<Long, Persoana>{
 
@@ -175,6 +182,58 @@ public class RepoDBPersoana implements RepoDB<Long, Persoana>{
        } catch(SQLException e){
            throw new RuntimeException(e);
        }
+    }
+
+    @Override
+    public Page<Persoana> findAllOnPage(Pageable pageable){
+        try (Connection connection = DriverManager.getConnection(url, username, password)) {
+            int totalNumberOfPersoane = count(connection);
+            List<Persoana> persoaneOnPage;
+            if (totalNumberOfPersoane > 0) {
+                persoaneOnPage = findAllOnPage(connection, pageable);
+            } else {
+                persoaneOnPage = new ArrayList<>();
+            }
+            return new Page<Persoana>(persoaneOnPage, totalNumberOfPersoane);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private List<Persoana> findAllOnPage(Connection connection, Pageable pageable) throws SQLException {
+        List<Persoana> persoaneOnPage = new ArrayList<>();
+        String sql = "select * from persoana limit ? offset ?";
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setInt(1, pageable.getPageSize());
+            statement.setInt(2, pageable.getPageSize() * pageable.getPageNumber());
+            try (ResultSet result = statement.executeQuery()) {
+                if (result.next()){
+                    Long id = result.getLong("id");
+                    String email = result.getString("email");
+                    String password = result.getString("password");
+                    String nume = result.getString("nume");
+                    String prenume = result.getString("prenume");
+                    String ocupatie = result.getString("ocupatie");
+                    LocalDate dataNastere = result.getDate("data_nastere").toLocalDate();
+
+                    Persoana persoana = new Persoana(id, username, email, password, nume, prenume, ocupatie, dataNastere);
+                    persoaneOnPage.add(persoana);
+                }
+            }
+        }
+        return persoaneOnPage;
+    }
+
+    private int count(Connection connection) throws SQLException {
+        String sql = "select count(*) as count from persoana";
+        try (PreparedStatement statement = connection.prepareStatement(sql);
+             ResultSet result = statement.executeQuery()) {
+            int totalNumberOfPersoane = 0;
+            if (result.next()) {
+                totalNumberOfPersoane = result.getInt("count");
+            }
+            return totalNumberOfPersoane;
+        }
     }
 
 
