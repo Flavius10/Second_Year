@@ -6,6 +6,8 @@ import org.example.exceptions.UserAlreadyExists;
 import org.example.exceptions.UserNotFound;
 import org.example.repositories.repo_db.RepoDBDuck;
 import org.example.repositories.repo_file.RepoFileDuck;
+import org.example.utils.paging.Page;
+import org.example.utils.paging.Pageable;
 
 import java.util.Optional;
 
@@ -87,6 +89,11 @@ public class DuckService {
      */
     public Duck findByUsernameDuck(String username) {
         return repoDBDuck.findByUsername(username).orElse(null);
+    }
+
+    public Page<Duck> findAllOnPage(Pageable pageable) {
+
+        return repoDBDuck.findAllOnPage(pageable);
     }
 
 }

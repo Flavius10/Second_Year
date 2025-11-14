@@ -6,6 +6,8 @@ import org.example.exceptions.UserAlreadyExists;
 import org.example.exceptions.UserNotFound;
 import org.example.repositories.repo_db.RepoDBPersoana;
 import org.example.repositories.repo_file.RepoFilePersoana;
+import org.example.utils.paging.Page;
+import org.example.utils.paging.Pageable;
 
 import java.util.Optional;
 
@@ -81,11 +83,15 @@ public class PersoanaService {
      * Find by username person user.
      *
      * @param username  the username
-     * @param file_name the file name
      * @return the user
      */
     public User findByUsernamePerson(String username){
         return repoDBPersoana.findByUsername(username).orElse(null);
+    }
+
+    public Page<Persoana> findAllOnPage(Pageable pageable) {
+
+        return repoDBPersoana.findAllOnPage(pageable);
     }
 
 }
