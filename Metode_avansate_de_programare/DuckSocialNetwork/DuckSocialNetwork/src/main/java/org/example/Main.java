@@ -48,7 +48,6 @@ public class Main {
 
         NetworkService networkService = new NetworkService(dataProvider, graphService);
 
-
         Menu menu = new Menu();
 
         Ui ui = new Ui(menu, persoanaService, duckService, friendshipService, networkService, cardService);

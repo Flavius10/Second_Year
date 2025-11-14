@@ -7,12 +7,11 @@ import org.example.domain.card.TypeCard;
 import org.example.domain.ducks.Duck;
 import org.example.domain.ducks.FlyingDuck;
 import org.example.domain.ducks.SwimmingDuck;
+import org.example.utils.paging.Page;
+import org.example.utils.paging.Pageable;
 
 import java.sql.*;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
 public class RepoDBDuck implements RepoDB<Long, Duck> {
 
@@ -185,6 +184,65 @@ public class RepoDBDuck implements RepoDB<Long, Duck> {
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public Page<Duck> findAllOnPage(Pageable pageable){
+        try (Connection connection = DriverManager.getConnection(url, username, password)) {
+            int totalNumberOfDucks = count(connection);
+            List<Duck> moviesOnPage;
+            if (totalNumberOfDucks > 0) {
+                moviesOnPage = findAllOnPage(connection, pageable);
+            } else {
+                moviesOnPage = new ArrayList<>();
+            }
+            return new Page<>(moviesOnPage, totalNumberOfDucks);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private List<Duck> findAllOnPage(Connection connection, Pageable pageable) throws SQLException {
+        List<Duck> ducksOnPage = new ArrayList<>();
+        String sql = "select * from duck limit ? offset ?";
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setInt(1, pageable.getPageSize());
+            statement.setInt(2, pageable.getPageSize() * pageable.getPageNumber());
+            try (ResultSet resultSet = statement.executeQuery()) {
+                if (resultSet.next()) {
+                    Long id = resultSet.getLong("id");
+                    String name = resultSet.getString("name");
+                    String email = resultSet.getString("email");
+                    String password = resultSet.getString("password");
+                    String tip = resultSet.getString("tip");
+                    Double viteza = resultSet.getDouble("viteza");
+                    Double rezistenta = resultSet.getDouble("rezistenta");
+
+                    if ("SWIMMING".equalsIgnoreCase(tip)) {
+                        SwimmingCard swimmingCard = new SwimmingCard(id, "SwimmingCard", List.of(), TypeCard.SWIMMING);
+                        SwimmingDuck duck = new SwimmingDuck(id, name, email, password, TypeDuck.valueOf(tip), viteza, rezistenta, swimmingCard);
+                        ducksOnPage.add(duck);
+                    } else {
+                        FlyingCard card = new FlyingCard(id, "FlyingCard", List.of(), TypeCard.FLYING);
+                        FlyingDuck duck = new FlyingDuck(id, name, email, password, TypeDuck.valueOf(tip), viteza, rezistenta, card);
+                        ducksOnPage.add(duck);
+                    }
+                }
+            }
+        }
+        return ducksOnPage;
+    }
+
+    private int count(Connection connection) throws SQLException {
+        String sql = "select count(*) as count from duck";
+        try (PreparedStatement statement = connection.prepareStatement(sql);
+             ResultSet result = statement.executeQuery()) {
+            int totalNumberOfDucks = 0;
+            if (result.next()) {
+                totalNumberOfDucks = result.getInt("count");
+            }
+            return totalNumberOfDucks;
         }
     }
 }

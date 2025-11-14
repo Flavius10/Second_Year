@@ -1,6 +1,8 @@
 package org.example.repositories.repo_db;
 
 import org.example.domain.User;
+import org.example.utils.paging.Page;
+import org.example.utils.paging.Pageable;
 
 import java.util.Optional;
 
@@ -59,5 +61,7 @@ public interface RepoDB<ID, E extends User> {
     Optional<E> update(E entity);
 
     Optional<E> findByUsername(String username);
+
+    Page<E> findAllOnPage(Pageable pageable);
 
 }
