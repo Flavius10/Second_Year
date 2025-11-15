@@ -143,6 +143,7 @@ public class RepoDBDuck implements RepoDB<Long, Duck> {
             statement.setString(4, entity.getTip().toString());
             statement.setDouble(5, entity.getViteza());
             statement.setDouble(6, entity.getRezistenta());
+            statement.setLong(7, entity.getId());
 
             int response = statement.executeUpdate();
             return response == 0 ? Optional.of(entity) : Optional.empty();

@@ -87,7 +87,7 @@ public class UiAfterSignUp extends UiAbstract{
             }
 
 
-            int choice = getUserChoice(9);
+            int choice = getUserChoice(10);
 
             switch (choice) {
                 case 1:
@@ -130,6 +130,10 @@ public class UiAfterSignUp extends UiAbstract{
                     break;
 
                 case 9:
+                    update();
+                    break;
+
+                case 10:
                     new UiBeforeSignUp(authService, menu, persoanaService, duckService, friendshipService, networkService, cardService).execute();
                     break;
 
@@ -441,4 +445,115 @@ public class UiAfterSignUp extends UiAbstract{
 
     }
 
+    private void update(){
+
+        Scanner scanner = new Scanner(System.in);
+
+        if (loggedInUser instanceof Persoana persoana) {
+            System.out.println("=== Update Persoana ===");
+
+            System.out.print("Nume nou (" + persoana.getNume() + "): ");
+            String numeNou = scanner.nextLine();
+            if (!numeNou.isEmpty())
+                persoana.setNume(numeNou);
+
+            System.out.print("Prenume nou (" + persoana.getPrenume() + "): ");
+            String prenumeNou = scanner.nextLine();
+            if (!prenumeNou.isEmpty())
+                persoana.setPrenume(prenumeNou);
+
+            System.out.print("Ocupatie noua (" + persoana.getOcupatie() + "): ");
+            String ocupatieNoua = scanner.nextLine();
+            if (!ocupatieNoua.isEmpty())
+                persoana.setOcupatie(ocupatieNoua);
+
+            System.out.print("Email nou (" + persoana.getEmail() + "): ");
+            String emailNou = scanner.nextLine();
+            if (!emailNou.isEmpty())
+                persoana.setEmail(emailNou);
+
+            System.out.print("Parola noua (****): ");
+            String passwordNou = scanner.nextLine();
+            if (!passwordNou.isEmpty())
+                persoana.setPassword(passwordNou);
+
+            persoanaService.updatePerson(persoana);
+            loggedInUser = persoana;
+
+            System.out.println("Update realizat cu succes!");
+            return;
+        }
+
+        if (loggedInUser instanceof Duck duck) {
+            System.out.println("=== Update Duck ===");
+
+            System.out.print("Username nou (" + duck.getUsername() + "): ");
+            String userNou = scanner.nextLine();
+            if (!userNou.isEmpty())
+                duck.setUsername(userNou);
+
+            System.out.print("Email nou (" + duck.getEmail() + "): ");
+            String emailNou = scanner.nextLine();
+            if (!emailNou.isEmpty())
+                duck.setEmail(emailNou);
+
+            System.out.print("Parola noua (****): ");
+            String passNou = scanner.nextLine();
+            if (!passNou.isEmpty())
+                duck.setPassword(passNou);
+
+            System.out.print("Viteza noua (" + duck.getViteza() + "): ");
+            String vitezaNoua = scanner.nextLine();
+            if (!vitezaNoua.isEmpty())
+                duck.setViteza(Double.parseDouble(vitezaNoua));
+
+            System.out.print("Rezistenta noua (" + duck.getRezistenta() + "): ");
+            String rezNoua = scanner.nextLine();
+            if (!rezNoua.isEmpty())
+                duck.setRezistenta(Double.parseDouble(rezNoua));
+
+            System.out.print("Tip rata nou (FLYING / SWIMMING) (" + duck.getTip() + "): ");
+            String tipNou = scanner.nextLine();
+
+            Duck rataFinala = duck;
+
+            if (!tipNou.isEmpty()) {
+                TypeDuck newType = TypeDuck.valueOf(tipNou.toUpperCase());
+
+                if (newType != duck.getTip()) {
+
+                    if (newType == TypeDuck.FLYING) {
+                        rataFinala = new FlyingDuck(
+                                duck.getId(),
+                                duck.getUsername(),
+                                duck.getEmail(),
+                                duck.getPassword(),
+                                newType,
+                                duck.getViteza(),
+                                duck.getRezistenta(),
+                                duck.getCard()
+                        );
+                    } else {
+                        rataFinala = new SwimmingDuck(
+                                duck.getId(),
+                                duck.getUsername(),
+                                duck.getEmail(),
+                                duck.getPassword(),
+                                newType,
+                                duck.getViteza(),
+                                duck.getRezistenta(),
+                                duck.getCard()
+                        );
+                    }
+                } else {
+                    duck.setTip(newType);
+                }
+            }
+
+            duckService.updateDuck(rataFinala);
+            loggedInUser = rataFinala;
+
+            System.out.println("Update realizat cu succes!");
+        }
+    }
 }

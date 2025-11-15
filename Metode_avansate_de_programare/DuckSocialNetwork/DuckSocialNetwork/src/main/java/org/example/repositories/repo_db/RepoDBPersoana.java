@@ -143,6 +143,7 @@ public class RepoDBPersoana implements RepoDB<Long, Persoana>{
             statement.setString(5, entity.getPrenume());
             statement.setString(6, entity.getOcupatie());
             statement.setDate(7, Date.valueOf(entity.getDataNastere()));
+            statement.setLong(8, entity.getId());
 
             int response = statement.executeUpdate();
             return response == 0 ? Optional.of(entity) : Optional.empty();
