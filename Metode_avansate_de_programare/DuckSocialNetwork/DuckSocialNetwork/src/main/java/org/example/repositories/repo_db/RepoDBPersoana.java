@@ -207,7 +207,7 @@ public class RepoDBPersoana implements RepoDB<Long, Persoana>{
             statement.setInt(1, pageable.getPageSize());
             statement.setInt(2, pageable.getPageSize() * pageable.getPageNumber());
             try (ResultSet result = statement.executeQuery()) {
-                if (result.next()){
+                while (result.next()){
                     Long id = result.getLong("id");
                     String email = result.getString("email");
                     String password = result.getString("password");

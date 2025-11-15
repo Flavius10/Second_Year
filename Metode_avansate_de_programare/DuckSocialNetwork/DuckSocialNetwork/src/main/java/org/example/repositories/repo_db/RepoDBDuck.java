@@ -210,7 +210,7 @@ public class RepoDBDuck implements RepoDB<Long, Duck> {
             statement.setInt(1, pageable.getPageSize());
             statement.setInt(2, pageable.getPageSize() * pageable.getPageNumber());
             try (ResultSet resultSet = statement.executeQuery()) {
-                if (resultSet.next()) {
+                while (resultSet.next()) {
                     Long id = resultSet.getLong("id");
                     String name = resultSet.getString("name");
                     String email = resultSet.getString("email");

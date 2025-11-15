@@ -19,7 +19,8 @@ public class Menu {
         System.out.println("5. View number of communities");
         System.out.println("6. View the most sociable community");
         System.out.println("7. Add Card");
-        System.out.println("8. Exit");
+        System.out.println("8. Show all Ducks");
+        System.out.println("9. Exit");
     }
 
     public void showMenuAfterSignUpPersons(){
@@ -33,7 +34,8 @@ public class Menu {
         System.out.println("5. View number of communities");
         System.out.println("6. View the most sociable community");
         System.out.println("7. Add Event");
-        System.out.println("8. Exit");
+        System.out.println("8. Show all Persons");
+        System.out.println("9. Exit");
     }
 
     /**

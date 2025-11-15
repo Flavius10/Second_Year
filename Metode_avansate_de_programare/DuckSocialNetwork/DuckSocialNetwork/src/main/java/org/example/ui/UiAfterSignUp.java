@@ -15,6 +15,8 @@ import org.example.exceptions.UserNotFound;
 import org.example.network.NetworkService;
 import org.example.repositories.RepoEvent;
 import org.example.services.*;
+import org.example.utils.paging.Page;
+import org.example.utils.paging.Pageable;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -85,7 +87,7 @@ public class UiAfterSignUp extends UiAbstract{
             }
 
 
-            int choice = getUserChoice(8);
+            int choice = getUserChoice(9);
 
             switch (choice) {
                 case 1:
@@ -121,10 +123,13 @@ public class UiAfterSignUp extends UiAbstract{
                     }else{
                         addEvent();
                     }
-
                     break;
 
                 case 8:
+                    pagging();
+                    break;
+
+                case 9:
                     new UiBeforeSignUp(authService, menu, persoanaService, duckService, friendshipService, networkService, cardService).execute();
                     break;
 
@@ -385,6 +390,54 @@ public class UiAfterSignUp extends UiAbstract{
         } catch(Exception e){
             System.out.println("Exception occurred: " + e.getMessage());
         }
+
+    }
+
+    private void pagging(){
+
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Introduceti numarul de elemente din pagina: ");
+        int nrPagini = Integer.parseInt(scanner.nextLine());
+        int currentPage = 0;
+
+
+        while(true){
+            System.out.println("Page " + (currentPage + 1) + ":");
+            Pageable pageable = new Pageable(currentPage, nrPagini);
+            if (this.loggedInUser instanceof Persoana) {
+                Page<Persoana> persoanaOnPage = this.persoanaService.findAllOnPage(pageable);
+                Iterable<Persoana> persoanaIterable = persoanaOnPage.getElementsOnPage();
+                for (Persoana persoana : persoanaIterable) {
+                    System.out.println(persoana.toString());
+                }
+            }
+            else{
+                Page<Duck> ducksOnPage = this.duckService.findAllOnPage(pageable);
+                Iterable<Duck> ducksIterable = ducksOnPage.getElementsOnPage();
+                for (Duck duck : ducksIterable) {
+                    System.out.println(duck.toString());
+                }
+            }
+
+
+
+            System.out.println("N. Next page");
+            System.out.println("P. Previous page");
+            System.out.println("Q. exit");
+
+            System.out.println("Enter your choice: ");
+            String input = scanner.nextLine();
+            if(input.equals("Q")){
+                break;
+            }else if(input.equals("N")){
+                currentPage++;
+            }else if(input.equals("P")){
+                currentPage--;
+            }else{
+                System.out.println("Invalid input");
+            }
+        }
+
 
     }
 
