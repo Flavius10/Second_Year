@@ -1,22 +1,31 @@
 package org.example.services;
 
-import org.example.domain.events.Event;
-import org.example.repositories.RepoEvent;
+import org.example.domain.events.RaceEvent;
+import org.example.repositories.repo_db.RepoDBEvent;
+
+import java.util.Optional;
 
 public class EventService {
 
-    private final RepoEvent repoEvent;
+    private final RepoDBEvent repoDBEvent;
 
-    public EventService(RepoEvent repoEvent) {
-        this.repoEvent = repoEvent;
+    public EventService(RepoDBEvent repoDBEvent) {
+        this.repoDBEvent = repoDBEvent;
     }
 
-    public void add(Event event) {
-        try{
-            repoEvent.add_event(event);
-        } catch (Exception e){
-            throw new RuntimeException(e);
+    /**
+     * Adaugă un RaceEvent în baza de date.
+     * @param event evenimentul care trebuie salvat
+     */
+    public void add(RaceEvent event) {
+        try {
+            Optional<RaceEvent> saved = repoDBEvent.save(event);
+            if (saved.isPresent()) {
+                throw new RuntimeException("Evenimentul deja există!");
+            }
+            System.out.println("Evenimentul '" + event.getName() + "' a fost adăugat cu succes!");
+        } catch (Exception e) {
+            throw new RuntimeException("Eroare la salvarea evenimentului: " + e.getMessage());
         }
-
     }
 }

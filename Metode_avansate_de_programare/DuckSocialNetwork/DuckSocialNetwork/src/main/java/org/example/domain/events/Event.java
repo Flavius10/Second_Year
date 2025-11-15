@@ -1,11 +1,12 @@
 package org.example.domain.events;
 
+import org.example.domain.Entity;
 import org.example.domain.User;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class Event {
+public class Event extends Entity<Long> {
 
     private List<User> subscribers;
 

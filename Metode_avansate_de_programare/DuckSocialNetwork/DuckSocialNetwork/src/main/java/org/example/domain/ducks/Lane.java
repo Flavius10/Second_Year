@@ -1,8 +1,9 @@
 package org.example.domain.ducks;
 
-public class Lane {
+import org.example.domain.Entity;
 
-    public Long id;
+public class Lane extends Entity<Long> {
+
     public double length;
 
     public Lane(Long id, double length) {
@@ -10,16 +11,8 @@ public class Lane {
         this.length = length;
     }
 
-    public Long getId() {
-        return id;
-    }
-
     public double getLength() {
         return length;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public void setLength(double length) {

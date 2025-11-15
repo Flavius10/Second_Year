@@ -1,5 +1,6 @@
 package org.example.domain.events;
 
+import org.example.domain.Entity;
 import org.example.domain.User;
 import org.example.domain.ducks.Lane;
 import org.example.domain.ducks.SwimmingDuck;
@@ -9,7 +10,6 @@ import java.util.List;
 
 public class RaceEvent extends Event {
 
-        private Long id;
         private String name;
         private List<Lane> lanes;
         private String message;
@@ -20,16 +20,8 @@ public class RaceEvent extends Event {
             this.name = name;
         }
 
-        public Long getId() {
-            return id;
-        }
-
         public String getName() {
             return name;
-        }
-
-        public void setId(Long id) {
-            this.id = id;
         }
 
         public void setName(String name) {
@@ -48,8 +40,16 @@ public class RaceEvent extends Event {
             return this.message;
         }
 
+        public void setMessage(String message) {
+            this.message = message;
+        }
+
         public List<SwimmingDuck> getDucks_final() {
             return ducks_final;
+        }
+
+        public void setDucks_final(List<SwimmingDuck> ducks_final) {
+            this.ducks_final = ducks_final;
         }
 
         @Override

@@ -14,7 +14,9 @@ import org.example.exceptions.FriendshipNotFound;
 import org.example.exceptions.UserNotFound;
 import org.example.network.NetworkService;
 import org.example.repositories.RepoEvent;
+import org.example.repositories.repo_db.RepoDBEvent;
 import org.example.services.*;
+import org.example.utils.Constants;
 import org.example.utils.paging.Page;
 import org.example.utils.paging.Pageable;
 
@@ -378,8 +380,8 @@ public class UiAfterSignUp extends UiAbstract{
                     .toList();
 
             RaceEvent raceEvent = new RaceEvent(i, numeEvent);
-            RepoEvent repoEvent = new RepoEvent();
-            EventService eventService = new EventService(repoEvent);
+            RepoDBEvent repoDBEvent = new RepoDBEvent(Constants.PATH_DB, Constants.USERNAME, Constants.PASSWORD);
+            EventService eventService = new EventService(repoDBEvent);
             eventService.add(raceEvent);
 
             raceEvent.subscribe(loggedInUser);
