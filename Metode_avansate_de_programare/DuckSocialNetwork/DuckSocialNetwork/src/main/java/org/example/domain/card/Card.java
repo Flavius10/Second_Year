@@ -1,5 +1,6 @@
 package org.example.domain.card;
 
+import org.example.domain.Entity;
 import org.example.domain.ducks.Duck;
 
 import java.util.List;
@@ -7,9 +8,8 @@ import java.util.List;
 /**
  * The type Card.
  */
-public abstract class Card<T extends Duck>{
+public abstract class Card<T extends Duck> extends Entity<Long> {
 
-    private Long id;
     private String numeCard;
     private List<T> membri;
     private TypeCard typeCard;
@@ -44,24 +44,6 @@ public abstract class Card<T extends Duck>{
      */
     public void setNume(String nume) {
         this.numeCard = nume;
-    }
-
-    /**
-     * Set id.
-     *
-     * @param id the id
-     */
-    public void setId(Long id){
-        this.id = id;
-    }
-
-    /**
-     * Get id long.
-     *
-     * @return the long
-     */
-    public Long getId(){
-        return this.id;
     }
 
     /**
