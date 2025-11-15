@@ -23,7 +23,7 @@ public class DataProvider {
     }
 
     public Iterable<Friendship> loadAllFriendships() {
-        return this.friendshipService.findAllFriendships(Constants.FILE_PATH_FRIENDSHIP);
+        return this.friendshipService.findAllFriendships();
     }
 
     public Iterable<User> loadAllUsers(){

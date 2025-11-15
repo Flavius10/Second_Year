@@ -18,10 +18,7 @@ import org.example.services.*;
 import org.example.utils.paging.Page;
 import org.example.utils.paging.Pageable;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 import java.util.stream.StreamSupport;
 
 /**
@@ -161,46 +158,44 @@ public class UiAfterSignUp extends UiAbstract{
     /**
      * Add friend.
      */
-    public void addFriend(){
+    public void addFriend() {
         Scanner scanner = new Scanner(System.in);
 
-        String username_loggedInUser = this.loggedInUser.getUsername();
+        String usernameLoggedInUser = this.loggedInUser.getUsername();
         System.out.println("Introduceti numele userului cu care vreti sa fiti prieten: ");
-        String username_friend = scanner.nextLine();
+        String usernameFriend = scanner.nextLine();
 
-        User user_duck = this.duckService.findByUsernameDuck(username_friend);
-        if (user_duck != null) {
-            String user_duck_username = user_duck.getUsername();
+        User userDuck = this.duckService.findByUsernameDuck(usernameFriend);
+        User userPerson = this.persoanaService.findByUsernamePerson(usernameFriend);
 
-            if (user_duck_username != null && !user_duck_username.equals(username_loggedInUser))
-            {
-                Long id = System.currentTimeMillis();
-                Friendship friendship = new Friendship(id, username_loggedInUser, username_friend);
-                try{
-                    this.friendshipService.saveFriendship(friendship, "friendships.txt");
-                } catch(Exception e){
-                    System.out.println("Exception occurred: " + e.getMessage());
-                }
-            }
+        if (userDuck == null && userPerson == null) {
+            System.out.println("Userul cautat nu exista!");
+            return;
         }
 
+        if (usernameFriend.equals(usernameLoggedInUser)) {
+            System.out.println("Nu te poti adauga pe tine ca prieten!");
+            return;
+        }
 
-        User user_person = this.persoanaService.findByUsernamePerson(username_friend);
-        if (user_person != null) {
-            String user_person_username = user_person.getUsername();
+        Optional<Friendship> existingFriendship = this.friendshipService
+                .findByNamesOptional(usernameLoggedInUser, usernameFriend);
 
-            if (user_person_username != null && !user_person_username.equals(username_loggedInUser))
-            {
-                Long id = System.currentTimeMillis();
-                Friendship friendship = new Friendship(id, username_loggedInUser, username_friend);
-                try{
-                    this.friendshipService.saveFriendship(friendship, "friendships.txt");
-                } catch(Exception e){
-                    System.out.println("Exception occurred: " + e.getMessage());
-                }
-            }
+        if (existingFriendship.isPresent()) {
+            System.out.println("Prietenia exista deja!");
+            return;
+        }
+
+        Long id = System.currentTimeMillis();
+        Friendship friendship = new Friendship(id, usernameLoggedInUser, usernameFriend);
+        try {
+            this.friendshipService.saveFriendship(friendship);
+            System.out.println("Prietenia a fost adaugata cu succes!");
+        } catch (Exception e) {
+            System.out.println("Eroare la salvarea prieteniei: " + e.getMessage());
         }
     }
+
 
     /**
      * Remove friend.
@@ -213,8 +208,8 @@ public class UiAfterSignUp extends UiAbstract{
         String username_friend = scanner.nextLine();
 
         try{
-            Friendship friendship = this.friendshipService.findByNames(this.loggedInUser.getUsername(), username_friend, "friendships.txt");
-            this.friendshipService.deleteFriendship(friendship, "friendships.txt");
+            Friendship friendship = this.friendshipService.findByNames(this.loggedInUser.getUsername(), username_friend);
+            this.friendshipService.deleteFriendship(friendship);
         }catch(FriendshipNotFound e){
             System.out.println("Exception occurred: " + e.getMessage());
         }

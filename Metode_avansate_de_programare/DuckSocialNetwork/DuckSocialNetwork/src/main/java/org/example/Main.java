@@ -2,6 +2,7 @@ package org.example;
 
 import org.example.network.*;
 import org.example.repositories.repo_db.RepoDBDuck;
+import org.example.repositories.repo_db.RepoDBFriendship;
 import org.example.repositories.repo_db.RepoDBPersoana;
 import org.example.repositories.repo_file.RepoFileCard;
 import org.example.repositories.repo_file.RepoFileDuck;
@@ -32,12 +33,14 @@ public class Main {
         RepoFileFriendship friendshipRepo = new RepoFileFriendship();
         RepoFileCard repoFileCard = new RepoFileCard(duckRepo);
 
+        //partea de baze de date
         RepoDBDuck repoDBDuck = new RepoDBDuck(Constants.PATH_DB, Constants.USERNAME, Constants.PASSWORD);
         RepoDBPersoana persoanaRepoDB = new RepoDBPersoana(Constants.PATH_DB, Constants.USERNAME, Constants.PASSWORD);
+        RepoDBFriendship friendshipRepoDB = new RepoDBFriendship(Constants.PATH_DB, Constants.USERNAME, Constants.PASSWORD);
 
         PersoanaService persoanaService = new PersoanaService(persoanaRepoDB);
         DuckService duckService = new DuckService(repoDBDuck);
-        FriendshipService friendshipService = new FriendshipService(friendshipRepo);
+        FriendshipService friendshipService = new FriendshipService(friendshipRepoDB);
         CardService cardService = new CardService(repoFileCard);
 
         GraphAnalyzer graphAnalyzer = new GraphAnalyzer();
