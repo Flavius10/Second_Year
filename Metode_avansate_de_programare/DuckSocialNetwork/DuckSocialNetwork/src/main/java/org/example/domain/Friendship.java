@@ -6,9 +6,8 @@ import java.util.Map;
 /**
  * The type Friendship.
  */
-public class Friendship {
+public class Friendship extends Entity<Long>{
 
-    private Long id;
     private String first_friend_username;
     private String second_friend_username;
 
@@ -23,24 +22,6 @@ public class Friendship {
         this.id = id;
         this.first_friend_username = first_friend_username;
         this.second_friend_username = second_friend_username;
-    }
-
-    /**
-     * Set id.
-     *
-     * @param id the id
-     */
-    public void setId(Long id){
-        this.id = id;
-    }
-
-    /**
-     * Gets id.
-     *
-     * @return the id
-     */
-    public Long getId() {
-        return id;
     }
 
     /**
