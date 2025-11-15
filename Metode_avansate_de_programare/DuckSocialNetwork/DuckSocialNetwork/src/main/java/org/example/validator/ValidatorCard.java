@@ -6,7 +6,13 @@ public class ValidatorCard implements Validation<String, String>{
 
     @Override
     public boolean validate(String name, String type){
-        return name != null && (type.equals(TypeCard.SWIMMING) || type.equals(TypeCard.FLYING));
+        if (name == null) return false;
+        try {
+            TypeCard cardType = TypeCard.valueOf(type.toUpperCase());
+            return cardType == TypeCard.SWIMMING || cardType == TypeCard.FLYING;
+        } catch (IllegalArgumentException e) {
+            return false;
+        }
     }
 
 }

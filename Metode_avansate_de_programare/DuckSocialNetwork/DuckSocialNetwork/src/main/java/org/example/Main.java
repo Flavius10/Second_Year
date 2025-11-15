@@ -1,6 +1,8 @@
 package org.example;
 
+import org.example.domain.ducks.Duck;
 import org.example.network.*;
+import org.example.repositories.repo_db.RepoDBCard;
 import org.example.repositories.repo_db.RepoDBDuck;
 import org.example.repositories.repo_db.RepoDBFriendship;
 import org.example.repositories.repo_db.RepoDBPersoana;
@@ -37,11 +39,12 @@ public class Main {
         RepoDBDuck repoDBDuck = new RepoDBDuck(Constants.PATH_DB, Constants.USERNAME, Constants.PASSWORD);
         RepoDBPersoana persoanaRepoDB = new RepoDBPersoana(Constants.PATH_DB, Constants.USERNAME, Constants.PASSWORD);
         RepoDBFriendship friendshipRepoDB = new RepoDBFriendship(Constants.PATH_DB, Constants.USERNAME, Constants.PASSWORD);
+        RepoDBCard<Duck> repoDBCard = new RepoDBCard<>(Constants.PATH_DB, Constants.USERNAME, Constants.PASSWORD);
 
         PersoanaService persoanaService = new PersoanaService(persoanaRepoDB);
         DuckService duckService = new DuckService(repoDBDuck);
         FriendshipService friendshipService = new FriendshipService(friendshipRepoDB);
-        CardService cardService = new CardService(repoFileCard);
+        CardService cardService = new CardService(repoDBCard);
 
         GraphAnalyzer graphAnalyzer = new GraphAnalyzer();
         GraphBuilder graphBuilder = new GraphBuilder();

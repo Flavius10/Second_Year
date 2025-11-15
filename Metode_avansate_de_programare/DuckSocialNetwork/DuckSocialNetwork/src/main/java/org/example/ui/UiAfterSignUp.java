@@ -316,7 +316,7 @@ public class UiAfterSignUp extends UiAbstract{
         }
 
         try{
-            this.cardService.saveCard(newCard, "cards.txt");
+            this.cardService.saveCard(newCard);
 
             System.out.println("Cardul '" + newCard.getNumeCard() + "' a fost creat cu " + membri.size() + " membri.");
             System.out.println("Performanta medie a cardului: " + newCard.getMediePerformanta());
