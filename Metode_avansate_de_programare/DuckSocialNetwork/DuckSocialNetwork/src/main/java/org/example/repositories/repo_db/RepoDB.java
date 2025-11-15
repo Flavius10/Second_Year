@@ -1,12 +1,13 @@
 package org.example.repositories.repo_db;
 
+import org.example.domain.Entity;
 import org.example.domain.User;
 import org.example.utils.paging.Page;
 import org.example.utils.paging.Pageable;
 
 import java.util.Optional;
 
-public interface RepoDB<ID, E extends User> {
+public interface RepoDB<ID, E extends Entity<ID>> {
     /**
      *
      * @param id
