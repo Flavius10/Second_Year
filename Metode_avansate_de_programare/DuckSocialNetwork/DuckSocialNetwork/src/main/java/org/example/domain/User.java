@@ -6,9 +6,8 @@ import java.util.Random;
 /**
  * The type User.
  */
-public abstract class User implements Observer {
+public abstract class User extends Entity<Long> implements Observer {
 
-    private Long id;
     private String username;
     private String email;
     private String password;
@@ -26,13 +25,6 @@ public abstract class User implements Observer {
         this.username = username;
         this.email = email;
         this.password = password;
-    }
-
-    /**
-     * Getters @return  the long
-     */
-    public Long getId(){
-        return this.id;
     }
 
     /**
@@ -60,13 +52,6 @@ public abstract class User implements Observer {
      */
     public String getPassword(){
         return this.password;
-    }
-
-    /**
-     * Setters @param id the id
-     */
-    public void setId(Long id){
-        this.id = id;
     }
 
     /**
