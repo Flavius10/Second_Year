@@ -320,6 +320,11 @@ public class UiAfterSignUp extends UiAbstract{
 
             System.out.println("Cardul '" + newCard.getNumeCard() + "' a fost creat cu " + membri.size() + " membri.");
             System.out.println("Performanta medie a cardului: " + newCard.getMediePerformanta());
+
+            System.out.println("\nRatele din card:");
+            for (Duck duck : newCard.getMembri()) {
+                System.out.println(" - " + duck.getUsername() + " (tip: " + duck.getTip() + ")");
+            }
         } catch (Exception e){
             System.out.println("Exception occurred: " + e.getMessage());
         }

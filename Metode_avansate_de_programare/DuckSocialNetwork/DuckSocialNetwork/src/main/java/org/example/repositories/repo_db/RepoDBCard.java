@@ -1,10 +1,13 @@
 package org.example.repositories.repo_db;
 
+import org.example.domain.TypeDuck;
 import org.example.domain.card.Card;
 import org.example.domain.card.SwimmingCard;
 import org.example.domain.card.FlyingCard;
 import org.example.domain.card.TypeCard;
 import org.example.domain.ducks.Duck;
+import org.example.domain.ducks.FlyingDuck;
+import org.example.domain.ducks.SwimmingDuck;
 import org.example.utils.paging.Page;
 import org.example.utils.paging.Pageable;
 
@@ -91,15 +94,15 @@ public class RepoDBCard<E extends Duck> implements RepoDB<Long, Card<E>> {
             statement.setString(2, entity.getTypeCard().name());
             int affectedRows = statement.executeUpdate();
 
-            if (affectedRows == 0) {
-                return Optional.of(entity);
-            }
+            if (affectedRows == 0) return Optional.of(entity);
 
             try (ResultSet generatedKeys = statement.getGeneratedKeys()) {
                 if (generatedKeys.next()) {
                     entity.setId(generatedKeys.getLong(1));
                 }
             }
+
+            saveMembers(entity);
 
             return Optional.empty();
 
@@ -145,6 +148,60 @@ public class RepoDBCard<E extends Duck> implements RepoDB<Long, Card<E>> {
             throw new RuntimeException(e);
         }
     }
+
+    public void saveMembers(Card<E> card) {
+        if (card.getMembri() == null || card.getMembri().isEmpty()) return;
+
+        String insertSQL = "INSERT INTO card_duck (card_id, duck_id) VALUES (?, ?)";
+        try (Connection connection = DriverManager.getConnection(url, username, password);
+             PreparedStatement statement = connection.prepareStatement(insertSQL)) {
+
+            for (E duck : card.getMembri()) {
+                statement.setLong(1, card.getId());
+                statement.setLong(2, duck.getId());
+                statement.addBatch();
+            }
+            statement.executeBatch();
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private List<E> getMembers(Long cardId) {
+        String query = "SELECT d.* FROM duck d JOIN card_duck cd ON d.id = cd.duck_id WHERE cd.card_id = ?";
+        List<E> members = new ArrayList<>();
+        try (Connection connection = DriverManager.getConnection(url, username, password);
+             PreparedStatement statement = connection.prepareStatement(query)) {
+
+            statement.setLong(1, cardId);
+            ResultSet rs = statement.executeQuery();
+
+            while (rs.next()) {
+                Long id = rs.getLong("id");
+                String name = rs.getString("name");
+                String email = rs.getString("email");
+                String password = rs.getString("password");
+                String tip = rs.getString("tip");
+                Double viteza = rs.getDouble("viteza");
+                Double rezistenta = rs.getDouble("rezistenta");
+
+                E duck;
+                if ("SWIMMING".equalsIgnoreCase(tip)) {
+                    duck = (E) new SwimmingDuck(id, name, email, password, TypeDuck.SWIMMING, viteza, rezistenta, null);
+                } else {
+                    duck = (E) new FlyingDuck(id, name, email, password, TypeDuck.FLYING, viteza, rezistenta, null);
+                }
+                members.add(duck);
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return members;
+    }
+
+
 
     @Override
     public Optional<Card<E>> findByUsername(String username) {
