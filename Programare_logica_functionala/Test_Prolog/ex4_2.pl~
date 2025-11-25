@@ -1,0 +1,19 @@
+interclasare([], L, L).
+
+interclasare(L, [], L).
+
+interclasare([H | T], [H1 | T1], [H | Rez]):-
+    H < H1,
+    !,
+    interclasare(T, [H1 | T1], Rez).
+
+interclasare([H | T], [H1 | T1], [H1 | Rez]):-
+    H > H1,
+    !,
+    interclasare([H | T], T1, Rez).
+
+interclasare([H | T], [H1 | T1], [H | Rez]):-
+    H =:= H1,
+    !,
+    interclasare(T, T1, Rez).
+

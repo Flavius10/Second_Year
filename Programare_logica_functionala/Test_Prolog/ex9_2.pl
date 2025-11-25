@@ -1,0 +1,63 @@
+sterg([], []):- !.
+
+sterg([X], [X]):- !.
+
+sterg([A, B | T], Rez):-
+    B =:= A + 1,
+    !,
+    sari_peste(B, T, Rez).
+
+sterg([A , B | T], [A | Rez]):-
+    sterg([B | T], Rez).
+
+
+
+sari_peste(Last, [H | T], Rez):-
+    H =:= Last + 1,
+    !,
+    sari_peste(H, T, Rez).
+
+sari_peste(_, [H | T], Rez):-
+    sterg([H | T], Rez).
+
+
+e_prim(2):- !.
+
+e_prim(N):-
+    N > 2,
+    Start is N - 1,
+    validare(N, Start).
+
+validare(_ , 1):- !.
+
+validare(N, Iterator):-
+    0 =\= N mod Iterator,
+    Iterator1 is Iterator - 1,
+    validare(N, Iterator1).
+
+maxim([X], X):- !.
+
+maxim([H | T], Maxim):-
+    maxim(T, MaximCurent),
+    H >= MaximCurent,
+    Maxim = H.
+
+maxim([_ | T], Rez):-
+    maxim(T, Rez).
+
+cmmdc(A, 0, A):- !.
+
+cmmdc(A, B, Rez):-
+    B > 0,
+    Rest is A mod B,
+    cmmdc(B, Rest, Rez).
+
+
+cmmmc(A, _, 0):- A = 0, !.
+cmmmc(_, B, 0):- B = 0, !.
+
+cmmmc(A, B, Rez):-
+    cmmdc(A, B, CMMDC),
+    Rez is (A * B) // CMMDC.
+
+

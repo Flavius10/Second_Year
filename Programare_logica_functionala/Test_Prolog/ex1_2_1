@@ -1,0 +1,6 @@
+suma_lista_principal(Lista, ):-
+    suma_lista(Lista, ).
+
+suma_lista([], _, _, []).
+
+suma_lista()

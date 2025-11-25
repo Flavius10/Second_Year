@@ -1,0 +1,15 @@
+adaugare_principal(Lista, Elem, Rez):-
+    adaugare(Lista, 1, 1, Elem, Rez).
+
+adaugare([], _, _, _, []).
+
+adaugare([H | T], Poz, PozA, Elem, [H, Elem | Rez]):-
+    Poz =:= PozA,
+    !,
+    PozA1 is 2 * PozA + 1,
+    Poz1 is Poz + 1,
+    adaugare(T, Poz1, PozA1, Elem, Rez).
+
+adaugare([H | T], Poz, PozA, Elem, [H | Rez]):-
+    Poz1 is Poz + 1,
+    adaugare(T, Poz1, PozA, Elem, Rez).

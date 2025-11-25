@@ -1,0 +1,27 @@
+% PREDICATUL PRINCIPAL
+predecesor_final(Lista, Rezultat):-
+    predecesor_helper(Lista, Rezultat, FinalBorrow),
+    FinalBorrow =:= 0.
+
+predecesor_helper([], [], 1):- !.
+
+predecesor_helper([H | T], [Digit | Rez], BorrowOut):-
+    predecesor_helper(T, Rez, BorrowFromRight),
+    Valoare is H - BorrowFromRight,
+    determina_rezultat(Valoare, Digit, BorrowOut).
+
+determina_rezultat(Valoare, Valoare, 0) :-
+    Valoare >= 0,
+    !.
+
+determina_rezultat(Valoare, Digit, 1) :-
+    Valoare < 0,
+    Digit is Valoare + 10.
+
+
+determina_borrow(Valoare, Valoare, 0):-
+    Valoare >= 0,
+    !.
+determina_borrow(Valoare, Digit, 1):-
+    Valoare < 0,
+    Digit is Valoare + 10.

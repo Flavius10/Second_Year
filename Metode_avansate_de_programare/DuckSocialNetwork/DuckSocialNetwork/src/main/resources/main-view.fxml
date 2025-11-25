@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.ComboBox?>
+
+<VBox xmlns:fx="http://javafx.com/fxml"
+      fx:controller="org.example.MainController"
+      fx:id="mainLayout"
+      spacing="20" alignment="BOTTOM_CENTER">
+
+    <Label fx:id="welcomeLabel"/>
+
+    <TableView fx:id="duckTableView" prefHeight="200" prefWidth="200"
+               style="-fx-background-color: transparent; -fx-base: transparent; -fx-control-inner-background: transparent;">
+        <columns>
+            <TableColumn fx:id="idColumn" text="ID" prefWidth="100" />
+            <TableColumn fx:id="usernameColumn" text="Username" prefWidth="250" />
+            <TableColumn fx:id="emailColumn" text="Email" prefWidth="250" />
+            <TableColumn fx:id="typeColumn" text="Type" prefWidth="250" />
+            <TableColumn fx:id="rezistentaColumn" text="Stamina" prefWidth="100" />
+            <TableColumn fx:id="vitezaColumn" text="Speed" prefWidth="100" />
+        </columns>
+    </TableView>
+    <ComboBox fx:id="typeComboBox" prefWidth="300"/>
+</VBox>

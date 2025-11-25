@@ -1,0 +1,13 @@
+e_prim(2).
+
+e_prim(N):-
+    N > 2,
+    Start is N - 1,
+    verifica(N, Start).
+
+verifica(_, 1) :- !.
+
+verifica(N, Iterator):-
+    N mod Iterator =\= 0,
+    Iterator1 is Iterator - 1,
+    verifica(N, Iterator1).

@@ -1,0 +1,68 @@
+% --- WRAPPER PRINCIPAL ---
+scadere_liste(Lista1, Lista2, RezultatFinal):-
+    length(Lista1, L1),
+    length(Lista2, L2),
+
+    % 1. Egalizam lungimile (punem zerouri in fata listei mai scurte)
+    egalizeaza_scadere(Lista1, L1, Lista2, L2, L1_Gata, L2_Gata),
+
+    % 2. Facem scaderea recursiva
+    scadere_recursiva(L1_Gata, L2_Gata, _, RezultatBrut),
+
+    % 3. Eliminam zerourile nesemnificative din fata (ex: [0,0,1] -> [1])
+    elimina_zerouri(RezultatBrut, RezultatFinal).
+
+
+% --- EGALIZARE (La fel ca la suma) ---
+egalizeaza_scadere(L1, Len1, L2, Len2, L1, L2_Nou) :-
+    Len1 > Len2, !,
+    Dif is Len1 - Len2,
+    adauga_zerouri(L2, Dif, L2_Nou).
+
+egalizeaza_scadere(L1, Len1, L2, Len2, L1_Nou, L2) :-
+    Len2 > Len1, !,
+    Dif is Len2 - Len1,
+    adauga_zerouri(L1, Dif, L1_Nou).
+
+egalizeaza_scadere(L1, _, L2, _, L1, L2). % Egale
+
+
+% --- WORKER SCADERE (Mecanismul de Imprumut) ---
+% scadere_recursiva(L1, L2, BorrowOut, Rezultat)
+
+% Cazul de baza: Liste goale -> Imprumut 0
+scadere_recursiva([], [], 0, []).
+
+scadere_recursiva([H1|T1], [H2|T2], BorrowOut, [Digit|Rez]) :-
+    % 1. Coboram in adancime (spre unitati)
+    scadere_recursiva(T1, T2, BorrowFromRight, Rez),
+
+    % 2. Calculam diferenta, scazand si imprumutul venit din dreapta
+    Valoare is H1 - H2 - BorrowFromRight,
+
+    % 3. Decidem daca ne imprumutam sau nu
+    determina_imprumut(Valoare, Digit, BorrowOut).
+
+
+% --- LOGICA DE IMPRUMUT ---
+% Cazul 1: Nu e nevoie de imprumut (Valoare >= 0)
+determina_imprumut(Val, Val, 0) :-
+    Val >= 0, !.
+
+% Cazul 2: E nevoie de imprumut (Valoare < 0) -> Adunam 10, setam Borrow=1
+determina_imprumut(Val, Digit, 1) :-
+    Val < 0,
+    Digit is Val + 10.
+
+
+% --- HELPERS (Zerouri) ---
+
+% Adaugare zerouri (padding)
+adauga_zerouri(L, 0, L) :- !.
+adauga_zerouri(L, N, [0|Res]) :-
+    N > 0, N1 is N - 1, adauga_zerouri(L, N1, Res).
+
+% Eliminare zerouri din fata rezultatului
+elimina_zerouri([0], [0]) :- !.       % Daca rezultatul e doar [0], il lasam asa.
+elimina_zerouri([0|T], R) :- !, elimina_zerouri(T, R). % Stergem 0 din fata
+elimina_zerouri(L, L).                % Daca incepe cu cifra != 0, e gata.

@@ -1,0 +1,37 @@
+suma(Lista, Rez):-
+    suma_helper(Lista, 1, Rez).
+
+suma_helper([], _, 0).
+
+suma_helper([H | T], Poz, Rez1):-
+    0 is Poz mod 2,
+    !,
+    Poz1 is Poz + 1,
+    suma_helper(T, Poz1, Rez),
+    Rez1 is Rez - H.
+
+suma_helper([H | T], Poz, Rez1):-
+    1 is Poz mod 2,
+    Poz1 is Poz + 1,
+    suma_helper(T, Poz1, Rez),
+    Rez1 is Rez + H.
+
+vale([A, B | T]):-
+    A > B,
+    coborare([B | T]).
+
+coborare([A, B | T]):-
+    A > B,
+    !,
+    coborare([B | T]).
+
+coborare([A , B | T]):-
+    A < B,
+    !,
+    urcare([B | T]).
+
+urcare([A, B | T]):-
+    A < B,
+    urcare([B | T]).
+
+urcare([_]).

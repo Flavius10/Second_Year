@@ -1,0 +1,30 @@
+contine(E, [E | _]).
+
+contine(E, [_ | T]):-
+    contine(E, T).
+
+
+
+reuniune_multimi([], ListaSecund, ListaSecund).
+
+reuniune_multimi([H | T], ListaSecund, [H | Rez]):-
+    \+ contine(H, ListaSecund),
+    !,
+    reuniune_multimi(T, ListaSecund, Rez).
+
+reuniune_multimi([_ | T], ListaSecund, Rez):-
+    reuniune_multimi(T, ListaSecund, Rez).
+
+
+perechi([], []):- !.
+
+perechi([H | T], RezultatFinal):-
+    distribuie(H, T, PerechiCap),
+    perechi(T, PerechiRest),
+    append(PerechiCap, PerechiRest, RezultatFinal).
+
+
+distribuie(_, [], []):- !.
+
+distribuie(Elem, [H | T], [[Elem, H] | Rez]):-
+    distribuie(Elem, T, Rez).

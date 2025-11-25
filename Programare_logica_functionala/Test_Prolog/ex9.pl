@@ -1,0 +1,25 @@
+contine(E, [E | _]).
+
+contine(E, [_ | T]):-
+    contine(E, T).
+
+
+intersectia([], _, []).
+
+intersectia([H | T], ListaDoi, [H | Rez]):-
+    contine(H, ListaDoi),
+    !,
+    intersectia(T, ListaDoi, Rez).
+
+intersectia([_ | T], ListaDoi, Rez):-
+    intersectia(T, ListaDoi, Rez).
+
+
+interval(M, N, []):-
+    M > N,
+    !.
+
+interval(M, N, [M | Rez]):-
+    M1 is M + 1,
+    interval(M1, N, Rez).
+

@@ -1,5 +1,6 @@
 package org.example.services;
 
+import org.example.domain.TypeDuck;
 import org.example.domain.ducks.Duck;
 import org.example.domain.User;
 import org.example.exceptions.UserAlreadyExists;
@@ -94,6 +95,10 @@ public class DuckService {
     public Page<Duck> findAllOnPage(Pageable pageable) {
 
         return repoDBDuck.findAllOnPage(pageable);
+    }
+
+    public Iterable<Duck> findByType(TypeDuck type){
+        return repoDBDuck.findByType(type);
     }
 
 }

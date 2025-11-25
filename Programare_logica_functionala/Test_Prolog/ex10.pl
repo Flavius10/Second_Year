@@ -1,0 +1,25 @@
+interclasare(Lista, N, Elem, Rez):-
+    interclasare_helper(Lista, 1, N, Elem, Rez).
+
+interclasare_helper([], _, _, _, []).
+
+interclasare_helper([H | T], N, N, Elem, [H, Elem | T]):-
+    !.
+
+interclasare_helper([H | T], Poz, N, Elem, [H | Rez]):-
+    Poz1 is Poz + 1,
+    interclasare_helper(T, Poz1, N, Elem, Rez).
+
+cmmdc(A, 0, A):- !.
+
+cmmdc(A, B, Rez):-
+    B > 0,
+    Rest is A mod B,
+    cmmdc(B, Rest, Rez).
+
+cmmdc_lista([X], X):- !.
+
+cmmdc_lista([H | T], ElemCmmdc):-
+    cmmdc_lista(T, NouCmmdc),
+    cmmdc(H, NouCmmdc, ElemCmmdc).
+

@@ -1,0 +1,30 @@
+numar_par([]).
+
+numar_par([_, _ | T]):-
+    numar_par(T).
+
+minim([], 100000).
+
+minim([H | T], Rez):-
+    minim(T, MinH),
+    H =< MinH,
+    !,
+    Rez = H.
+
+minim([ _ | T], Rez):-
+    minim(T, Rez).
+
+elimina_minim_principal(Lista, Rez):-
+    minim(Lista, MinimGlobal),
+    elimina_minim(Lista, MinimGlobal, 1, Rez).
+
+
+elimina_minim([],_, _, []).
+
+elimina_minim([H | T], MinimGlobal, 1, Rez):-
+    H =:= MinimGlobal,
+    !,
+    elimina_minim(T, MinimGlobal, 0, Rez).
+
+elimina_minim([H | T], Min, Flag, [H | Rez]):-
+    elimina_minim(T, Min, Flag, Rez).

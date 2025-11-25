@@ -1,0 +1,45 @@
+%a.)
+
+
+contine(E, [E | _]):- !.
+
+contine(E, [_ | T]):-
+    contine(E, T).
+
+sterge_element([], _ ,[]).
+
+sterge_element([Elem | T], Elem, Rez):-
+    !,
+    sterge_element(T, Elem, Rez).
+
+sterge_element([H | T], Elem, [H | Rez]):-
+    sterge_element(T, Elem, Rez).
+
+sterge_repetare([], []).
+
+sterge_repetare([H | T], Rez):-
+    contine(H, T),
+    !,
+    sterge_element(T, H, T_reparat),
+    sterge_repetare(T_reparat, Rez).
+
+sterge_repetare([H | T], [H | Rez]):-
+    sterge_repetare(T, Rez).
+
+%b.)
+
+
+maxim_lista([], 0):- !.
+
+maxim_lista([H | T], Rez):-
+    maxim_lista(T, MaxCoada),
+    H >= MaxCoada,
+    !,
+    Rez = H.
+
+maxim_lista([ _ | T], Rez):-
+    maxim_lista(T, Rez).
+
+sterge_maxim(Lista, Rez):-
+    maxim_lista(Lista, Maximul),
+    sterge_element(Lista, Maximul, Rez).

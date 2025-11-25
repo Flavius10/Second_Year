@@ -27,12 +27,12 @@ public class RepoDBDuck implements RepoDB<Long, Duck> {
 
     @Override
     public Optional<Duck> findOne(Long id) {
-        try(Connection connection = DriverManager.getConnection(this.url, this.username, this.password);
-            PreparedStatement statement = connection.prepareStatement("SELECT * FROM duck WHERE id = ?")) {
+        try (Connection connection = DriverManager.getConnection(this.url, this.username, this.password);
+             PreparedStatement statement = connection.prepareStatement("SELECT * FROM duck WHERE id = ?")) {
             statement.setLong(1, id);
             ResultSet result = statement.executeQuery();
 
-            if (result.next()){
+            if (result.next()) {
                 String name = result.getString("name");
                 String email = result.getString("email");
                 String password = result.getString("password");
@@ -40,31 +40,31 @@ public class RepoDBDuck implements RepoDB<Long, Duck> {
                 Double viteza = result.getDouble("viteza");
                 Double rezistenta = result.getDouble("rezistenta");
 
-                if (tip.equals("SWIMMING")){
+                if (tip.equals("SWIMMING")) {
                     SwimmingCard swimmingCard = new SwimmingCard(id, "SwimmingCard", List.of(), TypeCard.SWIMMING);
-                    SwimmingDuck rata = new SwimmingDuck(id, name, email, password, TypeDuck.valueOf(tip), viteza, rezistenta,swimmingCard);
+                    SwimmingDuck rata = new SwimmingDuck(id, name, email, password, TypeDuck.valueOf(tip), viteza, rezistenta, swimmingCard);
                     return Optional.of(rata);
                 } else {
                     FlyingCard card = new FlyingCard(id, "FlyingCard", List.of(), TypeCard.FLYING);
-                    FlyingDuck rata = new FlyingDuck(id, name, email, password, TypeDuck.valueOf(tip), viteza, rezistenta,card);
+                    FlyingDuck rata = new FlyingDuck(id, name, email, password, TypeDuck.valueOf(tip), viteza, rezistenta, card);
                     return Optional.of(rata);
                 }
             }
 
             return Optional.empty();
-        } catch(SQLException e) {
+        } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
 
     @Override
     public Iterable<Duck> findAll() {
-        try(Connection connection = DriverManager.getConnection(this.url, this.username, this.password);
-            PreparedStatement statement = connection.prepareStatement("SELECT * FROM duck")) {
+        try (Connection connection = DriverManager.getConnection(this.url, this.username, this.password);
+             PreparedStatement statement = connection.prepareStatement("SELECT * FROM duck")) {
             ResultSet result = statement.executeQuery();
-            Set<Duck> ducks = new HashSet<>();
+            List<Duck> ducks = new ArrayList<>();
 
-            while (result.next()){
+            while (result.next()) {
                 Long id = result.getLong("id");
                 String name = result.getString("name");
                 String email = result.getString("email");
@@ -73,19 +73,55 @@ public class RepoDBDuck implements RepoDB<Long, Duck> {
                 Double viteza = result.getDouble("viteza");
                 Double rezistenta = result.getDouble("rezistenta");
 
-                if (tip.equals("SWIMMING")){
+                if (tip.equals("SWIMMING")) {
                     SwimmingCard swimmingCard = new SwimmingCard(id, "SwimmingCard", List.of(), TypeCard.SWIMMING);
-                    SwimmingDuck rata = new SwimmingDuck(id, name, email, password, TypeDuck.valueOf(tip), viteza, rezistenta,swimmingCard);
+                    SwimmingDuck rata = new SwimmingDuck(id, name, email, password, TypeDuck.valueOf(tip), viteza, rezistenta, swimmingCard);
                     ducks.add(rata);
                 } else {
                     FlyingCard card = new FlyingCard(id, "FlyingCard", List.of(), TypeCard.FLYING);
-                    FlyingDuck rata = new FlyingDuck(id, name, email, password, TypeDuck.valueOf(tip), viteza, rezistenta,card);
+                    FlyingDuck rata = new FlyingDuck(id, name, email, password, TypeDuck.valueOf(tip), viteza, rezistenta, card);
                     ducks.add(rata);
                 }
             }
 
             return ducks;
-        } catch(SQLException e) {
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+
+    public Iterable<Duck> findByType(TypeDuck type) {
+        try (Connection connection = DriverManager.getConnection(this.url, this.username, this.password);
+             PreparedStatement statement = connection.prepareStatement("SELECT * FROM duck WHERE tip = ?")) {
+            statement.setString(1, type.toString());
+
+            ResultSet result = statement.executeQuery();
+            List<Duck> ducks = new ArrayList<>();
+
+
+            while (result.next()) {
+                Long id = result.getLong("id");
+                String name = result.getString("name");
+                String email = result.getString("email");
+                String password = result.getString("password");
+                String tip = result.getString("tip");
+                Double viteza = result.getDouble("viteza");
+                Double rezistenta = result.getDouble("rezistenta");
+
+                if (tip.equals("SWIMMING")) {
+                    SwimmingCard swimmingCard = new SwimmingCard(id, "SwimmingCard", List.of(), TypeCard.SWIMMING);
+                    SwimmingDuck rata = new SwimmingDuck(id, name, email, password, TypeDuck.valueOf(tip), viteza, rezistenta, swimmingCard);
+                    ducks.add(rata);
+                } else {
+                    FlyingCard card = new FlyingCard(id, "FlyingCard", List.of(), TypeCard.FLYING);
+                    FlyingDuck rata = new FlyingDuck(id, name, email, password, TypeDuck.valueOf(tip), viteza, rezistenta, card);
+                    ducks.add(rata);
+                }
+            }
+
+            return ducks;
+        } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
@@ -93,8 +129,8 @@ public class RepoDBDuck implements RepoDB<Long, Duck> {
     @Override
     public Optional<Duck> save(Duck entity) {
         String insertQuery = "INSERT INTO duck (name, email, password, tip, viteza, rezistenta) VALUES (?, ?, ?, ?, ?, ?)";
-        try(Connection connection = DriverManager.getConnection(this.url, this.username, this.password);
-        PreparedStatement statement = connection.prepareStatement(insertQuery)){
+        try (Connection connection = DriverManager.getConnection(this.url, this.username, this.password);
+             PreparedStatement statement = connection.prepareStatement(insertQuery)) {
             statement.setString(1, entity.getUsername());
             statement.setString(2, entity.getEmail());
             statement.setString(3, entity.getPassword());
@@ -103,7 +139,7 @@ public class RepoDBDuck implements RepoDB<Long, Duck> {
             statement.setDouble(6, entity.getRezistenta());
             int response = statement.executeUpdate();
             return response == 0 ? Optional.of(entity) : Optional.empty();
-        } catch(SQLException e){
+        } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
@@ -189,7 +225,7 @@ public class RepoDBDuck implements RepoDB<Long, Duck> {
     }
 
     @Override
-    public Page<Duck> findAllOnPage(Pageable pageable){
+    public Page<Duck> findAllOnPage(Pageable pageable) {
         try (Connection connection = DriverManager.getConnection(url, username, password)) {
             int totalNumberOfDucks = count(connection);
             List<Duck> moviesOnPage;
