@@ -77,9 +77,13 @@ public class RepoDBDuck implements RepoDB<Long, Duck> {
                     SwimmingCard swimmingCard = new SwimmingCard(id, "SwimmingCard", List.of(), TypeCard.SWIMMING);
                     SwimmingDuck rata = new SwimmingDuck(id, name, email, password, TypeDuck.valueOf(tip), viteza, rezistenta, swimmingCard);
                     ducks.add(rata);
-                } else {
+                } else if (tip.equals("FLYING")){
                     FlyingCard card = new FlyingCard(id, "FlyingCard", List.of(), TypeCard.FLYING);
                     FlyingDuck rata = new FlyingDuck(id, name, email, password, TypeDuck.valueOf(tip), viteza, rezistenta, card);
+                    ducks.add(rata);
+                } else{
+                    SwimmingCard swimmingCard = new SwimmingCard(id, "SwimmingCard", List.of(), TypeCard.SWIMMING);
+                    SwimmingDuck rata = new SwimmingDuck(id, name, email, password, TypeDuck.valueOf(tip), viteza, rezistenta, swimmingCard);
                     ducks.add(rata);
                 }
             }
@@ -113,9 +117,13 @@ public class RepoDBDuck implements RepoDB<Long, Duck> {
                     SwimmingCard swimmingCard = new SwimmingCard(id, "SwimmingCard", List.of(), TypeCard.SWIMMING);
                     SwimmingDuck rata = new SwimmingDuck(id, name, email, password, TypeDuck.valueOf(tip), viteza, rezistenta, swimmingCard);
                     ducks.add(rata);
-                } else {
+                } else if (tip.equals("FLYING")){
                     FlyingCard card = new FlyingCard(id, "FlyingCard", List.of(), TypeCard.FLYING);
                     FlyingDuck rata = new FlyingDuck(id, name, email, password, TypeDuck.valueOf(tip), viteza, rezistenta, card);
+                    ducks.add(rata);
+                } else{
+                    SwimmingCard swimmingCard = new SwimmingCard(id, "SwimmingCard", List.of(), TypeCard.SWIMMING);
+                    SwimmingDuck rata = new SwimmingDuck(id, name, email, password, TypeDuck.valueOf(tip), viteza, rezistenta, swimmingCard);
                     ducks.add(rata);
                 }
             }
@@ -210,10 +218,14 @@ public class RepoDBDuck implements RepoDB<Long, Duck> {
                     SwimmingCard swimmingCard = new SwimmingCard(id, "SwimmingCard", List.of(), TypeCard.SWIMMING);
                     SwimmingDuck duck = new SwimmingDuck(id, name, email, password, TypeDuck.valueOf(tip), viteza, rezistenta, swimmingCard);
                     return Optional.of(duck);
-                } else {
+                } else if (tip.equals("FLYING")){
                     FlyingCard card = new FlyingCard(id, "FlyingCard", List.of(), TypeCard.FLYING);
-                    FlyingDuck duck = new FlyingDuck(id, name, email, password, TypeDuck.valueOf(tip), viteza, rezistenta, card);
-                    return Optional.of(duck);
+                    FlyingDuck rata = new FlyingDuck(id, name, email, password, TypeDuck.valueOf(tip), viteza, rezistenta, card);
+                    return Optional.of(rata);
+                } else{
+                    SwimmingCard swimmingCard = new SwimmingCard(id, "SwimmingCard", List.of(), TypeCard.SWIMMING);
+                    SwimmingDuck rata = new SwimmingDuck(id, name, email, password, TypeDuck.valueOf(tip), viteza, rezistenta, swimmingCard);
+                    return Optional.of(rata);
                 }
             }
 
@@ -260,10 +272,14 @@ public class RepoDBDuck implements RepoDB<Long, Duck> {
                         SwimmingCard swimmingCard = new SwimmingCard(id, "SwimmingCard", List.of(), TypeCard.SWIMMING);
                         SwimmingDuck duck = new SwimmingDuck(id, name, email, password, TypeDuck.valueOf(tip), viteza, rezistenta, swimmingCard);
                         ducksOnPage.add(duck);
-                    } else {
+                    } else if (tip.equals("FLYING")){
                         FlyingCard card = new FlyingCard(id, "FlyingCard", List.of(), TypeCard.FLYING);
-                        FlyingDuck duck = new FlyingDuck(id, name, email, password, TypeDuck.valueOf(tip), viteza, rezistenta, card);
-                        ducksOnPage.add(duck);
+                        FlyingDuck rata = new FlyingDuck(id, name, email, password, TypeDuck.valueOf(tip), viteza, rezistenta, card);
+                        ducksOnPage.add(rata);
+                    } else{
+                        SwimmingCard swimmingCard = new SwimmingCard(id, "SwimmingCard", List.of(), TypeCard.SWIMMING);
+                        SwimmingDuck rata = new SwimmingDuck(id, name, email, password, TypeDuck.valueOf(tip), viteza, rezistenta, swimmingCard);
+                        ducksOnPage.add(rata);
                     }
                 }
             }
