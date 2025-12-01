@@ -210,6 +210,7 @@ public class RepoDBPersoana implements RepoDB<Long, Persoana>{
             try (ResultSet result = statement.executeQuery()) {
                 while (result.next()){
                     Long id = result.getLong("id");
+                    String username = result.getString("username");
                     String email = result.getString("email");
                     String password = result.getString("password");
                     String nume = result.getString("nume");

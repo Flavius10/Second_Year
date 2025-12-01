@@ -3,6 +3,8 @@ package org.example.services;
 import org.example.domain.Friendship;
 import org.example.repositories.repo_db.RepoDBFriendship;
 import org.example.repositories.repo_file.RepoFileFriendship;
+import org.example.utils.paging.Page;
+import org.example.utils.paging.Pageable;
 import org.example.validator.ValidatorFriendship;
 
 import java.util.List;
@@ -91,4 +93,7 @@ public class FriendshipService {
         return Optional.empty();
     }
 
+    public Page<Friendship> findAllOnPage(Pageable pageable) {
+        return repoDBFriendship.findAllOnPage(pageable);
+    }
 }
