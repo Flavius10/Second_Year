@@ -1,4 +1,6 @@
---CREATE DATABASE SmartBuilding;
+CREATE DATABASE SmartBuilding;
+
+GO
 
 USE SmartBuilding;
 

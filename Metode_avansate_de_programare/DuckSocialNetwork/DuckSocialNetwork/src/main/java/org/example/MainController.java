@@ -51,31 +51,9 @@ public class MainController {
     public void setServices(DuckService duckService) {
         this.duckService = duckService;
 
-        try {
-            URL imageUrl = getClass().getResource("/images/ducks.png");
-
-            if (imageUrl == null) {
-                System.err.println("!!! EROARE CRITICA: Java nu gaseste fisierul '/images/ducks.png' !!!");
-                System.err.println("Verifica daca folderul 'images' este in 'src/main/resources'");
-                System.err.println("Verifica daca ai dat REBUILD PROJECT.");
-            } else {
-                System.out.println("Succes! Imaginea a fost gasita la: " + imageUrl);
-                Image img = new Image(imageUrl.toExternalForm());
-
-                BackgroundImage bImg = new BackgroundImage(img,
-                        BackgroundRepeat.NO_REPEAT,
-                        BackgroundRepeat.NO_REPEAT,
-                        BackgroundPosition.CENTER,
-                        new BackgroundSize(1.0, 1.0, true, true, false, false));
-
-                mainLayout.setBackground(new Background(bImg));
-            }
-        } catch (Exception e) {
-            System.err.println("A aparut o eroare la incarcarea imaginii: " + e.getMessage());
-        }
 
         welcomeLabel.setText("DUCK SOCIAL NETWORK");
-        welcomeLabel.setStyle("-fx-font-size: 40px; -fx-font-family:'Science Gothic'; -fx-font-weight: bold; -fx-text-fill: white");
+        welcomeLabel.setStyle("-fx-font-size: 40px; -fx-font-family:'Science Gothic'; -fx-font-weight: bold; -fx-text-fill: black");
         duckTableView.setStyle("-fx-font-size: 16px;-fx-font-family:'Science Gothic'");
         typeComboBox.setStyle("-fx-font-size: 16px;-fx-font-family:'Science Gothic'");
 

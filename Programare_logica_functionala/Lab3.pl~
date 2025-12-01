@@ -12,7 +12,7 @@ submultimi([H | T], N, RezultatFinal) :-
 
     append(Rez_Cu_H, Rez_Fara_H, RezultatFinal).
 
-adauga_la_toate(_, [], []):-!.
+adauga_la_toate(_, [], []):- !.
 
 adauga_la_toate(Elem, [SubLista | Restul], [[Elem | SubLista] | Rez]) :-
     adauga_la_toate(Elem, Restul, Rez).
