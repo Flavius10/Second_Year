@@ -198,7 +198,6 @@ public class UiAfterSignUp extends UiAbstract{
         }
     }
 
-
     /**
      * Remove friend.
      */

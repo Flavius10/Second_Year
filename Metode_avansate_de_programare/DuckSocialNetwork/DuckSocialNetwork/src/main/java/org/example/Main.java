@@ -37,10 +37,14 @@ public class Main extends Application {
                     "postgres", "Flavius10");
             DuckService userService = new DuckService(duckRepository);
 
+            RepoDBPersoana persoanaRepository = new RepoDBPersoana("jdbc:postgresql://localhost:5432/duckSocialNetwork",
+                    "postgres", "Flavius10");
+            PersoanaService persoanaService = new PersoanaService(persoanaRepository);
+
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/main-view.fxml"));
             Scene scene = new Scene(loader.load(), 1200, 800);
             MainController controller = loader.getController();
-            controller.setServices(userService);
+            controller.setServices(userService, persoanaService);
 
             stage.setTitle("Duck Social Network");
             stage.setScene(scene);

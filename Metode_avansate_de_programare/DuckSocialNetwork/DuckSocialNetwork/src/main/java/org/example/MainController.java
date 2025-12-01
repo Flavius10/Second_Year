@@ -7,27 +7,35 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.layout.*; // Important pentru Background
+import org.example.domain.Persoana;
 import org.example.domain.TypeDuck;
 import org.example.domain.ducks.Duck;
+import org.example.services.CardService;
 import org.example.services.DuckService;
+import org.example.services.FriendshipService;
+import org.example.services.PersoanaService;
+import org.example.utils.paging.Page;
+import org.example.utils.paging.Pageable;
 
 import java.net.URL;
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 public class MainController {
 
     private DuckService duckService;
-
-    // Legatura cu VBox-ul din FXML
-    @FXML
-    private VBox mainLayout;
+    private PersoanaService persoanaService;
+    private FriendshipService friendshipService;
+    private CardService cardService;
 
     @FXML
     private Label welcomeLabel;
 
+
+    //Info pentru duck
     @FXML
     private TableView<Duck> duckTableView;
-
     @FXML
     private TableColumn<Duck, Long> idColumn;
     @FXML
@@ -46,18 +54,49 @@ public class MainController {
     private ComboBox<String> typeComboBox;
 
     @FXML
+    private Button prevDuckBtn;
+    @FXML
+    private Button nextDuckBtn;
+
+    //Info pentru persoana
+    @FXML
+    private TableView<Persoana> persoanaTableView;
+    @FXML
+    private TableColumn<Persoana, Long> idColumnPersoana;
+    @FXML
+    private TableColumn<Persoana, String> usernameColumnPersoana;
+    @FXML
+    private TableColumn<Persoana, String> emailColumnPersoana;
+    @FXML
+    private TableColumn<Persoana, String> numeColumn;
+    @FXML
+    private TableColumn<Persoana, String> prenumeColumn;
+    @FXML
+    private TableColumn<Persoana, String> ocupatieColumn;
+    @FXML
+    private TableColumn<Persoana, LocalDate> dataNastereColumn;
+
+    @FXML
+    private Button prevPersonBtn;
+    @FXML
+    private Button nextPersonBtn;
+
+
     private ObservableList<Duck> ducks = FXCollections.observableArrayList();
+    private ObservableList<Persoana> persoane = FXCollections.observableArrayList();
 
-    public void setServices(DuckService duckService) {
+    public void setServices(DuckService duckService, PersoanaService persoanaService) {
         this.duckService = duckService;
-
+        this.persoanaService = persoanaService;
 
         welcomeLabel.setText("DUCK SOCIAL NETWORK");
         welcomeLabel.setStyle("-fx-font-size: 40px; -fx-font-family:'Science Gothic'; -fx-font-weight: bold; -fx-text-fill: black");
         duckTableView.setStyle("-fx-font-size: 16px;-fx-font-family:'Science Gothic'");
+        persoanaTableView.setStyle("-fx-font-size: 16px;-fx-font-family:'Science Gothic'");
         typeComboBox.setStyle("-fx-font-size: 16px;-fx-font-family:'Science Gothic'");
 
         duckTableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+        persoanaTableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 
         idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
         usernameColumn.setCellValueFactory(new PropertyValueFactory<>("username"));
@@ -66,14 +105,31 @@ public class MainController {
         rezistentaColumn.setCellValueFactory(new PropertyValueFactory<>("rezistenta"));
         vitezaColumn.setCellValueFactory(new PropertyValueFactory<>("viteza"));
 
-        loadTableData(); // Am extras incarcarea datelor intr-o metoda separata ca sa fie mai curat
-        setupComboBox(); // La fel si pentru ComboBox
+
+        idColumnPersoana.setCellValueFactory(new PropertyValueFactory<>("id"));
+        usernameColumnPersoana.setCellValueFactory(new PropertyValueFactory<>("username"));
+        emailColumnPersoana.setCellValueFactory(new PropertyValueFactory<>("email"));
+        numeColumn.setCellValueFactory(new PropertyValueFactory<>("nume"));
+        prenumeColumn.setCellValueFactory(new PropertyValueFactory<>("prenume"));
+        ocupatieColumn.setCellValueFactory(new PropertyValueFactory<>("ocupatie"));
+        dataNastereColumn.setCellValueFactory(new PropertyValueFactory<>("dataNastere"));
+
+        loadDuckPage();
+        loadPersonPage();
+        setupPaginationButtons();
+        setupComboBox();
     }
 
-    private void loadTableData() {
+    private void loadTableDataDucks() {
         List<Duck> ds = (List<Duck>) duckService.findAllDucks();
         ducks = FXCollections.observableArrayList(ds);
         duckTableView.setItems(ducks);
+    }
+
+    private void loadTableDataPersoane() {
+        List<Persoana> ps = (List<Persoana>) persoanaService.findAllPersons();
+        persoane = FXCollections.observableArrayList(ps);
+        persoanaTableView.setItems(persoane);
     }
 
     private void setupComboBox() {
@@ -105,6 +161,67 @@ public class MainController {
             }
             ducks = FXCollections.observableArrayList(result);
             duckTableView.setItems(ducks);
+        });
+    }
+
+    private int pageSize = 5;
+    private int currentPageDuck = 0;
+    private int currentPagePerson = 0;
+
+    private void loadDuckPage() {
+        Pageable pageable = new Pageable(currentPageDuck, pageSize);
+        Page<Duck> page = duckService.findAllOnPage(pageable);
+
+        List<Duck> list = new ArrayList<>();
+        for (Duck d : page.getElementsOnPage()) {
+            list.add(d);
+        }
+
+        duckTableView.setItems(FXCollections.observableArrayList(list));
+
+        prevDuckBtn.setDisable(currentPageDuck == 0);
+        nextDuckBtn.setDisable(list.size() < pageSize);
+    }
+
+    private void loadPersonPage() {
+        Pageable pageable = new Pageable(currentPagePerson, pageSize);
+        Page<Persoana> page = persoanaService.findAllOnPage(pageable);
+
+        List<Persoana> list = new ArrayList<>();
+        for (Persoana p : page.getElementsOnPage()) {
+            list.add(p);
+        }
+
+        persoanaTableView.setItems(FXCollections.observableArrayList(list));
+
+        prevPersonBtn.setDisable(currentPagePerson == 0);
+        nextPersonBtn.setDisable(list.size() < pageSize);
+    }
+
+    private void setupPaginationButtons() {
+
+        prevDuckBtn.setOnAction(e -> {
+            if (currentPageDuck > 0) {
+                currentPageDuck--;
+                loadDuckPage();
+            }
+        });
+
+        nextDuckBtn.setOnAction(e -> {
+            currentPageDuck++;
+            loadDuckPage();
+        });
+
+        prevPersonBtn.setOnAction(e -> {
+            if (currentPagePerson > 0) {
+                currentPagePerson--;
+                loadPersonPage();
+            }
+        });
+
+        nextPersonBtn.setOnAction(e -> {
+            currentPagePerson++;
+            loadPersonPage();
         });
     }
 }

@@ -64,7 +64,7 @@ public class RepoDBPersoana implements RepoDB<Long, Persoana>{
                 PreparedStatement statement = connection.prepareStatement("SELECT * FROM persoana")
                 ){
             ResultSet result = statement.executeQuery();
-            Set<Persoana> persoane = new HashSet<>();
+            List<Persoana> persoane = new ArrayList<>();
             while(result.next()){
                 Long id = result.getLong("id");
                 String username = result.getString("username");

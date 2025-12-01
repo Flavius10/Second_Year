@@ -93,7 +93,6 @@ public class DuckService {
     }
 
     public Page<Duck> findAllOnPage(Pageable pageable) {
-
         return repoDBDuck.findAllOnPage(pageable);
     }
 
