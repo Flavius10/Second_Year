@@ -23,28 +23,31 @@ public class NetworkService {
     }
 
     /**
-     * Prints the number of distinct communities in the network.
+     * Returns the number of distinct communities in the network.
+     * CHANGED: from void to int
      */
-    public void printNumberOfCommunities() {
+    public int connectedCommunities() {
         Map<String, List<String>> graph = buildNetworkGraph();
-        int communities = graphService.countCommunities(graph);
-        System.out.println("Numar de comunitati: " + communities);
+        // Returneaza direct rezultatul (int), nu il printeaza
+        return graphService.countCommunities(graph);
     }
 
     /**
-     * Prints the most sociable community (with largest diameter).
+     * Returns the most sociable community (with largest diameter).
+     * CHANGED: from void to List<String>
      */
-    public void printMostSociableCommunity() {
+    public List<String> mostSociableCommunity() {
         Map<String, List<String>> graph = buildNetworkGraph();
-        List<String> community = graphService.findMostSociableCommunity(graph);
-        System.out.println("Cea mai sociabila comunitate: " + community);
+        // Returneaza lista de ID-uri/Username-uri
+        return graphService.findMostSociableCommunity(graph);
     }
 
     /**
-     * Prints both stats together.
+     * Prints both stats together (Useful only for console debugging).
      */
     public void printNetworkStats() {
-        printNumberOfCommunities();
-        printMostSociableCommunity();
+        // Aici putem folosi metodele noi si sa le printam daca vrem neaparat in consola
+        System.out.println("Numar de comunitati: " + connectedCommunities());
+        System.out.println("Cea mai sociabila comunitate: " + mostSociableCommunity());
     }
 }

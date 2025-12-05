@@ -48,7 +48,16 @@ public class Main extends Application {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/main-view.fxml"));
             Scene scene = new Scene(loader.load(), 1200, 800);
             MainController controller = loader.getController();
-            controller.setServices(userService, persoanaService, friendshipService);
+
+            GraphAnalyzer graphAnalyzer = new GraphAnalyzer();
+            GraphBuilder graphBuilder = new GraphBuilder();
+
+            DataProvider dataProvider = new DataProvider(friendshipService, persoanaService, userService);
+            GraphService graphService = new GraphService(graphAnalyzer, graphBuilder);
+
+            NetworkService networkService = new NetworkService(dataProvider, graphService);
+
+            controller.setServices(userService, persoanaService, friendshipService, networkService);
 
             stage.setTitle("Duck Social Network");
             stage.setScene(scene);

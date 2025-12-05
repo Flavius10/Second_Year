@@ -107,11 +107,11 @@ public class UiAfterSignUp extends UiAbstract{
                     break;
 
                 case 5:
-                    printNrCommunities();
+                    //printNrCommunities();
                     break;
 
                 case 6:
-                    printMostSociableCommunity();
+                    //printMostSociableCommunity();
                     break;
 
                 case 7:
@@ -242,13 +242,13 @@ public class UiAfterSignUp extends UiAbstract{
         }
     }
 
-    private void printNrCommunities(){
-        this.networkService.printNumberOfCommunities();
-    }
-
-    private void printMostSociableCommunity(){
-        this.networkService.printMostSociableCommunity();
-    }
+//    private void printNrCommunities(){
+//        this.networkService.printNumberOfCommunities();
+//    }
+//
+//    private void printMostSociableCommunity(){
+//        this.networkService.printMostSociableCommunity();
+//    }
 
     private void addCard(){
 

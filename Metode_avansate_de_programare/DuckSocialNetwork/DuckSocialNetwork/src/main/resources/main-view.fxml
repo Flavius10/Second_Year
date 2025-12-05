@@ -9,6 +9,7 @@
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -19,7 +20,7 @@
       fx:controller="org.example.MainController"
       spacing="15"
       alignment="TOP_CENTER"
-      prefWidth="1200" prefHeight="800"
+      prefWidth="1200" prefHeight="900"
       style="-fx-font-family: 'Segoe UI', sans-serif;">
 
     <padding>
@@ -193,5 +194,11 @@
         </VBox>
 
     </HBox>
+
+    <Separator/>
+    <VBox spacing="5" prefHeight="150">
+        <Label text="Rezultate / Log:" style="-fx-font-weight: bold"/>
+        <TextArea fx:id="resultArea" editable="false" wrapText="true" VBox.vgrow="ALWAYS"/>
+    </VBox>
 
 </VBox>

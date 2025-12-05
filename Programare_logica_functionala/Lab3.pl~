@@ -14,5 +14,5 @@ submultimi([H | T], N, RezultatFinal) :-
 
 adauga_la_toate(_, [], []):- !.
 
-adauga_la_toate(Elem, [SubLista | Restul], [[Elem | SubLista] | Rez]) :-
-    adauga_la_toate(Elem, Restul, Rez).
+adauga_la_toate(Elem, [H | T], [[Elem | H] | Rez]) :-
+    adauga_la_toate(Elem, T, Rez).

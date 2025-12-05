@@ -18,10 +18,13 @@ import org.example.domain.ducks.SwimmingDuck;
 import org.example.services.DuckService;
 import org.example.services.PersoanaService;
 import org.example.services.FriendshipService;
+import org.example.network.NetworkService; // Asigura-te ca e importat corect
 import org.example.utils.paging.Page;
 import org.example.utils.paging.Pageable;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,8 +33,12 @@ public class MainController {
     private DuckService duckService;
     private PersoanaService persoanaService;
     private FriendshipService friendshipService;
+    private NetworkService networkService;
 
     @FXML private Label welcomeLabel;
+
+    // --- ELEMENTUL NOU PENTRU AFISARE ---
+    @FXML private TextArea resultArea;
 
     // --- TABELE ---
     @FXML private TableView<Duck> duckTableView;
@@ -62,7 +69,7 @@ public class MainController {
     @FXML private Button prevFriendBtn;
     @FXML private Button nextFriendBtn;
 
-    // --- FORMULAR ADD USER ---
+    // --- FORMULAR ---
     @FXML private ComboBox<String> userTypeComboBox;
     @FXML private TextField usernameField;
     @FXML private TextField emailField;
@@ -113,12 +120,17 @@ public class MainController {
 
         userTypeComboBox.getSelectionModel().select("Persoana");
         duckTypeCombo.getSelectionModel().select("SWIMMING");
+
+        // Mesaj initial in log
+        printLog("Aplicatia a pornit. Astept actiuni...");
     }
 
-    public void setServices(DuckService duckService, PersoanaService persoanaService, FriendshipService friendshipService) {
+    public void setServices(DuckService duckService, PersoanaService persoanaService,
+                            FriendshipService friendshipService, NetworkService networkService) {
         this.duckService = duckService;
         this.persoanaService = persoanaService;
         this.friendshipService = friendshipService;
+        this.networkService = networkService;
 
         initColumns();
         setupAllEventHandlers();
@@ -201,7 +213,7 @@ public class MainController {
                 Long id = System.currentTimeMillis();
 
                 if (selectedType == null || username.isEmpty() || email.isEmpty()) {
-                    showAlert("Eroare", "Completeaza tipul, username si email!"); return;
+                    printLog("Eroare: Completeaza tipul, username si email!"); return;
                 }
 
                 if (selectedType.equals("Persoana")) {
@@ -209,7 +221,7 @@ public class MainController {
                     String prenume = prenumeField.getText();
                     String ocupatie = ocupatieField.getText();
                     LocalDate dataNastere = datePicker.getValue();
-                    if (dataNastere == null) { showAlert("Eroare", "Alege data nasterii!"); return; }
+                    if (dataNastere == null) { printLog("Eroare: Alege data nasterii!"); return; }
 
                     Persoana p = new Persoana(id, username, email, password, nume, prenume, ocupatie, dataNastere);
                     persoanaService.savePerson(p);
@@ -217,7 +229,7 @@ public class MainController {
 
                 } else if (selectedType.equals("Rata")) {
                     String tipRataStr = duckTypeCombo.getValue();
-                    if (tipRataStr == null) { showAlert("Eroare", "Alege tipul ratei!"); return; }
+                    if (tipRataStr == null) { printLog("Eroare: Alege tipul ratei!"); return; }
                     TypeDuck tip = TypeDuck.valueOf(tipRataStr);
                     double viteza = Double.parseDouble(vitezaField.getText());
                     double rezistenta = Double.parseDouble(rezistentaField.getText());
@@ -235,44 +247,55 @@ public class MainController {
                 }
                 usernameField.clear(); emailField.clear(); passwordField.clear();
                 numeField.clear(); prenumeField.clear(); vitezaField.clear(); rezistentaField.clear();
-                showAlert("Succes", "Utilizator adaugat!");
-            } catch (Exception ex) { showAlert("Eroare", "Date invalide: " + ex.getMessage()); }
+
+                printLog("Succes: Utilizator adaugat!");
+
+            } catch (Exception ex) {
+                printLog("Eroare la adaugare user: " + ex.getMessage());
+            }
         });
 
         deleteUserBtn.setOnAction(e -> {
             Duck selectedDuck = duckTableView.getSelectionModel().getSelectedItem();
             if (selectedDuck != null) {
-                try { duckService.deleteDuck(selectedDuck); loadDuckPage(); showAlert("Succes", "Rata stearsa!"); }
-                catch (Exception ex) { showAlert("Eroare", ex.getMessage()); }
+                try {
+                    duckService.deleteDuck(selectedDuck);
+                    loadDuckPage();
+                    printLog("Succes: Rata stearsa!");
+                } catch (Exception ex) {
+                    printLog("Eroare la stergere rata: " + ex.getMessage());
+                }
                 return;
             }
             Persoana selectedPerson = persoanaTableView.getSelectionModel().getSelectedItem();
             if (selectedPerson != null) {
-                try { persoanaService.deletePerson(selectedPerson); loadPersonPage(); showAlert("Succes", "Persoana stearsa!"); }
-                catch (Exception ex) { showAlert("Eroare", ex.getMessage()); }
+                try {
+                    persoanaService.deletePerson(selectedPerson);
+                    loadPersonPage();
+                    printLog("Succes: Persoana stearsa!");
+                } catch (Exception ex) {
+                    printLog("Eroare la stergere persoana: " + ex.getMessage());
+                }
                 return;
             }
-            showAlert("Atentie", "Selecteaza un utilizator pentru stergere!");
+            printLog("Atentie: Selecteaza un utilizator pentru stergere!");
         });
 
         addFriendshipBtn.setOnAction(e -> {
             try {
-                // 1. Luam textul exact cum e introdus (USERNAME)
                 String user1 = friendshipId1.getText().trim();
                 String user2 = friendshipId2.getText().trim();
 
                 if (user1.isEmpty() || user2.isEmpty()) {
-                    showAlert("Eroare", "Completeaza ambele username-uri!");
+                    printLog("Eroare: Completeaza ambele username-uri!");
                     return;
                 }
-
                 if (user1.equals(user2)) {
-                    showAlert("Eroare", "Nu poti fi prieten cu tine insuti!");
+                    printLog("Eroare: Nu poti fi prieten cu tine insuti!");
                     return;
                 }
-
                 if (!checkUserExists(user1) || !checkUserExists(user2)) {
-                    showAlert("Eroare", "Unul dintre username-uri nu exista in sistem (nici Rata, nici Persoana)!");
+                    printLog("Eroare: Unul dintre username-uri nu exista in sistem!");
                     return;
                 }
 
@@ -281,39 +304,77 @@ public class MainController {
                 friendshipService.saveFriendship(f);
 
                 loadFriendshipPage();
-                showAlert("Succes", "Prietenie adaugata intre " + user1 + " si " + user2);
+                printLog("Succes: Prietenie adaugata intre " + user1 + " si " + user2);
                 friendshipId1.clear();
                 friendshipId2.clear();
 
             } catch (Exception ex) {
-                showAlert("Eroare", "Eroare la adaugare prietenie: " + ex.getMessage());
+                printLog("Eroare la adaugare prietenie: " + ex.getMessage());
             }
         });
 
         removeFriendshipBtn.setOnAction(e -> {
             Friendship selected = friendshipTableView.getSelectionModel().getSelectedItem();
             if (selected != null) {
-                try { friendshipService.deleteFriendship(selected); loadFriendshipPage(); showAlert("Succes", "Prietenia stearsa!"); }
-                catch (Exception ex) { showAlert("Eroare", ex.getMessage()); }
-            } else { showAlert("Atentie", "Selecteaza o prietenie din tabel!"); }
+                try {
+                    friendshipService.deleteFriendship(selected);
+                    loadFriendshipPage();
+                    printLog("Succes: Prietenia stearsa!");
+                } catch (Exception ex) {
+                    printLog("Eroare la stergere prietenie: " + ex.getMessage());
+                }
+            } else {
+                printLog("Atentie: Selecteaza o prietenie din tabel!");
+            }
         });
 
-        communityCountBtn.setOnAction(e -> System.out.println("Network ignored."));
-        mostSociableBtn.setOnAction(e -> System.out.println("Network ignored."));
+        communityCountBtn.setOnAction(e -> {
+            if (networkService == null) {
+                printLog("Eroare: NetworkService nu este initializat!");
+                return;
+            }
+            try {
+                int nr = networkService.connectedCommunities();
+                printLog("--------------------------------------------------");
+                printLog("Numar Comunitati in retea: " + nr);
+                printLog("--------------------------------------------------");
+            } catch (Exception ex) {
+                printLog("Eroare la calcul comunitati: " + ex.getMessage());
+            }
+        });
+
+        mostSociableBtn.setOnAction(e -> {
+            if (networkService == null) {
+                printLog("Eroare: NetworkService nu este initializat!");
+                return;
+            }
+            try {
+                List<String> members = networkService.mostSociableCommunity();
+                printLog("--------------------------------------------------");
+                if (members.isEmpty()) {
+                    printLog("Info: Nu exista comunitati sociabile.");
+                } else {
+                    printLog("Cea mai sociabila comunitate (ID-uri): " + members.toString());
+                }
+                printLog("--------------------------------------------------");
+            } catch (Exception ex) {
+                printLog("Eroare la calcul cea mai sociabila: " + ex.getMessage());
+            }
+        });
+    }
+
+    private void printLog(String message) {
+        if (resultArea != null) {
+            String timestamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern("HH:mm:ss"));
+            resultArea.appendText("[" + timestamp + "] " + message + "\n");
+        } else {
+            System.out.println("ResultArea nu este legat la FXML!");
+        }
     }
 
     private boolean checkUserExists(String username) {
         if (duckService.findByUsernameDuck(username) != null) return true;
         if (persoanaService.findByUsernamePerson(username) != null) return true;
-
         return false;
-    }
-
-    private void showAlert(String title, String msg) {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle(title);
-        alert.setHeaderText(null);
-        alert.setContentText(msg);
-        alert.showAndWait();
     }
 }
