@@ -1,6 +1,7 @@
 package org.example.domain;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 /**
  * The type Message.
@@ -8,27 +9,18 @@ import java.time.LocalDateTime;
 public class Message {
 
     private Long id;
-    private User sender;
-    private User receiver;
-    private String content;
-    private LocalDateTime timestamp;
+    private User from;
+    private List<User> to;
+    private String message;
+    private LocalDateTime data;
 
-    /**
-     * Instantiates a new Message.
-     *
-     * @param id        the id
-     * @param sender    the sender
-     * @param receiver  the receiver
-     * @param content   the content
-     * @param timestamp the timestamp
-     */
-    public Message(Long id, User sender, User receiver,
-                   String content, LocalDateTime timestamp) {
+    public Message(Long id, User from, List<User> to,
+                   String message, LocalDateTime data) {
         this.id = id;
-        this.sender = sender;
-        this.receiver = receiver;
-        this.content = content;
-        this.timestamp = timestamp;
+        this.from = from;
+        this.to = to;
+        this.message = message;
+        this.data = data;
     }
 
     /**
@@ -44,7 +36,7 @@ public class Message {
      * @return the user
      */
     public User getSender(){
-        return this.sender;
+        return this.from;
     }
 
     /**
@@ -52,8 +44,8 @@ public class Message {
      *
      * @return the user
      */
-    public User getReceiver(){
-        return this.receiver;
+    public List<User> getReceivers(){
+        return this.to;
     }
 
     /**
@@ -61,8 +53,8 @@ public class Message {
      *
      * @return the string
      */
-    public String getContent(){
-        return this.content;
+    public String getMessage(){
+        return this.message;
     }
 
     /**
@@ -70,61 +62,34 @@ public class Message {
      *
      * @return the timestamp
      */
-    public LocalDateTime getTimestamp() {
-        return this.timestamp;
+    public LocalDateTime getData() {
+        return this.data;
     }
 
-    /**
-     * Setters @param id the id
-     */
-    public void setId(Long id){
-        this.id = id;
+    public void setSender(User from){
+        this.from = from;
     }
 
-    /**
-     * Set sender.
-     *
-     * @param sender the sender
-     */
-    public void setSender(User sender){
-        this.sender = sender;
+    public void setReceiver(List<User> to){
+        this.to = to;
     }
 
-    /**
-     * Set receiver.
-     *
-     * @param receiver the receiver
-     */
-    public void setReceiver(User receiver){
-        this.receiver = receiver;
+    public void setContent(String message){
+        this.message = message;
     }
 
-    /**
-     * Set content.
-     *
-     * @param content the content
-     */
-    public void setContent(String content){
-        this.content = content;
-    }
-
-    /**
-     * Sets timestamp.
-     *
-     * @param timestamp the timestamp
-     */
-    public void setTimestamp(LocalDateTime timestamp) {
-        this.timestamp = timestamp;
+    public void setData(LocalDateTime data) {
+        this.data = data;
     }
 
     @Override
     public String toString() {
         return "Message{" +
                 "id=" + id +
-                ", sender=" + sender +
-                ", receiver=" + receiver +
-                ", content='" + content + '\'' +
-                ", timestamp=" + timestamp +
+                ", sender=" +  from+
+                ", receiver=" +  to.stream().map(User::getUsername).toList() +
+                ", content='" + message + '\'' +
+                ", timestamp=" + data +
                 '}';
     }
 
