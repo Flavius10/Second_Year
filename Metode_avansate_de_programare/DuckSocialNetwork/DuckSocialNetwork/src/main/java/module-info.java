@@ -6,6 +6,7 @@ module org.example {
     requires org.postgresql.jdbc;
     requires java.datatransfer;
     requires java.desktop;
+    requires javafx.base;
 
     opens org.example to javafx.fxml;
 

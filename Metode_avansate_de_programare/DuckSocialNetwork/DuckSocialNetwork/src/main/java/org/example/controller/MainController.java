@@ -103,32 +103,12 @@ public class MainController {
     @FXML private Button mostSociableBtn;
 
     private int pageSize = 5;
-    private int currentPageDuck = 0;
-    private int currentPagePerson = 0;
     private int currentPageFriend = 0;
 
-    private ObservableList<Duck> ducksModel = FXCollections.observableArrayList();
-    private ObservableList<Persoana> personsModel = FXCollections.observableArrayList();
     private ObservableList<Friendship> friendsModel = FXCollections.observableArrayList();
 
     @FXML
     public void initialize() {
-        userTypeComboBox.setItems(FXCollections.observableArrayList("Persoana", "Rata"));
-        duckTypeCombo.setItems(FXCollections.observableArrayList("SWIMMING", "FLYING", "FLYING_AND_SWIMMING"));
-
-        userTypeComboBox.valueProperty().addListener((obs, oldVal, newVal) -> {
-            if (newVal == null) return;
-            if (newVal.equals("Persoana")) {
-                personFieldsContainer.setVisible(true); personFieldsContainer.setManaged(true);
-                duckFieldsContainer.setVisible(false); duckFieldsContainer.setManaged(false);
-            } else if (newVal.equals("Rata")) {
-                personFieldsContainer.setVisible(false); personFieldsContainer.setManaged(false);
-                duckFieldsContainer.setVisible(true); duckFieldsContainer.setManaged(true);
-            }
-        });
-
-        userTypeComboBox.getSelectionModel().select("Persoana");
-        duckTypeCombo.getSelectionModel().select("SWIMMING");
 
         printLog("Aplicatia a pornit. Astept actiuni...");
     }
@@ -143,53 +123,15 @@ public class MainController {
         initColumns();
         setupAllEventHandlers();
 
-        //loadDuckPage();
-        loadPersonPage();
         loadFriendshipPage();
     }
 
     private void initColumns() {
-//        idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
-//        usernameColumn.setCellValueFactory(new PropertyValueFactory<>("username"));
-//        emailColumn.setCellValueFactory(new PropertyValueFactory<>("email"));
-//        typeColumn.setCellValueFactory(new PropertyValueFactory<>("tip"));
-//        rezistentaColumn.setCellValueFactory(new PropertyValueFactory<>("rezistenta"));
-//        vitezaColumn.setCellValueFactory(new PropertyValueFactory<>("viteza"));
-//        duckTableView.setItems(ducksModel);
-
-        idColumnPersoana.setCellValueFactory(new PropertyValueFactory<>("id"));
-        usernameColumnPersoana.setCellValueFactory(new PropertyValueFactory<>("username"));
-        emailColumnPersoana.setCellValueFactory(new PropertyValueFactory<>("email"));
-        numeColumn.setCellValueFactory(new PropertyValueFactory<>("nume"));
-        prenumeColumn.setCellValueFactory(new PropertyValueFactory<>("prenume"));
-        ocupatieColumn.setCellValueFactory(new PropertyValueFactory<>("ocupatie"));
-        dataNastereColumn.setCellValueFactory(new PropertyValueFactory<>("dataNastere"));
-        persoanaTableView.setItems(personsModel);
 
         frIdColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
         frUser1Column.setCellValueFactory(new PropertyValueFactory<>("first_friend_username"));
         frUser2Column.setCellValueFactory(new PropertyValueFactory<>("second_friend_username"));
         friendshipTableView.setItems(friendsModel);
-    }
-
-//    private void loadDuckPage() {
-//        Pageable pageable = new Pageable(currentPageDuck, pageSize);
-//        Page<Duck> page = duckService.findAllOnPage(pageable);
-//        List<Duck> list = new ArrayList<>();
-//        if (page != null && page.getElementsOnPage() != null) page.getElementsOnPage().forEach(list::add);
-//        ducksModel.setAll(list);
-//        prevDuckBtn.setDisable(currentPageDuck == 0);
-//        nextDuckBtn.setDisable(list.size() < pageSize);
-//    }
-
-    private void loadPersonPage() {
-        Pageable pageable = new Pageable(currentPagePerson, pageSize);
-        Page<Persoana> page = persoanaService.findAllOnPage(pageable);
-        List<Persoana> list = new ArrayList<>();
-        if (page != null && page.getElementsOnPage() != null) page.getElementsOnPage().forEach(list::add);
-        personsModel.setAll(list);
-        prevPersonBtn.setDisable(currentPagePerson == 0);
-        nextPersonBtn.setDisable(list.size() < pageSize);
     }
 
     private void loadFriendshipPage() {
@@ -204,90 +146,6 @@ public class MainController {
     }
 
     private void setupAllEventHandlers() {
-        // Navigare
-        //prevDuckBtn.setOnAction(e -> { if (currentPageDuck > 0) { currentPageDuck--; loadDuckPage(); }});
-        //nextDuckBtn.setOnAction(e -> { currentPageDuck++; loadDuckPage(); });
-        prevPersonBtn.setOnAction(e -> { if (currentPagePerson > 0) { currentPagePerson--; loadPersonPage(); }});
-        nextPersonBtn.setOnAction(e -> { currentPagePerson++; loadPersonPage(); });
-        prevFriendBtn.setOnAction(e -> { if (currentPageFriend > 0) { currentPageFriend--; loadFriendshipPage(); }});
-        nextFriendBtn.setOnAction(e -> { currentPageFriend++; loadFriendshipPage(); });
-
-        addUserBtn.setOnAction(e -> {
-            try {
-                String selectedType = userTypeComboBox.getValue();
-                String username = usernameField.getText();
-                String email = emailField.getText();
-                String password = passwordField.getText();
-                Long id = System.currentTimeMillis();
-
-                if (selectedType == null || username.isEmpty() || email.isEmpty()) {
-                    printLog("Eroare: Completeaza tipul, username si email!"); return;
-                }
-
-                if (selectedType.equals("Persoana")) {
-                    String nume = numeField.getText();
-                    String prenume = prenumeField.getText();
-                    String ocupatie = ocupatieField.getText();
-                    LocalDate dataNastere = datePicker.getValue();
-                    if (dataNastere == null) { printLog("Eroare: Alege data nasterii!"); return; }
-
-                    Persoana p = new Persoana(id, username, email, password, nume, prenume, ocupatie, dataNastere);
-                    persoanaService.savePerson(p);
-                    loadPersonPage();
-
-                } else if (selectedType.equals("Rata")) {
-                    String tipRataStr = duckTypeCombo.getValue();
-                    if (tipRataStr == null) { printLog("Eroare: Alege tipul ratei!"); return; }
-                    TypeDuck tip = TypeDuck.valueOf(tipRataStr);
-                    double viteza = Double.parseDouble(vitezaField.getText());
-                    double rezistenta = Double.parseDouble(rezistentaField.getText());
-
-                    Duck duck;
-                    if (tip == TypeDuck.FLYING) {
-                        FlyingCard card = new FlyingCard(id, "FlyingCard", new ArrayList<>(), TypeCard.FLYING);
-                        duck = new FlyingDuck(id, username, email, password, tip, viteza, rezistenta, card);
-                    } else {
-                        SwimmingCard card = new SwimmingCard(id, "SwimmingCard", new ArrayList<>(), TypeCard.SWIMMING);
-                        duck = new SwimmingDuck(id, username, email, password, tip, viteza, rezistenta, card);
-                    }
-                    duckService.saveDuck(duck);
-                    //loadDuckPage();
-                }
-                usernameField.clear(); emailField.clear(); passwordField.clear();
-                numeField.clear(); prenumeField.clear(); vitezaField.clear(); rezistentaField.clear();
-
-                printLog("Succes: Utilizator adaugat!");
-
-            } catch (Exception ex) {
-                printLog("Eroare la adaugare user: " + ex.getMessage());
-            }
-        });
-
-        deleteUserBtn.setOnAction(e -> {
-            Duck selectedDuck = duckTableView.getSelectionModel().getSelectedItem();
-            if (selectedDuck != null) {
-                try {
-                    duckService.deleteDuck(selectedDuck);
-                    //loadDuckPage();
-                    printLog("Succes: Rata stearsa!");
-                } catch (Exception ex) {
-                    printLog("Eroare la stergere rata: " + ex.getMessage());
-                }
-                return;
-            }
-            Persoana selectedPerson = persoanaTableView.getSelectionModel().getSelectedItem();
-            if (selectedPerson != null) {
-                try {
-                    persoanaService.deletePerson(selectedPerson);
-                    loadPersonPage();
-                    printLog("Succes: Persoana stearsa!");
-                } catch (Exception ex) {
-                    printLog("Eroare la stergere persoana: " + ex.getMessage());
-                }
-                return;
-            }
-            printLog("Atentie: Selecteaza un utilizator pentru stergere!");
-        });
 
         addFriendshipBtn.setOnAction(e -> {
             try {
@@ -408,4 +266,22 @@ public class MainController {
         stage.show();
 
     }
+
+    @FXML
+    public void switchToPersonTab(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/persoana-view.fxml"));
+        Parent root = loader.load();
+
+        Stage stage = (Stage)((Node) event.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+
+        PersoanaController persoanaController = loader.getController();
+        persoanaController.setPersoanaService(duckService, persoanaService,
+                friendshipService, networkService);
+        stage.centerOnScreen();
+        stage.show();
+    }
+
+
 }
