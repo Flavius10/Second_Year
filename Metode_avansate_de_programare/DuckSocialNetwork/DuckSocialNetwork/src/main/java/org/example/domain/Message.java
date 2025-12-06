@@ -6,7 +6,7 @@ import java.util.List;
 /**
  * The type Message.
  */
-public class Message {
+public class Message extends Entity<Long> {
 
     private Long id;
     private User from;
