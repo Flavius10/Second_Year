@@ -5,7 +5,6 @@ import org.example.domain.User;
 import org.example.exceptions.UserAlreadyExists;
 import org.example.exceptions.UserNotFound;
 import org.example.repositories.repo_db.RepoDBPersoana;
-import org.example.repositories.repo_file.RepoFilePersoana;
 import org.example.utils.paging.Page;
 import org.example.utils.paging.Pageable;
 
@@ -20,7 +19,7 @@ public class PersoanaService {
 
     /**
      * Instantiates a new Persoana service.
-     * @param repoDBPersoana the repo file persoana
+     * @param repoDBPersoana the repo db persoana
      */
     public PersoanaService(RepoDBPersoana repoDBPersoana){
         this.repoDBPersoana = repoDBPersoana;
@@ -28,21 +27,24 @@ public class PersoanaService {
 
     /**
      * Save person.
-     * @param user      the user
+     * @param user the user
      */
     public void savePerson(Persoana user){
+        Optional<Persoana> existing = repoDBPersoana.findByUsername(user.getUsername());
+        if (existing.isPresent()) {
+            throw new UserAlreadyExists("User with username " + user.getUsername() + " already exists!");
+        }
 
-        Optional<Persoana> saved = repoDBPersoana.save(user);
-        if (saved.isPresent())
-            throw new UserAlreadyExists("User already exists!");
+        repoDBPersoana.save(user);
     }
 
     /**
      * Delete person.
-     * @param user      the user
+     * @param user the user
      */
     public void deletePerson(Persoana user) {
         Optional<Persoana> deleted = this.repoDBPersoana.delete(user.getId());
+
         if (deleted.isEmpty()) {
             throw new UserNotFound("User not found!");
         }
@@ -50,25 +52,25 @@ public class PersoanaService {
 
     /**
      * Update person.
-     * @param user      the user
+     * @param user the user
      */
     public void updatePerson(Persoana user){
         Optional<Persoana> updated = repoDBPersoana.update(user);
-        if (updated.isPresent())
-            throw new UserNotFound("User not found!");
+
+
+        if (updated.isEmpty()) {
+            throw new UserNotFound("User not found (could not update)!");
+        }
     }
 
     /**
      * Find by id person user.
-     * @param id        the id
+     * @param id the id
      * @return the user
      */
     public User findByIdPerson(Long id){
-        Optional<Persoana> persoana = this.repoDBPersoana.findOne(id);
-        if (persoana.isPresent())
-            return persoana.get();
-        else
-            throw new UserNotFound("User not found!");
+        return this.repoDBPersoana.findOne(id)
+                .orElseThrow(() -> new UserNotFound("User with id " + id + " not found!"));
     }
 
     /**
@@ -82,7 +84,7 @@ public class PersoanaService {
     /**
      * Find by username person user.
      *
-     * @param username  the username
+     * @param username the username
      * @return the user
      */
     public User findByUsernamePerson(String username){
@@ -90,8 +92,6 @@ public class PersoanaService {
     }
 
     public Page<Persoana> findAllOnPage(Pageable pageable) {
-
         return repoDBPersoana.findAllOnPage(pageable);
     }
-
 }
