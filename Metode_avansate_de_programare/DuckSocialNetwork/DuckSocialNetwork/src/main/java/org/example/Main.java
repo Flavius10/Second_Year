@@ -4,6 +4,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import org.example.controller.LogInController;
 import org.example.controller.MainController;
 import org.example.network.*;
 import org.example.repositories.repo_db.RepoDBDuck;
@@ -36,9 +37,9 @@ public class Main extends Application {
                     "postgres", "Flavius10");
             FriendshipService friendshipService = new FriendshipService(friendshipRepository);
 
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/main-view.fxml"));
-            Scene scene = new Scene(loader.load(), 500, 400);
-            MainController controller = loader.getController();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/login-view.fxml"));
+            Scene scene = new Scene(loader.load(), 400, 500);
+            LogInController controller = loader.getController();
 
             GraphAnalyzer graphAnalyzer = new GraphAnalyzer();
             GraphBuilder graphBuilder = new GraphBuilder();
