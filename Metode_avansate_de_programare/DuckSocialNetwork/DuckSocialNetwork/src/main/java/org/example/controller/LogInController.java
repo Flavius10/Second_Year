@@ -119,6 +119,16 @@ public class LogInController {
                 sendMessage("Username sau parola incorecte", "Eroare", "Eroare");
             }
         });
+
+        registerBtn.setOnAction(
+                e -> {
+                    try{
+                        switchToRegisterPage(e);
+                    } catch (IOException ex){
+                        sendMessage("Eroare la deschiderea paginii de registrare", "Eroare", "Eroare");
+                    }
+                }
+        );
     }
 
     private void switchToMainPage(ActionEvent event) throws IOException {
@@ -135,5 +145,20 @@ public class LogInController {
 
         stage.show();
 
+    }
+
+    private void switchToRegisterPage(ActionEvent event) throws IOException {
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/register-view.fxml"));
+        Parent root = loader.load();
+
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+
+        RegisterController controller = loader.getController();
+        controller.setServices(duckService, persoanaService, friendshipService, networkService);
+
+        stage.show();
     }
 }

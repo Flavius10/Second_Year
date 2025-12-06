@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="org.example.controller.RegisterController"
+      alignment="TOP_CENTER" spacing="20" prefWidth="500" prefHeight="600"
+      style="-fx-font-family: 'Segoe UI';">
+
+    <padding>
+        <Insets top="30" right="40" bottom="30" left="40"/>
+    </padding>
+
+    <Label text="Inregistrare Utilizator" style="-fx-font-size: 24px; -fx-font-weight: bold;"/>
+
+    <ScrollPane fitToWidth="true" VBox.vgrow="ALWAYS" style="-fx-background-color: transparent;">
+        <VBox spacing="15">
+
+            <Label text="Tip Utilizator:" style="-fx-font-weight: bold"/>
+            <ComboBox fx:id="userTypeComboBox" promptText="Alege tipul..." maxWidth="Infinity"/>
+
+            <Separator/>
+
+            <Label text="Date Generale" style="-fx-font-weight: bold"/>
+            <GridPane vgap="10" hgap="10">
+                <columnConstraints>
+                    <ColumnConstraints minWidth="100"/>
+                    <ColumnConstraints hgrow="ALWAYS"/>
+                </columnConstraints>
+
+                <Label text="Username:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+                <TextField fx:id="usernameField" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+
+                <Label text="Email:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+                <TextField fx:id="emailField" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+
+                <Label text="Parola:" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+                <PasswordField fx:id="passwordField" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+            </GridPane>
+
+            <VBox fx:id="personFieldsContainer" spacing="10" managed="false" visible="false">
+                <Separator/>
+                <Label text="Detalii Persoana" style="-fx-font-weight: bold; -fx-text-fill: #2c3e50;"/>
+
+                <GridPane vgap="10" hgap="10">
+                    <columnConstraints>
+                        <ColumnConstraints minWidth="100"/>
+                        <ColumnConstraints hgrow="ALWAYS"/>
+                    </columnConstraints>
+
+                    <Label text="Nume:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+                    <TextField fx:id="numeField" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+
+                    <Label text="Prenume:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+                    <TextField fx:id="prenumeField" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+
+                    <Label text="Data Nasterii:" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+                    <DatePicker fx:id="datePicker" maxWidth="Infinity" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+
+                    <Label text="Ocupatie:" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
+                    <TextField fx:id="ocupatieField" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+                </GridPane>
+            </VBox>
+
+            <VBox fx:id="duckFieldsContainer" spacing="10" managed="false" visible="false">
+                <Separator/>
+                <Label text="Detalii Rata" style="-fx-font-weight: bold; -fx-text-fill: #e67e22;"/>
+
+                <GridPane vgap="10" hgap="10">
+                    <columnConstraints>
+                        <ColumnConstraints minWidth="100"/>
+                        <ColumnConstraints hgrow="ALWAYS"/>
+                    </columnConstraints>
+
+                    <Label text="Tip Rata:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+                    <ComboBox fx:id="duckTypeCombo" maxWidth="Infinity" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+
+                    <Label text="Viteza:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+                    <TextField fx:id="vitezaField" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+
+                    <Label text="Rezistenta:" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+                    <TextField fx:id="rezistentaField" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+                </GridPane>
+            </VBox>
+
+        </VBox>
+    </ScrollPane>
+
+    <HBox spacing="10" alignment="CENTER_RIGHT">
+        <Button text="Inapoi" onAction="#handleBack" style="-fx-background-color: #95a5a6; -fx-text-fill: white;"/>
+        <Button text="Inregistreaza-te" onAction="#handleRegister" style="-fx-background-color: #2ecc71; -fx-text-fill: white; -fx-font-weight: bold;"/>
+    </HBox>
+
+</VBox>
