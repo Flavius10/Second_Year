@@ -29,12 +29,13 @@
 
     <Label fx:id="welcomeLabel"/>
 
-    <HBox spacing="20" alignment="CENTER" VBox.vgrow="ALWAYS">
+    <VBox spacing="20" alignment="CENTER" VBox.vgrow="ALWAYS">
 
         <Button text="DuckTab" onAction="#switchToDuckTab"/>
         <Button text="PersoanaTab" onAction="#switchToPersonTab"/>
+        <Button text="PrietenieTab" onAction="#switchToFriendshipTab"/>
 
-    </HBox>
+    </VBox>
 
     <Separator/>
 
