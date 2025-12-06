@@ -84,6 +84,9 @@ public class DuckController {
     @FXML
     private TextField rezistentaField;
 
+    @FXML private Button communityCountBtn;
+    @FXML private Button mostSociableBtn;
+
 
     private int pageSize = 5;
     private int currentPageDuck = 0;
@@ -186,6 +189,40 @@ public class DuckController {
                 } catch (Exception ex) {
                     printLog("Nu merge sa sterg rata!");
                 }
+            }
+        });
+
+        communityCountBtn.setOnAction(e -> {
+            if (networkService == null) {
+                printLog("Eroare: NetworkService nu este initializat!");
+                return;
+            }
+            try {
+                int nr = networkService.connectedCommunities();
+                printLog("--------------------------------------------------");
+                printLog("Numar Comunitati in retea: " + nr);
+                printLog("--------------------------------------------------");
+            } catch (Exception ex) {
+                printLog("Eroare la calcul comunitati: " + ex.getMessage());
+            }
+        });
+
+        mostSociableBtn.setOnAction(e -> {
+            if (networkService == null) {
+                printLog("Eroare: NetworkService nu este initializat!");
+                return;
+            }
+            try {
+                List<String> members = networkService.mostSociableCommunity();
+                printLog("--------------------------------------------------");
+                if (members.isEmpty()) {
+                    printLog("Info: Nu exista comunitati sociabile.");
+                } else {
+                    printLog("Cea mai sociabila comunitate (ID-uri): " + members.toString());
+                }
+                printLog("--------------------------------------------------");
+            } catch (Exception ex) {
+                printLog("Eroare la calcul cea mai sociabila: " + ex.getMessage());
             }
         });
 

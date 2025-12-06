@@ -49,8 +49,6 @@
             <Button text="Remove Friendship" fx:id="removeFriendshipBtn"/>
         </HBox>
 
-        <Button text="Show Community Count" maxWidth="Infinity" fx:id="communityCountBtn"/>
-        <Button text="Show Most Sociable Community" maxWidth="Infinity" fx:id="mostSociableBtn"/>
         <Button text="Back to main page" onAction="#switchToMainTab" maxWidth="Infinity"/>
 
     </VBox>

@@ -37,7 +37,7 @@ public class Main extends Application {
             FriendshipService friendshipService = new FriendshipService(friendshipRepository);
 
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/main-view.fxml"));
-            Scene scene = new Scene(loader.load(), 1200, 800);
+            Scene scene = new Scene(loader.load(), 500, 400);
             MainController controller = loader.getController();
 
             GraphAnalyzer graphAnalyzer = new GraphAnalyzer();

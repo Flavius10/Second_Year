@@ -43,18 +43,8 @@ public class MainController {
     private FriendshipService friendshipService;
     private NetworkService networkService;
 
-    @FXML private Label welcomeLabel;
-    @FXML private TextArea resultArea;
-
-    private int pageSize = 5;
-    private int currentPageFriend = 0;
-
-    private ObservableList<Friendship> friendsModel = FXCollections.observableArrayList();
-
     @FXML
     public void initialize() {
-
-        printLog("Aplicatia a pornit. Astept actiuni...");
     }
 
     public void setServices(DuckService duckService, PersoanaService persoanaService,
@@ -64,61 +54,6 @@ public class MainController {
         this.friendshipService = friendshipService;
         this.networkService = networkService;
 
-        setupAllEventHandlers();
-    }
-
-
-
-    private void setupAllEventHandlers() {
-
-//        communityCountBtn.setOnAction(e -> {
-//            if (networkService == null) {
-//                printLog("Eroare: NetworkService nu este initializat!");
-//                return;
-//            }
-//            try {
-//                int nr = networkService.connectedCommunities();
-//                printLog("--------------------------------------------------");
-//                printLog("Numar Comunitati in retea: " + nr);
-//                printLog("--------------------------------------------------");
-//            } catch (Exception ex) {
-//                printLog("Eroare la calcul comunitati: " + ex.getMessage());
-//            }
-//        });
-//
-//        mostSociableBtn.setOnAction(e -> {
-//            if (networkService == null) {
-//                printLog("Eroare: NetworkService nu este initializat!");
-//                return;
-//            }
-//            try {
-//                List<String> members = networkService.mostSociableCommunity();
-//                printLog("--------------------------------------------------");
-//                if (members.isEmpty()) {
-//                    printLog("Info: Nu exista comunitati sociabile.");
-//                } else {
-//                    printLog("Cea mai sociabila comunitate (ID-uri): " + members.toString());
-//                }
-//                printLog("--------------------------------------------------");
-//            } catch (Exception ex) {
-//                printLog("Eroare la calcul cea mai sociabila: " + ex.getMessage());
-//            }
-//        });
-    }
-
-    private void printLog(String message) {
-        if (resultArea != null) {
-            String timestamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern("HH:mm:ss"));
-            resultArea.appendText("[" + timestamp + "] " + message + "\n");
-        } else {
-            System.out.println("ResultArea nu este legat la FXML!");
-        }
-    }
-
-    private boolean checkUserExists(String username) {
-        if (duckService.findByUsernameDuck(username) != null) return true;
-        if (persoanaService.findByUsernamePerson(username) != null) return true;
-        return false;
     }
 
     @FXML

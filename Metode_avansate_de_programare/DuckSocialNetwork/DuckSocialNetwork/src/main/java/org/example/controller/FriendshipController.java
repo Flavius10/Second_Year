@@ -46,8 +46,6 @@ public class FriendshipController {
     @FXML private TextField friendshipId2;
     @FXML private Button addFriendshipBtn;
     @FXML private Button removeFriendshipBtn;
-    @FXML private Button communityCountBtn;
-    @FXML private Button mostSociableBtn;
 
     private int pageSize = 5;
     private int currentPageFriend = 0;

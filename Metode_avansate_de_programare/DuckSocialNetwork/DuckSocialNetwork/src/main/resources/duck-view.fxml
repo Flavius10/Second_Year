@@ -10,7 +10,7 @@
 <HBox xmlns="http://javafx.com/javafx"
       xmlns:fx="http://javafx.com/fxml"
       fx:controller="org.example.controller.DuckController"
-      prefHeight="400" prefWidth="600"
+      prefHeight="400" prefWidth="720"
       alignment="TOP_CENTER"
       style="-fx-font-family: 'Segoe UI', sans-serif;">
 
@@ -81,6 +81,8 @@
             <VBox>
                 <Button text="Add Duck" fx:id="addDuckBtn" maxWidth="Infinity" HBox.hgrow="ALWAYS" style="-fx-background-color: #4CAF50; -fx-text-fill: white;"/>
                 <Button text="Delete Duck" fx:id="deleteDuckBtn" maxWidth="Infinity" HBox.hgrow="ALWAYS" style="-fx-background-color: #f44336; -fx-text-fill: white;"/>
+                <Button text="Show Community Count" maxWidth="Infinity" fx:id="communityCountBtn"/>
+                <Button text="Show Most Sociable Community" maxWidth="Infinity" fx:id="mostSociableBtn"/>
             </VBox>
                 <Button text="Back to main page" onAction="#switchToMainTab"></Button>
             </HBox>

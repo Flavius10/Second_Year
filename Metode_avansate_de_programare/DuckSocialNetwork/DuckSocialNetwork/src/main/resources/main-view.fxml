@@ -20,7 +20,7 @@
       fx:controller="org.example.controller.MainController"
       spacing="15"
       alignment="TOP_CENTER"
-      prefWidth="1200" prefHeight="900"
+      prefWidth="500" prefHeight="400"
       style="-fx-font-family: 'Segoe UI', sans-serif;">
 
     <padding>
@@ -35,57 +35,6 @@
         <Button text="PersoanaTab" onAction="#switchToPersonTab"/>
         <Button text="PrietenieTab" onAction="#switchToFriendshipTab"/>
 
-    </VBox>
-
-    <Separator/>
-
-    <HBox spacing="30" alignment="TOP_CENTER" prefHeight="400">
-
-        <VBox spacing="15" HBox.hgrow="NEVER" prefWidth="250">
-            <Label text="Friendship" style="-fx-font-weight: bold; -fx-font-size: 14px;"/>
-
-            <VBox spacing="5">
-                <Label text="ID User 1"/>
-                <TextField fx:id="friendshipId1" promptText="Ex: 1"/>
-                <Label text="ID User 2"/>
-                <TextField fx:id="friendshipId2" promptText="Ex: 5"/>
-            </VBox>
-
-            <HBox spacing="10">
-                <Button text="Add Friendship" fx:id="addFriendshipBtn"/>
-                <Button text="Remove Friendship" fx:id="removeFriendshipBtn"/>
-            </HBox>
-
-            <Button text="Show Community Count" maxWidth="Infinity" fx:id="communityCountBtn"/>
-            <Button text="Show Most Sociable Community" maxWidth="Infinity" fx:id="mostSociableBtn"/>
-        </VBox>
-
-
-        <VBox spacing="10" HBox.hgrow="ALWAYS">
-            <Label text="Tabel Prietenii" style="-fx-font-weight: bold"/>
-            <TableView fx:id="friendshipTableView" VBox.vgrow="ALWAYS">
-                <columnResizePolicy>
-                    <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
-                </columnResizePolicy>
-                <columns>
-                    <TableColumn fx:id="frIdColumn" text="ID" />
-                    <TableColumn fx:id="frUser1Column" text="User 1" />
-                    <TableColumn fx:id="frUser2Column" text="User 2" />
-                </columns>
-            </TableView>
-
-            <HBox spacing="20" alignment="CENTER">
-                <Button fx:id="prevFriendBtn" text="Previous"/>
-                <Button fx:id="nextFriendBtn" text="Next"/>
-            </HBox>
-        </VBox>
-
-    </HBox>
-
-    <Separator/>
-    <VBox spacing="5" prefHeight="150">
-        <Label text="Rezultate / Log:" style="-fx-font-weight: bold"/>
-        <TextArea fx:id="resultArea" editable="false" wrapText="true" VBox.vgrow="ALWAYS"/>
     </VBox>
 
 </VBox>
