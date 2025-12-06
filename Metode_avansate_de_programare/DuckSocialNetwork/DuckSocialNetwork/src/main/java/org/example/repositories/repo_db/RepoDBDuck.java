@@ -25,32 +25,43 @@ public class RepoDBDuck implements RepoDB<Long, Duck> {
         this.password = password;
     }
 
+    private Duck extractDuckFromResultSet(ResultSet result) throws SQLException {
+        Long id = result.getLong("id");
+        String name = result.getString("username");
+        String email = result.getString("email");
+        String password = result.getString("password");
+
+        String tipStr = result.getString("tip");
+        Double viteza = result.getDouble("viteza");
+        Double rezistenta = result.getDouble("rezistenta");
+
+        TypeDuck tip = TypeDuck.valueOf(tipStr);
+
+        if (tip == TypeDuck.SWIMMING) {
+            SwimmingCard swimmingCard = new SwimmingCard(id, "SwimmingCard", List.of(), TypeCard.SWIMMING);
+            return new SwimmingDuck(id, name, email, password, tip, viteza, rezistenta, swimmingCard);
+        } else {
+            FlyingCard card = new FlyingCard(id, "FlyingCard", List.of(), TypeCard.FLYING);
+            return new FlyingDuck(id, name, email, password, tip, viteza, rezistenta, card);
+        }
+    }
+
     @Override
     public Optional<Duck> findOne(Long id) {
+        String sql = "SELECT u.id, u.username, u.email, u.password, d.tip, d.viteza, d.rezistenta " +
+                "FROM users u " +
+                "JOIN duck d ON u.id = d.id " +
+                "WHERE u.id = ?";
+
         try (Connection connection = DriverManager.getConnection(this.url, this.username, this.password);
-             PreparedStatement statement = connection.prepareStatement("SELECT * FROM duck WHERE id = ?")) {
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+
             statement.setLong(1, id);
             ResultSet result = statement.executeQuery();
 
             if (result.next()) {
-                String name = result.getString("name");
-                String email = result.getString("email");
-                String password = result.getString("password");
-                String tip = result.getString("tip");
-                Double viteza = result.getDouble("viteza");
-                Double rezistenta = result.getDouble("rezistenta");
-
-                if (tip.equals("SWIMMING")) {
-                    SwimmingCard swimmingCard = new SwimmingCard(id, "SwimmingCard", List.of(), TypeCard.SWIMMING);
-                    SwimmingDuck rata = new SwimmingDuck(id, name, email, password, TypeDuck.valueOf(tip), viteza, rezistenta, swimmingCard);
-                    return Optional.of(rata);
-                } else {
-                    FlyingCard card = new FlyingCard(id, "FlyingCard", List.of(), TypeCard.FLYING);
-                    FlyingDuck rata = new FlyingDuck(id, name, email, password, TypeDuck.valueOf(tip), viteza, rezistenta, card);
-                    return Optional.of(rata);
-                }
+                return Optional.of(extractDuckFromResultSet(result));
             }
-
             return Optional.empty();
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -59,75 +70,18 @@ public class RepoDBDuck implements RepoDB<Long, Duck> {
 
     @Override
     public Iterable<Duck> findAll() {
+        String sql = "SELECT u.id, u.username, u.email, u.password, d.tip, d.viteza, d.rezistenta " +
+                "FROM users u " +
+                "JOIN duck d ON u.id = d.id";
+
         try (Connection connection = DriverManager.getConnection(this.url, this.username, this.password);
-             PreparedStatement statement = connection.prepareStatement("SELECT * FROM duck")) {
-            ResultSet result = statement.executeQuery();
+             PreparedStatement statement = connection.prepareStatement(sql);
+             ResultSet result = statement.executeQuery()) {
+
             List<Duck> ducks = new ArrayList<>();
-
             while (result.next()) {
-                Long id = result.getLong("id");
-                String name = result.getString("name");
-                String email = result.getString("email");
-                String password = result.getString("password");
-                String tip = result.getString("tip");
-                Double viteza = result.getDouble("viteza");
-                Double rezistenta = result.getDouble("rezistenta");
-
-                if (tip.equals("SWIMMING")) {
-                    SwimmingCard swimmingCard = new SwimmingCard(id, "SwimmingCard", List.of(), TypeCard.SWIMMING);
-                    SwimmingDuck rata = new SwimmingDuck(id, name, email, password, TypeDuck.valueOf(tip), viteza, rezistenta, swimmingCard);
-                    ducks.add(rata);
-                } else if (tip.equals("FLYING")){
-                    FlyingCard card = new FlyingCard(id, "FlyingCard", List.of(), TypeCard.FLYING);
-                    FlyingDuck rata = new FlyingDuck(id, name, email, password, TypeDuck.valueOf(tip), viteza, rezistenta, card);
-                    ducks.add(rata);
-                } else{
-                    SwimmingCard swimmingCard = new SwimmingCard(id, "SwimmingCard", List.of(), TypeCard.SWIMMING);
-                    SwimmingDuck rata = new SwimmingDuck(id, name, email, password, TypeDuck.valueOf(tip), viteza, rezistenta, swimmingCard);
-                    ducks.add(rata);
-                }
+                ducks.add(extractDuckFromResultSet(result));
             }
-
-            return ducks;
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-
-    public Iterable<Duck> findByType(TypeDuck type) {
-        try (Connection connection = DriverManager.getConnection(this.url, this.username, this.password);
-             PreparedStatement statement = connection.prepareStatement("SELECT * FROM duck WHERE tip = ?")) {
-            statement.setString(1, type.toString());
-
-            ResultSet result = statement.executeQuery();
-            List<Duck> ducks = new ArrayList<>();
-
-
-            while (result.next()) {
-                Long id = result.getLong("id");
-                String name = result.getString("name");
-                String email = result.getString("email");
-                String password = result.getString("password");
-                String tip = result.getString("tip");
-                Double viteza = result.getDouble("viteza");
-                Double rezistenta = result.getDouble("rezistenta");
-
-                if (tip.equals("SWIMMING")) {
-                    SwimmingCard swimmingCard = new SwimmingCard(id, "SwimmingCard", List.of(), TypeCard.SWIMMING);
-                    SwimmingDuck rata = new SwimmingDuck(id, name, email, password, TypeDuck.valueOf(tip), viteza, rezistenta, swimmingCard);
-                    ducks.add(rata);
-                } else if (tip.equals("FLYING")){
-                    FlyingCard card = new FlyingCard(id, "FlyingCard", List.of(), TypeCard.FLYING);
-                    FlyingDuck rata = new FlyingDuck(id, name, email, password, TypeDuck.valueOf(tip), viteza, rezistenta, card);
-                    ducks.add(rata);
-                } else{
-                    SwimmingCard swimmingCard = new SwimmingCard(id, "SwimmingCard", List.of(), TypeCard.SWIMMING);
-                    SwimmingDuck rata = new SwimmingDuck(id, name, email, password, TypeDuck.valueOf(tip), viteza, rezistenta, swimmingCard);
-                    ducks.add(rata);
-                }
-            }
-
             return ducks;
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -136,38 +90,82 @@ public class RepoDBDuck implements RepoDB<Long, Duck> {
 
     @Override
     public Optional<Duck> save(Duck entity) {
-        String insertQuery = "INSERT INTO duck (name, email, password, tip, viteza, rezistenta) VALUES (?, ?, ?, ?, ?, ?)";
-        try (Connection connection = DriverManager.getConnection(this.url, this.username, this.password);
-             PreparedStatement statement = connection.prepareStatement(insertQuery)) {
-            statement.setString(1, entity.getUsername());
-            statement.setString(2, entity.getEmail());
-            statement.setString(3, entity.getPassword());
-            statement.setString(4, entity.getTip().toString());
-            statement.setDouble(5, entity.getViteza());
-            statement.setDouble(6, entity.getRezistenta());
-            int response = statement.executeUpdate();
-            return response == 0 ? Optional.of(entity) : Optional.empty();
+        String insertUserSql = "INSERT INTO users (username, email, password, user_type) VALUES (?, ?, ?, 'DUCK')";
+        String insertDuckSql = "INSERT INTO duck (id, tip, viteza, rezistenta) VALUES (?, ?, ?, ?)";
+
+        Connection connection = null;
+        try {
+            connection = DriverManager.getConnection(this.url, this.username, this.password);
+            connection.setAutoCommit(false); // Pornim tranzactia manual
+
+            Long generatedId = null;
+            try (PreparedStatement stmtUser = connection.prepareStatement(insertUserSql, Statement.RETURN_GENERATED_KEYS)) {
+                stmtUser.setString(1, entity.getUsername());
+                stmtUser.setString(2, entity.getEmail());
+                stmtUser.setString(3, entity.getPassword());
+
+                int affectedRows = stmtUser.executeUpdate();
+                if (affectedRows == 0) {
+                    throw new SQLException("Creating user failed, no rows affected.");
+                }
+
+                try (ResultSet generatedKeys = stmtUser.getGeneratedKeys()) {
+                    if (generatedKeys.next()) {
+                        generatedId = generatedKeys.getLong(1);
+                        entity.setId(generatedId);
+                    } else {
+                        throw new SQLException("Creating user failed, no ID obtained.");
+                    }
+                }
+            }
+
+            try (PreparedStatement stmtDuck = connection.prepareStatement(insertDuckSql)) {
+                stmtDuck.setLong(1, generatedId);
+                stmtDuck.setString(2, entity.getTip().toString());
+                stmtDuck.setDouble(3, entity.getViteza());
+                stmtDuck.setDouble(4, entity.getRezistenta());
+                stmtDuck.executeUpdate();
+            }
+
+            connection.commit();
+            return Optional.of(entity);
+
         } catch (SQLException e) {
+            if (connection != null) {
+                try {
+                    connection.rollback();
+                } catch (SQLException ex) {
+                    ex.printStackTrace();
+                }
+            }
             throw new RuntimeException(e);
+        } finally {
+            if (connection != null) {
+                try {
+                    connection.setAutoCommit(true);
+                    connection.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
         }
     }
 
     @Override
     public Optional<Duck> delete(Long id) {
-        if (id == null) {
-            throw new IllegalArgumentException("Id cannot be null");
-        }
+        if (id == null) throw new IllegalArgumentException("Id cannot be null");
 
-        String deleteSQL = "DELETE FROM duck WHERE id = ?";
-        try (var connection = DriverManager.getConnection(url, username, password);
+        Optional<Duck> duckToDelete = findOne(id);
+        if (duckToDelete.isEmpty()) return Optional.empty();
+
+        String deleteSQL = "DELETE FROM users WHERE id = ?";
+        try (Connection connection = DriverManager.getConnection(url, username, password);
              PreparedStatement statement = connection.prepareStatement(deleteSQL)) {
+
             statement.setLong(1, id);
-            Optional<Duck> foundUser = findOne(id);
-            int response = 0;
-            if (foundUser.isPresent()) {
-                response = statement.executeUpdate();
-            }
-            return response == 0 ? Optional.empty() : foundUser;
+            statement.executeUpdate();
+
+            return duckToDelete;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -175,62 +173,86 @@ public class RepoDBDuck implements RepoDB<Long, Duck> {
 
     @Override
     public Optional<Duck> update(Duck entity) {
-        if (entity == null) {
-            throw new IllegalArgumentException("Entity cannot be null");
-        }
-        String updateSQL = "UPDATE duck SET name = ?, email = ?, password = ?, tip = ?, viteza = ?, rezistenta = ? WHERE id = ?";
-        try (Connection connection = DriverManager.getConnection(url, username, password);
-             PreparedStatement statement = connection.prepareStatement(updateSQL);) {
-            statement.setString(1, entity.getUsername());
-            statement.setString(2, entity.getEmail());
-            statement.setString(3, entity.getPassword());
-            statement.setString(4, entity.getTip().toString());
-            statement.setDouble(5, entity.getViteza());
-            statement.setDouble(6, entity.getRezistenta());
-            statement.setLong(7, entity.getId());
+        if (entity == null) throw new IllegalArgumentException("Entity cannot be null");
 
-            int response = statement.executeUpdate();
-            return response == 0 ? Optional.of(entity) : Optional.empty();
+        String updateUserSql = "UPDATE users SET username = ?, email = ?, password = ? WHERE id = ?";
+        String updateDuckSql = "UPDATE duck SET tip = ?, viteza = ?, rezistenta = ? WHERE id = ?";
+
+        Connection connection = null;
+        try {
+            connection = DriverManager.getConnection(this.url, this.username, this.password);
+            connection.setAutoCommit(false);
+
+            try (PreparedStatement stmtUser = connection.prepareStatement(updateUserSql)) {
+                stmtUser.setString(1, entity.getUsername());
+                stmtUser.setString(2, entity.getEmail());
+                stmtUser.setString(3, entity.getPassword());
+                stmtUser.setLong(4, entity.getId());
+                stmtUser.executeUpdate();
+            }
+
+            try (PreparedStatement stmtDuck = connection.prepareStatement(updateDuckSql)) {
+                stmtDuck.setString(1, entity.getTip().toString());
+                stmtDuck.setDouble(2, entity.getViteza());
+                stmtDuck.setDouble(3, entity.getRezistenta());
+                stmtDuck.setLong(4, entity.getId());
+                stmtDuck.executeUpdate();
+            }
+
+            connection.commit();
+            return Optional.of(entity);
+
         } catch (SQLException e) {
+            if (connection != null) {
+                try { connection.rollback(); } catch (SQLException ex) { ex.printStackTrace(); }
+            }
             throw new RuntimeException(e);
+        } finally {
+            if (connection != null) {
+                try { connection.close(); } catch (SQLException e) { e.printStackTrace(); }
+            }
         }
     }
 
     @Override
     public Optional<Duck> findByUsername(String username) {
-        String findQuery = "SELECT * FROM duck WHERE name = ?";
+        String sql = "SELECT u.id, u.username, u.email, u.password, d.tip, d.viteza, d.rezistenta " +
+                "FROM users u " +
+                "JOIN duck d ON u.id = d.id " +
+                "WHERE u.username = ?";
+
         try (Connection connection = DriverManager.getConnection(this.url, this.username, this.password);
-             PreparedStatement statement = connection.prepareStatement(findQuery)) {
+             PreparedStatement statement = connection.prepareStatement(sql)) {
 
             statement.setString(1, username);
             ResultSet result = statement.executeQuery();
 
             if (result.next()) {
-                Long id = result.getLong("id");
-                String name = result.getString("name");
-                String email = result.getString("email");
-                String password = result.getString("password");
-                String tip = result.getString("tip");
-                Double viteza = result.getDouble("viteza");
-                Double rezistenta = result.getDouble("rezistenta");
-
-                if ("SWIMMING".equalsIgnoreCase(tip)) {
-                    SwimmingCard swimmingCard = new SwimmingCard(id, "SwimmingCard", List.of(), TypeCard.SWIMMING);
-                    SwimmingDuck duck = new SwimmingDuck(id, name, email, password, TypeDuck.valueOf(tip), viteza, rezistenta, swimmingCard);
-                    return Optional.of(duck);
-                } else if (tip.equals("FLYING")){
-                    FlyingCard card = new FlyingCard(id, "FlyingCard", List.of(), TypeCard.FLYING);
-                    FlyingDuck rata = new FlyingDuck(id, name, email, password, TypeDuck.valueOf(tip), viteza, rezistenta, card);
-                    return Optional.of(rata);
-                } else{
-                    SwimmingCard swimmingCard = new SwimmingCard(id, "SwimmingCard", List.of(), TypeCard.SWIMMING);
-                    SwimmingDuck rata = new SwimmingDuck(id, name, email, password, TypeDuck.valueOf(tip), viteza, rezistenta, swimmingCard);
-                    return Optional.of(rata);
-                }
+                return Optional.of(extractDuckFromResultSet(result));
             }
-
             return Optional.empty();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
+    public Iterable<Duck> findByType(TypeDuck type) {
+        String sql = "SELECT u.id, u.username, u.email, u.password, d.tip, d.viteza, d.rezistenta " +
+                "FROM users u " +
+                "JOIN duck d ON u.id = d.id " +
+                "WHERE d.tip = ?";
+
+        try (Connection connection = DriverManager.getConnection(this.url, this.username, this.password);
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+
+            statement.setString(1, type.toString());
+            ResultSet result = statement.executeQuery();
+
+            List<Duck> ducks = new ArrayList<>();
+            while (result.next()) {
+                ducks.add(extractDuckFromResultSet(result));
+            }
+            return ducks;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -240,13 +262,13 @@ public class RepoDBDuck implements RepoDB<Long, Duck> {
     public Page<Duck> findAllOnPage(Pageable pageable) {
         try (Connection connection = DriverManager.getConnection(url, username, password)) {
             int totalNumberOfDucks = count(connection);
-            List<Duck> moviesOnPage;
+            List<Duck> ducksOnPage;
             if (totalNumberOfDucks > 0) {
-                moviesOnPage = findAllOnPage(connection, pageable);
+                ducksOnPage = findAllOnPage(connection, pageable);
             } else {
-                moviesOnPage = new ArrayList<>();
+                ducksOnPage = new ArrayList<>();
             }
-            return new Page<>(moviesOnPage, totalNumberOfDucks);
+            return new Page<>(ducksOnPage, totalNumberOfDucks);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -254,33 +276,17 @@ public class RepoDBDuck implements RepoDB<Long, Duck> {
 
     private List<Duck> findAllOnPage(Connection connection, Pageable pageable) throws SQLException {
         List<Duck> ducksOnPage = new ArrayList<>();
-        String sql = "select * from duck limit ? offset ?";
+        String sql = "SELECT u.id, u.username, u.email, u.password, d.tip, d.viteza, d.rezistenta " +
+                "FROM users u " +
+                "JOIN duck d ON u.id = d.id " +
+                "LIMIT ? OFFSET ?";
+
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setInt(1, pageable.getPageSize());
             statement.setInt(2, pageable.getPageSize() * pageable.getPageNumber());
             try (ResultSet resultSet = statement.executeQuery()) {
                 while (resultSet.next()) {
-                    Long id = resultSet.getLong("id");
-                    String name = resultSet.getString("name");
-                    String email = resultSet.getString("email");
-                    String password = resultSet.getString("password");
-                    String tip = resultSet.getString("tip");
-                    Double viteza = resultSet.getDouble("viteza");
-                    Double rezistenta = resultSet.getDouble("rezistenta");
-
-                    if ("SWIMMING".equalsIgnoreCase(tip)) {
-                        SwimmingCard swimmingCard = new SwimmingCard(id, "SwimmingCard", List.of(), TypeCard.SWIMMING);
-                        SwimmingDuck duck = new SwimmingDuck(id, name, email, password, TypeDuck.valueOf(tip), viteza, rezistenta, swimmingCard);
-                        ducksOnPage.add(duck);
-                    } else if (tip.equals("FLYING")){
-                        FlyingCard card = new FlyingCard(id, "FlyingCard", List.of(), TypeCard.FLYING);
-                        FlyingDuck rata = new FlyingDuck(id, name, email, password, TypeDuck.valueOf(tip), viteza, rezistenta, card);
-                        ducksOnPage.add(rata);
-                    } else{
-                        SwimmingCard swimmingCard = new SwimmingCard(id, "SwimmingCard", List.of(), TypeCard.SWIMMING);
-                        SwimmingDuck rata = new SwimmingDuck(id, name, email, password, TypeDuck.valueOf(tip), viteza, rezistenta, swimmingCard);
-                        ducksOnPage.add(rata);
-                    }
+                    ducksOnPage.add(extractDuckFromResultSet(resultSet));
                 }
             }
         }
@@ -288,14 +294,13 @@ public class RepoDBDuck implements RepoDB<Long, Duck> {
     }
 
     private int count(Connection connection) throws SQLException {
-        String sql = "select count(*) as count from duck";
+        String sql = "SELECT count(*) as count FROM duck";
         try (PreparedStatement statement = connection.prepareStatement(sql);
              ResultSet result = statement.executeQuery()) {
-            int totalNumberOfDucks = 0;
             if (result.next()) {
-                totalNumberOfDucks = result.getInt("count");
+                return result.getInt("count");
             }
-            return totalNumberOfDucks;
+            return 0;
         }
     }
 }

@@ -6,18 +6,16 @@ import org.example.utils.paging.Pageable;
 
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
-public class RepoDBFriendship implements RepoDB<Long, Friendship>{
+public class RepoDBFriendship implements RepoDB<Long, Friendship> {
 
     private String url;
     private String username;
     private String password;
 
-    public RepoDBFriendship(String url, String username, String password){
+    public RepoDBFriendship(String url, String username, String password) {
         this.url = url;
         this.username = username;
         this.password = password;
@@ -25,22 +23,20 @@ public class RepoDBFriendship implements RepoDB<Long, Friendship>{
 
     @Override
     public Optional<Friendship> findOne(Long id) {
-        try(Connection connection = DriverManager.getConnection(this.url, this.username, this.password);
-            PreparedStatement statement = connection.prepareStatement("SELECT * FROM friendships WHERE id = ?")) {
+        String sql = "SELECT * FROM friendships WHERE id = ?";
+
+        try (Connection connection = DriverManager.getConnection(this.url, this.username, this.password);
+             PreparedStatement statement = connection.prepareStatement(sql)) {
 
             statement.setLong(1, id);
             ResultSet result = statement.executeQuery();
 
-            if(result.next()){
-                String first_name = result.getString("first_name");
-                String second_name = result.getString("second_name");
-
-                Friendship friendship = new Friendship(id, first_name, second_name);
-                return Optional.of(friendship);
+            if (result.next()) {
+                String u1 = result.getString("user1_username");
+                String u2 = result.getString("user2_username");
+                return Optional.of(new Friendship(id, u1, u2));
             }
-
             return Optional.empty();
-
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -48,59 +44,58 @@ public class RepoDBFriendship implements RepoDB<Long, Friendship>{
 
     @Override
     public Iterable<Friendship> findAll() {
-        try(Connection connection = DriverManager.getConnection(this.url, this.username, this.password);
-            PreparedStatement statement = connection.prepareStatement("SELECT * FROM friendships")){
-            ResultSet resultSet = statement.executeQuery();
-            Set<Friendship> friendships = new HashSet<>();
+        String sql = "SELECT * FROM friendships";
+        List<Friendship> friendships = new ArrayList<>();
 
-            while(resultSet.next()){
-                Long id = resultSet.getLong("id");
-                String first_name = resultSet.getString("first_name");
-                String second_name = resultSet.getString("second_name");
+        try (Connection connection = DriverManager.getConnection(this.url, this.username, this.password);
+             PreparedStatement statement = connection.prepareStatement(sql);
+             ResultSet result = statement.executeQuery()) {
 
-                Friendship friendship = new Friendship(id, first_name, second_name);
-                friendships.add(friendship);
+            while (result.next()) {
+                Long id = result.getLong("id");
+                String u1 = result.getString("user1_username");
+                String u2 = result.getString("user2_username");
+                friendships.add(new Friendship(id, u1, u2));
             }
-
             return friendships;
-
-        } catch (SQLException e){
+        } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
 
     @Override
     public Optional<Friendship> save(Friendship entity) {
-        String insertQuery = "INSERT INTO friendships (first_name, second_name) VALUES (?, ?)";
-        try(Connection connection = DriverManager.getConnection(this.url, this.username, this.password);
-            PreparedStatement statement = connection.prepareStatement(insertQuery)){
+        // Inseram doar numele userilor. ID-ul e serial, data nu mai exista.
+        String sql = "INSERT INTO friendships (user1_username, user2_username) VALUES (?, ?)";
+
+        try (Connection connection = DriverManager.getConnection(this.url, this.username, this.password);
+             PreparedStatement statement = connection.prepareStatement(sql)) {
 
             statement.setString(1, entity.getFirst_friend_username());
             statement.setString(2, entity.getSecond_friend_username());
-            int response = statement.executeUpdate();
-            return response == 0 ? Optional.of(entity) : Optional.empty();
 
-        } catch (SQLException e){
-            throw new RuntimeException(e);
+            int response = statement.executeUpdate();
+            return response == 0 ? Optional.empty() : Optional.of(entity);
+
+        } catch (SQLException e) {
+            throw new RuntimeException("Eroare la save: Probabil userii nu exista in tabela users.", e);
         }
     }
 
     @Override
     public Optional<Friendship> delete(Long id) {
-        if (id == null) {
-            throw new IllegalArgumentException("Id cannot be null");
-        }
+        if (id == null) throw new IllegalArgumentException("Id cannot be null");
 
-        String deleteSQL = "DELETE FROM friendships WHERE id = ?";
-        try (var connection = DriverManager.getConnection(url, username, password);
-             PreparedStatement statement = connection.prepareStatement(deleteSQL)) {
+        Optional<Friendship> found = findOne(id);
+        if (found.isEmpty()) return Optional.empty();
+
+        String sql = "DELETE FROM friendships WHERE id = ?";
+        try (Connection connection = DriverManager.getConnection(url, username, password);
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+
             statement.setLong(1, id);
-            Optional<Friendship> foundFriendship = findOne(id);
-            int response = 0;
-            if (foundFriendship.isPresent()) {
-                response = statement.executeUpdate();
-            }
-            return response == 0 ? Optional.empty() : foundFriendship;
+            statement.executeUpdate();
+            return found;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -108,19 +103,18 @@ public class RepoDBFriendship implements RepoDB<Long, Friendship>{
 
     @Override
     public Optional<Friendship> update(Friendship entity) {
-        if (entity == null) {
-            throw new IllegalArgumentException("Entity cannot be null");
-        }
-        // Am corectat si SQL-ul de aici (lipsea ID-ul la WHERE)
-        String updateSQL = "UPDATE friendships SET first_name = ?, second_name = ? WHERE id = ?";
+        if (entity == null) throw new IllegalArgumentException("Entity null");
+
+        String sql = "UPDATE friendships SET user1_username = ?, user2_username = ? WHERE id = ?";
         try (Connection connection = DriverManager.getConnection(url, username, password);
-             PreparedStatement statement = connection.prepareStatement(updateSQL);) {
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+
             statement.setString(1, entity.getFirst_friend_username());
             statement.setString(2, entity.getSecond_friend_username());
             statement.setLong(3, entity.getId());
 
             int response = statement.executeUpdate();
-            return response == 0 ? Optional.of(entity) : Optional.empty();
+            return response == 0 ? Optional.empty() : Optional.of(entity);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -128,12 +122,10 @@ public class RepoDBFriendship implements RepoDB<Long, Friendship>{
 
     @Override
     public Optional<Friendship> findByUsername(String username) {
-        // Atentie: Aici query-ul cauta dupa 'name', dar tabela are 'first_name' si 'second_name'
-        // Presupun ca ai vrut sa cauti daca username-ul exista in oricare dintre coloane?
-        // Momentan am lasat interogarea originala, dar s-ar putea sa crape daca coloana 'name' nu exista in friendships.
-        String findQuery = "SELECT * FROM friendships WHERE first_name = ? OR second_name = ?";
+        String sql = "SELECT * FROM friendships WHERE user1_username = ? OR user2_username = ?";
+
         try (Connection connection = DriverManager.getConnection(this.url, this.username, this.password);
-             PreparedStatement statement = connection.prepareStatement(findQuery)) {
+             PreparedStatement statement = connection.prepareStatement(sql)) {
 
             statement.setString(1, username);
             statement.setString(2, username);
@@ -141,70 +133,47 @@ public class RepoDBFriendship implements RepoDB<Long, Friendship>{
 
             if (result.next()) {
                 Long id = result.getLong("id");
-                String first_name = result.getString("first_name");
-                String second_name = result.getString("second_name");
-                Friendship friendship = new Friendship(id, first_name, second_name);
-                return Optional.of(friendship);
+                String u1 = result.getString("user1_username");
+                String u2 = result.getString("user2_username");
+                return Optional.of(new Friendship(id, u1, u2));
             }
-
             return Optional.empty();
-
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
-
-    // --- IMPLEMENTARE PAGINARE ---
 
     @Override
     public Page<Friendship> findAllOnPage(Pageable pageable) {
         try (Connection connection = DriverManager.getConnection(url, username, password)) {
-            int totalNumberOfFriendships = count(connection);
-            List<Friendship> friendshipsOnPage;
+            int total = count(connection);
+            List<Friendship> pageList = new ArrayList<>();
 
-            if (totalNumberOfFriendships > 0) {
-                friendshipsOnPage = findAllOnPage(connection, pageable);
-            } else {
-                friendshipsOnPage = new ArrayList<>();
+            if (total > 0) {
+                String sql = "SELECT * FROM friendships LIMIT ? OFFSET ?";
+                try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+                    stmt.setInt(1, pageable.getPageSize());
+                    stmt.setInt(2, pageable.getPageSize() * pageable.getPageNumber());
+
+                    ResultSet rs = stmt.executeQuery();
+                    while (rs.next()) {
+                        Long id = rs.getLong("id");
+                        String u1 = rs.getString("user1_username");
+                        String u2 = rs.getString("user2_username");
+                        pageList.add(new Friendship(id, u1, u2));
+                    }
+                }
             }
-
-            return new Page<>(friendshipsOnPage, totalNumberOfFriendships);
+            return new Page<>(pageList, total);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
 
-    private List<Friendship> findAllOnPage(Connection connection, Pageable pageable) throws SQLException {
-        List<Friendship> friendshipsOnPage = new ArrayList<>();
-        String sql = "SELECT * FROM friendships LIMIT ? OFFSET ?";
-
-        try (PreparedStatement statement = connection.prepareStatement(sql)) {
-            statement.setInt(1, pageable.getPageSize());
-            statement.setInt(2, pageable.getPageSize() * pageable.getPageNumber());
-
-            try (ResultSet resultSet = statement.executeQuery()) {
-                while (resultSet.next()) {
-                    Long id = resultSet.getLong("id");
-                    String firstName = resultSet.getString("first_name");
-                    String secondName = resultSet.getString("second_name");
-
-                    Friendship friendship = new Friendship(id, firstName, secondName);
-                    friendshipsOnPage.add(friendship);
-                }
-            }
-        }
-        return friendshipsOnPage;
-    }
-
     private int count(Connection connection) throws SQLException {
-        String sql = "SELECT count(*) as count FROM friendships";
-        try (PreparedStatement statement = connection.prepareStatement(sql);
-             ResultSet result = statement.executeQuery()) {
-            int total = 0;
-            if (result.next()) {
-                total = result.getInt("count");
-            }
-            return total;
+        try (PreparedStatement stmt = connection.prepareStatement("SELECT count(*) as cnt FROM friendships");
+             ResultSet rs = stmt.executeQuery()) {
+            return rs.next() ? rs.getInt("cnt") : 0;
         }
     }
 }

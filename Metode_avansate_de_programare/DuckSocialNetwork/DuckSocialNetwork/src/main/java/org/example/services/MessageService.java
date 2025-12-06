@@ -57,7 +57,7 @@ public class MessageService {
      * @param message  the message
      */
     public void receiveMessage(User sender, List<User> receiver, Message message){
-        
+
     }
 
 

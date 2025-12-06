@@ -1,127 +1,162 @@
 package org.example.repositories.repo_db;
 
 import org.example.domain.Persoana;
-import org.example.domain.TypeDuck;
-import org.example.domain.card.FlyingCard;
-import org.example.domain.card.SwimmingCard;
-import org.example.domain.card.TypeCard;
-import org.example.domain.ducks.Duck;
-import org.example.domain.ducks.FlyingDuck;
-import org.example.domain.ducks.SwimmingDuck;
 import org.example.utils.paging.Page;
 import org.example.utils.paging.Pageable;
 
 import java.sql.*;
-import java.sql.Date;
+import java.sql.Date; // Atentie la importul asta pentru SQL Date
 import java.time.LocalDate;
 import java.util.*;
 
-public class RepoDBPersoana implements RepoDB<Long, Persoana>{
+public class RepoDBPersoana implements RepoDB<Long, Persoana> {
 
     private String url;
     private String username;
     private String password;
 
-    public RepoDBPersoana(String url, String username, String password){
+    public RepoDBPersoana(String url, String username, String password) {
         this.url = url;
         this.username = username;
         this.password = password;
     }
 
+    // Metoda ajutatoare pentru a evita duplicarea codului de extragere
+    private Persoana extractPersoanaFromResultSet(ResultSet result) throws SQLException {
+        Long id = result.getLong("id");
+        // Date din tabelul USERS
+        String username = result.getString("username");
+        String email = result.getString("email");
+        String password = result.getString("password");
+
+        // Date din tabelul PERSOANA
+        String nume = result.getString("nume");
+        String prenume = result.getString("prenume");
+        String ocupatie = result.getString("ocupatie");
+
+        Date dateSql = result.getDate("data_nastere");
+        LocalDate dataNastere = (dateSql != null) ? dateSql.toLocalDate() : null;
+
+        return new Persoana(id, username, email, password, nume, prenume, ocupatie, dataNastere);
+    }
 
     @Override
     public Optional<Persoana> findOne(Long id) {
+        // JOIN intre users si persoana
+        String sql = "SELECT u.id, u.username, u.email, u.password, " +
+                "p.nume, p.prenume, p.ocupatie, p.data_nastere " +
+                "FROM users u " +
+                "JOIN persoana p ON u.id = p.id " +
+                "WHERE u.id = ?";
 
-        try(Connection connection = DriverManager.getConnection(this.url, this.username, this.password);
-            PreparedStatement statement = connection.prepareStatement("SELECT * FROM persoana WHERE id = ?")
-        ) {
+        try (Connection connection = DriverManager.getConnection(this.url, this.username, this.password);
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+
             statement.setLong(1, id);
             ResultSet result = statement.executeQuery();
-            if (result.next()){
-                String username = result.getString("username");
-                String email = result.getString("email");
-                String password = result.getString("password");
-                String nume = result.getString("nume");
-                String prenume = result.getString("prenume");
-                String ocupatie = result.getString("ocupatie");
-                LocalDate dataNastere = result.getDate("data_nastere").toLocalDate();
 
-                Persoana persoana = new Persoana(id, username, email, password, nume, prenume, ocupatie, dataNastere);
-                return Optional.of(persoana);
+            if (result.next()) {
+                return Optional.of(extractPersoanaFromResultSet(result));
             }
+            return Optional.empty();
 
-        } catch(SQLException e){
+        } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        return Optional.empty();
     }
 
     @Override
     public Iterable<Persoana> findAll() {
+        String sql = "SELECT u.id, u.username, u.email, u.password, " +
+                "p.nume, p.prenume, p.ocupatie, p.data_nastere " +
+                "FROM users u " +
+                "JOIN persoana p ON u.id = p.id";
 
-        try(
-                Connection connection = DriverManager.getConnection(this.url, this.username, this.password);
-                PreparedStatement statement = connection.prepareStatement("SELECT * FROM persoana")
-                ){
-            ResultSet result = statement.executeQuery();
+        try (Connection connection = DriverManager.getConnection(this.url, this.username, this.password);
+             PreparedStatement statement = connection.prepareStatement(sql);
+             ResultSet result = statement.executeQuery()) {
+
             List<Persoana> persoane = new ArrayList<>();
-            while(result.next()){
-                Long id = result.getLong("id");
-                String username = result.getString("username");
-                String email = result.getString("email");
-                String password = result.getString("password");
-                String nume = result.getString("nume");
-                String prenume = result.getString("prenume");
-                String ocupatie = result.getString("ocupatie");
-                LocalDate dataNastere = result.getDate("data_nastere").toLocalDate();
-
-                Persoana persoana = new Persoana(id, username, email, password, nume, prenume, ocupatie, dataNastere);
-                persoane.add(persoana);
+            while (result.next()) {
+                persoane.add(extractPersoanaFromResultSet(result));
             }
             return persoane;
-        } catch (Exception e){
+
+        } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
 
     @Override
     public Optional<Persoana> save(Persoana entity) {
-        String insertQuery = "INSERT INTO persoana (username, email, password, nume, prenume, ocupatie, data_nastere) VALUES (?, ?, ?, ?, ?, ?, ?)";
-        try(
-                Connection connection = DriverManager.getConnection(this.url, this.username, this.password);
-                PreparedStatement statement = connection.prepareStatement(insertQuery);
-                ){
-            statement.setString(1, entity.getUsername());
-            statement.setString(2, entity.getEmail());
-            statement.setString(3, entity.getPassword());
-            statement.setString(4, entity.getNume());
-            statement.setString(5, entity.getPrenume());
-            statement.setString(6, entity.getOcupatie());
-            statement.setDate(7, Date.valueOf(entity.getDataNastere()));
-            int response = statement.executeUpdate();
-            return response == 0 ? Optional.of(entity) : Optional.empty();
+        String insertUserSql = "INSERT INTO users (username, email, password, user_type) VALUES (?, ?, ?, 'PERSOANA')";
+        String insertPersoanaSql = "INSERT INTO persoana (id, nume, prenume, ocupatie, data_nastere) VALUES (?, ?, ?, ?, ?)";
 
-        } catch (SQLException e){
+        Connection connection = null;
+        try {
+            connection = DriverManager.getConnection(this.url, this.username, this.password);
+            connection.setAutoCommit(false);
+
+            Long generatedId = null;
+            try (PreparedStatement stmtUser = connection.prepareStatement(insertUserSql, Statement.RETURN_GENERATED_KEYS)) {
+                stmtUser.setString(1, entity.getUsername());
+                stmtUser.setString(2, entity.getEmail());
+                stmtUser.setString(3, entity.getPassword());
+
+                int affectedRows = stmtUser.executeUpdate();
+                if (affectedRows == 0) throw new SQLException("Creating user failed, no rows affected.");
+
+                try (ResultSet generatedKeys = stmtUser.getGeneratedKeys()) {
+                    if (generatedKeys.next()) {
+                        generatedId = generatedKeys.getLong(1);
+                        entity.setId(generatedId);
+                    } else {
+                        throw new SQLException("Creating user failed, no ID obtained.");
+                    }
+                }
+            }
+
+            try (PreparedStatement stmtPersoana = connection.prepareStatement(insertPersoanaSql)) {
+                stmtPersoana.setLong(1, generatedId);
+                stmtPersoana.setString(2, entity.getNume());
+                stmtPersoana.setString(3, entity.getPrenume());
+                stmtPersoana.setString(4, entity.getOcupatie());
+                stmtPersoana.setDate(5, Date.valueOf(entity.getDataNastere()));
+
+                stmtPersoana.executeUpdate();
+            }
+
+            connection.commit();
+            return Optional.of(entity);
+
+        } catch (SQLException e) {
+            if (connection != null) {
+                try { connection.rollback(); } catch (SQLException ex) { ex.printStackTrace(); }
+            }
             throw new RuntimeException(e);
+        } finally {
+            if (connection != null) {
+                try { connection.setAutoCommit(true); connection.close(); } catch (SQLException e) { e.printStackTrace(); }
+            }
         }
     }
 
     @Override
     public Optional<Persoana> delete(Long id) {
-        if (id == null) {
-            throw new IllegalArgumentException("Id cannot be null");
-        }
+        if (id == null) throw new IllegalArgumentException("Id cannot be null");
 
-        String deleteSQL = "DELETE FROM persoana WHERE id = ?";
-        try (var connection = DriverManager.getConnection(url, username, password);
+        // Cautam intai persoana ca sa o returnam
+        Optional<Persoana> found = findOne(id);
+        if (found.isEmpty()) return Optional.empty();
+
+        String deleteSQL = "DELETE FROM users WHERE id = ?";
+        try (Connection connection = DriverManager.getConnection(url, username, password);
              PreparedStatement statement = connection.prepareStatement(deleteSQL)) {
+
             statement.setLong(1, id);
-            Optional<Persoana> foundUser = findOne(id);
-            int response = 0;
-            if (foundUser.isPresent()) {
-                response = statement.executeUpdate();
-            }
-            return response == 0 ? Optional.empty() : foundUser;
+            statement.executeUpdate();
+            return found;
+
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -129,114 +164,121 @@ public class RepoDBPersoana implements RepoDB<Long, Persoana>{
 
     @Override
     public Optional<Persoana> update(Persoana entity) {
-        if (entity == null) {
-            throw new IllegalArgumentException("Entity cannot be null");
+        if (entity == null) throw new IllegalArgumentException("Entity cannot be null");
+
+        String updateUserSql = "UPDATE users SET username = ?, email = ?, password = ? WHERE id = ?";
+        String updatePersoanaSql = "UPDATE persoana SET nume = ?, prenume = ?, ocupatie = ?, data_nastere = ? WHERE id = ?";
+
+        Connection connection = null;
+        try {
+            connection = DriverManager.getConnection(this.url, this.username, this.password);
+            connection.setAutoCommit(false);
+
+            try (PreparedStatement stmtUser = connection.prepareStatement(updateUserSql)) {
+                stmtUser.setString(1, entity.getUsername());
+                stmtUser.setString(2, entity.getEmail());
+                stmtUser.setString(3, entity.getPassword());
+                stmtUser.setLong(4, entity.getId());
+                stmtUser.executeUpdate();
+            }
+
+            try (PreparedStatement stmtPersoana = connection.prepareStatement(updatePersoanaSql)) {
+                stmtPersoana.setString(1, entity.getNume());
+                stmtPersoana.setString(2, entity.getPrenume());
+                stmtPersoana.setString(3, entity.getOcupatie());
+                stmtPersoana.setDate(4, Date.valueOf(entity.getDataNastere()));
+                stmtPersoana.setLong(5, entity.getId());
+                stmtPersoana.executeUpdate();
+            }
+
+            connection.commit();
+            return Optional.of(entity);
+
+        } catch (SQLException e) {
+            if (connection != null) {
+                try { connection.rollback(); } catch (SQLException ex) { ex.printStackTrace(); }
+            }
+            throw new RuntimeException(e);
+        } finally {
+            if (connection != null) {
+                try { connection.close(); } catch (SQLException e) { e.printStackTrace(); }
+            }
         }
+    }
 
-        String updateSQL = "UPDATE persoana SET username = ?, email = ?, password = ?, nume = ?, prenume = ?, ocupatie = ?, data_nastere = ? WHERE id = ?";
-        try (var connection = DriverManager.getConnection(url, username, password);
-             PreparedStatement statement = connection.prepareStatement(updateSQL);) {
-            statement.setString(1, entity.getUsername());
-            statement.setString(2, entity.getEmail());
-            statement.setString(3, entity.getPassword());
-            statement.setString(4, entity.getNume());
-            statement.setString(5, entity.getPrenume());
-            statement.setString(6, entity.getOcupatie());
-            statement.setDate(7, Date.valueOf(entity.getDataNastere()));
-            statement.setLong(8, entity.getId());
+    @Override
+    public Optional<Persoana> findByUsername(String username) {
+        if (username == null) throw new IllegalArgumentException("Username cannot be null");
 
-            int response = statement.executeUpdate();
-            return response == 0 ? Optional.of(entity) : Optional.empty();
+        String sql = "SELECT u.id, u.username, u.email, u.password, " +
+                "p.nume, p.prenume, p.ocupatie, p.data_nastere " +
+                "FROM users u " +
+                "JOIN persoana p ON u.id = p.id " +
+                "WHERE u.username = ?";
+
+        try (Connection connection = DriverManager.getConnection(this.url, this.username, this.password);
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+
+            statement.setString(1, username);
+            ResultSet result = statement.executeQuery();
+
+            if (result.next()) {
+                return Optional.of(extractPersoanaFromResultSet(result));
+            }
+            return Optional.empty();
+
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
 
     @Override
-    public Optional<Persoana> findByUsername(String username) {
-       if (username == null) {
-            throw new IllegalArgumentException("Username cannot be null");
-       }
-
-       String findByUsernameQuery = "SELECT * FROM persoana WHERE username = ?";
-       try(
-               Connection connection = DriverManager.getConnection(this.url, this.username, this.password);
-               PreparedStatement statement = connection.prepareStatement(findByUsernameQuery);
-               ){
-           statement.setString(1, username);
-           ResultSet result = statement.executeQuery();
-
-           if (result.next()){
-               Long id = result.getLong("id");
-               String email = result.getString("email");
-               String password = result.getString("password");
-               String nume = result.getString("nume");
-               String prenume = result.getString("prenume");
-               String ocupatie = result.getString("ocupatie");
-               LocalDate dataNastere = result.getDate("data_nastere").toLocalDate();
-
-               Persoana persoana = new Persoana(id, username, email, password, nume, prenume, ocupatie, dataNastere);
-               return Optional.of(persoana);
-           }
-
-            return Optional.empty();
-       } catch(SQLException e){
-           throw new RuntimeException(e);
-       }
-    }
-
-    @Override
-    public Page<Persoana> findAllOnPage(Pageable pageable){
+    public Page<Persoana> findAllOnPage(Pageable pageable) {
         try (Connection connection = DriverManager.getConnection(url, username, password)) {
-            int totalNumberOfPersoane = count(connection);
-            List<Persoana> persoaneOnPage;
-            if (totalNumberOfPersoane > 0) {
-                persoaneOnPage = findAllOnPage(connection, pageable);
+            int total = count(connection);
+            List<Persoana> onPage;
+            if (total > 0) {
+                onPage = findAllOnPage(connection, pageable);
             } else {
-                persoaneOnPage = new ArrayList<>();
+                onPage = new ArrayList<>();
             }
-            return new Page<Persoana>(persoaneOnPage, totalNumberOfPersoane);
+            return new Page<>(onPage, total);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
 
     private List<Persoana> findAllOnPage(Connection connection, Pageable pageable) throws SQLException {
-        List<Persoana> persoaneOnPage = new ArrayList<>();
-        String sql = "select * from persoana limit ? offset ?";
+        List<Persoana> list = new ArrayList<>();
+
+        String sql = "SELECT u.id, u.username, u.email, u.password, " +
+                "p.nume, p.prenume, p.ocupatie, p.data_nastere " +
+                "FROM users u " +
+                "JOIN persoana p ON u.id = p.id " +
+                "LIMIT ? OFFSET ?";
+
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setInt(1, pageable.getPageSize());
             statement.setInt(2, pageable.getPageSize() * pageable.getPageNumber());
-            try (ResultSet result = statement.executeQuery()) {
-                while (result.next()){
-                    Long id = result.getLong("id");
-                    String username = result.getString("username");
-                    String email = result.getString("email");
-                    String password = result.getString("password");
-                    String nume = result.getString("nume");
-                    String prenume = result.getString("prenume");
-                    String ocupatie = result.getString("ocupatie");
-                    LocalDate dataNastere = result.getDate("data_nastere").toLocalDate();
 
-                    Persoana persoana = new Persoana(id, username, email, password, nume, prenume, ocupatie, dataNastere);
-                    persoaneOnPage.add(persoana);
+            try (ResultSet result = statement.executeQuery()) {
+                while (result.next()) {
+                    list.add(extractPersoanaFromResultSet(result));
                 }
             }
         }
-        return persoaneOnPage;
+        return list;
     }
 
     private int count(Connection connection) throws SQLException {
-        String sql = "select count(*) as count from persoana";
+
+        String sql = "SELECT count(*) as count FROM persoana";
         try (PreparedStatement statement = connection.prepareStatement(sql);
              ResultSet result = statement.executeQuery()) {
-            int totalNumberOfPersoane = 0;
             if (result.next()) {
-                totalNumberOfPersoane = result.getInt("count");
+                return result.getInt("count");
             }
-            return totalNumberOfPersoane;
+            return 0;
         }
     }
-
-
 }
