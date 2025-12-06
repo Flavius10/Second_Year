@@ -31,9 +31,36 @@
 
     <VBox spacing="20" alignment="CENTER" VBox.vgrow="ALWAYS">
 
-        <Button text="DuckTab" onAction="#switchToDuckTab"/>
-        <Button text="PersoanaTab" onAction="#switchToPersonTab"/>
-        <Button text="PrietenieTab" onAction="#switchToFriendshipTab"/>
+        <Button text="DuckTab"
+                style="-fx-background-color: #3b82f6;
+                    -fx-text-fill: white;
+                    -fx-font-family: 'Segoe UI';
+                    -fx-font-weight: bold;
+                    -fx-font-size: 14px;
+                    -fx-background-radius: 8px;
+                    -fx-cursor: hand;
+                    -fx-padding: 10px 20px;"
+                onAction="#switchToDuckTab"/>
+        <Button text="PersoanaTab"
+                style="-fx-background-color: #3b82f6;
+                    -fx-text-fill: white;
+                    -fx-font-family: 'Segoe UI';
+                    -fx-font-weight: bold;
+                    -fx-font-size: 14px;
+                    -fx-background-radius: 8px;
+                    -fx-cursor: hand;
+                    -fx-padding: 10px 20px;"
+        onAction="#switchToPersonTab"/>
+        <Button text="PrietenieTab"
+                style="-fx-background-color: #3b82f6;
+                    -fx-text-fill: white;
+                    -fx-font-family: 'Segoe UI';
+                    -fx-font-weight: bold;
+                    -fx-font-size: 14px;
+                    -fx-background-radius: 8px;
+                    -fx-cursor: hand;
+                    -fx-padding: 10px 20px;"
+                onAction="#switchToFriendshipTab"/>
 
     </VBox>
 
