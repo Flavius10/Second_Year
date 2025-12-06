@@ -31,26 +31,7 @@
 
     <HBox spacing="20" alignment="CENTER" VBox.vgrow="ALWAYS">
 
-        <VBox spacing="10" HBox.hgrow="ALWAYS" alignment="CENTER">
-            <Label text="Lista Rate" style="-fx-font-weight: bold"/>
-            <TableView fx:id="duckTableView" VBox.vgrow="ALWAYS">
-                <columnResizePolicy>
-                    <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
-                </columnResizePolicy>
-                <columns>
-                    <TableColumn fx:id="idColumn" text="ID" prefWidth="40"/>
-                    <TableColumn fx:id="usernameColumn" text="Username"/>
-                    <TableColumn fx:id="emailColumn" text="Email"/>
-                    <TableColumn fx:id="typeColumn" text="Type"/>
-                    <TableColumn fx:id="rezistentaColumn" text="Stamina"/>
-                    <TableColumn fx:id="vitezaColumn" text="Speed"/>
-                </columns>
-            </TableView>
-            <HBox spacing="10" alignment="CENTER">
-                <Button fx:id="prevDuckBtn" text="Previous"/>
-                <Button fx:id="nextDuckBtn" text="Next"/>
-            </HBox>
-        </VBox>
+        <Button text="DuckTab" onAction="#switchToDuckTab"></Button>
 
         <VBox spacing="10" HBox.hgrow="ALWAYS" alignment="CENTER">
             <Label text="Lista Persoane" style="-fx-font-weight: bold"/>

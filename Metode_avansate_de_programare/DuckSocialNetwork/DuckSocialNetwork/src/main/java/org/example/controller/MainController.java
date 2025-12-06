@@ -1,11 +1,16 @@
 package org.example.controller;
 
 import javafx.collections.FXCollections;
+import javafx.scene.Node;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 import org.example.domain.Persoana;
 import org.example.domain.Friendship;
 import org.example.domain.TypeDuck;
@@ -22,6 +27,9 @@ import org.example.network.NetworkService; // Asigura-te ca e importat corect
 import org.example.utils.paging.Page;
 import org.example.utils.paging.Pageable;
 
+import javax.swing.*;
+import javafx.event.ActionEvent;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -50,6 +58,7 @@ public class MainController {
     @FXML private TableColumn<Duck, Double> rezistentaColumn;
     @FXML private Button prevDuckBtn;
     @FXML private Button nextDuckBtn;
+    @FXML private Button duckTabBtn;
 
     @FXML private TableView<Persoana> persoanaTableView;
     @FXML private TableColumn<Persoana, Long> idColumnPersoana;
@@ -134,19 +143,19 @@ public class MainController {
         initColumns();
         setupAllEventHandlers();
 
-        loadDuckPage();
+        //loadDuckPage();
         loadPersonPage();
         loadFriendshipPage();
     }
 
     private void initColumns() {
-        idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
-        usernameColumn.setCellValueFactory(new PropertyValueFactory<>("username"));
-        emailColumn.setCellValueFactory(new PropertyValueFactory<>("email"));
-        typeColumn.setCellValueFactory(new PropertyValueFactory<>("tip"));
-        rezistentaColumn.setCellValueFactory(new PropertyValueFactory<>("rezistenta"));
-        vitezaColumn.setCellValueFactory(new PropertyValueFactory<>("viteza"));
-        duckTableView.setItems(ducksModel);
+//        idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
+//        usernameColumn.setCellValueFactory(new PropertyValueFactory<>("username"));
+//        emailColumn.setCellValueFactory(new PropertyValueFactory<>("email"));
+//        typeColumn.setCellValueFactory(new PropertyValueFactory<>("tip"));
+//        rezistentaColumn.setCellValueFactory(new PropertyValueFactory<>("rezistenta"));
+//        vitezaColumn.setCellValueFactory(new PropertyValueFactory<>("viteza"));
+//        duckTableView.setItems(ducksModel);
 
         idColumnPersoana.setCellValueFactory(new PropertyValueFactory<>("id"));
         usernameColumnPersoana.setCellValueFactory(new PropertyValueFactory<>("username"));
@@ -163,15 +172,15 @@ public class MainController {
         friendshipTableView.setItems(friendsModel);
     }
 
-    private void loadDuckPage() {
-        Pageable pageable = new Pageable(currentPageDuck, pageSize);
-        Page<Duck> page = duckService.findAllOnPage(pageable);
-        List<Duck> list = new ArrayList<>();
-        if (page != null && page.getElementsOnPage() != null) page.getElementsOnPage().forEach(list::add);
-        ducksModel.setAll(list);
-        prevDuckBtn.setDisable(currentPageDuck == 0);
-        nextDuckBtn.setDisable(list.size() < pageSize);
-    }
+//    private void loadDuckPage() {
+//        Pageable pageable = new Pageable(currentPageDuck, pageSize);
+//        Page<Duck> page = duckService.findAllOnPage(pageable);
+//        List<Duck> list = new ArrayList<>();
+//        if (page != null && page.getElementsOnPage() != null) page.getElementsOnPage().forEach(list::add);
+//        ducksModel.setAll(list);
+//        prevDuckBtn.setDisable(currentPageDuck == 0);
+//        nextDuckBtn.setDisable(list.size() < pageSize);
+//    }
 
     private void loadPersonPage() {
         Pageable pageable = new Pageable(currentPagePerson, pageSize);
@@ -196,8 +205,8 @@ public class MainController {
 
     private void setupAllEventHandlers() {
         // Navigare
-        prevDuckBtn.setOnAction(e -> { if (currentPageDuck > 0) { currentPageDuck--; loadDuckPage(); }});
-        nextDuckBtn.setOnAction(e -> { currentPageDuck++; loadDuckPage(); });
+        //prevDuckBtn.setOnAction(e -> { if (currentPageDuck > 0) { currentPageDuck--; loadDuckPage(); }});
+        //nextDuckBtn.setOnAction(e -> { currentPageDuck++; loadDuckPage(); });
         prevPersonBtn.setOnAction(e -> { if (currentPagePerson > 0) { currentPagePerson--; loadPersonPage(); }});
         nextPersonBtn.setOnAction(e -> { currentPagePerson++; loadPersonPage(); });
         prevFriendBtn.setOnAction(e -> { if (currentPageFriend > 0) { currentPageFriend--; loadFriendshipPage(); }});
@@ -242,7 +251,7 @@ public class MainController {
                         duck = new SwimmingDuck(id, username, email, password, tip, viteza, rezistenta, card);
                     }
                     duckService.saveDuck(duck);
-                    loadDuckPage();
+                    //loadDuckPage();
                 }
                 usernameField.clear(); emailField.clear(); passwordField.clear();
                 numeField.clear(); prenumeField.clear(); vitezaField.clear(); rezistentaField.clear();
@@ -259,7 +268,7 @@ public class MainController {
             if (selectedDuck != null) {
                 try {
                     duckService.deleteDuck(selectedDuck);
-                    loadDuckPage();
+                    //loadDuckPage();
                     printLog("Succes: Rata stearsa!");
                 } catch (Exception ex) {
                     printLog("Eroare la stergere rata: " + ex.getMessage());
@@ -375,5 +384,27 @@ public class MainController {
         if (duckService.findByUsernameDuck(username) != null) return true;
         if (persoanaService.findByUsernamePerson(username) != null) return true;
         return false;
+    }
+
+    @FXML
+    public void switchToDuckTab(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/duck-view.fxml"));
+        Parent root = loader.load();
+
+
+        Stage stage = (Stage)((Node) event.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+
+//        Stage stage = new Stage();
+//        stage.setTitle("DuckTab");
+//        stage.setScene(new Scene(root));
+
+        DuckController controller = loader.getController();
+        controller.setDuckService(duckService);
+
+        stage.centerOnScreen();
+        stage.show();
+
     }
 }

@@ -81,7 +81,7 @@ public class DuckController {
         welcomeLabel.setText("Gestionare Rata");
 
         duckTypeCombo.setItems(FXCollections.observableArrayList("SWIMMING", "FLYING", "FLYING_AND_SWIMMING"));
-
+        duckTypeCombo.getSelectionModel().selectFirst();
 
         printLog("Aplicatia a fost incarcata. Asteptare utilizator...");
     }
@@ -92,6 +92,8 @@ public class DuckController {
 
         initColumns();
         setupAllEventHandlers();
+
+        loadDuckPage();
 
     }
 
