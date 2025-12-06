@@ -5,6 +5,7 @@ import org.example.domain.User;
 import org.example.repositories.messages.RepoMessage;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 /**
  * The type Message service.
@@ -33,7 +34,7 @@ public class MessageService {
      * @param receiver the receiver
      * @param content  the content
      */
-    public void sendMessage(User sender, User receiver, String content){
+    public void sendMessage(User sender, List<User> receiver, String content){
         if (this.authService.isLoggedIn(sender)){
             try{
                 Message message = new Message(messageCount++, sender, receiver, content, LocalDateTime.now());
@@ -55,13 +56,8 @@ public class MessageService {
      * @param receiver the receiver
      * @param message  the message
      */
-    public void receiveMessage(User sender, User receiver, Message message){
-
-        if (authService.isLoggedIn(receiver)) {
-            System.out.println(receiver.getUsername() + " received a new message from " + sender.getUsername());
-        } else {
-            System.out.println("Message saved for " + receiver.getUsername() + ". They are offline.");
-        }
+    public void receiveMessage(User sender, List<User> receiver, Message message){
+        
     }
 
 

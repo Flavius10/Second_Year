@@ -31,10 +31,10 @@ public class RepoMessage implements RepoCrud<Message>{
     public void update(Message entity) {
         if (this.findById(entity.getId()) != null) {
             Message message = this.findById(entity.getId());
-            message.setContent(entity.getContent());
-            message.setTimestamp(entity.getTimestamp());
-            message.setReceiver(entity.getReceiver());
-            message.setSender(entity.getSender());
+//            message.setContent(entity.getContent());
+//            message.setTimestamp(entity.getTimestamp());
+//            message.setReceiver(entity.getReceiver());
+//            message.setSender(entity.getSender());
             this.messages.set(this.messages.indexOf(message), message);
         }
         else {
