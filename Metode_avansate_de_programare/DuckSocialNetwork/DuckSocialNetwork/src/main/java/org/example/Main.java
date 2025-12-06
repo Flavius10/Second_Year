@@ -4,23 +4,14 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import org.example.domain.ducks.Duck;
+import org.example.controller.MainController;
 import org.example.network.*;
-import org.example.repositories.repo_db.RepoDBCard;
 import org.example.repositories.repo_db.RepoDBDuck;
 import org.example.repositories.repo_db.RepoDBFriendship;
 import org.example.repositories.repo_db.RepoDBPersoana;
-import org.example.repositories.repo_file.RepoFileCard;
-import org.example.repositories.repo_file.RepoFileDuck;
-import org.example.repositories.repo_file.RepoFilePersoana;
-import org.example.repositories.repo_file.RepoFileFriendship;
-import org.example.services.CardService;
 import org.example.services.DuckService;
 import org.example.services.FriendshipService;
 import org.example.services.PersoanaService;
-import org.example.ui.Menu;
-import org.example.ui.Ui;
-import org.example.utils.Constants;
 
 /**
  * The type Main.

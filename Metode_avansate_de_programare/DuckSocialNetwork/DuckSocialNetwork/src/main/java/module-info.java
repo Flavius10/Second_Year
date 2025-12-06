@@ -14,4 +14,6 @@ module org.example {
     opens org.example.domain.ducks to javafx.base;
 
     exports org.example;
+    exports org.example.controller;
+    opens org.example.controller to javafx.fxml;
 }

@@ -17,7 +17,7 @@
 <?import javafx.scene.layout.VBox?>
 
 <VBox xmlns:fx="http://javafx.com/fxml"
-      fx:controller="org.example.MainController"
+      fx:controller="org.example.controller.MainController"
       spacing="15"
       alignment="TOP_CENTER"
       prefWidth="1200" prefHeight="900"

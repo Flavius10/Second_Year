@@ -1,4 +1,4 @@
-package org.example;
+package org.example.controller;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -121,7 +121,6 @@ public class MainController {
         userTypeComboBox.getSelectionModel().select("Persoana");
         duckTypeCombo.getSelectionModel().select("SWIMMING");
 
-        // Mesaj initial in log
         printLog("Aplicatia a pornit. Astept actiuni...");
     }
 
