@@ -401,7 +401,8 @@ public class MainController {
 //        stage.setScene(new Scene(root));
 
         DuckController controller = loader.getController();
-        controller.setDuckService(duckService);
+        controller.setDuckService(duckService, persoanaService,
+                friendshipService, networkService);
 
         stage.centerOnScreen();
         stage.show();

@@ -77,9 +77,15 @@
         <Separator/>
 
         <HBox spacing="10">
-            <Button text="Add Duck" fx:id="addDuckBtn" maxWidth="Infinity" HBox.hgrow="ALWAYS" style="-fx-background-color: #4CAF50; -fx-text-fill: white;"/>
-            <Button text="Delete Duck" fx:id="deleteDuckBtn" maxWidth="Infinity" HBox.hgrow="ALWAYS" style="-fx-background-color: #f44336; -fx-text-fill: white;"/>
-        </HBox>
+
+            <VBox>
+                <Button text="Add Duck" fx:id="addDuckBtn" maxWidth="Infinity" HBox.hgrow="ALWAYS" style="-fx-background-color: #4CAF50; -fx-text-fill: white;"/>
+                <Button text="Delete Duck" fx:id="deleteDuckBtn" maxWidth="Infinity" HBox.hgrow="ALWAYS" style="-fx-background-color: #f44336; -fx-text-fill: white;"/>
+            </VBox>
+                <Button text="Back to main page" onAction="#switchToMainTab"></Button>
+            </HBox>
+
+        <TextArea fx:id="resultArea" editable="false" wrapText="true" VBox.vgrow="ALWAYS"/>
 
     </VBox>
 

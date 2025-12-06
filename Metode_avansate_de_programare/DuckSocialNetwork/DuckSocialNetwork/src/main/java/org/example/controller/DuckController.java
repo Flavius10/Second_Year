@@ -3,9 +3,15 @@ package org.example.controller;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Stage;
 import org.example.domain.TypeDuck;
 import org.example.domain.card.FlyingCard;
 import org.example.domain.card.SwimmingCard;
@@ -13,10 +19,14 @@ import org.example.domain.card.TypeCard;
 import org.example.domain.ducks.Duck;
 import org.example.domain.ducks.FlyingDuck;
 import org.example.domain.ducks.SwimmingDuck;
+import org.example.network.NetworkService;
 import org.example.services.DuckService;
+import org.example.services.FriendshipService;
+import org.example.services.PersoanaService;
 import org.example.utils.paging.Page;
 import org.example.utils.paging.Pageable;
 
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -25,6 +35,9 @@ import java.util.List;
 public class DuckController {
 
     private DuckService duckService;
+    private PersoanaService persoanaService;
+    private FriendshipService friendshipService;
+    private NetworkService networkService;
 
     @FXML
     private Label welcomeLabel;
@@ -86,9 +99,13 @@ public class DuckController {
         printLog("Aplicatia a fost incarcata. Asteptare utilizator...");
     }
 
-    public void setDuckService(DuckService duckService) {
+    public void setDuckService(DuckService duckService, PersoanaService persoanaService,
+                               FriendshipService friendshipService, NetworkService networkService) {
 
         this.duckService = duckService;
+        this.persoanaService = persoanaService;
+        this.friendshipService = friendshipService;
+        this.networkService = networkService;
 
         initColumns();
         setupAllEventHandlers();
@@ -172,7 +189,6 @@ public class DuckController {
             }
         });
 
-
     }
 
     private void printLog(String message){
@@ -186,6 +202,21 @@ public class DuckController {
 
     private boolean checkUserExists(String username){
         return duckService.findByUsernameDuck(username) != null;
+    }
+
+    @FXML
+    public void switchToMainTab(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/main-view.fxml"));
+        Parent root = loader.load();
+
+        Stage stage = (Stage)((Node) event.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+
+        MainController controller = loader.getController();
+        controller.setServices(duckService, persoanaService, friendshipService, networkService);
+
+        stage.show();
     }
 
 
