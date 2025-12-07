@@ -15,6 +15,7 @@ import org.example.domain.ducks.Duck;
 import org.example.network.NetworkService;
 import org.example.services.DuckService;
 import org.example.services.FriendshipService;
+import org.example.services.MessageService;
 import org.example.services.PersoanaService;
 
 import java.io.IOException;
@@ -27,6 +28,7 @@ public class LogInController {
     private PersoanaService persoanaService;
     private FriendshipService friendshipService;
     private NetworkService networkService;
+    private MessageService messageService;
 
     @FXML
     private TextField usernameField;
@@ -47,11 +49,14 @@ public class LogInController {
     }
 
     public void setServices(DuckService duckService, PersoanaService persoanaService,
-                            FriendshipService friendshipService, NetworkService networkService){
+                            FriendshipService friendshipService, NetworkService networkService,
+                            MessageService messageService){
+
         this.duckService = duckService;
         this.persoanaService = persoanaService;
         this.friendshipService = friendshipService;
         this.networkService = networkService;
+        this.messageService = messageService;
 
         loadDucks();
         loadPersoane();
@@ -141,7 +146,8 @@ public class LogInController {
         stage.setScene(scene);
 
         MainController controller = loader.getController();
-        controller.setServices(duckService, persoanaService, friendshipService, networkService);
+        controller.setServices(duckService, persoanaService,
+                friendshipService, networkService, messageService);
 
         stage.show();
 

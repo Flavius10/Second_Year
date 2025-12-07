@@ -21,6 +21,7 @@ import org.example.domain.ducks.SwimmingDuck;
 import org.example.network.NetworkService;
 import org.example.services.DuckService;
 import org.example.services.FriendshipService;
+import org.example.services.MessageService;
 import org.example.services.PersoanaService;
 
 import java.io.IOException;
@@ -33,6 +34,7 @@ public class RegisterController {
     private PersoanaService persoanaService;
     private FriendshipService friendshipService;
     private NetworkService networkService;
+    private MessageService messageService;
 
     @FXML private ComboBox<String> userTypeComboBox;
     @FXML private TextField usernameField;
@@ -71,11 +73,13 @@ public class RegisterController {
     }
 
     public void setServices(DuckService duckService, PersoanaService persoanaService,
-                            FriendshipService friendshipService, NetworkService networkService) {
+                            FriendshipService friendshipService, NetworkService networkService,
+                            MessageService messageService) {
         this.duckService = duckService;
         this.persoanaService = persoanaService;
         this.friendshipService = friendshipService;
         this.networkService = networkService;
+        this.messageService = messageService;
     }
 
     private void showPersonFields(boolean showPerson) {
@@ -168,7 +172,8 @@ public class RegisterController {
         stage.setScene(new Scene(root));
 
         LogInController logInController = loader.getController();
-        logInController.setServices(duckService, persoanaService, friendshipService, networkService);
+        logInController.setServices(duckService, persoanaService,
+                friendshipService, networkService, messageService);
 
         stage.show();
     }

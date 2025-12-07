@@ -22,6 +22,7 @@ import org.example.domain.ducks.SwimmingDuck;
 import org.example.network.NetworkService;
 import org.example.services.DuckService;
 import org.example.services.FriendshipService;
+import org.example.services.MessageService;
 import org.example.services.PersoanaService;
 import org.example.utils.paging.Page;
 import org.example.utils.paging.Pageable;
@@ -38,6 +39,7 @@ public class DuckController {
     private PersoanaService persoanaService;
     private FriendshipService friendshipService;
     private NetworkService networkService;
+    private MessageService messageService;
 
     @FXML
     private Label welcomeLabel;
@@ -103,12 +105,14 @@ public class DuckController {
     }
 
     public void setDuckService(DuckService duckService, PersoanaService persoanaService,
-                               FriendshipService friendshipService, NetworkService networkService) {
+                               FriendshipService friendshipService, NetworkService networkService
+                                , MessageService messageService) {
 
         this.duckService = duckService;
         this.persoanaService = persoanaService;
         this.friendshipService = friendshipService;
         this.networkService = networkService;
+        this.messageService = messageService;
 
         initColumns();
         setupAllEventHandlers();
@@ -251,7 +255,8 @@ public class DuckController {
         stage.setScene(scene);
 
         MainController controller = loader.getController();
-        controller.setServices(duckService, persoanaService, friendshipService, networkService);
+        controller.setServices(duckService, persoanaService,
+                friendshipService, networkService, messageService);
 
         stage.show();
     }

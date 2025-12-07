@@ -14,4 +14,14 @@ public class MessageController {
     private NetworkService networkService;
     private MessageService messageService;
 
+    public void setServices(DuckService duckService, PersoanaService persoanaService, FriendshipService friendshipService,
+                            NetworkService networkService, MessageService messageService) {
+
+        this.duckService = duckService;
+        this.persoanaService = persoanaService;
+        this.friendshipService = friendshipService;
+        this.networkService = networkService;
+        this.messageService = messageService;
+    }
+
 }

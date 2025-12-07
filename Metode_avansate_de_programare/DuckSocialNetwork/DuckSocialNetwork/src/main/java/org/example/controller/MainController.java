@@ -21,6 +21,7 @@ import org.example.domain.ducks.Duck;
 import org.example.domain.ducks.FlyingDuck;
 import org.example.domain.ducks.SwimmingDuck;
 import org.example.services.DuckService;
+import org.example.services.MessageService;
 import org.example.services.PersoanaService;
 import org.example.services.FriendshipService;
 import org.example.network.NetworkService; // Asigura-te ca e importat corect
@@ -42,17 +43,20 @@ public class MainController {
     private PersoanaService persoanaService;
     private FriendshipService friendshipService;
     private NetworkService networkService;
+    private MessageService messageService;
 
     @FXML
     public void initialize() {
     }
 
     public void setServices(DuckService duckService, PersoanaService persoanaService,
-                            FriendshipService friendshipService, NetworkService networkService) {
+                            FriendshipService friendshipService, NetworkService networkService,
+                            MessageService messageService) {
         this.duckService = duckService;
         this.persoanaService = persoanaService;
         this.friendshipService = friendshipService;
         this.networkService = networkService;
+        this.messageService = messageService;
 
     }
 
@@ -72,7 +76,7 @@ public class MainController {
 
         DuckController controller = loader.getController();
         controller.setDuckService(duckService, persoanaService,
-                friendshipService, networkService);
+                friendshipService, networkService, messageService);
 
         stage.centerOnScreen();
         stage.show();
@@ -90,7 +94,7 @@ public class MainController {
 
         PersoanaController persoanaController = loader.getController();
         persoanaController.setPersoanaService(duckService, persoanaService,
-                friendshipService, networkService);
+                friendshipService, networkService, messageService);
         stage.centerOnScreen();
         stage.show();
     }
@@ -106,7 +110,7 @@ public class MainController {
 
         FriendshipController friendshipController = loader.getController();
         friendshipController.setServices(duckService, persoanaService,
-                friendshipService, networkService);
+                friendshipService, networkService, messageService);
         stage.centerOnScreen();
         stage.show();
     }
@@ -122,7 +126,7 @@ public class MainController {
 
         MessageController messageController = loader.getController();
         messageController.setServices(duckService, persoanaService,
-                friendshipService, networkService);
+                friendshipService, networkService, messageService);
         stage.centerOnScreen();
         stage.show();
     }
