@@ -9,9 +9,11 @@ import org.example.controller.MainController;
 import org.example.network.*;
 import org.example.repositories.repo_db.RepoDBDuck;
 import org.example.repositories.repo_db.RepoDBFriendship;
+import org.example.repositories.repo_db.RepoDBMessage;
 import org.example.repositories.repo_db.RepoDBPersoana;
 import org.example.services.DuckService;
 import org.example.services.FriendshipService;
+import org.example.services.MessageService;
 import org.example.services.PersoanaService;
 
 /**
@@ -37,6 +39,10 @@ public class Main extends Application {
                     "postgres", "Flavius10");
             FriendshipService friendshipService = new FriendshipService(friendshipRepository);
 
+            RepoDBMessage messageRepository = new RepoDBMessage("jdbc:postgresql://localhost:5432/duckSocialNetwork",
+                    "postgres", "Flavius10");
+            MessageService messageService = new MessageService(messageRepository);
+
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/login-view.fxml"));
             Scene scene = new Scene(loader.load(), 400, 500);
             LogInController controller = loader.getController();
@@ -49,7 +55,7 @@ public class Main extends Application {
 
             NetworkService networkService = new NetworkService(dataProvider, graphService);
 
-            controller.setServices(userService, persoanaService, friendshipService, networkService);
+            controller.setServices(userService, persoanaService, friendshipService, networkService, messageService);
 
             stage.setTitle("Duck Social Network");
             stage.setScene(scene);

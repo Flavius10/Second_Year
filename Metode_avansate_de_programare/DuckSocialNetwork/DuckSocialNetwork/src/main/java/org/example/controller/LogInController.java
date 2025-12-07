@@ -163,7 +163,8 @@ public class LogInController {
         stage.setScene(scene);
 
         RegisterController controller = loader.getController();
-        controller.setServices(duckService, persoanaService, friendshipService, networkService);
+        controller.setServices(duckService, persoanaService,
+                friendshipService, networkService, messageService);
 
         stage.show();
     }

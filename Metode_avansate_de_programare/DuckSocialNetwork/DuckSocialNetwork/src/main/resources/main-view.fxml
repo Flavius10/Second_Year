@@ -62,6 +62,18 @@
                     -fx-padding: 10px 20px;"
                 onAction="#switchToFriendshipTab"/>
 
+        <Button text="Message Tab"
+                style="-fx-background-color: #3b82f6;
+                    -fx-text-fill: white;
+                    -fx-font-family: 'Segoe UI';
+                    -fx-font-weight: bold;
+                    -fx-font-size: 14px;
+                    -fx-background-radius: 8px;
+                    -fx-cursor: hand;
+                    -fx-padding: 10px 20px;"
+                onAction="#switchToMessageTab"/>
+
+
     </VBox>
 
 </VBox>
