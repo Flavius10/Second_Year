@@ -6,9 +6,52 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="org.example.controller.MessageController"
-            prefHeight="400.0" prefWidth="600.0">
+<?import javafx.geometry.Insets?>
+<HBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="org.example.controller.MessageController"
+      prefHeight="400.0" prefWidth="600.0">
 
-</AnchorPane>
+    <padding>
+        <Insets top="20" right="20" bottom="20" left="20"/>
+    </padding>
+
+    <VBox>
+        <Label text="Mesajele trimise!"/>
+        <TextArea fx:id="resultArea" prefWidth="600" prefHeight="400"/>
+    </VBox>
+
+    <Separator/>
+
+    <VBox alignment="CENTER">
+        <Label text="Compose Message" style="-fx-font-weight: bold; -fx-font-size: 14px;"/>
+
+        <Separator/>
+
+        <GridPane vgap="10" hgap="10">
+            <columnConstraints>
+                <ColumnConstraints minWidth="80" />
+                <ColumnConstraints hgrow="ALWAYS" />
+            </columnConstraints>
+
+            <Label text="To:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+            <TextField fx:id="receiverField" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+
+            <Label text="Sender:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+            <TextField fx:id="senderField" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+
+            <Label text="Body:" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+            <TextArea fx:id="messageArea" prefRowCount="5" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+
+            <Label text="Response to:" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
+            <TextField fx:id="idMessageField" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+
+        </GridPane>
+
+        <Separator/>
+
+        <Button text="Send Message" fx:id="sendMessageBtn" maxWidth="60" HBox.hgrow="ALWAYS" style="-fx-background-color: #4CAF50; -fx-text-fill: white;"/>
+    </VBox>
+
+
+</HBox>
