@@ -111,5 +111,21 @@ public class MainController {
         stage.show();
     }
 
+    @FXML
+    public void switchToMessageTab(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/message-view.fxml"));
+        Parent root = loader.load();
+
+        Stage stage = (Stage)((Node) event.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+
+        MessageController messageController = loader.getController();
+        messageController.setServices(duckService, persoanaService,
+                friendshipService, networkService);
+        stage.centerOnScreen();
+        stage.show();
+    }
+
 
 }
