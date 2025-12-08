@@ -51,6 +51,8 @@
         <Separator/>
 
         <Button text="Send Message" fx:id="sendMessageBtn" maxWidth="60" HBox.hgrow="ALWAYS" style="-fx-background-color: #4CAF50; -fx-text-fill: white;"/>
+
+        <Button text="Back to main page" onAction="#sendBackToMainPage"/>
     </VBox>
 
 

@@ -1,7 +1,14 @@
 package org.example.controller;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.stage.Stage;
+import org.example.Main;
 import org.example.domain.Message;
 import org.example.domain.ReplyMessage;
 import org.example.domain.User;
@@ -11,6 +18,7 @@ import org.example.services.FriendshipService;
 import org.example.services.MessageService;
 import org.example.services.PersoanaService;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Collections;
@@ -142,6 +150,21 @@ public class MessageController {
         alert.setHeaderText(header);
         alert.setContentText(message);
         alert.showAndWait();
+    }
+
+    public void sendBackToMainPage(ActionEvent event) throws IOException{
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/main-view.fxml"));
+        Parent root = loader.load();
+
+        Stage stage = (Stage)((Node) event.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+
+        MainController mainController = loader.getController();
+        mainController.setServices(duckService, persoanaService,
+                friendshipService, networkService, messageService);
+        stage.centerOnScreen();
+        stage.show();
     }
 
 }
