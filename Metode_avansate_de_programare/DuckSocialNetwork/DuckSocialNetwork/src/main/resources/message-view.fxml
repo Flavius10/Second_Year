@@ -50,9 +50,11 @@
 
         <Separator/>
 
-        <Button text="Send Message" fx:id="sendMessageBtn" maxWidth="60" HBox.hgrow="ALWAYS" style="-fx-background-color: #4CAF50; -fx-text-fill: white;"/>
+        <Button text="Send Message" fx:id="sendMessageBtn" maxWidth="100" HBox.hgrow="ALWAYS" style="-fx-background-color: #4CAF50; -fx-text-fill: white;"/>
 
         <Button text="Back to main page" onAction="#sendBackToMainPage"/>
+
+        <Button text="Send to all" maxWidth="100" HBox.hgrow="ALWAYS" style="-fx-background-color: #ED7014; -fx-text-fill: white;"/>
     </VBox>
 
 
