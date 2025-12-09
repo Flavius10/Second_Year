@@ -12,7 +12,6 @@ import org.example.utils.paging.Pageable;
 import java.sql.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -74,6 +73,24 @@ public class RepoDBMessage implements RepoDB<Long, Message> {
         return null;
     }
 
+    private List<User> getRecipients(Long messageId, Connection connection) throws SQLException {
+        List<User> list = new ArrayList<>();
+        String sql = "SELECT recipient_id FROM message_recipients WHERE message_id = ?";
+        try (PreparedStatement ps = connection.prepareStatement(sql)) {
+            ps.setLong(1, messageId);
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    Long userId = rs.getLong("recipient_id");
+                    User user = findUserById(userId, connection);
+                    if (user != null) {
+                        list.add(user);
+                    }
+                }
+            }
+        }
+        return list;
+    }
+
     private Message internalFindOne(Long id, Connection connection) throws SQLException {
         String sql = "SELECT * FROM messages WHERE id = ?";
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
@@ -90,25 +107,19 @@ public class RepoDBMessage implements RepoDB<Long, Message> {
     private Message extractMessage(ResultSet rs, Connection connection) throws SQLException {
         Long id = rs.getLong("id");
         Long senderId = rs.getLong("sender_id");
-        Long receiverId = rs.getLong("receiver_id");
         String text = rs.getString("text");
         Timestamp ts = rs.getTimestamp("date_sent");
         LocalDateTime date = (ts != null) ? ts.toLocalDateTime() : null;
         Long replyToId = rs.getLong("reply_to_id");
 
         User sender = findUserById(senderId, connection);
-        User receiver = findUserById(receiverId, connection);
-
-        List<User> toList = new ArrayList<>();
-        if (receiver != null) {
-            toList.add(receiver);
-        }
+        List<User> receivers = getRecipients(id, connection);
 
         if (replyToId != 0 && !rs.wasNull()) {
             Message parentMessage = internalFindOne(replyToId, connection);
-            return new ReplyMessage(id, sender, toList, text, date, parentMessage);
+            return new ReplyMessage(id, sender, receivers, text, date, parentMessage);
         } else {
-            return new Message(id, sender, toList, text, date);
+            return new Message(id, sender, receivers, text, date);
         }
     }
 
@@ -150,32 +161,41 @@ public class RepoDBMessage implements RepoDB<Long, Message> {
 
     @Override
     public Optional<Message> save(Message entity) {
-        String sql = "INSERT INTO messages (sender_id, receiver_id, text, date_sent, reply_to_id) VALUES (?, ?, ?, ?, ?)";
+        String sqlMessage = "INSERT INTO messages (sender_id, text, date_sent, reply_to_id) VALUES (?, ?, ?, ?)";
+        String sqlRecipients = "INSERT INTO message_recipients (message_id, recipient_id) VALUES (?, ?)";
 
         try (Connection connection = DriverManager.getConnection(url, username, password);
-             PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+             PreparedStatement psMsg = connection.prepareStatement(sqlMessage, Statement.RETURN_GENERATED_KEYS)) {
 
-            statement.setLong(1, entity.getSender().getId());
-            statement.setLong(2, entity.getReceivers().get(0).getId());
-            statement.setString(3, entity.getMessage());
-            statement.setTimestamp(4, Timestamp.valueOf(entity.getData()));
+            psMsg.setLong(1, entity.getSender().getId());
+            psMsg.setString(2, entity.getMessage());
+            psMsg.setTimestamp(3, Timestamp.valueOf(entity.getData()));
 
             if (entity instanceof ReplyMessage) {
                 Message parent = ((ReplyMessage) entity).getReplyMessage();
                 if (parent != null) {
-                    statement.setLong(5, parent.getId());
+                    psMsg.setLong(4, parent.getId());
                 } else {
-                    statement.setNull(5, Types.BIGINT);
+                    psMsg.setNull(4, Types.BIGINT);
                 }
             } else {
-                statement.setNull(5, Types.BIGINT);
+                psMsg.setNull(4, Types.BIGINT);
             }
 
-            int affectedRows = statement.executeUpdate();
+            int affectedRows = psMsg.executeUpdate();
             if (affectedRows > 0) {
-                try (ResultSet generatedKeys = statement.getGeneratedKeys()) {
+                try (ResultSet generatedKeys = psMsg.getGeneratedKeys()) {
                     if (generatedKeys.next()) {
-                        entity.setId(generatedKeys.getLong(1));
+                        long messageId = generatedKeys.getLong(1);
+                        entity.setId(messageId);
+
+                        try (PreparedStatement psRec = connection.prepareStatement(sqlRecipients)) {
+                            for (User receiver : entity.getReceivers()) {
+                                psRec.setLong(1, messageId);
+                                psRec.setLong(2, receiver.getId());
+                                psRec.executeUpdate();
+                            }
+                        }
                         return Optional.of(entity);
                     }
                 }
