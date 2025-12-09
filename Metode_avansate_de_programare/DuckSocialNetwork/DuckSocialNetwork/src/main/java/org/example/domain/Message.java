@@ -2,80 +2,48 @@ package org.example.domain;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Objects;
 
-/**
- * The type Message.
- */
 public class Message extends Entity<Long> {
-
-    private Long id;
-    private User from;
-    private List<User> to;
+    private User sender;
+    private List<User> receivers;
     private String message;
     private LocalDateTime data;
 
-    public Message(Long id, User from, List<User> to,
-                   String message, LocalDateTime data) {
-        this.id = id;
-        this.from = from;
-        this.to = to;
+    public Message(Long id, User sender, List<User> receivers, String message, LocalDateTime data) {
+        setId(id);
+        this.sender = sender;
+        this.receivers = receivers;
         this.message = message;
         this.data = data;
     }
 
-    /**
-     * Getters @return  the long
-     */
-    public Long getId(){
-        return this.id;
+    public User getSender() {
+        return sender;
     }
 
-    /**
-     * Get sender user.
-     *
-     * @return the user
-     */
-    public User getSender(){
-        return this.from;
+    public void setSender(User sender) {
+        this.sender = sender;
     }
 
-    /**
-     * Get receiver user.
-     *
-     * @return the user
-     */
-    public List<User> getReceivers(){
-        return this.to;
+    public List<User> getReceivers() {
+        return receivers;
     }
 
-    /**
-     * Get content string.
-     *
-     * @return the string
-     */
-    public String getMessage(){
-        return this.message;
+    public void setReceivers(List<User> receivers) {
+        this.receivers = receivers;
     }
 
-    /**
-     * Gets timestamp.
-     *
-     * @return the timestamp
-     */
-    public LocalDateTime getData() {
-        return this.data;
+    public String getMessage() {
+        return message;
     }
 
-    public void setSender(User from){
-        this.from = from;
-    }
-
-    public void setReceiver(List<User> to){
-        this.to = to;
-    }
-
-    public void setContent(String message){
+    public void setMessage(String message) {
         this.message = message;
+    }
+
+    public LocalDateTime getData() {
+        return data;
     }
 
     public void setData(LocalDateTime data) {
@@ -85,29 +53,26 @@ public class Message extends Entity<Long> {
     @Override
     public String toString() {
         return "Message{" +
-                "id=" + id +
-                ", sender=" +  from+
-                ", receiver=" +  to.stream().map(User::getUsername).toList() +
-                ", content='" + message + '\'' +
-                ", timestamp=" + data +
+                "sender=" + sender +
+                ", receivers=" + receivers +
+                ", message='" + message + '\'' +
+                ", data=" + data +
                 '}';
     }
 
     @Override
-    public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
-        if (obj == null)
-            return false;
-        if (getClass() != obj.getClass())
-            return false;
-        Message other = (Message) obj;
-        return other.getId().equals(this.getId());
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Message)) return false;
+        Message message1 = (Message) o;
+        return Objects.equals(sender, message1.sender) &&
+                Objects.equals(receivers, message1.receivers) &&
+                Objects.equals(message, message1.message) &&
+                Objects.equals(data, message1.data);
     }
 
     @Override
     public int hashCode() {
-        return this.getId().hashCode();
+        return Objects.hash(sender, receivers, message, data);
     }
-
 }
