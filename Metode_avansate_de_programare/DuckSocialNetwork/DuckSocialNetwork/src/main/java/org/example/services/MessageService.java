@@ -1,6 +1,6 @@
 package org.example.services;
 
-import org.example.domain.Message;
+import org.example.domain.messaging.Message;
 import org.example.repositories.repo_db.RepoDBMessage;
 import org.example.utils.paging.Page;
 import org.example.utils.paging.Pageable;

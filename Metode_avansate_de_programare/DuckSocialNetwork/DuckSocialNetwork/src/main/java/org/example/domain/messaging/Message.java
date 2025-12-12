@@ -1,4 +1,7 @@
-package org.example.domain;
+package org.example.domain.messaging;
+
+import org.example.domain.Entity;
+import org.example.domain.User;
 
 import java.time.LocalDateTime;
 import java.util.List;

@@ -17,4 +17,5 @@ module org.example {
     exports org.example;
     exports org.example.controller;
     opens org.example.controller to javafx.fxml;
+    opens org.example.domain.messaging to javafx.base;
 }
