@@ -70,8 +70,14 @@ public class MessageController {
 
     private void setupAllEventHandlers() {
 
-        sendMessageBtn.setOnAction(e -> handleSendMessage(false));
-        sendToAllBtn.setOnAction(e -> handleSendMessage(true));
+        sendMessageBtn.setOnAction(e -> {
+                handleSendMessage(false);
+                refreshMessages(null);
+        });
+        sendToAllBtn.setOnAction(e -> {
+            handleSendMessage(true);
+            refreshMessages(null);
+        });
     }
 
     public void completeNamesComboBox() {
