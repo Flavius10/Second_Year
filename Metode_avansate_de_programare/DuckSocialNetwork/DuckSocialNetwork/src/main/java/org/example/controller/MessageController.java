@@ -1,5 +1,7 @@
 package org.example.controller;
 
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -8,6 +10,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import org.example.domain.Message;
 import org.example.domain.Persoana;
 import org.example.domain.ReplyMessage;
@@ -20,6 +23,7 @@ import org.example.services.MessageService;
 import org.example.services.PersoanaService;
 
 import java.io.IOException;
+import java.sql.Time;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -45,6 +49,7 @@ public class MessageController {
     @FXML
     public void initialize() {
         setupAllEventHandlers();
+        setupMessageRefresh();
     }
 
     public void setServices(DuckService duckService, PersoanaService persoanaService, FriendshipService friendshipService,
@@ -163,6 +168,15 @@ public class MessageController {
         }
     }
 
+    public void setupMessageRefresh() {
+        Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(5), event ->{
+            refreshMessages(null);
+        }));
+
+        timeline.setCycleCount(Timeline.INDEFINITE);
+        timeline.play();
+    }
+
     private User findUserByUsername(String username) {
         User user = duckService.findByUsernameDuck(username);
         if (user == null) {
@@ -206,6 +220,8 @@ public class MessageController {
         }
 
         try {
+            resultArea.clear();
+
             Iterable<Message> messages = messageService.findMessagesToUser(loggedInUser.getId());
 
             if (!messages.iterator().hasNext()) {
