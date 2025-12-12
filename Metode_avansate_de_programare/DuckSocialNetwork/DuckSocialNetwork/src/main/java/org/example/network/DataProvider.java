@@ -1,11 +1,10 @@
 package org.example.network;
 
-import org.example.domain.Friendship;
+import org.example.domain.friendship.Friendship;
 import org.example.domain.User;
 import org.example.services.DuckService;
 import org.example.services.FriendshipService;
 import org.example.services.PersoanaService;
-import org.example.utils.Constants;
 
 import java.util.stream.Stream;
 import java.util.stream.StreamSupport;

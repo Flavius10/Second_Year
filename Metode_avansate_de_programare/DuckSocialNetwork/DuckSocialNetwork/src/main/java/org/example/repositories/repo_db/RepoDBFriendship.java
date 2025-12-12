@@ -1,6 +1,6 @@
 package org.example.repositories.repo_db;
 
-import org.example.domain.Friendship;
+import org.example.domain.friendship.Friendship;
 import org.example.utils.paging.Page;
 import org.example.utils.paging.Pageable;
 

@@ -1,10 +1,9 @@
 package org.example.services;
 
-import org.example.domain.Friendship;
+import org.example.domain.friendship.Friendship;
 import org.example.repositories.repo_db.RepoDBFriendship;
 import org.example.utils.paging.Page;
 import org.example.utils.paging.Pageable;
-import org.example.validator.ValidatorFriendship;
 
 import java.util.Optional;
 

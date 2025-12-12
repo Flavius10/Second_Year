@@ -1,12 +1,12 @@
-package org.example.domain;
+package org.example.domain.friendship;
 
-import java.util.HashMap;
-import java.util.Map;
+import org.example.domain.Entity;
+import org.example.domain.User;
 
 /**
  * The type Friendship.
  */
-public class Friendship extends Entity<Long>{
+public class Friendship extends Entity<Long> {
 
     private String first_friend_username;
     private String second_friend_username;

@@ -2,7 +2,7 @@ package org.example.ui;
 
 import org.example.domain.TypeDuck;
 import org.example.domain.ducks.*;
-import org.example.domain.Friendship;
+import org.example.domain.friendship.Friendship;
 import org.example.domain.Persoana;
 import org.example.domain.User;
 import org.example.domain.card.Card;
@@ -13,7 +13,6 @@ import org.example.domain.events.*;
 import org.example.exceptions.FriendshipNotFound;
 import org.example.exceptions.UserNotFound;
 import org.example.network.NetworkService;
-import org.example.repositories.RepoEvent;
 import org.example.repositories.repo_db.RepoDBEvent;
 import org.example.services.*;
 import org.example.utils.Constants;

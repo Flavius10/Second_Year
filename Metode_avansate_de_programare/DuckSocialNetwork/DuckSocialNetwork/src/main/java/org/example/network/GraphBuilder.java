@@ -1,6 +1,6 @@
 package org.example.network;
 
-import org.example.domain.Friendship;
+import org.example.domain.friendship.Friendship;
 import org.example.domain.User;
 
 import java.util.ArrayList;
