@@ -45,4 +45,8 @@ public class MessageService {
     public Page<Message> findAllOnPage(Pageable pageable) {
         return repoDBMessage.findAllOnPage(pageable);
     }
+
+    public Iterable<Message> findMessagesToUser(Long userId) {
+        return repoDBMessage.findAllForUser(userId);
+    }
 }

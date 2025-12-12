@@ -55,6 +55,8 @@
         <Button text="Back to main page" onAction="#sendBackToMainPage"/>
 
         <Button text="Send to all" fx:id="sendToAllBtn" maxWidth="100" HBox.hgrow="ALWAYS" style="-fx-background-color: #ED7014; -fx-text-fill: white;"/>
+        <Button text="Refresh" onAction="#refreshMessages" maxWidth="100" HBox.hgrow="ALWAYS" style="-fx-background-color: #2196F3; -fx-text-fill: white;"/>
+
     </VBox>
 
 

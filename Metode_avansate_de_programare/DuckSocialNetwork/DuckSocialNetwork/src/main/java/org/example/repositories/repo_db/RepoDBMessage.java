@@ -12,6 +12,7 @@ import org.example.utils.paging.Pageable;
 import java.sql.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -285,5 +286,30 @@ public class RepoDBMessage implements RepoDB<Long, Message> {
              ResultSet rs = stmt.executeQuery()) {
             return rs.next() ? rs.getInt("cnt") : 0;
         }
+    }
+
+
+    public List<Message> findAllForUser(Long idUserCurent) {
+        List<Message> messages = new ArrayList<>();
+
+        String sql = "SELECT m.* FROM messages m " +
+                "INNER JOIN message_recipients mr ON m.id = mr.message_id " +
+                "WHERE mr.recipient_id = ? " +
+                "ORDER BY m.date_sent DESC";
+
+        try (Connection connection = DriverManager.getConnection(url, username, password);
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+
+            statement.setLong(1, idUserCurent);
+
+            try (ResultSet resultSet = statement.executeQuery()) {
+                while (resultSet.next()) {
+                    messages.add(extractMessage(resultSet, connection));
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return messages;
     }
 }

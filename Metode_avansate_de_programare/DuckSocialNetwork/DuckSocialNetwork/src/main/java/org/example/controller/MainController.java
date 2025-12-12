@@ -11,9 +11,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import org.example.domain.Persoana;
-import org.example.domain.Friendship;
-import org.example.domain.TypeDuck;
+import org.example.domain.*;
 import org.example.domain.card.FlyingCard;
 import org.example.domain.card.SwimmingCard;
 import org.example.domain.card.TypeCard;
@@ -44,9 +42,36 @@ public class MainController {
     private FriendshipService friendshipService;
     private NetworkService networkService;
     private MessageService messageService;
+    private User loggedInUser;
+
+    @FXML
+    private TextArea resultArea;
 
     @FXML
     public void initialize() {
+    }
+
+    public void setLoggedInUser(User user) {
+        this.loggedInUser = user;
+    }
+
+    @FXML
+    public void refreshMessages(ActionEvent event) {
+        this.resultArea.clear();
+
+        if (loggedInUser == null) {
+            this.resultArea.setText("Eroare: Nu e nimeni logat!");
+            return;
+        }
+
+        Iterable<Message> messages = messageService.findMessagesToUser(loggedInUser.getId());
+
+        messages.forEach(m -> {
+            String text = "De la: " + m.getSender().getUsername() +
+                    " | Mesaj: " + m.getMessage() +
+                    " | Data: " + m.getData() + "\n\n";
+            this.resultArea.appendText(text);
+        });
     }
 
     public void setServices(DuckService duckService, PersoanaService persoanaService,
@@ -125,6 +150,7 @@ public class MainController {
         stage.setScene(scene);
 
         MessageController messageController = loader.getController();
+        messageController.setLoggedInUser(this.loggedInUser);
         messageController.setServices(duckService, persoanaService,
                 friendshipService, networkService, messageService);
         stage.centerOnScreen();

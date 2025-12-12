@@ -11,6 +11,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 import org.example.domain.Persoana;
+import org.example.domain.User;
 import org.example.domain.ducks.Duck;
 import org.example.network.NetworkService;
 import org.example.services.DuckService;
@@ -19,8 +20,9 @@ import org.example.services.MessageService;
 import org.example.services.PersoanaService;
 
 import java.io.IOException;
-import java.util.Iterator;
-import java.util.List;
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
 public class LogInController {
 
@@ -36,21 +38,21 @@ public class LogInController {
     private PasswordField passwordField;
     @FXML
     private Button loginBtn;
-
     @FXML
     private Button registerBtn;
+
+    private User currentUser;
 
     ObservableList<Duck> ducks = FXCollections.observableArrayList();
     ObservableList<Persoana> persoane = FXCollections.observableArrayList();
 
     @FXML
     public void initialize() {
-
     }
 
     public void setServices(DuckService duckService, PersoanaService persoanaService,
                             FriendshipService friendshipService, NetworkService networkService,
-                            MessageService messageService){
+                            MessageService messageService) {
 
         this.duckService = duckService;
         this.persoanaService = persoanaService;
@@ -64,97 +66,103 @@ public class LogInController {
         setupAllEventHandlers();
     }
 
-    public void loadDucks(){
-        try{
-            Iterable<Duck> rate_preluate = duckService.findAllDucks();
-            rate_preluate.forEach(ducks::add);
-        } catch (Exception e){
-            sendMessage("Eroare la preluarea datelor din baza de date", "Eroare", "Eroare");
+
+    private String hashPassword(String plainPassword) {
+        if (plainPassword == null) return null;
+        try {
+            MessageDigest digest = MessageDigest.getInstance("SHA-256");
+            byte[] encodedhash = digest.digest(plainPassword.getBytes(StandardCharsets.UTF_8));
+            StringBuilder hexString = new StringBuilder();
+            for (byte b : encodedhash) {
+                String hex = Integer.toHexString(0xff & b);
+                if (hex.length() == 1) hexString.append('0');
+                hexString.append(hex);
+            }
+            return hexString.toString();
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+            return null;
         }
     }
 
-    public void loadPersoane(){
-        try{
-            Iterable<Persoana> persoane_preluate = persoanaService.findAllPersons();
-            persoane_preluate.forEach(persoane::add);
-        } catch (Exception e){
-            sendMessage("Eroare la preluarea datelor din baza de date", "Eroare", "Eroare");
+    /**
+     * Această metodă caută userul (Persoana sau Duck) și verifică parola.
+     * Returnează obiectul User dacă e corect, sau null dacă nu.
+     */
+    private User authenticate(String username, String rawPassword) {
+        String hashedPassword = hashPassword(rawPassword);
+
+        Persoana p = persoanaService.findByUsernamePerson(username);
+        if (p != null) {
+            if (hashedPassword != null && hashedPassword.equals(p.getPassword())) {
+                return p;
+            }
         }
+
+        Duck d = duckService.findByUsernameDuck(username);
+        if (d != null) {
+            if (hashedPassword != null && hashedPassword.equals(d.getPassword())) {
+                return d;
+            }
+        }
+
+        return null;
     }
 
-    public boolean connectedPersoana(String username, String password){
-        Persoana persoana = (Persoana) this.persoanaService.findByUsernamePerson(username);
-        if (persoana != null && persoana.getPassword().equals(password)) return true;
-        return false;
-    }
 
-    public boolean connectedDuck(String username, String password){
-        Duck duck = (Duck) this.duckService.findByUsernameDuck(username);
-        if (duck != null && duck.getPassword().equals(password)) return true;
-        return false;
-    }
+    private void setupAllEventHandlers() {
 
-    public boolean connected(String username, String password){
-        if(connectedPersoana(username, password) || connectedDuck(username, password))
-            return true;
-        return false;
-    }
-
-    private void sendMessage(String text, String title, String header){
-        Alert message = new Alert(Alert.AlertType.INFORMATION);
-        message.setTitle(title);
-        message.setHeaderText(null);
-        message.setContentText(text);
-        message.showAndWait();
-    }
-
-    private void setupAllEventHandlers(){
-        loginBtn.setOnAction(e ->{
-
+        loginBtn.setOnAction(e -> {
             String username = usernameField.getText();
             String password = passwordField.getText();
 
-            if (connected(username, password)) {
-                try{
+            User foundUser = authenticate(username, password);
+
+            if (foundUser != null) {
+                this.currentUser = foundUser; // Salvăm userul curent!
+                try {
                     switchToMainPage(e);
-                } catch (IOException ex){
-                    sendMessage("Eroare la deschiderea paginii principala", "Eroare", "Eroare");
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                    sendMessage("Eroare la deschiderea paginii principale", "Eroare", "Eroare IO");
                 }
             } else {
-                sendMessage("Username sau parola incorecte", "Eroare", "Eroare");
+                sendMessage("Username sau parolă incorecte!", "Login Failed", "Eroare");
             }
         });
 
-        registerBtn.setOnAction(
-                e -> {
-                    try{
-                        switchToRegisterPage(e);
-                    } catch (IOException ex){
-                        sendMessage("Eroare la deschiderea paginii de registrare", "Eroare", "Eroare");
-                    }
-                }
-        );
+        registerBtn.setOnAction(e -> {
+            try {
+                switchToRegisterPage(e);
+            } catch (IOException ex) {
+                ex.printStackTrace();
+                sendMessage("Eroare la deschiderea paginii de înregistrare", "Eroare", "Eroare IO");
+            }
+        });
     }
 
-    private void switchToMainPage(ActionEvent event) throws IOException {
+    // --- NAVIGARE ---
 
+    private void switchToMainPage(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/main-view.fxml"));
         Parent root = loader.load();
 
-        Stage stage = (Stage)((Node) event.getSource()).getScene().getWindow();
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Scene scene = new Scene(root);
         stage.setScene(scene);
 
         MainController controller = loader.getController();
+
+
         controller.setServices(duckService, persoanaService,
                 friendshipService, networkService, messageService);
 
-        stage.show();
+        controller.setLoggedInUser(this.currentUser);
 
+        stage.show();
     }
 
     private void switchToRegisterPage(ActionEvent event) throws IOException {
-
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/register-view.fxml"));
         Parent root = loader.load();
 
@@ -167,5 +175,31 @@ public class LogInController {
                 friendshipService, networkService, messageService);
 
         stage.show();
+    }
+
+    public void loadDucks() {
+        try {
+            Iterable<Duck> rate_preluate = duckService.findAllDucks();
+            rate_preluate.forEach(ducks::add);
+        } catch (Exception e) {
+            System.out.println("Nu s-au putut încărca rațele (poate DB e gol sau conexiunea eșuată).");
+        }
+    }
+
+    public void loadPersoane() {
+        try {
+            Iterable<Persoana> persoane_preluate = persoanaService.findAllPersons();
+            persoane_preluate.forEach(persoane::add);
+        } catch (Exception e) {
+            System.out.println("Nu s-au putut încărca persoanele.");
+        }
+    }
+
+    private void sendMessage(String text, String title, String header) {
+        Alert message = new Alert(Alert.AlertType.INFORMATION);
+        message.setTitle(title);
+        message.setHeaderText(header);
+        message.setContentText(text);
+        message.showAndWait();
     }
 }

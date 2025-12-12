@@ -32,6 +32,7 @@ public class MessageController {
     private FriendshipService friendshipService;
     private NetworkService networkService;
     private MessageService messageService;
+    private User loggedInUser;
 
     @FXML private TextArea resultArea;
     @FXML private TextArea messageArea;
@@ -53,6 +54,10 @@ public class MessageController {
         this.friendshipService = friendshipService;
         this.networkService = networkService;
         this.messageService = messageService;
+    }
+
+    public void setLoggedInUser(User user) {
+        this.loggedInUser = user;
     }
 
     private void setupAllEventHandlers() {
@@ -190,5 +195,36 @@ public class MessageController {
                 friendshipService, networkService, messageService);
         stage.centerOnScreen();
         stage.show();
+    }
+
+    @FXML
+    public void refreshMessages(ActionEvent event) {
+
+        if (loggedInUser == null || messageService == null) {
+            this.resultArea.setText("Eroare: Datele (User sau Service) nu au fost transmise corect!");
+            return;
+        }
+
+        try {
+            Iterable<Message> messages = messageService.findMessagesToUser(loggedInUser.getId());
+
+            if (!messages.iterator().hasNext()) {
+                this.resultArea.appendText("Nu ai primit niciun mesaj încă.");
+                return;
+            }
+
+            messages.forEach(m -> {
+                String expeditor = (m.getSender() != null) ? m.getSender().getUsername() : "Necunoscut";
+                String formatat = "De la: " + expeditor + "\n" +
+                        "Mesaj: " + m.getMessage() + "\n" +
+                        "Data: " + m.getData() + "\n" +
+                        "-----------------------------------\n";
+                this.resultArea.appendText(formatat);
+            });
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            this.resultArea.appendText("Eroare la încărcare.");
+        }
     }
 }
