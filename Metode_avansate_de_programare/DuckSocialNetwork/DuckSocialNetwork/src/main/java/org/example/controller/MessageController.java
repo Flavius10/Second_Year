@@ -45,6 +45,7 @@ public class MessageController {
     @FXML private TextField receiverField;
     @FXML private TextField senderField;
     @FXML private TextField idMessageField;
+    @FXML private ComboBox<String> namesComboBox;
 
     @FXML
     public void initialize() {
@@ -59,6 +60,8 @@ public class MessageController {
         this.friendshipService = friendshipService;
         this.networkService = networkService;
         this.messageService = messageService;
+
+        completeNamesComboBox();
     }
 
     public void setLoggedInUser(User user) {
@@ -71,9 +74,25 @@ public class MessageController {
         sendToAllBtn.setOnAction(e -> handleSendMessage(true));
     }
 
+    public void completeNamesComboBox() {
+        List<String> usernames = new ArrayList<>();
+
+        Iterable<Duck> allDucks = duckService.findAllDucks();
+        Iterable<Persoana> allPersons = persoanaService.findAllPersons();
+
+        allDucks.forEach(duck -> usernames.add(duck.getUsername()));
+        allPersons.forEach(person -> usernames.add(person.getUsername()));
+
+        Collections.sort(usernames);
+        namesComboBox.getItems().clear();
+        namesComboBox.getItems().addAll(usernames);
+
+        namesComboBox.getSelectionModel().selectFirst();
+    }
+
     private void handleSendMessage(boolean sendToAll) {
         try {
-            String senderName = senderField.getText();
+            String senderName = loggedInUser.getUsername();
             String text = messageArea.getText();
             String idReplyText = idMessageField.getText();
 
@@ -82,7 +101,7 @@ public class MessageController {
                 return;
             }
 
-            String receiverName = receiverField.getText();
+            String receiverName = namesComboBox.getValue();
             if (!sendToAll && receiverName.isEmpty()) {
                 sendMessage("Destinatarul este obligatoriu!", "Eroare", "Date incomplete");
                 return;
@@ -231,7 +250,7 @@ public class MessageController {
 
             messages.forEach(m -> {
                 String expeditor = (m.getSender() != null) ? m.getSender().getUsername() : "Necunoscut";
-                String formatat = "De la: " + expeditor + "\n" +
+                String formatat = "De la: " + expeditor + " ID: " + m.getId() + "\n" +
                         "Mesaj: " + m.getMessage() + "\n" +
                         "Data: " + m.getData() + "\n" +
                         "-----------------------------------\n";

@@ -34,11 +34,8 @@
                 <ColumnConstraints hgrow="ALWAYS" />
             </columnConstraints>
 
-            <Label text="To:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
-            <TextField fx:id="receiverField" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
-
-            <Label text="Sender:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
-            <TextField fx:id="senderField" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+            <Label text="To:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+            <ComboBox fx:id="namesComboBox" maxWidth="Infinity" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
 
             <Label text="Body:" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
             <TextArea fx:id="messageArea" prefRowCount="5" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
