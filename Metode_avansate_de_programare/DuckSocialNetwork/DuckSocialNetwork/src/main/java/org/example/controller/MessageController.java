@@ -42,8 +42,6 @@ public class MessageController {
     @FXML private TextArea messageArea;
     @FXML private Button sendMessageBtn;
     @FXML private Button sendToAllBtn;
-    @FXML private TextField receiverField;
-    @FXML private TextField senderField;
     @FXML private TextField idMessageField;
     @FXML private ComboBox<String> namesComboBox;
 
