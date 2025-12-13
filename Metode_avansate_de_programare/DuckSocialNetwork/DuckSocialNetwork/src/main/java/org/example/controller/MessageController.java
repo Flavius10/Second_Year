@@ -133,11 +133,9 @@ public class MessageController implements Observer {
 
         sendMessageBtn.setOnAction(e -> {
                 handleSendMessage(false);
-                refreshMessages(null);
         });
         sendToAllBtn.setOnAction(e -> {
             handleSendMessage(true);
-            refreshMessages(null);
         });
     }
 
@@ -232,22 +230,6 @@ public class MessageController implements Observer {
             messageArea.clear();
             idMessageField.setText("0");
 
-            StringBuilder displayMessage = new StringBuilder();
-            if (sendToAll) {
-                displayMessage.append(senderName).append(" ---> [TOATA LUMEA]");
-            } else {
-                displayMessage.append(senderName).append(" ---> ").append(receiverName);
-            }
-
-            displayMessage.append(" (ID: ").append(messageToSend.getId()).append(")");
-
-            if (messageToSend instanceof ReplyMessage) {
-                displayMessage.append(" [Reply to: ").append(idReplyText).append("]");
-            }
-
-            displayMessage.append(":\n").append(text).append("\n\n");
-            this.resultArea.appendText(displayMessage.toString());
-
         } catch (Exception ex) {
             ex.printStackTrace();
             sendMessage("Eroare interna: " + ex.getMessage(), "Eroare", "Eroare la trimitere");
@@ -290,34 +272,36 @@ public class MessageController implements Observer {
 
     @FXML
     public void refreshMessages(ActionEvent event) {
-
-        if (loggedInUser == null || messageService == null) {
-            this.resultArea.setText("Eroare: Datele (User sau Service) nu au fost transmise corect!");
-            return;
-        }
-
-        try {
-            resultArea.clear();
-
+        try{
             Iterable<Message> messages = messageService.findMessagesToUser(loggedInUser.getId());
+            List<Message> messageList = new ArrayList<>();
+            messages.forEach(messageList::add);
 
-            if (!messages.iterator().hasNext()) {
-                this.resultArea.appendText("Nu ai primit niciun mesaj încă.");
-                return;
+            messageList.sort((m1, m2) -> m1.getData().compareTo(m2.getData()));
+
+            StringBuilder sb = new StringBuilder();
+
+            for (Message message : messageList) {
+                String expeditor = (message.getSender() != null) ? message.getSender().getUsername() : "System";
+                String dataStr = message.getData().getHour() + ":" + message.getData().getMinute();
+
+                sb.append("[").append(dataStr).append("] ");
+                sb.append(expeditor).append(" (ID: ").append(message.getId()).append(")");
+
+                if (message instanceof ReplyMessage) {
+                    Message parent = ((ReplyMessage) message).getReplyMessage();
+                    if (parent != null) {
+                        sb.append(" -> Reply la #").append(parent.getId());
+                    }
+                }
+                sb.append(":\n").append(message.getMessage()).append("\n\n");
+
+                resultArea.setText(sb.toString());
+                resultArea.positionCaret(resultArea.getText().length());
             }
-
-            messages.forEach(m -> {
-                String expeditor = (m.getSender() != null) ? m.getSender().getUsername() : "Necunoscut";
-                String formatat = "De la: " + expeditor + " ID: " + m.getId() + "\n" +
-                        "Mesaj: " + m.getMessage() + "\n" +
-                        "Data: " + m.getData() + "\n" +
-                        "-----------------------------------\n";
-                this.resultArea.appendText(formatat);
-            });
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            this.resultArea.appendText("Eroare la încărcare.");
+        } catch (Exception ex) {
+            ex.printStackTrace();
         }
+
     }
 }
