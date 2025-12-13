@@ -19,6 +19,8 @@
     <VBox>
         <Label text="Mesajele trimise!"/>
         <TextArea fx:id="resultArea" prefWidth="600" prefHeight="400"/>
+
+        <Label fx:id="typingLabel"/>
     </VBox>
 
     <Separator/>

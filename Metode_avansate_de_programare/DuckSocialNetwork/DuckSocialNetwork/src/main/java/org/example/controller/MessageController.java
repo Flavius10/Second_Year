@@ -1,7 +1,9 @@
 package org.example.controller;
 
 import javafx.animation.KeyFrame;
+import javafx.animation.PauseTransition;
 import javafx.animation.Timeline;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -11,10 +13,9 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import org.example.domain.*;
 import org.example.domain.messaging.Message;
-import org.example.domain.Persoana;
 import org.example.domain.messaging.ReplyMessage;
-import org.example.domain.User;
 import org.example.domain.ducks.Duck;
 import org.example.network.NetworkService;
 import org.example.services.DuckService;
@@ -28,7 +29,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class MessageController {
+public class MessageController implements Observer {
 
     private DuckService duckService;
     private PersoanaService persoanaService;
@@ -43,11 +44,74 @@ public class MessageController {
     @FXML private Button sendToAllBtn;
     @FXML private TextField idMessageField;
     @FXML private ComboBox<String> namesComboBox;
+    @FXML private Label typingLabel;
+
+    private PauseTransition typingTimer;
 
     @FXML
     public void initialize() {
         setupAllEventHandlers();
-        setupMessageRefresh();
+
+        typingTimer = new PauseTransition(Duration.seconds(1.5));
+        typingTimer.setOnFinished(e -> typingLabel.setText(""));
+
+        if (typingTimer != null) typingLabel.setText("");
+
+        setupTypingDetector();
+    }
+
+    public void setLoggedInUser(User user) {
+        this.loggedInUser = user;
+    }
+
+    private void setupTypingDetector() {
+        messageArea.textProperty().addListener((observable, oldValue, newValue) -> {
+
+            if (loggedInUser != null && !newValue.isEmpty()) {
+
+                String receiverName = namesComboBox.getValue();
+                User receiver = findUserByUsername(receiverName);
+
+                List<User> receivers = new ArrayList<>();
+                if (receiver != null) {
+                    receivers.add(receiver);
+                }
+
+                messageService.notifyTyping(loggedInUser, receivers);
+            }
+        });
+    }
+
+    @Override
+    public void update(Signal signal) {
+
+        Platform.runLater(() -> {
+
+            if ("MESSAGE_NEW".equals(signal.getType())) {
+                refreshMessages(null);
+            }
+
+            else if ("TYPING".equals(signal.getType())) {
+                handleTypingSignal(signal);
+            }
+        });
+    }
+
+    private void handleTypingSignal(Signal signal) {
+        User sender = signal.getFrom();
+
+        if (sender == null || sender.getId().equals(loggedInUser.getId())) {
+            return;
+        }
+
+        boolean isForMe = signal.getTo() == null || signal.getTo().isEmpty() ||
+                signal.getTo().stream().anyMatch(u -> u.getId().equals(loggedInUser.getId()));
+
+        if (isForMe) {
+            typingLabel.setText(sender.getUsername() + " scrie un mesaj...");
+
+            typingTimer.playFromStart();
+        }
     }
 
     public void setServices(DuckService duckService, PersoanaService persoanaService, FriendshipService friendshipService,
@@ -58,11 +122,11 @@ public class MessageController {
         this.networkService = networkService;
         this.messageService = messageService;
 
-        completeNamesComboBox();
-    }
+        this.messageService.addObserver(this);
 
-    public void setLoggedInUser(User user) {
-        this.loggedInUser = user;
+        completeNamesComboBox();
+
+        refreshMessages(null);
     }
 
     private void setupAllEventHandlers() {
@@ -188,15 +252,6 @@ public class MessageController {
             ex.printStackTrace();
             sendMessage("Eroare interna: " + ex.getMessage(), "Eroare", "Eroare la trimitere");
         }
-    }
-
-    public void setupMessageRefresh() {
-        Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(5), event ->{
-            refreshMessages(null);
-        }));
-
-        timeline.setCycleCount(Timeline.INDEFINITE);
-        timeline.play();
     }
 
     private User findUserByUsername(String username) {
