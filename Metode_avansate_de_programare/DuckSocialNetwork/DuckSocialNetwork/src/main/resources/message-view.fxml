@@ -1,62 +1,53 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<?import javafx.geometry.Insets?>
 <HBox xmlns="http://javafx.com/javafx"
       xmlns:fx="http://javafx.com/fxml"
       fx:controller="org.example.controller.MessageController"
-      prefHeight="400.0" prefWidth="600.0">
+      prefHeight="500.0" prefWidth="750.0" spacing="15">
 
     <padding>
-        <Insets top="20" right="20" bottom="20" left="20"/>
+        <Insets top="15" right="15" bottom="15" left="15"/>
     </padding>
 
-    <VBox>
-        <Label text="Mesajele trimise!"/>
-        <TextArea fx:id="resultArea" prefWidth="600" prefHeight="400"/>
+    <VBox spacing="5" HBox.hgrow="ALWAYS">
+        <Label text="Chat Room" style="-fx-font-size: 16px; -fx-font-weight: bold;"/>
 
-        <Label fx:id="typingLabel"/>
+        <TextArea fx:id="resultArea" VBox.vgrow="ALWAYS" editable="false" wrapText="true" style="-fx-font-family: 'Consolas'; -fx-font-size: 12px;"/>
+
+        <Label fx:id="typingLabel" text="" textFill="#888888" style="-fx-font-style: italic;"/>
     </VBox>
 
-    <Separator/>
+    <Separator orientation="VERTICAL"/>
 
-    <VBox alignment="CENTER">
-        <Label text="Compose Message" style="-fx-font-weight: bold; -fx-font-size: 14px;"/>
-
+    <VBox spacing="10" minWidth="280" alignment="TOP_CENTER">
+        <Label text="Trimite Mesaj" style="-fx-font-size: 14px; -fx-font-weight: bold;"/>
         <Separator/>
 
-        <GridPane vgap="10" hgap="10">
+        <GridPane vgap="10" hgap="5">
             <columnConstraints>
-                <ColumnConstraints minWidth="80" />
-                <ColumnConstraints hgrow="ALWAYS" />
+                <ColumnConstraints minWidth="70" halignment="RIGHT"/>
+                <ColumnConstraints hgrow="ALWAYS"/>
             </columnConstraints>
 
-            <Label text="To:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+            <Label text="Catre:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
             <ComboBox fx:id="namesComboBox" maxWidth="Infinity" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
 
-            <Label text="Body:" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
-            <TextArea fx:id="messageArea" prefRowCount="5" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+            <Label text="Reply ID:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+            <TextField fx:id="idMessageField" text="0" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
 
-            <Label text="Response to:" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
-            <TextField fx:id="idMessageField" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
-
+            <Label text="Mesaj:" GridPane.rowIndex="2" GridPane.columnIndex="0" GridPane.valignment="TOP"/>
+            <TextArea fx:id="messageArea" prefRowCount="4" wrapText="true" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
         </GridPane>
 
-        <Separator/>
+        <HBox spacing="10" alignment="CENTER">
+            <Button text="Trimite" fx:id="sendMessageBtn" defaultButton="true" style="-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-cursor: hand;"/>
+            <Button text="Send All" fx:id="sendToAllBtn" style="-fx-background-color: #ff9800; -fx-text-fill: white; -fx-cursor: hand;"/>
+        </HBox>
 
-        <Button text="Send Message" fx:id="sendMessageBtn" maxWidth="100" HBox.hgrow="ALWAYS" style="-fx-background-color: #4CAF50; -fx-text-fill: white;"/>
-
-        <Button text="Back to main page" onAction="#sendBackToMainPage"/>
-
-        <Button text="Send to all" fx:id="sendToAllBtn" maxWidth="100" HBox.hgrow="ALWAYS" style="-fx-background-color: #ED7014; -fx-text-fill: white;"/>
-<!--        <Button text="Refresh" onAction="#refreshMessages" maxWidth="100" HBox.hgrow="ALWAYS" style="-fx-background-color: #2196F3; -fx-text-fill: white;"/>-->
-
+        <Region VBox.vgrow="ALWAYS"/> <Button text="Inapoi la Meniu" onAction="#sendBackToMainPage" maxWidth="Infinity"/>
     </VBox>
-
-
 </HBox>

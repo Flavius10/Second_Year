@@ -33,7 +33,7 @@ public class Event extends Entity<Long> {
     }
 
     public void notifySubscribers(String message){
-        
+
 
     }
 

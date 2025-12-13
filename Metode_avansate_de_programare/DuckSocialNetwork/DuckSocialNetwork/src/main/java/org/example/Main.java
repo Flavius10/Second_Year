@@ -5,22 +5,20 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import org.example.controller.LogInController;
-import org.example.controller.MainController;
-import org.example.network.*;
+import org.example.network.NetworkService;
 import org.example.repositories.repo_db.RepoDBDuck;
 import org.example.repositories.repo_db.RepoDBFriendship;
 import org.example.repositories.repo_db.RepoDBMessage;
 import org.example.repositories.repo_db.RepoDBPersoana;
-import org.example.services.DuckService;
-import org.example.services.FriendshipService;
-import org.example.services.MessageService;
-import org.example.services.PersoanaService;
+import org.example.services.*;
+import org.example.network.DataProvider;
+import org.example.network.GraphAnalyzer;
+import org.example.network.GraphBuilder;
+import org.example.network.GraphService;
 
-/**
- * The type Main.
- */
+import java.io.IOException;
+
 public class Main extends Application {
-
 
     @Override
     public void start(Stage stage) {
@@ -41,33 +39,45 @@ public class Main extends Application {
 
             RepoDBMessage messageRepository = new RepoDBMessage("jdbc:postgresql://localhost:5432/duckSocialNetwork",
                     "postgres", "Flavius10");
-            MessageService messageService = new MessageService(messageRepository);
 
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/login-view.fxml"));
-            Scene scene = new Scene(loader.load(), 400, 500);
-            LogInController controller = loader.getController();
+            MessageService messageService = new MessageService(messageRepository);
 
             GraphAnalyzer graphAnalyzer = new GraphAnalyzer();
             GraphBuilder graphBuilder = new GraphBuilder();
-
             DataProvider dataProvider = new DataProvider(friendshipService, persoanaService, userService);
             GraphService graphService = new GraphService(graphAnalyzer, graphBuilder);
-
             NetworkService networkService = new NetworkService(dataProvider, graphService);
 
-            controller.setServices(userService, persoanaService, friendshipService, networkService, messageService);
+            openLoginWindow(stage, userService, persoanaService, friendshipService, networkService, messageService);
 
-            stage.setTitle("Duck Social Network");
-            stage.setScene(scene);
-            stage.show();
+            Stage stage2 = new Stage();
+            openLoginWindow(stage2, userService, persoanaService, friendshipService, networkService, messageService);
+
+
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }    /**
-     * The entry point of application.
-     *
-     * @param args the input arguments
-     */
+    }
+
+    private void openLoginWindow(Stage stage, DuckService ds, PersoanaService ps,
+                                 FriendshipService fs, NetworkService ns, MessageService ms) throws IOException {
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/login-view.fxml"));
+        Scene scene = new Scene(loader.load(), 400, 500);
+
+        LogInController controller = loader.getController();
+
+        controller.setServices(ds, ps, fs, ns, ms);
+
+        stage.setTitle("Duck Social Network");
+        stage.setScene(scene);
+
+        stage.setX(Math.random() * 100 + 50);
+        stage.setY(Math.random() * 100 + 50);
+
+        stage.show();
+    }
+
     public static void main(String[] args) {
 
         launch(args);

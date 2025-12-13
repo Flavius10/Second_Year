@@ -1,8 +1,6 @@
 package org.example.controller;
 
-import javafx.animation.KeyFrame;
 import javafx.animation.PauseTransition;
-import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -13,20 +11,21 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-import org.example.domain.*;
+import org.example.domain.Observer;
+import org.example.domain.Signal;
+import org.example.domain.User;
+import org.example.domain.ducks.Duck;
 import org.example.domain.messaging.Message;
 import org.example.domain.messaging.ReplyMessage;
-import org.example.domain.ducks.Duck;
+import org.example.domain.Persoana;
 import org.example.network.NetworkService;
-import org.example.services.DuckService;
-import org.example.services.FriendshipService;
-import org.example.services.MessageService;
-import org.example.services.PersoanaService;
+import org.example.services.*;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class MessageController implements Observer {
@@ -36,6 +35,7 @@ public class MessageController implements Observer {
     private FriendshipService friendshipService;
     private NetworkService networkService;
     private MessageService messageService;
+
     private User loggedInUser;
 
     @FXML private TextArea resultArea;
@@ -48,70 +48,25 @@ public class MessageController implements Observer {
 
     private PauseTransition typingTimer;
 
+
     @FXML
     public void initialize() {
-        setupAllEventHandlers();
 
         typingTimer = new PauseTransition(Duration.seconds(1.5));
-        typingTimer.setOnFinished(e -> typingLabel.setText(""));
+        typingTimer.setOnFinished(e -> {
+            if (typingLabel != null) typingLabel.setText("");
+        });
 
-        if (typingTimer != null) typingLabel.setText("");
+        if (typingLabel != null) typingLabel.setText("");
+
+        setupButtons();
 
         setupTypingDetector();
     }
 
+
     public void setLoggedInUser(User user) {
         this.loggedInUser = user;
-    }
-
-    private void setupTypingDetector() {
-        messageArea.textProperty().addListener((observable, oldValue, newValue) -> {
-
-            if (loggedInUser != null && !newValue.isEmpty()) {
-
-                String receiverName = namesComboBox.getValue();
-                User receiver = findUserByUsername(receiverName);
-
-                List<User> receivers = new ArrayList<>();
-                if (receiver != null) {
-                    receivers.add(receiver);
-                }
-
-                messageService.notifyTyping(loggedInUser, receivers);
-            }
-        });
-    }
-
-    @Override
-    public void update(Signal signal) {
-
-        Platform.runLater(() -> {
-
-            if ("MESSAGE_NEW".equals(signal.getType())) {
-                refreshMessages(null);
-            }
-
-            else if ("TYPING".equals(signal.getType())) {
-                handleTypingSignal(signal);
-            }
-        });
-    }
-
-    private void handleTypingSignal(Signal signal) {
-        User sender = signal.getFrom();
-
-        if (sender == null || sender.getId().equals(loggedInUser.getId())) {
-            return;
-        }
-
-        boolean isForMe = signal.getTo() == null || signal.getTo().isEmpty() ||
-                signal.getTo().stream().anyMatch(u -> u.getId().equals(loggedInUser.getId()));
-
-        if (isForMe) {
-            typingLabel.setText(sender.getUsername() + " scrie un mesaj...");
-
-            typingTimer.playFromStart();
-        }
     }
 
     public void setServices(DuckService duckService, PersoanaService persoanaService, FriendshipService friendshipService,
@@ -126,77 +81,126 @@ public class MessageController implements Observer {
 
         completeNamesComboBox();
 
-        refreshMessages(null);
+        if (loggedInUser != null) {
+            refreshMessages(null);
+        }
     }
 
-    private void setupAllEventHandlers() {
+    private void setupButtons() {
+        sendMessageBtn.setOnAction(e -> handleSendMessage(false));
+        sendToAllBtn.setOnAction(e -> handleSendMessage(true));
+    }
 
-        sendMessageBtn.setOnAction(e -> {
-                handleSendMessage(false);
+
+    @Override
+    public void update(Signal signal) {
+
+        Platform.runLater(() -> {
+            switch (signal.getType()) {
+                case "MESSAGE_NEW":
+                    refreshMessages(null);
+                    break;
+                case "TYPING":
+                    handleTypingSignal(signal);
+                    break;
+            }
         });
-        sendToAllBtn.setOnAction(e -> {
-            handleSendMessage(true);
+    }
+
+    private void setupTypingDetector() {
+        messageArea.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (loggedInUser != null && !newValue.isEmpty()) {
+
+                String receiverName = namesComboBox.getValue();
+                User receiver = findUserByUsername(receiverName);
+                List<User> receivers = (receiver != null) ? List.of(receiver) : new ArrayList<>();
+
+                messageService.notifyTyping(loggedInUser, receivers);
+            }
         });
     }
 
-    public void completeNamesComboBox() {
-        List<String> usernames = new ArrayList<>();
 
-        Iterable<Duck> allDucks = duckService.findAllDucks();
-        Iterable<Persoana> allPersons = persoanaService.findAllPersons();
+    private void handleTypingSignal(Signal signal) {
+        User sender = signal.getFrom();
 
-        allDucks.forEach(duck -> usernames.add(duck.getUsername()));
-        allPersons.forEach(person -> usernames.add(person.getUsername()));
+        if (sender == null || loggedInUser == null || sender.getId().equals(loggedInUser.getId())) {
+            return;
+        }
 
-        Collections.sort(usernames);
-        namesComboBox.getItems().clear();
-        namesComboBox.getItems().addAll(usernames);
+        boolean isForMe = signal.getTo() == null || signal.getTo().isEmpty() ||
+                signal.getTo().stream().anyMatch(u -> u.getId().equals(loggedInUser.getId()));
 
-        namesComboBox.getSelectionModel().selectFirst();
+        if (isForMe && typingLabel != null) {
+            typingLabel.setText(sender.getUsername() + " scrie...");
+            typingTimer.playFromStart();
+        }
     }
 
+    @FXML
+    public void refreshMessages(ActionEvent event) {
+        if (loggedInUser == null || messageService == null) {
+            return;
+        }
+
+        try {
+            Iterable<Message> messages = messageService.findMessagesToUser(loggedInUser.getId());
+            List<Message> messageList = new ArrayList<>();
+            messages.forEach(messageList::add);
+
+            messageList.sort(Comparator.comparing(Message::getData));
+
+            StringBuilder sb = new StringBuilder();
+            if (messageList.isEmpty()) {
+                sb.append("Nu ai niciun mesaj.");
+            } else {
+                for (Message m : messageList) {
+                    String senderName = (m.getSender() != null) ? m.getSender().getUsername() : "System";
+                    String time = m.getData().getHour() + ":" + m.getData().getMinute();
+
+                    sb.append("[").append(time).append("] ");
+                    sb.append(senderName).append(" (ID: ").append(m.getId()).append(")");
+
+                    if (m instanceof ReplyMessage) {
+                        Message parent = ((ReplyMessage) m).getReplyMessage();
+                        if (parent != null) {
+                            sb.append(" -> Reply la #").append(parent.getId());
+                        }
+                    }
+                    sb.append(":\n").append(m.getMessage()).append("\n\n");
+                }
+            }
+
+            resultArea.setText(sb.toString());
+            resultArea.positionCaret(resultArea.getText().length());
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            resultArea.setText("Eroare la incarcarea mesajelor.");
+        }
+    }
     private void handleSendMessage(boolean sendToAll) {
         try {
-            String senderName = loggedInUser.getUsername();
             String text = messageArea.getText();
             String idReplyText = idMessageField.getText();
 
-            if (senderName.isEmpty() || text.isEmpty()) {
-                sendMessage("Expeditorul si mesajul sunt obligatorii!", "Eroare", "Date incomplete");
+            if (text.isEmpty()) {
+                showAlert("Eroare", "Mesajul nu poate fi gol!");
                 return;
             }
 
             String receiverName = namesComboBox.getValue();
-            if (!sendToAll && receiverName.isEmpty()) {
-                sendMessage("Destinatarul este obligatoriu!", "Eroare", "Date incomplete");
-                return;
-            }
-
-            User sender = findUserByUsername(senderName);
-            if (sender == null) {
-                sendMessage("Expeditorul '" + senderName + "' nu exista!", "Eroare", "User Inexistent");
-                return;
-            }
-
+            User sender = loggedInUser;
             List<User> receivers = new ArrayList<>();
 
             if (sendToAll) {
-                Iterable<Duck> allDucks = duckService.findAllDucks();
-                Iterable<Persoana> allPersons = persoanaService.findAllPersons();
-
-                allDucks.forEach(receivers::add);
-                allPersons.forEach(receivers::add);
-
+                duckService.findAllDucks().forEach(receivers::add);
+                persoanaService.findAllPersons().forEach(receivers::add);
                 receivers.removeIf(u -> u.getId().equals(sender.getId()));
-
-                if (receivers.isEmpty()) {
-                    sendMessage("Nu exista alti utilizatori in retea!", "Info", "Nimeni de notificat");
-                    return;
-                }
             } else {
                 User receiver = findUserByUsername(receiverName);
                 if (receiver == null) {
-                    sendMessage("Destinatarul '" + receiverName + "' nu exista!", "Eroare", "User Inexistent");
+                    showAlert("Eroare", "Destinatar invalid!");
                     return;
                 }
                 receivers.add(receiver);
@@ -205,17 +209,10 @@ public class MessageController implements Observer {
             Message messageToSend;
             Message parentMessage = null;
 
-            if (idReplyText != null && !idReplyText.trim().isEmpty() && !idReplyText.equals("0")) {
+            if (idReplyText != null && !idReplyText.equals("0") && !idReplyText.isEmpty()) {
                 try {
-                    Long replyId = Long.parseLong(idReplyText);
-                    parentMessage = messageService.findMessageById(replyId);
-                    if (parentMessage == null) {
-                        sendMessage("Mesajul parinte nu exista!", "Eroare", "ID Invalid");
-                        return;
-                    }
-                } catch (NumberFormatException nfe) {
-                    sendMessage("ID-ul mesajului de raspuns trebuie sa fie numar!", "Eroare", "Format Invalid");
-                    return;
+                    parentMessage = messageService.findMessageById(Long.parseLong(idReplyText));
+                } catch (Exception _) {
                 }
             }
 
@@ -232,11 +229,24 @@ public class MessageController implements Observer {
 
         } catch (Exception ex) {
             ex.printStackTrace();
-            sendMessage("Eroare interna: " + ex.getMessage(), "Eroare", "Eroare la trimitere");
+            showAlert("Eroare Critica", ex.getMessage());
+        }
+    }
+
+    public void completeNamesComboBox() {
+        List<String> usernames = new ArrayList<>();
+        duckService.findAllDucks().forEach(d -> usernames.add(d.getUsername()));
+        persoanaService.findAllPersons().forEach(p -> usernames.add(p.getUsername()));
+        Collections.sort(usernames);
+        namesComboBox.getItems().clear();
+        namesComboBox.getItems().addAll(usernames);
+        if (!namesComboBox.getItems().isEmpty()) {
+            namesComboBox.getSelectionModel().selectFirst();
         }
     }
 
     private User findUserByUsername(String username) {
+        if (username == null) return null;
         User user = duckService.findByUsernameDuck(username);
         if (user == null) {
             user = (User) persoanaService.findByUsernamePerson(username);
@@ -244,64 +254,22 @@ public class MessageController implements Observer {
         return user;
     }
 
-    private void sendMessage(String message, String title, String header ){
+    private void showAlert(String title, String content) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        if (title.equals("Eroare")) {
-            alert.setAlertType(Alert.AlertType.ERROR);
-        }
         alert.setTitle(title);
-        alert.setHeaderText(header);
-        alert.setContentText(message);
+        alert.setContentText(content);
         alert.showAndWait();
     }
 
-    public void sendBackToMainPage(ActionEvent event) throws IOException{
+    public void sendBackToMainPage(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/main-view.fxml"));
         Parent root = loader.load();
-
         Stage stage = (Stage)((Node) event.getSource()).getScene().getWindow();
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
+        stage.setScene(new Scene(root));
 
-        MainController mainController = loader.getController();
-        mainController.setServices(duckService, persoanaService,
-                friendshipService, networkService, messageService);
-        stage.centerOnScreen();
+        MainController mainCtrl = loader.getController();
+        mainCtrl.setServices(duckService, persoanaService, friendshipService, networkService, messageService);
+
         stage.show();
-    }
-
-    @FXML
-    public void refreshMessages(ActionEvent event) {
-        try{
-            Iterable<Message> messages = messageService.findMessagesToUser(loggedInUser.getId());
-            List<Message> messageList = new ArrayList<>();
-            messages.forEach(messageList::add);
-
-            messageList.sort((m1, m2) -> m1.getData().compareTo(m2.getData()));
-
-            StringBuilder sb = new StringBuilder();
-
-            for (Message message : messageList) {
-                String expeditor = (message.getSender() != null) ? message.getSender().getUsername() : "System";
-                String dataStr = message.getData().getHour() + ":" + message.getData().getMinute();
-
-                sb.append("[").append(dataStr).append("] ");
-                sb.append(expeditor).append(" (ID: ").append(message.getId()).append(")");
-
-                if (message instanceof ReplyMessage) {
-                    Message parent = ((ReplyMessage) message).getReplyMessage();
-                    if (parent != null) {
-                        sb.append(" -> Reply la #").append(parent.getId());
-                    }
-                }
-                sb.append(":\n").append(message.getMessage()).append("\n\n");
-
-                resultArea.setText(sb.toString());
-                resultArea.positionCaret(resultArea.getText().length());
-            }
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-
     }
 }
