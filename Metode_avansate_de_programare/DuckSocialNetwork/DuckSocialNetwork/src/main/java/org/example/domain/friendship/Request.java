@@ -1,6 +1,8 @@
 package org.example.domain.friendship;
 
-public class Request {
+import org.example.domain.Entity;
+
+public class Request extends Entity<Long> {
 
     private Long id;
     private String senderUsername;
@@ -14,6 +16,7 @@ public class Request {
         this.status = status;
     }
 
+    @Override
     public Long getId() {
         return id;
     }
