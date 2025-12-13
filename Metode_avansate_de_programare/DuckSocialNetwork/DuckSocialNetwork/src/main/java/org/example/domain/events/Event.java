@@ -33,10 +33,7 @@ public class Event extends Entity<Long> {
     }
 
     public void notifySubscribers(String message){
-
-        for (User user : subscribers){
-            user.update(message);
-        }
+        
 
     }
 
