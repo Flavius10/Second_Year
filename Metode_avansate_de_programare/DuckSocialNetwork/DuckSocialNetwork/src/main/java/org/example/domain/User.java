@@ -82,14 +82,9 @@ public abstract class User extends Entity<Long> implements Observer {
     }
 
     @Override
-    public void update(String message){
+    public void update(Signal message){
 
-        List<String> listaDeNume = List.of(message.split(" "));
-        Random random = new Random();
-
-        int randomInt = random.nextInt(listaDeNume.size());
-
-        System.out.println("Eu tin cu " + listaDeNume.get(randomInt) + "! Haide " + listaDeNume.get(randomInt) + "!");
+        System.out.println("Eu tin cu " + "#" + "! Haide " + "#" + "!");
 
     }
 
