@@ -38,8 +38,8 @@
         <Label text="Friendship" style="-fx-font-weight: bold; -fx-font-size: 14px;"/>
 
         <VBox spacing="5">
-            <Label text="ID User 1"/>
-            <TextField fx:id="friendshipId1" promptText="Ex: 1"/>
+            <Label text="Username User 1"/>
+            <TextField fx:id="friendshipId1" promptText="Ex: Flavius"/>
         </VBox>
 
         <HBox spacing="10">

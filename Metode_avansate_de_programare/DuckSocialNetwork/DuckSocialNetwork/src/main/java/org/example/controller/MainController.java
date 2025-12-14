@@ -119,12 +119,14 @@ public class MainController {
         stage.setScene(scene);
 
         FriendshipController friendshipController = loader.getController();
-        friendshipController.setServices(duckService, persoanaService,
-                friendshipService, networkService, messageService);
 
         friendshipController.setRequestService(requestService);
 
         friendshipController.setLoggedInUser(this.loggedInUser);
+
+        friendshipController.setServices(duckService, persoanaService,
+                friendshipService, networkService, messageService);
+
         stage.centerOnScreen();
         stage.show();
     }
