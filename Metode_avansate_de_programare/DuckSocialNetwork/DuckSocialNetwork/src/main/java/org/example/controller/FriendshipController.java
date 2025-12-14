@@ -187,6 +187,7 @@ public class FriendshipController {
         stage.setScene(scene);
 
         MainController controller = loader.getController();
+        controller.setLoggedInUser(this.loggedInUser);
         controller.setServices(duckService, persoanaService,
                 friendshipService, networkService, messageService, requestService);
 

@@ -271,6 +271,9 @@ public class MessageController implements Observer {
         stage.setScene(new Scene(root));
 
         MainController mainCtrl = loader.getController();
+
+        mainCtrl.setLoggedInUser(this.loggedInUser);
+
         mainCtrl.setServices(duckService, persoanaService,
                 friendshipService, networkService, messageService, requestService);
 
