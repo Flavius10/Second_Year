@@ -148,5 +148,21 @@ public class MainController {
 
     }
 
+    public void switchToRequestsTab(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/request-view.fxml"));
+        Parent root = loader.load();
+
+        Stage stage = (Stage)((Node) event.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+
+        RequestController requestController = loader.getController();
+        requestController.setLoggedInUser(this.loggedInUser);
+        requestController.setServices(duckService, persoanaService,
+                friendshipService, networkService, messageService, requestService);
+        stage.centerOnScreen();
+        stage.show();
+    }
+
 
 }

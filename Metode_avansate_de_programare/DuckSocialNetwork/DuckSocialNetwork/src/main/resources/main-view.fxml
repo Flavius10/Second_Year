@@ -24,7 +24,7 @@
         <Region HBox.hgrow="ALWAYS"/>
 
         <StackPane>
-            <Button fx:id="requestsButton" text="🔔 Requests"
+            <Button fx:id="requestsButton" text="🔔 Requests" onAction="#switchToRequestsTab"
                     style="-fx-background-color: transparent; -fx-text-fill: #555; -fx-font-weight: bold; -fx-cursor: hand; -fx-border-color: #ddd; -fx-border-radius: 5;"/>
 
             <Label fx:id="requestsLabel" text="5" visible="true"
