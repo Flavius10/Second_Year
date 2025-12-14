@@ -142,10 +142,15 @@ public class MainController {
         List<Request> requests = (List<Request>)
                 this.requestService.findByUsername(this.loggedInUser.getUsername());
 
-        if (requests.isEmpty())
+        if (requests.isEmpty()){
             this.requestsLabel.setText("Nu ai cereri de prietenie!");
-        else
+            this.requestsButton.setDisable(true);
+        }
+        else{
             this.requestsLabel.setText("Cereri de prietenie: " + requests.size());
+            this.requestsButton.setDisable(false);
+        }
+
 
     }
 
