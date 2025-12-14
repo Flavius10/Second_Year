@@ -151,12 +151,12 @@ public class LogInController {
 
         MainController controller = loader.getController();
 
+        controller.setRequestService(this.requestService);
+        controller.setLoggedInUser(this.currentUser);
 
         controller.setServices(duckService, persoanaService,
                 friendshipService, networkService, messageService);
 
-        controller.setRequestService(this.requestService);
-        controller.setLoggedInUser(this.currentUser);
 
         stage.show();
     }

@@ -8,12 +8,14 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 import org.example.domain.*;
+import org.example.domain.friendship.Request;
 import org.example.domain.messaging.Message;
 import org.example.services.*;
 import org.example.network.NetworkService; // Asigura-te ca e importat corect
 
 import javafx.event.ActionEvent;
 import java.io.IOException;
+import java.util.List;
 
 public class MainController {
 
@@ -24,6 +26,9 @@ public class MainController {
     private MessageService messageService;
     private RequestService requestService;
     private User loggedInUser;
+
+    @FXML private Button requestsButton;
+    @FXML private Label requestsLabel;
 
     @FXML
     private TextArea resultArea;
@@ -40,24 +45,6 @@ public class MainController {
         this.requestService = requestService;
     }
 
-    @FXML
-    public void refreshMessages(ActionEvent event) {
-        this.resultArea.clear();
-
-        if (loggedInUser == null) {
-            this.resultArea.setText("Eroare: Nu e nimeni logat!");
-            return;
-        }
-
-        Iterable<Message> messages = messageService.findMessagesToUser(loggedInUser.getId());
-
-        messages.forEach(m -> {
-            String text = "De la: " + m.getSender().getUsername() +
-                    " | Mesaj: " + m.getMessage() +
-                    " | Data: " + m.getData() + "\n\n";
-            this.resultArea.appendText(text);
-        });
-    }
 
     public void setServices(DuckService duckService, PersoanaService persoanaService,
                             FriendshipService friendshipService, NetworkService networkService,
@@ -67,6 +54,8 @@ public class MainController {
         this.friendshipService = friendshipService;
         this.networkService = networkService;
         this.messageService = messageService;
+
+        getRequests();
 
     }
 
@@ -147,6 +136,17 @@ public class MainController {
                 friendshipService, networkService, messageService);
         stage.centerOnScreen();
         stage.show();
+    }
+
+    public void getRequests(){
+        List<Request> requests = (List<Request>)
+                this.requestService.findByUsername(this.loggedInUser.getUsername());
+
+        if (requests.isEmpty())
+            this.requestsLabel.setText("Nu ai cereri de prietenie!");
+        else
+            this.requestsLabel.setText("Cereri de prietenie: " + requests.size());
+
     }
 
 

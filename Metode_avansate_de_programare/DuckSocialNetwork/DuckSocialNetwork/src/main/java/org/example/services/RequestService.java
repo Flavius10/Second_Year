@@ -38,4 +38,8 @@ public class RequestService {
         return repoDBRequest.findOne(id);
     }
 
+    public Iterable<Request> findByUsername(String username){
+        return this.repoDBRequest.findByUsernameRequest(username);
+    }
+
 }

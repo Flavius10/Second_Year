@@ -147,24 +147,31 @@ public class RepoDBRequest implements RepoDB<Long, Request>{
         }
     }
 
-    @Override
-    public Optional<Request> findByUsername(String username) {
-        String sql = "SELECT * FROM request WHERE sender = ? OR receiver = ?";
+    public Iterable<Request> findByUsernameRequest(String username) {
+        String sql = "SELECT * FROM request WHERE receiver = ?";
+
+        List<Request> requests = new ArrayList<>();
 
         try (Connection connection = DriverManager.getConnection(this.url, this.username, this.password);
              PreparedStatement statement = connection.prepareStatement(sql)) {
 
             statement.setString(1, username);
-            statement.setString(2, username);
+
             ResultSet result = statement.executeQuery();
 
             if (result.next()) {
-                return Optional.of(extractRequestFromResultSet(result));
+                Request request = extractRequestFromResultSet(result);
+                requests.add(request);
             }
-            return Optional.empty();
+            return requests;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    @Override
+    public Optional<Request> findByUsername(String username) {
+        return Optional.empty();
     }
 
     @Override
