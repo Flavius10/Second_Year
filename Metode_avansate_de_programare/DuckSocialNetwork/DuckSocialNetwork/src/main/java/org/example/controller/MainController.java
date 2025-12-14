@@ -9,10 +9,7 @@ import javafx.scene.control.*;
 import javafx.stage.Stage;
 import org.example.domain.*;
 import org.example.domain.messaging.Message;
-import org.example.services.DuckService;
-import org.example.services.MessageService;
-import org.example.services.PersoanaService;
-import org.example.services.FriendshipService;
+import org.example.services.*;
 import org.example.network.NetworkService; // Asigura-te ca e importat corect
 
 import javafx.event.ActionEvent;
@@ -25,6 +22,7 @@ public class MainController {
     private FriendshipService friendshipService;
     private NetworkService networkService;
     private MessageService messageService;
+    private RequestService requestService;
     private User loggedInUser;
 
     @FXML
@@ -36,6 +34,10 @@ public class MainController {
 
     public void setLoggedInUser(User user) {
         this.loggedInUser = user;
+    }
+
+    public void setRequestService(RequestService requestService) {
+        this.requestService = requestService;
     }
 
     @FXML
@@ -119,6 +121,10 @@ public class MainController {
         FriendshipController friendshipController = loader.getController();
         friendshipController.setServices(duckService, persoanaService,
                 friendshipService, networkService, messageService);
+
+        friendshipController.setRequestService(requestService);
+
+        friendshipController.setLoggedInUser(this.loggedInUser);
         stage.centerOnScreen();
         stage.show();
     }

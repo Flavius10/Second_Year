@@ -10,12 +10,11 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
+import org.example.domain.User;
 import org.example.domain.friendship.Friendship;
+import org.example.domain.friendship.Request;
 import org.example.network.NetworkService;
-import org.example.services.DuckService;
-import org.example.services.FriendshipService;
-import org.example.services.MessageService;
-import org.example.services.PersoanaService;
+import org.example.services.*;
 import org.example.utils.paging.Page;
 import org.example.utils.paging.Pageable;
 
@@ -34,6 +33,8 @@ public class FriendshipController {
     private NetworkService networkService;
     private MessageService messageService;
 
+    private RequestService requestService;
+
     @FXML private TextArea resultArea;
 
     @FXML private TableView<Friendship> friendshipTableView;
@@ -44,9 +45,10 @@ public class FriendshipController {
     @FXML private Button nextFriendBtn;
 
     @FXML private TextField friendshipId1;
-    @FXML private TextField friendshipId2;
     @FXML private Button addFriendshipBtn;
     @FXML private Button removeFriendshipBtn;
+
+    private User loggedInUser;
 
     private int pageSize = 5;
     private int currentPageFriend = 0;
@@ -57,6 +59,14 @@ public class FriendshipController {
     public void initialize() {
 
         printLog("Aplicatia a pornit. Astept actiuni...");
+    }
+
+    public void setLoggedInUser(User user) {
+        this.loggedInUser = user;
+    }
+
+    public void setRequestService(RequestService requestService) {
+        this.requestService = requestService;
     }
 
     private void initColumns() {
@@ -100,8 +110,9 @@ public class FriendshipController {
 
         addFriendshipBtn.setOnAction(e -> {
             try {
-                String user1 = friendshipId1.getText().trim();
-                String user2 = friendshipId2.getText().trim();
+                String user1 = this.loggedInUser.getUsername();
+                String user2 = friendshipId1.getText().trim();
+
 
                 if (user1.isEmpty() || user2.isEmpty()) {
                     printLog("Eroare: Completeaza ambele username-uri!");
@@ -117,13 +128,13 @@ public class FriendshipController {
                 }
 
                 Long fId = System.currentTimeMillis();
-                Friendship f = new Friendship(fId, user1, user2);
-                friendshipService.saveFriendship(f);
+                Request request = new Request(fId, user1, user2, "pending");
+
+                this.requestService.saveRequest(request);
 
                 loadFriendshipPage();
-                printLog("Succes: Prietenie adaugata intre " + user1 + " si " + user2);
+                sendMessage("Cererea de prietenie a fost trimisa cu succes!", "Succes", "Prietenie adaugata");
                 friendshipId1.clear();
-                friendshipId2.clear();
 
             } catch (Exception ex) {
                 printLog("Eroare la adaugare prietenie: " + ex.getMessage());
@@ -144,6 +155,14 @@ public class FriendshipController {
                 printLog("Atentie: Selecteaza o prietenie din tabel!");
             }
         });
+    }
+
+    private void sendMessage(String text, String title, String header) {
+        Alert message = new Alert(Alert.AlertType.INFORMATION);
+        message.setTitle(title);
+        message.setHeaderText(header);
+        message.setContentText(text);
+        message.showAndWait();
     }
 
     private void printLog(String message) {

@@ -19,10 +19,7 @@ import org.example.domain.ducks.Duck;
 import org.example.domain.ducks.FlyingDuck;
 import org.example.domain.ducks.SwimmingDuck;
 import org.example.network.NetworkService;
-import org.example.services.DuckService;
-import org.example.services.FriendshipService;
-import org.example.services.MessageService;
-import org.example.services.PersoanaService;
+import org.example.services.*;
 
 import java.io.IOException;
 import java.time.LocalDate;
@@ -35,6 +32,7 @@ public class RegisterController {
     private FriendshipService friendshipService;
     private NetworkService networkService;
     private MessageService messageService;
+    private RequestService requestService;
 
     @FXML private ComboBox<String> userTypeComboBox;
     @FXML private TextField usernameField;
@@ -74,12 +72,13 @@ public class RegisterController {
 
     public void setServices(DuckService duckService, PersoanaService persoanaService,
                             FriendshipService friendshipService, NetworkService networkService,
-                            MessageService messageService) {
+                            MessageService messageService, RequestService requestService) {
         this.duckService = duckService;
         this.persoanaService = persoanaService;
         this.friendshipService = friendshipService;
         this.networkService = networkService;
         this.messageService = messageService;
+        this.requestService = requestService;
     }
 
     private void showPersonFields(boolean showPerson) {
@@ -173,7 +172,7 @@ public class RegisterController {
 
         LogInController logInController = loader.getController();
         logInController.setServices(duckService, persoanaService,
-                friendshipService, networkService, messageService);
+                friendshipService, networkService, messageService, requestService);
 
         stage.show();
     }

@@ -14,10 +14,7 @@ import org.example.domain.Persoana;
 import org.example.domain.User;
 import org.example.domain.ducks.Duck;
 import org.example.network.NetworkService;
-import org.example.services.DuckService;
-import org.example.services.FriendshipService;
-import org.example.services.MessageService;
-import org.example.services.PersoanaService;
+import org.example.services.*;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -31,6 +28,7 @@ public class LogInController {
     private FriendshipService friendshipService;
     private NetworkService networkService;
     private MessageService messageService;
+    private RequestService requestService;
 
     @FXML
     private TextField usernameField;
@@ -52,13 +50,14 @@ public class LogInController {
 
     public void setServices(DuckService duckService, PersoanaService persoanaService,
                             FriendshipService friendshipService, NetworkService networkService,
-                            MessageService messageService) {
+                            MessageService messageService, RequestService requestService) {
 
         this.duckService = duckService;
         this.persoanaService = persoanaService;
         this.friendshipService = friendshipService;
         this.networkService = networkService;
         this.messageService = messageService;
+        this.requestService = requestService;
 
         loadDucks();
         loadPersoane();
@@ -141,7 +140,6 @@ public class LogInController {
         });
     }
 
-    // --- NAVIGARE ---
 
     private void switchToMainPage(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/main-view.fxml"));
@@ -157,6 +155,7 @@ public class LogInController {
         controller.setServices(duckService, persoanaService,
                 friendshipService, networkService, messageService);
 
+        controller.setRequestService(this.requestService);
         controller.setLoggedInUser(this.currentUser);
 
         stage.show();
@@ -172,7 +171,7 @@ public class LogInController {
 
         RegisterController controller = loader.getController();
         controller.setServices(duckService, persoanaService,
-                friendshipService, networkService, messageService);
+                friendshipService, networkService, messageService, requestService);
 
         stage.show();
     }
