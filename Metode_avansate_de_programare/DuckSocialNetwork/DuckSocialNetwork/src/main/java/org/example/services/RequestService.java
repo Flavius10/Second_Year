@@ -1,45 +1,55 @@
 package org.example.services;
 
+import org.example.domain.Observable;
+import org.example.domain.Observer;
+import org.example.domain.Signal;
 import org.example.domain.friendship.Request;
 import org.example.repositories.repo_db.RepoDBRequest;
 
-import java.util.Optional;
+import java.util.ArrayList;
+import java.util.List;
 
-public class RequestService {
+public class RequestService implements Observable {
+    private RepoDBRequest repo;
+    private final List<Observer> observers = new ArrayList<>();
 
-    private RepoDBRequest repoDBRequest;
-
-    public RequestService(RepoDBRequest repoDBRequest) {
-        this.repoDBRequest = repoDBRequest;
+    public RequestService(RepoDBRequest repo) {
+        this.repo = repo;
     }
 
-    public void saveRequest(Request request){
-        Optional<Request> existing = findById(request.getId());
+    @Override
+    public void addObserver(Observer observer) {
+        observers.add(observer);
+    }
 
-        if (existing.isPresent()) {
-            throw new RuntimeException("Request already exists!");
+    @Override
+    public void removeObserver(Observer observer) {
+        observers.remove(observer);
+    }
+
+    @Override
+    public void notifyObservers(Signal signal) {
+        for (Observer observer : new ArrayList<>(observers)) {
+            observer.update(signal);
         }
-        repoDBRequest.save(request);
     }
 
-    public void deleteRequest(Request request){
-        Optional<Request> deleted = this.repoDBRequest.delete(request.getId());
-        if (deleted.isEmpty()) {
-            throw new RuntimeException("Request not found!");
-        }
-
+    public void addRequest(Request request) {
+        repo.save(request);
+        notifyObservers(new Signal("REQUEST_ADDED", null, null, request));
     }
 
-    public Iterable<Request> findAll(){
-        return repoDBRequest.findAll();
+    public void approveRequest(Request request) {
+        repo.delete(request.getId());
+        notifyObservers(new Signal("REQUEST_APPROVED", null, null, request));
     }
 
-    public Optional<Request> findById(Long id){
-        return repoDBRequest.findOne(id);
+    public void rejectRequest(Request request) {
+        repo.delete(request.getId());
+        notifyObservers(new Signal("REQUEST_REJECTED", null, null, request));
     }
 
-    public Iterable<Request> findByUsername(String username){
-        return this.repoDBRequest.findByUsernameRequest(username);
+    public Iterable<Request> findByUsername(String username) {
+        return repo.findByUsernameRequest(username);
     }
-
 }

@@ -4,6 +4,7 @@
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.VBox?>
 
+<?import javafx.scene.control.Button?>
 <VBox xmlns="http://javafx.com/javafx/17"
       xmlns:fx="http://javafx.com/fxml/1"
       fx:controller="org.example.controller.RequestController"
@@ -17,5 +18,7 @@
             <VBox fx:id="requestsContainer" spacing="15" style="-fx-padding: 5;"/>
         </content>
     </ScrollPane>
+
+    <Button text = "Back to main menu" onAction="#sendBackToMainPage"/>
 
 </VBox>

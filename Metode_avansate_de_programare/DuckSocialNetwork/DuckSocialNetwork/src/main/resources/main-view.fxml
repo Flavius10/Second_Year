@@ -7,9 +7,9 @@
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.shape.Circle?>
 
-<VBox xmlns:fx="http://javafx.com/fxml"
+<VBox xmlns="http://javafx.com/javafx/17"
+      xmlns:fx="http://javafx.com/fxml/1"
       fx:controller="org.example.controller.MainController"
       spacing="0"
       alignment="TOP_CENTER"
@@ -25,11 +25,11 @@
 
         <StackPane>
             <Button fx:id="requestsButton" text="🔔 Requests" onAction="#switchToRequestsTab"
-                    style="-fx-background-color: transparent; -fx-text-fill: #555; -fx-font-weight: bold; -fx-cursor: hand; -fx-border-color: #ddd; -fx-border-radius: 5;"/>
+                    style="-fx-background-color: transparent; -fx-text-fill: #555; -fx-font-weight: bold; -fx-cursor: hand; -fx-border-color: #ddd; -fx-border-radius: 5; -fx-padding: 8 15;"/>
 
-            <Label fx:id="requestsLabel" text="5" visible="true"
+            <Label fx:id="requestsLabel" text="1" visible="false"
                    StackPane.alignment="TOP_RIGHT"
-                   style="-fx-background-color: #ef4444; -fx-text-fill: white; -fx-font-size: 10px; -fx-font-weight: bold; -fx-padding: 2 5; -fx-background-radius: 10; -fx-translate-x: 5; -fx-translate-y: -5;"/>
+                   style="-fx-background-color: #ef4444; -fx-text-fill: white; -fx-font-size: 10px; -fx-font-weight: bold; -fx-padding: 2 6; -fx-background-radius: 10; -fx-translate-x: 5; -fx-translate-y: -5; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 2, 0, 0, 1);"/>
         </StackPane>
     </HBox>
 

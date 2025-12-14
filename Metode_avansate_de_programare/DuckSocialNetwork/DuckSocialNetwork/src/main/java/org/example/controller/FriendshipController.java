@@ -127,7 +127,7 @@ public class FriendshipController {
                 Long fId = System.currentTimeMillis();
                 Request request = new Request(fId, user1, user2, "pending");
 
-                this.requestService.saveRequest(request);
+                this.requestService.addRequest(request);
 
                 loadFriendshipPage();
                 sendMessage("Cererea de prietenie a fost trimisa cu succes!", "Succes", "Prietenie adaugata");
