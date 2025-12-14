@@ -148,7 +148,7 @@ public class RepoDBRequest implements RepoDB<Long, Request>{
     }
 
     public Iterable<Request> findByUsernameRequest(String username) {
-        String sql = "SELECT * FROM request WHERE receiver = ?";
+        String sql = "SELECT * FROM request WHERE receiver = ? AND status = 'pending'";
 
         List<Request> requests = new ArrayList<>();
 
