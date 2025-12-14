@@ -35,6 +35,7 @@ public class MessageController implements Observer {
     private FriendshipService friendshipService;
     private NetworkService networkService;
     private MessageService messageService;
+    private RequestService requestService;
 
     private User loggedInUser;
 
@@ -70,12 +71,14 @@ public class MessageController implements Observer {
     }
 
     public void setServices(DuckService duckService, PersoanaService persoanaService, FriendshipService friendshipService,
-                            NetworkService networkService, MessageService messageService) {
+                            NetworkService networkService, MessageService messageService,
+                            RequestService requestService) {
         this.duckService = duckService;
         this.persoanaService = persoanaService;
         this.friendshipService = friendshipService;
         this.networkService = networkService;
         this.messageService = messageService;
+        this.requestService = requestService;
 
         this.messageService.addObserver(this);
 
@@ -268,7 +271,8 @@ public class MessageController implements Observer {
         stage.setScene(new Scene(root));
 
         MainController mainCtrl = loader.getController();
-        mainCtrl.setServices(duckService, persoanaService, friendshipService, networkService, messageService);
+        mainCtrl.setServices(duckService, persoanaService,
+                friendshipService, networkService, messageService, requestService);
 
         stage.show();
     }

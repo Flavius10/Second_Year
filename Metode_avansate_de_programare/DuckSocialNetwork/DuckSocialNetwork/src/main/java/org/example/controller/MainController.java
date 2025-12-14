@@ -41,19 +41,15 @@ public class MainController {
         this.loggedInUser = user;
     }
 
-    public void setRequestService(RequestService requestService) {
-        this.requestService = requestService;
-    }
-
-
     public void setServices(DuckService duckService, PersoanaService persoanaService,
                             FriendshipService friendshipService, NetworkService networkService,
-                            MessageService messageService) {
+                            MessageService messageService, RequestService requestService) {
         this.duckService = duckService;
         this.persoanaService = persoanaService;
         this.friendshipService = friendshipService;
         this.networkService = networkService;
         this.messageService = messageService;
+        this.requestService = requestService;
 
         getRequests();
 
@@ -75,7 +71,7 @@ public class MainController {
 
         DuckController controller = loader.getController();
         controller.setDuckService(duckService, persoanaService,
-                friendshipService, networkService, messageService);
+                friendshipService, networkService, messageService, requestService);
 
         stage.centerOnScreen();
         stage.show();
@@ -93,7 +89,7 @@ public class MainController {
 
         PersoanaController persoanaController = loader.getController();
         persoanaController.setPersoanaService(duckService, persoanaService,
-                friendshipService, networkService, messageService);
+                friendshipService, networkService, messageService, requestService);
         stage.centerOnScreen();
         stage.show();
     }
@@ -110,12 +106,10 @@ public class MainController {
 
         FriendshipController friendshipController = loader.getController();
 
-        friendshipController.setRequestService(requestService);
-
         friendshipController.setLoggedInUser(this.loggedInUser);
 
         friendshipController.setServices(duckService, persoanaService,
-                friendshipService, networkService, messageService);
+                friendshipService, networkService, messageService, requestService);
 
         stage.centerOnScreen();
         stage.show();
@@ -133,7 +127,7 @@ public class MainController {
         MessageController messageController = loader.getController();
         messageController.setLoggedInUser(this.loggedInUser);
         messageController.setServices(duckService, persoanaService,
-                friendshipService, networkService, messageService);
+                friendshipService, networkService, messageService, requestService);
         stage.centerOnScreen();
         stage.show();
     }

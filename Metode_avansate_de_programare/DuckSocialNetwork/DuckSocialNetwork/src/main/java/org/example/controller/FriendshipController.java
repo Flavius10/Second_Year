@@ -65,10 +65,6 @@ public class FriendshipController {
         this.loggedInUser = user;
     }
 
-    public void setRequestService(RequestService requestService) {
-        this.requestService = requestService;
-    }
-
     private void initColumns() {
 
         frIdColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
@@ -90,13 +86,14 @@ public class FriendshipController {
 
     public void setServices(DuckService duckService, PersoanaService persoanaService,
                             FriendshipService friendshipService, NetworkService networkService,
-                            MessageService messageService) {
+                            MessageService messageService, RequestService requestService) {
 
         this.duckService = duckService;
         this.persoanaService = persoanaService;
         this.friendshipService = friendshipService;
         this.networkService = networkService;
         this.messageService = messageService;
+        this.requestService = requestService;
 
         initColumns();
         setupAllEventHandlers();
@@ -191,7 +188,7 @@ public class FriendshipController {
 
         MainController controller = loader.getController();
         controller.setServices(duckService, persoanaService,
-                friendshipService, networkService, messageService);
+                friendshipService, networkService, messageService, requestService);
 
         stage.centerOnScreen();
         stage.show();
