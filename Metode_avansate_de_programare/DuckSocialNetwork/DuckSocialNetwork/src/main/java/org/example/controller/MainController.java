@@ -109,6 +109,7 @@ public class MainController {
         stage.show();
     }
 
+
     @FXML
     public void switchToFriendshipTab(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/friendship-view.fxml"));
