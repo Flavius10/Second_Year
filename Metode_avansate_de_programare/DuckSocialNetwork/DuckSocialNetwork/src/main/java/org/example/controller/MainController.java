@@ -203,6 +203,8 @@ public class MainController implements Observer {
         Scene scene =  new Scene(root);
         stage.setScene(scene);
 
+        ProfileController profileController = loader.getController();
+        profileController.setLoggedInUser(this.loggedInUser);
 
 
         stage.centerOnScreen();
