@@ -194,4 +194,18 @@ public class MainController implements Observer {
         stage.centerOnScreen();
         stage.show();
     }
+
+    public void switchToProfileTab(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/profile-view.fxml"));
+        Parent root = loader.load();
+
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        Scene scene =  new Scene(root);
+        stage.setScene(scene);
+
+
+
+        stage.centerOnScreen();
+        stage.show();
+    }
 }
