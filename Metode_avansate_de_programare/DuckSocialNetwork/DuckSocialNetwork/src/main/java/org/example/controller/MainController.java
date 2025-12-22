@@ -204,8 +204,9 @@ public class MainController implements Observer {
         stage.setScene(scene);
 
         ProfileController profileController = loader.getController();
+        profileController.setServices(duckService, persoanaService,
+                friendshipService, networkService, messageService, requestService);
         profileController.setLoggedInUser(this.loggedInUser);
-
 
         stage.centerOnScreen();
         stage.show();
