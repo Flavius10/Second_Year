@@ -22,6 +22,23 @@ CREATE NONCLUSTERED INDEX N_idx_Camera_Capacitate
 ON Camera(capacitate);
 GO
 
+USE SmartBuilding
+GO
+SELECT * FROM Utilizator_Camera
+WITH(INDEX(N_idx_UtilizatorCamera_User))
+WHERE id_user = 1;
+
+SELECT * FROM Camera 
+WITH(INDEX(N_idx_Camera_Capacitate))
+WHERE capacitate = 50;
+
+
+SELECT * FROM Utilizator_Camera
+WITH(INDEX(N_idx_UtilizatorCamera_Camera))
+WHERE id_camera = 1;
+
+
+
 GO
 CREATE OR ALTER VIEW v_RaportAccesComplet
 AS
@@ -52,3 +69,4 @@ GO
 
 PRINT 'Indexii si View-urile au fost create cu succes.';
 SELECT * FROM v_CamereMari
+SELECT * FROM v_RaportAccesComplet

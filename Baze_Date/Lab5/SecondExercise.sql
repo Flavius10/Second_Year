@@ -134,3 +134,5 @@ BEGIN
     FROM deleted d;
 END
 GO
+
+SELECT * FROM Camera_Log

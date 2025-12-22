@@ -282,14 +282,37 @@ BEGIN
 
 END
 
+GO
+
+EXEC Create_Camera 'Camera', 'Sala Conferinte', 1, 'Multimedia', 50, 0;
+EXEC Read_Camera 'Camera';
+EXEC Update_Camera 'Camera', 1, 'Sala VIP', 1, 'Multimedia', 20, 1;
+EXEC Read_Camera 'Camera';
+EXEC Delete_Camera 'Camera', 'Sala VIP', 1, 'Multimedia', 20, 1;
+EXEC Read_Camera 'Camera';
+
+SELECT * FROM Camera_Log;
+
 /*
-DROP PROCEDURE Update_Utilizator_Camera;
-DROP PROCEDURE Update_Camera;
+DROP PROCEDURE Create_Utilizator;
+DROP PROCEDURE Create_Camera;
+DROP PROCEDURE Create_Utilizator_Camera;
+
+DROP PROCEDURE Read_Utilizator;
+DROP PROCEDURE Read_Camera;
+DROP PROCEDURE Read_Utilizator_Camera;
+
 DROP PROCEDURE Update_Utilizator;
+DROP PROCEDURE Update_Camera;
+DROP PROCEDURE Update_Utilizator_Camera;
+
+DROP PROCEDURE Delete_Utilizator;
+DROP PROCEDURE Delete_Camera;
+DROP PROCEDURE Delete_Utilizator_Camera;
+
+GO
+
+DROP FUNCTION ValidateName;
+DROP FUNCTION ValidateID;
+DROP FUNCTION ValidateForUtilizatorCamera;
 */
-
-EXEC Update_Utilizator 'TabelaTest', 1, 'NumeNou', 'mail@test.com', 'User', 'Low';
-EXEC Delete_Utilizator_Camera 'TabelaTest', 1, 1, 'Full', '08-16';
-
-SELECT * FROM Utilizator_Log;
-SELECT * FROM Utilizator_Camera_Log;

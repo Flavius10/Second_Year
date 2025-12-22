@@ -130,7 +130,7 @@ public class FriendshipController {
                 this.requestService.addRequest(request);
 
                 loadFriendshipPage();
-                sendMessage("Cererea de prietenie a fost trimisa cu succes!", "Succes", "Prietenie adaugata");
+                sendMessage("Cererea de prietenie a fost trimisa cu succes!", "Succes", "Cerere trimisa!");
                 friendshipId1.clear();
 
             } catch (Exception ex) {
