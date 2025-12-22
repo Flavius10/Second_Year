@@ -27,6 +27,8 @@ public class MainController implements Observer {
     private NetworkService networkService;
     private MessageService messageService;
     private RequestService requestService;
+    private EventService eventService;
+
     private User loggedInUser;
 
     @FXML private Button requestsButton;
@@ -40,6 +42,11 @@ public class MainController implements Observer {
     public void setLoggedInUser(User user) {
         this.loggedInUser = user;
     }
+
+    public void setEvent(EventService eventService){
+        this.eventService = eventService;
+    }
+
     public void setServices(DuckService duckService, PersoanaService persoanaService,
                             FriendshipService friendshipService, NetworkService networkService,
                             MessageService messageService, RequestService requestService) {
@@ -207,6 +214,24 @@ public class MainController implements Observer {
         profileController.setServices(duckService, persoanaService,
                 friendshipService, networkService, messageService, requestService);
         profileController.setLoggedInUser(this.loggedInUser);
+
+        stage.centerOnScreen();
+        stage.show();
+    }
+
+    public void switchToEventTab(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/event-view.fxml"));
+        Parent root = loader.load();
+
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        Scene scene =  new Scene(root);
+        stage.setScene(scene);
+
+        EventController eventController = loader.getController();
+
+        eventController.setLoggedInUser(this.loggedInUser);
+        eventController.setServices(duckService, persoanaService,
+                friendshipService, networkService, messageService, requestService, eventService);
 
         stage.centerOnScreen();
         stage.show();

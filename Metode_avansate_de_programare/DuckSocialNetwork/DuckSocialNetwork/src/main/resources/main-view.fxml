@@ -57,6 +57,10 @@
                 style="-fx-background-color: #3b82f6; -fx-text-fill: white; -fx-font-size: 15px; -fx-font-weight: bold; -fx-background-radius: 8px; -fx-cursor: hand; -fx-padding: 12px; -fx-effect: dropshadow(three-pass-box, rgba(59,130,246,0.3), 10, 0, 0, 4);"
                 onAction="#switchToMessageTab"/>
 
+        <Button text="🏎️ Race Event" onAction="#switchToEventTab"
+                maxWidth="300"
+                style="-fx-background-color: #3b82f6; -fx-text-fill: white; -fx-font-size: 15px; -fx-font-weight: bold; -fx-background-radius: 8px; -fx-cursor: hand; -fx-padding: 12px; -fx-effect: dropshadow(three-pass-box, rgba(59,130,246,0.3), 10, 0, 0, 4);"/>
+
         <Button text="👤Profile"
                 maxWidth="300"
                 style="-fx-background-color: #3b82f6; -fx-text-fill: white; -fx-font-size: 15px; -fx-font-weight: bold; -fx-background-radius: 8px; -fx-cursor: hand; -fx-padding: 12px; -fx-effect: dropshadow(three-pass-box, rgba(59,130,246,0.3), 10, 0, 0, 4);"

@@ -29,6 +29,7 @@ public class LogInController {
     private NetworkService networkService;
     private MessageService messageService;
     private RequestService requestService;
+    private EventService eventService;
 
     @FXML
     private TextField usernameField;
@@ -63,6 +64,10 @@ public class LogInController {
         loadPersoane();
 
         setupAllEventHandlers();
+    }
+
+    public void setEventService(EventService eventService){
+        this.eventService = eventService;
     }
 
 
@@ -152,6 +157,7 @@ public class LogInController {
         MainController controller = loader.getController();
 
         controller.setLoggedInUser(this.currentUser);
+        controller.setEvent(this.eventService);
 
         controller.setServices(duckService, persoanaService,
                 friendshipService, networkService, messageService, requestService);

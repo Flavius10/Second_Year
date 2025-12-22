@@ -13,10 +13,6 @@ public class EventService {
         this.repoDBEvent = repoDBEvent;
     }
 
-    /**
-     * Adaugă un RaceEvent în baza de date.
-     * @param event evenimentul care trebuie salvat
-     */
     public void add(RaceEvent event) {
         try {
             Optional<RaceEvent> saved = repoDBEvent.save(event);
@@ -26,6 +22,17 @@ public class EventService {
             System.out.println("Evenimentul '" + event.getName() + "' a fost adăugat cu succes!");
         } catch (Exception e) {
             throw new RuntimeException("Eroare la salvarea evenimentului: " + e.getMessage());
+        }
+    }
+
+    public Iterable<RaceEvent> getAllEvents() {
+        return repoDBEvent.findAll();
+    }
+
+    public void updateEvent(RaceEvent event) {
+        Optional<RaceEvent> updated = repoDBEvent.update(event);
+        if (updated.isEmpty()) {
+            throw new RuntimeException("Nu s-a putut actualiza evenimentul (poate ID-ul e greșit).");
         }
     }
 }

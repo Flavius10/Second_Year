@@ -44,16 +44,22 @@ public class Main extends Application {
 
             RequestService requestService = new RequestService(requestRepository);
 
+            RepoDBEvent eventRepository = new RepoDBEvent("jdbc:postgresql://localhost:5432/duckSocialNetwork",
+                    "postgres", "Flavius10");
+            EventService eventService = new EventService(eventRepository);
+
             GraphAnalyzer graphAnalyzer = new GraphAnalyzer();
             GraphBuilder graphBuilder = new GraphBuilder();
             DataProvider dataProvider = new DataProvider(friendshipService, persoanaService, userService);
             GraphService graphService = new GraphService(graphAnalyzer, graphBuilder);
             NetworkService networkService = new NetworkService(dataProvider, graphService);
 
-            openLoginWindow(stage, userService, persoanaService, friendshipService, networkService, messageService, requestService);
+            openLoginWindow(stage, userService, persoanaService, friendshipService,
+                    networkService, messageService, requestService, eventService);
 
             Stage stage2 = new Stage();
-            openLoginWindow(stage2, userService, persoanaService, friendshipService, networkService, messageService, requestService);
+            openLoginWindow(stage2, userService, persoanaService, friendshipService,
+                    networkService, messageService, requestService, eventService);
 
 
         } catch (Exception e) {
@@ -63,7 +69,7 @@ public class Main extends Application {
 
     private void openLoginWindow(Stage stage, DuckService ds, PersoanaService ps,
                                  FriendshipService fs, NetworkService ns, MessageService ms,
-                                 RequestService rs) throws IOException {
+                                 RequestService rs, EventService es) throws IOException {
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/login-view.fxml"));
         Scene scene = new Scene(loader.load(), 400, 500);
@@ -71,6 +77,7 @@ public class Main extends Application {
         LogInController controller = loader.getController();
 
         controller.setServices(ds, ps, fs, ns, ms, rs);
+        controller.setEventService(es);
 
         stage.setTitle("Duck Social Network");
         stage.setScene(scene);
