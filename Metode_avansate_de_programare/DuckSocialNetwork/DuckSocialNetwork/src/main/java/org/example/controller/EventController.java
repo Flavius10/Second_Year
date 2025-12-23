@@ -227,10 +227,36 @@ public class EventController implements Observer {
     @FXML
     public void handleStartRace() {
         RaceEvent selected = activeEventsListView.getSelectionModel().getSelectedItem();
-        if (selected != null) {
-            System.out.println("Pornire cursă pentru evenimentul ID: " + selected.getId());
-            showAlert(Alert.AlertType.INFORMATION, "Start", "Cursa a început! (Urmează fereastra de simulare)");
+
+        if (selected == null) {
+            showAlert(Alert.AlertType.WARNING, "Atenție", "Selectează un eveniment din listă!");
+            return;
         }
+
+        try {
+            openRaceWindow(selected);
+        } catch (IOException e) {
+            e.printStackTrace();
+            showAlert(Alert.AlertType.ERROR, "Eroare", "Nu s-a putut deschide fereastra: " + e.getMessage());
+        }
+    }
+
+    @FXML
+    public void openRaceWindow(RaceEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/race-view.fxml"));
+        Parent root = loader.load();
+
+        Stage raceStage = new Stage();
+        raceStage.setTitle("Cursa: " + event.getName());
+        raceStage.setScene(new Scene(root));
+
+        raceStage.initModality(Modality.APPLICATION_MODAL);
+        raceStage.initOwner(activeEventsListView.getScene().getWindow());
+
+        RaceResultController ctrl = loader.getController();
+        ctrl.setRaceEvent(event);
+
+        raceStage.showAndWait();
     }
 
     @FXML
