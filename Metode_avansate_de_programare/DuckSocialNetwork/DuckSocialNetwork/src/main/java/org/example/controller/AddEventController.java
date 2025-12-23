@@ -92,26 +92,10 @@ public class AddEventController {
         }
 
         try {
-            Iterable<Duck> allDucks = duckService.findAllDucks();
-
-            List<SwimmingDuck> swimmingDucks = StreamSupport.stream(allDucks.spliterator(), false)
-                    .filter(d -> d instanceof SwimmingDuck)
-                    .map(d -> (SwimmingDuck) d)
-                    .collect(Collectors.toList());
-
-            if (swimmingDucks.size() < nrRateDorite) {
-                errorLabel.setText("Nu sunt suficiente rațe înotătoare în baza de date! (Disponibile: " + swimmingDucks.size() + ")");
-                return;
-            }
-
-            List<SwimmingDuck> participatingDucks = swimmingDucks.stream()
-                    .sorted(Comparator.comparingDouble(SwimmingDuck::getViteza).reversed())
-                    .limit(nrRateDorite)
-                    .collect(Collectors.toList());
 
             RaceEvent raceEvent = new RaceEvent(0L, numeEvent);
             raceEvent.setLanes(lanes);
-            raceEvent.setDucks_final(participatingDucks);
+            raceEvent.setDucks_final(new ArrayList<>());
             raceEvent.setMessage("Eveniment creat de " + loggedInUser.getUsername());
 
             eventService.add(raceEvent);

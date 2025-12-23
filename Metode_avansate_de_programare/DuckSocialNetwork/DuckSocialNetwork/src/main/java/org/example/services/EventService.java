@@ -22,7 +22,7 @@ public class EventService implements Observable {
     public void add(RaceEvent event) {
         try {
             Optional<RaceEvent> saved = repoDBEvent.save(event);
-            if (saved.isPresent()) {
+            if (saved.isEmpty()) {
                 throw new RuntimeException("Evenimentul deja există!");
             }
             System.out.println("Evenimentul '" + event.getName() + "' a fost adăugat cu succes!");

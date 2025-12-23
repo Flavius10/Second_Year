@@ -2,6 +2,7 @@ package org.example.repositories.repo_db;
 
 import org.example.domain.TypeDuck;
 import org.example.domain.ducks.Duck;
+import org.example.domain.ducks.Lane;
 import org.example.domain.ducks.SwimmingDuck;
 import org.example.domain.events.RaceEvent;
 
@@ -25,8 +26,6 @@ public class RepoDBEvent {
     private List<SwimmingDuck> loadParticipants(Long eventId, Connection connection) {
         List<SwimmingDuck> participants = new ArrayList<>();
 
-        // --- CORECTARE: Facem JOIN intre 'ducks', 'users' si tabela de legatura ---
-        // Astfel aducem si 'username' din users, si 'viteza' din ducks.
         String sql = "SELECT u.username, u.email, u.password, d.id, d.tip, d.viteza, d.rezistenta " +
                 "FROM duck d " +
                 "INNER JOIN users u ON d.id = u.id " +
@@ -43,14 +42,12 @@ public class RepoDBEvent {
                     String email = rs.getString("email");
                     String pass = rs.getString("password");
 
-                    // Verificăm tipul (cu protectie la null)
                     String tipString = rs.getString("tip");
                     TypeDuck tip = (tipString != null) ? TypeDuck.valueOf(tipString) : TypeDuck.SWIMMING;
 
                     double viteza = rs.getDouble("viteza");
                     double rezistenta = rs.getDouble("rezistenta");
 
-                    // Instanțiem SwimmingDuck
                     SwimmingDuck duck = new SwimmingDuck(id, user, email, pass, tip, viteza, rezistenta, null);
 
                     participants.add(duck);
@@ -78,8 +75,9 @@ public class RepoDBEvent {
                 RaceEvent event = new RaceEvent(id, name);
                 event.setMessage(message);
 
-                List<SwimmingDuck> participants = loadParticipants(id, connection);
-                event.setDucks_final(participants);
+                event.setDucks_final(loadParticipants(id, connection));
+
+                event.setLanes(loadLanes(id, connection));
 
                 events.add(event);
             }
@@ -89,24 +87,52 @@ public class RepoDBEvent {
         return events;
     }
 
+
     public Optional<RaceEvent> save(RaceEvent entity) {
-        String sql = "INSERT INTO race_event (name, message) VALUES (?, ?)";
-        try (Connection connection = DriverManager.getConnection(url, username, password);
-             PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+        String insertEventSql = "INSERT INTO race_event (name, message) VALUES (?, ?)";
+        String insertLaneSql = "INSERT INTO lanes (event_id, length) VALUES (?, ?)";
 
-            ps.setString(1, entity.getName());
-            ps.setString(2, entity.getMessage());
-            ps.executeUpdate();
+        try (Connection connection = DriverManager.getConnection(url, username, password)) {
+            connection.setAutoCommit(false);
 
-            ResultSet rs = ps.getGeneratedKeys();
-            if(rs.next()) {
-                entity.setId(rs.getLong(1));
-                return Optional.of(entity);
+            try (PreparedStatement ps = connection.prepareStatement(insertEventSql, Statement.RETURN_GENERATED_KEYS)) {
+
+                ps.setString(1, entity.getName());
+                ps.setString(2, entity.getMessage());
+                int affected = ps.executeUpdate();
+
+                if (affected > 0) {
+                    try (ResultSet rs = ps.getGeneratedKeys()) {
+                        if (rs.next()) {
+                            Long eventId = rs.getLong(1);
+                            entity.setId(eventId);
+
+                            if (entity.getLanes() != null && !entity.getLanes().isEmpty()) {
+                                try (PreparedStatement psLane = connection.prepareStatement(insertLaneSql)) {
+                                    for (Lane lane : entity.getLanes()) {
+                                        psLane.setLong(1, eventId);
+                                        psLane.setDouble(2, lane.getLength());
+                                        psLane.executeUpdate();
+                                    }
+                                }
+                            }
+
+                            connection.commit();
+                            return Optional.of(entity);
+                        }
+                    }
+                }
+                connection.rollback();
+                return Optional.empty();
+
+            } catch (SQLException e) {
+                connection.rollback();
+                throw e;
             }
+
         } catch (SQLException e) {
-            return Optional.empty();
+            throw new RuntimeException(e);
         }
-        return Optional.empty();
     }
 
     public Optional<RaceEvent> update(RaceEvent entity) {
@@ -142,5 +168,25 @@ public class RepoDBEvent {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    private List<Lane> loadLanes(Long eventId, Connection connection) {
+        List<Lane> lanes = new ArrayList<>();
+        String sql = "SELECT * FROM lanes WHERE event_id = ?";
+
+        try (PreparedStatement ps = connection.prepareStatement(sql)) {
+            ps.setLong(1, eventId);
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    Long id = rs.getLong("id");
+                    int length = rs.getInt("length");
+
+                    lanes.add(new Lane(id, length));
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return lanes;
     }
 }
