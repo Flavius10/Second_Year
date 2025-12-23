@@ -66,6 +66,8 @@ public class EventController implements Observer {
         this.requestService = requestService;
         this.eventService = eventService;
 
+        if (this.eventService != null)
+            this.eventService.addObserver(this);
     }
 
     private void updateUIBasedOnRole() {
@@ -156,8 +158,8 @@ public class EventController implements Observer {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/add-event-view.fxml"));
             Parent root = loader.load();
 
-            //AddEventController ctrl = loader.getController();
-            //ctrl.setServices(duckService, eventService, loggedInUser);
+            AddEventController ctrl = loader.getController();
+            ctrl.setServices(duckService, eventService, loggedInUser);
 
             Stage stage = new Stage();
             stage.initModality(Modality.APPLICATION_MODAL);
@@ -248,7 +250,23 @@ public class EventController implements Observer {
 
     @Override
     public void update(Signal signal) {
-        Platform.runLater(this::loadEvents);
+        Platform.runLater(() -> {
+            RaceEvent previousSelection = activeEventsListView.getSelectionModel().getSelectedItem();
+            Long selectedId = (previousSelection != null) ? previousSelection.getId() : null;
+
+            loadEvents();
+
+            if (selectedId != null) {
+                for (RaceEvent freshEvent : activeEventsListView.getItems()) {
+                    if (freshEvent.getId().equals(selectedId)) {
+                        activeEventsListView.getSelectionModel().select(freshEvent);
+
+                        showEventDetails(freshEvent);
+                        break;
+                    }
+                }
+            }
+        });
     }
 
     private void showAlert(Alert.AlertType type, String title, String content) {

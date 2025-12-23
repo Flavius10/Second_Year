@@ -229,9 +229,10 @@ public class MainController implements Observer {
 
         EventController eventController = loader.getController();
 
-        eventController.setLoggedInUser(this.loggedInUser);
         eventController.setServices(duckService, persoanaService,
                 friendshipService, networkService, messageService, requestService, eventService);
+
+        eventController.setLoggedInUser(this.loggedInUser);
 
         stage.centerOnScreen();
         stage.show();

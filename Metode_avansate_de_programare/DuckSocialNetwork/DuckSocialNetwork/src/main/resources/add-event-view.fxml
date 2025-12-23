@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox alignment="TOP_CENTER" spacing="15" xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="org.example.controller.AddEventController"
+      style="-fx-padding: 20; -fx-background-color: white; -fx-min-width: 400; -fx-min-height: 500;">
+
+    <Label text="Creează Eveniment Nou" style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #333;"/>
+
+    <Separator/>
+
+    <VBox spacing="5" alignment="CENTER_LEFT">
+        <Label text="Numele evenimentului:" style="-fx-font-weight: bold;"/>
+        <TextField fx:id="eventNameField" promptText="Ex: Marea Cursă de Primăvară"/>
+    </VBox>
+
+    <VBox spacing="5" alignment="CENTER_LEFT">
+        <Label text="Număr de rațe participante:" style="-fx-font-weight: bold;"/>
+        <Spinner fx:id="duckCountSpinner" min="1" max="100" initialValue="3" editable="true"/>
+    </VBox>
+
+    <Separator/>
+
+    <VBox spacing="5" alignment="CENTER_LEFT" VBox.vgrow="ALWAYS">
+        <Label text="Configurare Culoare (Lanes):" style="-fx-font-weight: bold;"/>
+
+        <HBox spacing="10">
+            <TextField fx:id="laneLengthField" promptText="Lungime (ex: 100)" HBox.hgrow="ALWAYS"/>
+            <Button text="Adaugă Culoar" onAction="#handleAddLane"
+                    style="-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-cursor: hand;"/>
+        </HBox>
+
+        <Label text="Lista culoarelor:" style="-fx-font-size: 11px; -fx-text-fill: #666;"/>
+        <ListView fx:id="lanesListView" VBox.vgrow="ALWAYS" maxHeight="150"/>
+    </VBox>
+
+    <Label fx:id="errorLabel" text="" wrapText="true" style="-fx-text-fill: red; -fx-font-size: 12px;"/>
+
+    <Separator/>
+
+    <HBox spacing="15" alignment="CENTER">
+        <Button text="Anulează" onAction="#handleCancel"
+                style="-fx-background-color: transparent; -fx-text-fill: #555; -fx-border-color: #ccc; -fx-border-radius: 5;"/>
+
+        <Button text="Salvează Eveniment" onAction="#handleCreateEvent"
+                style="-fx-background-color: #2196F3; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 5; -fx-padding: 8 15;"/>
+    </HBox>
+
+</VBox>
