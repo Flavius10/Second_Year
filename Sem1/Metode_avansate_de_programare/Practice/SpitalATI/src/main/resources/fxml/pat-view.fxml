@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.cell.PropertyValueFactory?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox spacing="10.0" xmlns="http://javafx.com/javafx/19"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="grup.controllers.ControllerPat">
+    <padding><Insets bottom="15.0" left="15.0" right="15.0" top="15.0" /></padding>
+
+    <VBox spacing="5.0" style="-fx-background-color: #f0f0f0; -fx-padding: 10;">
+        <Label fx:id="lblTotal" text="Paturi ocupate: 0">
+            <font><Font name="System Bold" size="14.0" /></font>
+        </Label>
+        <Label fx:id="lblTic" text="TIC 0 paturi libere" textFill="#2e7d32" />
+        <Label fx:id="lblTim" text="TIM 0 paturi libere" textFill="#2e7d32" />
+        <Label fx:id="lblTiip" text="TIIP 0 paturi libere" textFill="#2e7d32" />
+    </VBox>
+
+    <TableView fx:id="tablePaturi" prefHeight="350.0" prefWidth="500.0">
+        <columns>
+            <TableColumn text="ID" prefWidth="50.0">
+                <cellValueFactory><PropertyValueFactory property="id" /></cellValueFactory>
+            </TableColumn>
+            <TableColumn text="Tip" prefWidth="80.0">
+                <cellValueFactory><PropertyValueFactory property="tip" /></cellValueFactory>
+            </TableColumn>
+            <TableColumn text="Ventilatie" prefWidth="80.0">
+                <cellValueFactory><PropertyValueFactory property="ventilatie" /></cellValueFactory>
+            </TableColumn>
+            <TableColumn text="Stare / Pacient" prefWidth="150.0">
+                <cellValueFactory><PropertyValueFactory property="cnpPacient" /></cellValueFactory>
+            </TableColumn>
+        </columns>
+    </TableView>
+
+    <Button text="INTERNEAZĂ PACIENTUL SELECTAT" onAction="#handleInternare"
+            maxWidth="Infinity" style="-fx-background-color: #2196F3; -fx-text-fill: white; -fx-font-weight: bold;"/>
+</VBox>

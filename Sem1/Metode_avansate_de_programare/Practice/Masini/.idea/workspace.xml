@@ -1,0 +1,823 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="7eef461f-f670-40bc-83dc-720b992bfe11" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/../../ExamenFinal/.idea/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../ExamenFinal/.idea/copilot.data.migration.agent.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../ExamenFinal/.idea/copilot.data.migration.ask2agent.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../ExamenFinal/.idea/copilot.data.migration.edit.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../ExamenFinal/.idea/dataSources.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../ExamenFinal/.idea/data_source_mapping.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../ExamenFinal/.idea/gradle.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../ExamenFinal/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../ExamenFinal/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../ExamenFinal/src/main/java/grup/Launcher.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../ExamenFinal/src/main/java/grup/controller/AdminController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../ExamenFinal/src/main/java/grup/controller/LoginController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../ExamenFinal/src/main/java/grup/controller/MainController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../ExamenFinal/src/main/java/grup/controller/TraderController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../ExamenFinal/src/main/java/grup/domain/Coins.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../ExamenFinal/src/main/java/grup/domain/User.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../ExamenFinal/src/main/java/grup/domain/UserType.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../ExamenFinal/src/main/java/grup/repo/RepoDBCoins.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../ExamenFinal/src/main/java/grup/repo/RepoDBUser.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../ExamenFinal/src/main/java/grup/service/ServiceCoins.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../ExamenFinal/src/main/java/grup/service/ServiceUser.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../ExamenFinal/src/main/java/grup/snipets/controller_example/AdminController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../ExamenFinal/src/main/java/grup/snipets/controller_example/ButtonController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../ExamenFinal/src/main/java/grup/snipets/controller_example/EditController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../ExamenFinal/src/main/java/grup/snipets/controller_example/FunctiaMainDemo.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../ExamenFinal/src/main/java/grup/snipets/controller_example/LoginController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../ExamenFinal/src/main/java/grup/snipets/controller_example/MainController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../ExamenFinal/src/main/java/grup/snipets/controller_example/MessageAlert.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../ExamenFinal/src/main/java/grup/snipets/controller_example/PaginationController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../ExamenFinal/src/main/java/grup/snipets/controller_example/TableController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../ExamenFinal/src/main/java/grup/snipets/fxml_example/button_example.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../ExamenFinal/src/main/java/grup/snipets/fxml_example/details_view.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../ExamenFinal/src/main/java/grup/snipets/fxml_example/edit_view_snipet.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../ExamenFinal/src/main/java/grup/snipets/fxml_example/login_view.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../ExamenFinal/src/main/java/grup/snipets/fxml_example/main_view_snipet.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../ExamenFinal/src/main/java/grup/snipets/fxml_example/pagination_combo_box_datePicker.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../ExamenFinal/src/main/java/grup/snipets/fxml_example/popup_input_adaugare_combobox.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../ExamenFinal/src/main/java/grup/snipets/fxml_example/tabele_view_snipet.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../ExamenFinal/src/main/java/grup/snipets/repo_example/RepoTemplate.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../ExamenFinal/src/main/java/grup/snipets/service_example/ServiceAsync.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../ExamenFinal/src/main/java/grup/snipets/service_example/ServiceTemplate.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../ExamenFinal/src/main/java/grup/utils/IValidationStrategy.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../ExamenFinal/src/main/java/grup/utils/Observable.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../ExamenFinal/src/main/java/grup/utils/Observer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../ExamenFinal/src/main/java/grup/utils/Page.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../ExamenFinal/src/main/java/grup/utils/Pageable.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../ExamenFinal/src/main/java/grup/utils/PermissiveStrategy.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../ExamenFinal/src/main/java/grup/utils/StrictStrategy.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../ExamenFinal/src/main/java/sql.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../ExamenFinal/src/main/resources/fxml/admin_view.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../ExamenFinal/src/main/resources/fxml/login.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../ExamenFinal/src/main/resources/fxml/main_page.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../ExamenFinal/src/main/resources/fxml/test.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../ExamenFinal/src/main/resources/fxml/trader_view.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Comenzi_Restaurant/.idea/dataSources.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Comenzi_Restaurant/.idea/data_source_mapping.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Comenzi_Restaurant/src/main/java/grup/controllers/StaffController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Comenzi_Restaurant/src/main/java/grup/controllers/TableController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Comenzi_Restaurant/src/main/java/grup/domain/MenuItem.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Comenzi_Restaurant/src/main/java/grup/domain/Order.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Comenzi_Restaurant/src/main/java/grup/domain/OrderStatus.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Comenzi_Restaurant/src/main/java/grup/repository/RepoDBMenu.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Comenzi_Restaurant/src/main/java/grup/repository/RepoDBOrder.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Comenzi_Restaurant/src/main/java/grup/repository/RepoDBTable.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Comenzi_Restaurant/src/main/java/grup/services/ServiceMenuItem.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Comenzi_Restaurant/src/main/java/grup/services/ServiceOrder.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Comenzi_Restaurant/src/main/java/grup/services/ServiceTable.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Comenzi_Restaurant/src/main/java/grup/utils/Observable.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Comenzi_Restaurant/src/main/java/grup/utils/Observer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Comenzi_Restaurant/src/main/resources/fxml/staff-view.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Comenzi_Restaurant/src/main/resources/fxml/table-view.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Examen/src/main/java/grup/Launcher.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Examen/src/main/java/grup/controller/AdminController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Examen/src/main/java/grup/controller/LoginController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Examen/src/main/java/grup/controller/MainController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Examen/src/main/java/grup/controller/TraderController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Examen/src/main/java/grup/domain/Coins.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Examen/src/main/java/grup/domain/User.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Examen/src/main/java/grup/domain/UserType.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Examen/src/main/java/grup/repo/RepoDBCoins.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Examen/src/main/java/grup/repo/RepoDBUser.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Examen/src/main/java/grup/service/ServiceCoins.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Examen/src/main/java/grup/service/ServiceUser.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Examen/src/main/java/grup/utils/Observable.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Examen/src/main/java/grup/utils/Observer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Examen/src/main/resources/fxml/admin_view.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Examen/src/main/resources/fxml/login.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Examen/src/main/resources/fxml/main_page.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Examen/src/main/resources/fxml/test.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Examen/src/main/resources/fxml/trader_view.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../ExamenFinal/src/main/java/grup/Launcher.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../ExamenFinal/src/main/java/grup/controller/AdminController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../ExamenFinal/src/main/java/grup/controller/LoginController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../ExamenFinal/src/main/java/grup/controller/MainController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../ExamenFinal/src/main/java/grup/controller/TraderController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../ExamenFinal/src/main/java/grup/domain/Coins.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../ExamenFinal/src/main/java/grup/domain/User.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../ExamenFinal/src/main/java/grup/domain/UserType.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../ExamenFinal/src/main/java/grup/repo/RepoDBCoins.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../ExamenFinal/src/main/java/grup/repo/RepoDBUser.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../ExamenFinal/src/main/java/grup/service/ServiceCoins.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../ExamenFinal/src/main/java/grup/service/ServiceUser.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../ExamenFinal/src/main/java/grup/utils/Observable.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../ExamenFinal/src/main/java/grup/utils/Observer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../ExamenFinal/src/main/resources/fxml/admin_view.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../ExamenFinal/src/main/resources/fxml/login.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../ExamenFinal/src/main/resources/fxml/main_page.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../ExamenFinal/src/main/resources/fxml/trader_view.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Fotbal/src/main/java/grup/Launcher.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Fotbal/src/main/java/grup/controller/AfisareController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Fotbal/src/main/java/grup/controller/EvenimentController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Fotbal/src/main/java/grup/controller/LoginController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Fotbal/src/main/java/grup/controller/MainController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Fotbal/src/main/java/grup/domain/Eveniment.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Fotbal/src/main/java/grup/domain/Meci.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Fotbal/src/main/java/grup/domain/User.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Fotbal/src/main/java/grup/domain/UserType.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Fotbal/src/main/java/grup/repo/RepoDBUser.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Fotbal/src/main/java/grup/repo/RepoDbEveniment.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Fotbal/src/main/java/grup/repo/RepoDbMeci.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Fotbal/src/main/java/grup/service/ServiceEveniment.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Fotbal/src/main/java/grup/service/ServiceMeciuri.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Fotbal/src/main/java/grup/service/ServiceUser.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Fotbal/src/main/java/grup/utils/Observable.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Fotbal/src/main/java/grup/utils/Observer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Fotbal/src/main/resources/fxml/adauga_eveniment.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Fotbal/src/main/resources/fxml/afisare_view.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Fotbal/src/main/resources/fxml/login.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Fotbal/src/main/resources/fxml/main_page.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Fotbal/src/main/resources/fxml/test.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/copilot.data.migration.ask2agent.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/data_source_mapping.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/grup/Launcher.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/grup/controller/AdminController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/grup/controller/CarController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/grup/controller/DealerController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/grup/controller/LoginController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/grup/domain/Car.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/grup/domain/CarStatus.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/grup/domain/User.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/grup/domain/UserType.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/grup/repo/RepoDBCar.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/grup/repo/RepoDBUser.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/grup/service/ServiceCar.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/grup/service/ServiceUser.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/grup/utils/Observable.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/grup/utils/Observer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/fxml/admin_view.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/fxml/dealer_view.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/fxml/login.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/fxml/masina_view.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../OferteVacanta/.idea/dataSources.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../OferteVacanta/.idea/data_source_mapping.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../OferteVacanta/src/main/java/grup/Launcher.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../OferteVacanta/src/main/java/grup/controllers/ClientController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../OferteVacanta/src/main/java/grup/domain/Client.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../OferteVacanta/src/main/java/grup/domain/Hobby.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../OferteVacanta/src/main/java/grup/domain/Hotel.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../OferteVacanta/src/main/java/grup/domain/HotelType.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../OferteVacanta/src/main/java/grup/domain/Location.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../OferteVacanta/src/main/java/grup/domain/Reservation.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../OferteVacanta/src/main/java/grup/domain/SpecialOffer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../OferteVacanta/src/main/java/grup/repos/RepoDBClient.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../OferteVacanta/src/main/java/grup/repos/RepoDBHotel.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../OferteVacanta/src/main/java/grup/repos/RepoDBLocation.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../OferteVacanta/src/main/java/grup/repos/RepoDBReservation.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../OferteVacanta/src/main/java/grup/repos/RepoDBSpecialOffer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../OferteVacanta/src/main/java/grup/services/ServiceHotel.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../OferteVacanta/src/main/java/grup/utils/Observable.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../OferteVacanta/src/main/java/grup/utils/Observer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../OferteVacanta/src/main/resources/fxml/client-view.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../SpitalATI/src/main/java/grup/Launcher.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../SpitalATI/src/main/java/grup/controllers/ControllerPat.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../SpitalATI/src/main/java/grup/controllers/WaitingListController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../SpitalATI/src/main/java/grup/domain/Pacient.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../SpitalATI/src/main/java/grup/domain/Pat.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../SpitalATI/src/main/java/grup/repositories/RepoDBPacient.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../SpitalATI/src/main/java/grup/repositories/RepoDBPat.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../SpitalATI/src/main/java/grup/services/ServicePacient.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../SpitalATI/src/main/java/grup/services/ServicePat.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../SpitalATI/src/main/java/grup/utils/Observable.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../SpitalATI/src/main/java/grup/utils/Observer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../SpitalATI/src/main/resources/fxml/pacienti-view.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../SpitalATI/src/main/resources/fxml/pat-view.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Seminarii/Seminar 1/Seminar 1.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../JavaDocDuckNetwork/allclasses-index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../JavaDocDuckNetwork/allpackages-index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../JavaDocDuckNetwork/constant-values.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../JavaDocDuckNetwork/element-list" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../JavaDocDuckNetwork/help-doc.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../JavaDocDuckNetwork/index-files/index-1.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../JavaDocDuckNetwork/index-files/index-10.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../JavaDocDuckNetwork/index-files/index-11.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../JavaDocDuckNetwork/index-files/index-12.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../JavaDocDuckNetwork/index-files/index-13.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../JavaDocDuckNetwork/index-files/index-14.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../JavaDocDuckNetwork/index-files/index-15.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../JavaDocDuckNetwork/index-files/index-16.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../JavaDocDuckNetwork/index-files/index-17.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../JavaDocDuckNetwork/index-files/index-18.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../JavaDocDuckNetwork/index-files/index-19.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../JavaDocDuckNetwork/index-files/index-2.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../JavaDocDuckNetwork/index-files/index-20.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../JavaDocDuckNetwork/index-files/index-3.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../JavaDocDuckNetwork/index-files/index-4.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../JavaDocDuckNetwork/index-files/index-5.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../JavaDocDuckNetwork/index-files/index-6.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../JavaDocDuckNetwork/index-files/index-7.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../JavaDocDuckNetwork/index-files/index-8.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../JavaDocDuckNetwork/index-files/index-9.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../JavaDocDuckNetwork/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../JavaDocDuckNetwork/legal/ADDITIONAL_LICENSE_INFO" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../JavaDocDuckNetwork/legal/ASSEMBLY_EXCEPTION" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../JavaDocDuckNetwork/legal/LICENSE" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../JavaDocDuckNetwork/legal/jquery.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../JavaDocDuckNetwork/legal/jqueryUI.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../JavaDocDuckNetwork/member-search-index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../JavaDocDuckNetwork/module-search-index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../JavaDocDuckNetwork/org/example/Main.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../JavaDocDuckNetwork/org/example/domain/Card.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../JavaDocDuckNetwork/org/example/domain/Duck.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../JavaDocDuckNetwork/org/example/domain/Friendship.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../JavaDocDuckNetwork/org/example/domain/Message.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../JavaDocDuckNetwork/org/example/domain/Persoana.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../JavaDocDuckNetwork/org/example/domain/TypeDuck.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../JavaDocDuckNetwork/org/example/domain/User.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../JavaDocDuckNetwork/org/example/domain/package-summary.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../JavaDocDuckNetwork/org/example/domain/package-tree.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../JavaDocDuckNetwork/org/example/exceptions/FriendshipAlreadyExists.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../JavaDocDuckNetwork/org/example/exceptions/FriendshipNotFound.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../JavaDocDuckNetwork/org/example/exceptions/UserAlreadyExists.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../JavaDocDuckNetwork/org/example/exceptions/UserNotFound.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../JavaDocDuckNetwork/org/example/exceptions/package-summary.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../JavaDocDuckNetwork/org/example/exceptions/package-tree.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../JavaDocDuckNetwork/org/example/network/DataProvider.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../JavaDocDuckNetwork/org/example/network/GraphAnalyzer.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../JavaDocDuckNetwork/org/example/network/GraphBuilder.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../JavaDocDuckNetwork/org/example/network/GraphService.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../JavaDocDuckNetwork/org/example/network/NetworkService.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../JavaDocDuckNetwork/org/example/network/package-summary.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../JavaDocDuckNetwork/org/example/network/package-tree.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../JavaDocDuckNetwork/org/example/package-summary.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../JavaDocDuckNetwork/org/example/package-tree.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../JavaDocDuckNetwork/org/example/repositories/RepoFile.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../JavaDocDuckNetwork/org/example/repositories/messages/RepoCrud.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../JavaDocDuckNetwork/org/example/repositories/messages/RepoMessage.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../JavaDocDuckNetwork/org/example/repositories/messages/package-summary.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../JavaDocDuckNetwork/org/example/repositories/messages/package-tree.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../JavaDocDuckNetwork/org/example/repositories/package-summary.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../JavaDocDuckNetwork/org/example/repositories/package-tree.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../JavaDocDuckNetwork/org/example/repositories/repo_file/AbstractFileRepo.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../JavaDocDuckNetwork/org/example/repositories/repo_file/RepoFileDuck.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../JavaDocDuckNetwork/org/example/repositories/repo_file/RepoFileFriendship.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../JavaDocDuckNetwork/org/example/repositories/repo_file/RepoFilePersoana.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../JavaDocDuckNetwork/org/example/repositories/repo_file/package-summary.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../JavaDocDuckNetwork/org/example/repositories/repo_file/package-tree.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../JavaDocDuckNetwork/org/example/services/AuthService.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../JavaDocDuckNetwork/org/example/services/DuckService.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../JavaDocDuckNetwork/org/example/services/FriendshipService.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../JavaDocDuckNetwork/org/example/services/MessageService.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../JavaDocDuckNetwork/org/example/services/PersoanaService.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../JavaDocDuckNetwork/org/example/services/package-summary.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../JavaDocDuckNetwork/org/example/services/package-tree.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../JavaDocDuckNetwork/org/example/ui/Menu.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../JavaDocDuckNetwork/org/example/ui/Ui.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../JavaDocDuckNetwork/org/example/ui/UiAbstract.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../JavaDocDuckNetwork/org/example/ui/UiAfterSignUp.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../JavaDocDuckNetwork/org/example/ui/UiBeforeSignUp.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../JavaDocDuckNetwork/org/example/ui/package-summary.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../JavaDocDuckNetwork/org/example/ui/package-tree.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../JavaDocDuckNetwork/org/example/utils/Constants.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../JavaDocDuckNetwork/org/example/utils/package-summary.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../JavaDocDuckNetwork/org/example/utils/package-tree.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../JavaDocDuckNetwork/org/example/validator/Validation.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../JavaDocDuckNetwork/org/example/validator/ValidatorFriendship.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../JavaDocDuckNetwork/org/example/validator/ValidatorUser.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../JavaDocDuckNetwork/org/example/validator/package-summary.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../JavaDocDuckNetwork/org/example/validator/package-tree.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../JavaDocDuckNetwork/overview-summary.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../JavaDocDuckNetwork/overview-tree.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../JavaDocDuckNetwork/package-search-index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../JavaDocDuckNetwork/resource-files/copy.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../JavaDocDuckNetwork/resource-files/glass.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../JavaDocDuckNetwork/resource-files/jquery-ui.min.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../JavaDocDuckNetwork/resource-files/link.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../JavaDocDuckNetwork/resource-files/stylesheet.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../JavaDocDuckNetwork/resource-files/x.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../JavaDocDuckNetwork/script-files/jquery-3.6.1.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../JavaDocDuckNetwork/script-files/jquery-ui.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../JavaDocDuckNetwork/script-files/script.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../JavaDocDuckNetwork/script-files/search-page.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../JavaDocDuckNetwork/script-files/search.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../JavaDocDuckNetwork/search.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../JavaDocDuckNetwork/serialized-form.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../JavaDocDuckNetwork/tag-search-index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../JavaDocDuckNetwork/type-search-index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Lab1/Fluxul_Problemei.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Lab1/Natatie/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Lab1/Natatie/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Lab1/Natatie/.idea/copilot.data.migration.agent.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Lab1/Natatie/.idea/copilot.data.migration.ask.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Lab1/Natatie/.idea/copilot.data.migration.ask2agent.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Lab1/Natatie/.idea/copilot.data.migration.edit.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Lab1/Natatie/.idea/gradle.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Lab1/Natatie/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Lab1/Natatie/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Lab1/Natatie/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Lab1/Natatie/build.gradle" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Lab1/Natatie/gradle/wrapper/gradle-wrapper.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Lab1/Natatie/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Lab1/Natatie/gradlew" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Lab1/Natatie/gradlew.bat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Lab1/Natatie/result.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Lab1/Natatie/settings.gradle" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Lab1/Natatie/src/main/java/org/example/Main.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Lab1/Natatie/src/main/java/org/example/domain/Container.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Lab1/Natatie/src/main/java/org/example/domain/Duck.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Lab1/Natatie/src/main/java/org/example/domain/Lane.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Lab1/Natatie/src/main/java/org/example/domain/QueueContainer.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Lab1/Natatie/src/main/java/org/example/domain/RaceResultEntry.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Lab1/Natatie/src/main/java/org/example/domain/StackContainer.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Lab1/Natatie/src/main/java/org/example/domain/Strategy.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Lab1/Natatie/src/main/java/org/example/domain/Task.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Lab1/Natatie/src/main/java/org/example/execute/ExecuteProblem.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Lab1/Natatie/src/main/java/org/example/factory/Factory.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Lab1/Natatie/src/main/java/org/example/factory/TaskContainerFactory.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Lab1/Natatie/src/main/java/org/example/feasibility/DuckSelector.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Lab1/Natatie/src/main/java/org/example/feasibility/FeasibilityChecker.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Lab1/Natatie/src/main/java/org/example/feasibility/RaceEvaluator.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Lab1/Natatie/src/main/java/org/example/feasibility/RaceService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Lab1/Natatie/src/main/java/org/example/output/RaceResult.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Lab1/Natatie/src/main/java/org/example/output/ResultBuilder.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Lab1/Natatie/src/main/java/org/example/output/ResultWriter.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Lab1/Natatie/src/main/java/org/example/reader/DataReader.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Lab1/Natatie/src/main/java/org/example/reader/DataStorage.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Lab1/Natatie/src/main/java/org/example/reader/DuckContainer.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Lab1/Natatie/src/main/java/org/example/reader/LaneContainer.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Lab1/Natatie/src/main/java/org/example/reader/ProblemContainer.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Lab1/Natatie/src/main/java/org/example/reader/RaceProblemData.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Lab1/Natatie/src/main/java/org/example/reader/RaceResultsContainer.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Lab1/Natatie/src/main/java/org/example/reader/ReadDataClass.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Lab1/Natatie/src/main/java/org/example/runner/AbstractTaskRunner.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Lab1/Natatie/src/main/java/org/example/runner/DelayTaskRunner.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Lab1/Natatie/src/main/java/org/example/runner/PrinterTaskRunner.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Lab1/Natatie/src/main/java/org/example/runner/StrategyTaskRunner.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Lab1/Natatie/src/main/java/org/example/runner/TaskRunner.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Lab1/Natatie/src/main/java/org/example/search/BinaryTimeSearch.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Lab1/Natatie/src/main/java/org/example/search/SearchTimeService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Lab1/Natatie/src/main/java/org/example/search/SecventialTimeSearch.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Lab1/Natatie/src/main/java/org/example/search/TimeSearchStrategy.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Lab1/Natatie/src/main/java/org/example/sorter/DataSortedStorage.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Lab1/Natatie/src/main/java/org/example/sorter/DuckSorterByResistanceBubble.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Lab1/Natatie/src/main/java/org/example/sorter/DuckSorterByResistanceSimple.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Lab1/Natatie/src/main/java/org/example/sorter/Sorter.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Lab1/Natatie/src/main/java/org/example/sorter/SorterService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Lab1/Natatie/src/main/java/org/example/utils/Constants.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Lab1/Natatie/src/main/java/org/example/utils/Utils.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Lab1/Natatie/src/main/resources/natatie.in" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Lab1/UMLSchema.mdj" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Comenzi_Restaurant/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Comenzi_Restaurant/.idea/gradle.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Comenzi_Restaurant/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/../Comenzi_Restaurant/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Comenzi_Restaurant/src/main/java/grup/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Comenzi_Restaurant/src/main/java/grup/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Comenzi_Restaurant/src/main/java/grup/domain/Table.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Comenzi_Restaurant/src/main/java/grup/domain/Table.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Semina6Clone/.idea/workspace.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Seminar 1/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Seminar 1/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Seminar 1/.idea/IntelliLang.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Seminar 1/.idea/copilot.data.migration.agent.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Seminar 1/.idea/copilot.data.migration.ask.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Seminar 1/.idea/copilot.data.migration.ask2agent.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Seminar 1/.idea/copilot.data.migration.edit.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Seminar 1/.idea/dictionaries/project.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Seminar 1/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Seminar 1/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Seminar 1/Seminar 1.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Seminar 1/src/Main.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Seminar 1/src/domain/Container.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Seminar 1/src/domain/MessageTask.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Seminar 1/src/domain/QueueContainer.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Seminar 1/src/domain/StackContainer.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Seminar 1/src/domain/Strategy.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Seminar 1/src/domain/Task.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Seminar 1/src/factory/Factory.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Seminar 1/src/factory/TaskContainerFactory.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Seminar 1/src/runner/AbstractTaskRunner.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Seminar 1/src/runner/DelayTaskRunner.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Seminar 1/src/runner/PrinterTaskRunner.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Seminar 1/src/runner/StrategyTaskRunner.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Seminar 1/src/runner/TaskRunner.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Seminar 1/src/utils/Constants.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Seminar6/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Seminar6/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Seminar6/.idea/copilot.data.migration.agent.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Seminar6/.idea/copilot.data.migration.ask.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Seminar6/.idea/copilot.data.migration.ask2agent.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Seminar6/.idea/copilot.data.migration.edit.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Seminar6/.idea/dataSources.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Seminar6/.idea/gradle.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Seminar6/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Seminar6/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Seminar6/build.gradle" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Seminar6/gradle/wrapper/gradle-wrapper.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Seminar6/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Seminar6/gradlew" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Seminar6/gradlew.bat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Seminar6/settings.gradle" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Seminar6/src/main/java/org/example/Main.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Seminar6/src/main/java/org/example/domain/Entity.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Seminar6/src/main/java/org/example/domain/Movie.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Seminar6/src/main/java/org/example/repository/MovieDBRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Seminar6/src/main/java/org/example/repository/Repository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Seminar_10.docx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Seminar_4/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Seminar_4/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Seminar_4/.idea/copilot.data.migration.agent.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Seminar_4/.idea/copilot.data.migration.ask.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Seminar_4/.idea/copilot.data.migration.ask2agent.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Seminar_4/.idea/copilot.data.migration.edit.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Seminar_4/.idea/gradle.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Seminar_4/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Seminar_4/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Seminar_4/build.gradle" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Seminar_4/gradle/wrapper/gradle-wrapper.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Seminar_4/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Seminar_4/gradlew" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Seminar_4/gradlew.bat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Seminar_4/settings.gradle" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Seminar_4/src/main/java/org/example/Main.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Seminar_4/src/main/java/org/example/forme_geometrice/Arie.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Seminar_4/src/main/java/org/example/forme_geometrice/Cerc.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Seminar_4/src/main/java/org/example/forme_geometrice/Patrat.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Seminar_5/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Seminar_5/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Seminar_5/.idea/copilot.data.migration.agent.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Seminar_5/.idea/copilot.data.migration.ask.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Seminar_5/.idea/copilot.data.migration.ask2agent.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Seminar_5/.idea/copilot.data.migration.edit.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Seminar_5/.idea/gradle.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Seminar_5/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Seminar_5/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Seminar_5/build.gradle" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Seminar_5/gradle/wrapper/gradle-wrapper.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Seminar_5/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Seminar_5/gradlew" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Seminar_5/gradlew.bat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Seminar_5/settings.gradle" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Seminar_5/src/main/java/Main.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Seminar_5/src/main/java/org/example/Constants.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Seminar_5/src/main/java/org/example/Entity.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Seminar_5/src/main/java/org/example/Nota.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Seminar_5/src/main/java/org/example/NotaDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Seminar_5/src/main/java/org/example/Sem5_2025.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Seminar_5/src/main/java/org/example/Student.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Seminar_5/src/main/java/org/example/Tema.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../sem10/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../sem10/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../sem10/.idea/copilot.data.migration.agent.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../sem10/.idea/copilot.data.migration.ask.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../sem10/.idea/copilot.data.migration.ask2agent.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../sem10/.idea/copilot.data.migration.edit.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../sem10/.idea/encodings.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../sem10/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../sem10/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../sem10/pom.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../sem10/src/main/java/grup/CheckedExample.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../sem10/src/main/java/grup/ErrorExample.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../sem10/src/main/java/grup/Main.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../sem10/src/main/java/grup/UncheckedExample.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../sem11-taskrunner/Sem1_2_TaskRunner.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../sem11-taskrunner/taskrunner/.idea/.idea.taskrunner/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../sem11-taskrunner/taskrunner/.idea/.idea.taskrunner/.idea/indexLayout.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../sem11-taskrunner/taskrunner/.idea/.idea.taskrunner/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../sem11-taskrunner/taskrunner/taskrunner.sln" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../sem11-taskrunner/taskrunner/taskrunner/Program.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../sem11-taskrunner/taskrunner/taskrunner/bin/Debug/net9.0/taskrunner.deps.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../sem11-taskrunner/taskrunner/taskrunner/bin/Debug/net9.0/taskrunner.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../sem11-taskrunner/taskrunner/taskrunner/bin/Debug/net9.0/taskrunner.exe" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../sem11-taskrunner/taskrunner/taskrunner/bin/Debug/net9.0/taskrunner.pdb" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../sem11-taskrunner/taskrunner/taskrunner/bin/Debug/net9.0/taskrunner.runtimeconfig.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../sem11-taskrunner/taskrunner/taskrunner/container/IContainer.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../sem11-taskrunner/taskrunner/taskrunner/container/QueueContainer.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../sem11-taskrunner/taskrunner/taskrunner/container/StackContainer.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../sem11-taskrunner/taskrunner/taskrunner/container/Strategy.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../sem11-taskrunner/taskrunner/taskrunner/factory/IFactory.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../sem11-taskrunner/taskrunner/taskrunner/factory/TaskContainerFactory.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../sem11-taskrunner/taskrunner/taskrunner/model/MessageTask.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../sem11-taskrunner/taskrunner/taskrunner/model/Task.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../sem11-taskrunner/taskrunner/taskrunner/obj/Debug/net9.0/.NETCoreApp,Version=v9.0.AssemblyAttributes.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../sem11-taskrunner/taskrunner/taskrunner/obj/Debug/net9.0/apphost.exe" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../sem11-taskrunner/taskrunner/taskrunner/obj/Debug/net9.0/ref/taskrunner.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../sem11-taskrunner/taskrunner/taskrunner/obj/Debug/net9.0/refint/taskrunner.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../sem11-taskrunner/taskrunner/taskrunner/obj/Debug/net9.0/taskrunner.AssemblyInfo.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../sem11-taskrunner/taskrunner/taskrunner/obj/Debug/net9.0/taskrunner.AssemblyInfoInputs.cache" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../sem11-taskrunner/taskrunner/taskrunner/obj/Debug/net9.0/taskrunner.GeneratedMSBuildEditorConfig.editorconfig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../sem11-taskrunner/taskrunner/taskrunner/obj/Debug/net9.0/taskrunner.GlobalUsings.g.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../sem11-taskrunner/taskrunner/taskrunner/obj/Debug/net9.0/taskrunner.assets.cache" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../sem11-taskrunner/taskrunner/taskrunner/obj/Debug/net9.0/taskrunner.csproj.CoreCompileInputs.cache" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../sem11-taskrunner/taskrunner/taskrunner/obj/Debug/net9.0/taskrunner.csproj.FileListAbsolute.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../sem11-taskrunner/taskrunner/taskrunner/obj/Debug/net9.0/taskrunner.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../sem11-taskrunner/taskrunner/taskrunner/obj/Debug/net9.0/taskrunner.genruntimeconfig.cache" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../sem11-taskrunner/taskrunner/taskrunner/obj/Debug/net9.0/taskrunner.pdb" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../sem11-taskrunner/taskrunner/taskrunner/obj/Debug/net9.0/taskrunner.sourcelink.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../sem11-taskrunner/taskrunner/taskrunner/obj/project.assets.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../sem11-taskrunner/taskrunner/taskrunner/obj/project.nuget.cache" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../sem11-taskrunner/taskrunner/taskrunner/obj/project.packagespec.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../sem11-taskrunner/taskrunner/taskrunner/obj/rider.project.model.nuget.info" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../sem11-taskrunner/taskrunner/taskrunner/obj/rider.project.restore.info" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../sem11-taskrunner/taskrunner/taskrunner/obj/taskrunner.csproj.nuget.dgspec.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../sem11-taskrunner/taskrunner/taskrunner/obj/taskrunner.csproj.nuget.g.props" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../sem11-taskrunner/taskrunner/taskrunner/obj/taskrunner.csproj.nuget.g.targets" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../sem11-taskrunner/taskrunner/taskrunner/runner/AbstractTaskRunner.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../sem11-taskrunner/taskrunner/taskrunner/runner/ITaskRunner.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../sem11-taskrunner/taskrunner/taskrunner/runner/PrinterTaskRunner.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../sem11-taskrunner/taskrunner/taskrunner/runner/StrategyTaskRunner.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../sem11-taskrunner/taskrunner/taskrunner/taskrunner.csproj" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../sem11-taskrunner/taskrunner/taskrunner/utils/Constants.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../sem12-ALL/SemCSharp_Angajati.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../sem12-ALL/sem11_12/.idea/.idea.sem11_12/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../sem12-ALL/sem11_12/.idea/.idea.sem11_12/.idea/indexLayout.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../sem12-ALL/sem11_12/.idea/.idea.sem11_12/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../sem12-ALL/sem11_12/.vs/sem11_12/DesignTimeBuild/.dtbcache" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../sem12-ALL/sem11_12/.vs/sem11_12/DesignTimeBuild/.dtbcache.v2" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../sem12-ALL/sem11_12/.vs/sem11_12/v16/.suo" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../sem12-ALL/sem11_12/.vs/sem11_12/v16/Server/sqlite3/db.lock" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../sem12-ALL/sem11_12/.vs/sem11_12/v16/Server/sqlite3/storage.ide" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../sem12-ALL/sem11_12/App.config" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../sem12-ALL/sem11_12/Program.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../sem12-ALL/sem11_12/bin/Debug/netcoreapp3.0/Microsoft.Win32.SystemEvents.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../sem12-ALL/sem11_12/bin/Debug/netcoreapp3.0/System.Configuration.ConfigurationManager.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../sem12-ALL/sem11_12/bin/Debug/netcoreapp3.0/System.Drawing.Common.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../sem12-ALL/sem11_12/bin/Debug/netcoreapp3.0/System.Security.AccessControl.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../sem12-ALL/sem11_12/bin/Debug/netcoreapp3.0/System.Security.Cryptography.ProtectedData.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../sem12-ALL/sem11_12/bin/Debug/netcoreapp3.0/System.Security.Permissions.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../sem12-ALL/sem11_12/bin/Debug/netcoreapp3.0/System.Security.Principal.Windows.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../sem12-ALL/sem11_12/bin/Debug/netcoreapp3.0/System.Windows.Extensions.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../sem12-ALL/sem11_12/bin/Debug/netcoreapp3.0/runtimes/unix/lib/netcoreapp2.1/System.Security.Principal.Windows.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../sem12-ALL/sem11_12/bin/Debug/netcoreapp3.0/runtimes/unix/lib/netcoreapp3.0/System.Drawing.Common.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../sem12-ALL/sem11_12/bin/Debug/netcoreapp3.0/runtimes/win/lib/netcoreapp2.0/System.Security.AccessControl.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../sem12-ALL/sem11_12/bin/Debug/netcoreapp3.0/runtimes/win/lib/netcoreapp2.1/System.Security.Principal.Windows.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../sem12-ALL/sem11_12/bin/Debug/netcoreapp3.0/runtimes/win/lib/netcoreapp3.0/Microsoft.Win32.SystemEvents.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../sem12-ALL/sem11_12/bin/Debug/netcoreapp3.0/runtimes/win/lib/netcoreapp3.0/System.Drawing.Common.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../sem12-ALL/sem11_12/bin/Debug/netcoreapp3.0/runtimes/win/lib/netcoreapp3.0/System.Windows.Extensions.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../sem12-ALL/sem11_12/bin/Debug/netcoreapp3.0/runtimes/win/lib/netstandard2.0/System.Security.Cryptography.ProtectedData.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../sem12-ALL/sem11_12/bin/Debug/netcoreapp3.0/sem11_12.deps.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../sem12-ALL/sem11_12/bin/Debug/netcoreapp3.0/sem11_12.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../sem12-ALL/sem11_12/bin/Debug/netcoreapp3.0/sem11_12.dll.config" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../sem12-ALL/sem11_12/bin/Debug/netcoreapp3.0/sem11_12.exe" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../sem12-ALL/sem11_12/bin/Debug/netcoreapp3.0/sem11_12.pdb" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../sem12-ALL/sem11_12/bin/Debug/netcoreapp3.0/sem11_12.runtimeconfig.dev.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../sem12-ALL/sem11_12/bin/Debug/netcoreapp3.0/sem11_12.runtimeconfig.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../sem12-ALL/sem11_12/data/angajati.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../sem12-ALL/sem11_12/data/messages.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../sem12-ALL/sem11_12/data/pontaje.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../sem12-ALL/sem11_12/data/sarcini.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../sem12-ALL/sem11_12/model/Angajat.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../sem12-ALL/sem11_12/model/Entity.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../sem12-ALL/sem11_12/model/EntityToFileMapping.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../sem12-ALL/sem11_12/model/Pontaj.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../sem12-ALL/sem11_12/model/PontajDTO.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../sem12-ALL/sem11_12/model/Sarcina.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../sem12-ALL/sem11_12/model/Validator/AngajatValidator.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../sem12-ALL/sem11_12/model/Validator/IValidator.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../sem12-ALL/sem11_12/model/Validator/PontajValidator.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../sem12-ALL/sem11_12/model/Validator/SarcinaValidator.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../sem12-ALL/sem11_12/model/Validator/ValidationException.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../sem12-ALL/sem11_12/obj/Debug/netcoreapp3.0/.NETCoreApp,Version=v3.0.AssemblyAttributes.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../sem12-ALL/sem11_12/obj/Debug/netcoreapp3.0/apphost.exe" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../sem12-ALL/sem11_12/obj/Debug/netcoreapp3.0/sem11_12.AssemblyInfo.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../sem12-ALL/sem11_12/obj/Debug/netcoreapp3.0/sem11_12.AssemblyInfoInputs.cache" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../sem12-ALL/sem11_12/obj/Debug/netcoreapp3.0/sem11_12.GeneratedMSBuildEditorConfig.editorconfig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../sem12-ALL/sem11_12/obj/Debug/netcoreapp3.0/sem11_12.assets.cache" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../sem12-ALL/sem11_12/obj/Debug/netcoreapp3.0/sem11_12.csproj.AssemblyReference.cache" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../sem12-ALL/sem11_12/obj/Debug/netcoreapp3.0/sem11_12.csproj.CopyComplete" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../sem12-ALL/sem11_12/obj/Debug/netcoreapp3.0/sem11_12.csproj.CoreCompileInputs.cache" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../sem12-ALL/sem11_12/obj/Debug/netcoreapp3.0/sem11_12.csproj.FileListAbsolute.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../sem12-ALL/sem11_12/obj/Debug/netcoreapp3.0/sem11_12.csprojAssemblyReference.cache" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../sem12-ALL/sem11_12/obj/Debug/netcoreapp3.0/sem11_12.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../sem12-ALL/sem11_12/obj/Debug/netcoreapp3.0/sem11_12.exe" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../sem12-ALL/sem11_12/obj/Debug/netcoreapp3.0/sem11_12.genruntimeconfig.cache" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../sem12-ALL/sem11_12/obj/Debug/netcoreapp3.0/sem11_12.pdb" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../sem12-ALL/sem11_12/obj/project.assets.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../sem12-ALL/sem11_12/obj/project.nuget.cache" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../sem12-ALL/sem11_12/obj/project.packagespec.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../sem12-ALL/sem11_12/obj/rider.project.model.nuget.info" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../sem12-ALL/sem11_12/obj/rider.project.restore.info" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../sem12-ALL/sem11_12/obj/sem11_12.csproj.nuget.dgspec.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../sem12-ALL/sem11_12/obj/sem11_12.csproj.nuget.g.props" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../sem12-ALL/sem11_12/obj/sem11_12.csproj.nuget.g.targets" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../sem12-ALL/sem11_12/repository/AngajatInFileRepository.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../sem12-ALL/sem11_12/repository/DataReader.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../sem12-ALL/sem11_12/repository/IRepository.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../sem12-ALL/sem11_12/repository/InFileRepository.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../sem12-ALL/sem11_12/repository/InMemoryRepository.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../sem12-ALL/sem11_12/repository/PontajInFileRepository.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../sem12-ALL/sem11_12/repository/SarcinaInFileRepository.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../sem12-ALL/sem11_12/sem11_12.csproj" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../sem12-ALL/sem11_12/sem11_12.sln" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../sem12-ALL/sem11_12/service/AngajatService.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../sem12-ALL/sem11_12/service/PontajService.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../sem12-ALL/sem11_12/service/SarcinaService.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../sem7_schelet/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../sem7_schelet/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../sem7_schelet/.idea/copilot.data.migration.agent.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../sem7_schelet/.idea/copilot.data.migration.ask.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../sem7_schelet/.idea/copilot.data.migration.ask2agent.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../sem7_schelet/.idea/copilot.data.migration.edit.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../sem7_schelet/.idea/dataSources.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../sem7_schelet/.idea/gradle.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../sem7_schelet/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../sem7_schelet/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../sem7_schelet/build.gradle.kts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../sem7_schelet/gradle/wrapper/gradle-wrapper.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../sem7_schelet/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../sem7_schelet/gradlew" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../sem7_schelet/gradlew.bat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../sem7_schelet/settings.gradle.kts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../sem7_schelet/src/main/java/sem7/Main.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../sem7_schelet/src/main/java/sem7/config/Config.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../sem7_schelet/src/main/java/sem7/domain/Entity.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../sem7_schelet/src/main/java/sem7/domain/Movie.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../sem7_schelet/src/main/java/sem7/repository/MovieDBRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../sem7_schelet/src/main/java/sem7/repository/MovieRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../sem7_schelet/src/main/java/sem7/repository/PagingRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../sem7_schelet/src/main/java/sem7/repository/Repository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../sem7_schelet/src/main/java/sem7/service/MovieService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../sem7_schelet/src/main/java/sem7/util/Pair.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../sem7_schelet/src/main/java/sem7/util/event/EntityChangeEvent.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../sem7_schelet/src/main/java/sem7/util/event/EntityChangeEventType.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../sem7_schelet/src/main/java/sem7/util/event/Event.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../sem7_schelet/src/main/java/sem7/util/observer/Observable.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../sem7_schelet/src/main/java/sem7/util/observer/Observer.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../sem7_schelet/src/main/java/sem7/util/paging/Page.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../sem7_schelet/src/main/java/sem7/util/paging/Pageable.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../sem7_schelet/src/main/java/sem7/validator/MovieValidator.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../sem7_schelet/src/main/java/sem7/validator/ValidationException.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../sem7_schelet/src/main/java/sem7/validator/Validator.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../sem7_schelet/src/main/resources/config.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../sem9_pagging/.idea/workspace.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../sem9_paging/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../sem9_paging/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../sem9_paging/.idea/copilot.data.migration.agent.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../sem9_paging/.idea/copilot.data.migration.ask.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../sem9_paging/.idea/copilot.data.migration.ask2agent.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../sem9_paging/.idea/copilot.data.migration.edit.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../sem9_paging/.idea/dataSources.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../sem9_paging/.idea/gradle.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../sem9_paging/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../sem9_paging/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../sem9_paging/build.gradle" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../sem9_paging/gradle/wrapper/gradle-wrapper.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../sem9_paging/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../sem9_paging/gradlew" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../sem9_paging/gradlew.bat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../sem9_paging/settings.gradle" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../sem9_paging/src/main/java/module-info.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../sem9_paging/src/main/java/scs/map/sem9_paging/Main.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../sem9_paging/src/main/java/scs/map/sem9_paging/MovieApplication.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../sem9_paging/src/main/java/scs/map/sem9_paging/config/Config.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../sem9_paging/src/main/java/scs/map/sem9_paging/controller/EditMovieController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../sem9_paging/src/main/java/scs/map/sem9_paging/controller/MessageAlert.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../sem9_paging/src/main/java/scs/map/sem9_paging/controller/MovieController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../sem9_paging/src/main/java/scs/map/sem9_paging/domain/Entity.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../sem9_paging/src/main/java/scs/map/sem9_paging/domain/Movie.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../sem9_paging/src/main/java/scs/map/sem9_paging/domain/Prietenie.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../sem9_paging/src/main/java/scs/map/sem9_paging/domain/Tuple.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../sem9_paging/src/main/java/scs/map/sem9_paging/domain/Utilizator.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../sem9_paging/src/main/java/scs/map/sem9_paging/dto/MovieFilterDTO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../sem9_paging/src/main/java/scs/map/sem9_paging/observer/Observable.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../sem9_paging/src/main/java/scs/map/sem9_paging/observer/Observer.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../sem9_paging/src/main/java/scs/map/sem9_paging/repository/MovieDBRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../sem9_paging/src/main/java/scs/map/sem9_paging/repository/MovieRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../sem9_paging/src/main/java/scs/map/sem9_paging/repository/PagingRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../sem9_paging/src/main/java/scs/map/sem9_paging/repository/Repository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../sem9_paging/src/main/java/scs/map/sem9_paging/service/MovieService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../sem9_paging/src/main/java/scs/map/sem9_paging/util/Pair.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../sem9_paging/src/main/java/scs/map/sem9_paging/util/event/EntityChangeEvent.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../sem9_paging/src/main/java/scs/map/sem9_paging/util/event/EntityChangeEventType.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../sem9_paging/src/main/java/scs/map/sem9_paging/util/event/Event.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../sem9_paging/src/main/java/scs/map/sem9_paging/util/paging/Page.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../sem9_paging/src/main/java/scs/map/sem9_paging/util/paging/Pageable.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../sem9_paging/src/main/java/scs/map/sem9_paging/validator/MovieValidator.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../sem9_paging/src/main/java/scs/map/sem9_paging/validator/ValidationException.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../sem9_paging/src/main/java/scs/map/sem9_paging/validator/Validator.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../sem9_paging/src/main/resources/config.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../sem9_paging/src/main/resources/scs/map/sem9_paging/views/edit-movie-view.fxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../sem9_paging/src/main/resources/scs/map/sem9_paging/views/movies-view.fxml" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="CopilotPersistence">
+    <persistenceIdMap>
+      <entry key="_C:/Folders/Facultate/Anul_2/Metode_avansate_de_programare/Practice/Masini" value="38ncGm8WG1YXPMahQMSt63exKCh" />
+    </persistenceIdMap>
+  </component>
+  <component name="ExternalProjectsData">
+    <projectState path="$PROJECT_DIR$">
+      <ProjectState />
+    </projectState>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Interface" />
+        <option value="Enum" />
+        <option value="Class" />
+        <option value="FxmlFile" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../../.." />
+  </component>
+  <component name="KubernetesApiPersistence">{}</component>
+  <component name="KubernetesApiProvider">{
+  &quot;isMigrated&quot;: true
+}</component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 6
+}</component>
+  <component name="ProjectId" id="38ncGm8WG1YXPMahQMSt63exKCh" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Gradle.Masini [:grup.Launcher.main()].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.Masini [:grup.Main.main()].executor&quot;: &quot;Run&quot;,
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.typescript.service.memoryLimit.init&quot;: &quot;true&quot;,
+    &quot;com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;junie.onboarding.icon.badge.shown&quot;: &quot;true&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Folders/Facultate/Anul_2/Metode_avansate_de_programare/Practice/Masini&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;onboarding.tips.debug.path&quot;: &quot;C:/Folders/Facultate/Anul_2/Metode_avansate_de_programare/Practice/Masini/src/main/java/grup/Main.java&quot;,
+    &quot;to.speed.mode.migration.done&quot;: &quot;true&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  },
+  &quot;keyToStringList&quot;: {
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;postgresql&quot;,
+      &quot;mysql&quot;
+    ]
+  }
+}</component>
+  <component name="RunManager">
+    <configuration name="Launcher" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="grup.Launcher" />
+      <module name="Masini.main" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="grup.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.Launcher" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-30f59d01ecdd-2fc7cc6b9a17-intellij.indexing.shared.core-IU-253.30387.90" />
+        <option value="bundled-js-predefined-d6986cc7102b-9b0f141eb926-JavaScript-IU-253.30387.90" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="7eef461f-f670-40bc-83dc-720b992bfe11" name="Changes" comment="" />
+      <created>1769438683725</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1769438683725</updated>
+      <workItem from="1769438687391" duration="14226000" />
+      <workItem from="1769514942197" duration="3704000" />
+      <workItem from="1769531769032" duration="17000" />
+      <workItem from="1769588978732" duration="974000" />
+      <workItem from="1769591704811" duration="701000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="github-copilot-workspace">
+    <instructionFileLocations>
+      <option value=".github/instructions" />
+    </instructionFileLocations>
+    <promptFileLocations>
+      <option value=".github/prompts" />
+    </promptFileLocations>
+  </component>
+</project>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.scene.control.cell.PropertyValueFactory?>
+<?import javafx.scene.text.Font?>
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="grup.controller.AdminController"
+            prefHeight="400.0" prefWidth="600.0">
+
+    <VBox spacing="5.0">
+        <TableView fx:id="cars" prefHeight="300.0" prefWidth="600.0">
+            <columns>
+                <TableColumn text="Denumire" prefWidth="100.0">
+                    <cellValueFactory><PropertyValueFactory property="denumire" /></cellValueFactory>
+                </TableColumn>
+                <TableColumn text="Descriere" prefWidth="120.0">
+                    <cellValueFactory><PropertyValueFactory property="descriere" /></cellValueFactory>
+                </TableColumn>
+                <TableColumn text="Pret" prefWidth="80.0">
+                    <cellValueFactory><PropertyValueFactory property="pret" /></cellValueFactory>
+                </TableColumn>
+                <TableColumn text="Status" prefWidth="80.0">
+                    <cellValueFactory><PropertyValueFactory property="status" /></cellValueFactory>
+                </TableColumn>
+            </columns>
+        </TableView>
+
+        <Button text="Reject" onAction="#rejectCar"/>
+        <Button text="Accept" onAction="#acceptCar"/>
+    </VBox>
+
+</AnchorPane>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<VBox alignment="CENTER" spacing="15.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="grup.controller.EvenimentController">
+
+    <padding>
+        <Insets bottom="40.0" left="40.0" right="40.0" top="40.0" />
+    </padding>
+
+    <ComboBox fx:id="comboEchipa" prefWidth="100.0" />
+
+    <VBox spacing="5.0">
+        <Label textFill="#7f8c8d" />
+        <TextField fx:id="textRata" />
+    </VBox>
+
+    <ComboBox fx:id="comboTip" prefWidth="100.0" />
+
+    <Button defaultButton="true" onAction="#handleAdd" prefHeight="35.0" prefWidth="200.0" style="-fx-background-color: #27ae60; -fx-text-fill: white;" text="SEND">
+        <VBox.margin>
+            <Insets top="10.0" />
+        </VBox.margin>
+        <font>
+            <Font name="System Bold" size="13.0" />
+        </font>
+    </Button>
+</VBox>

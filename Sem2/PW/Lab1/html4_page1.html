@@ -1,0 +1,154 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="ro">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jurnal de Zbor FPV</title>
+    <style type="text/css">
+        body { font-family: Arial, sans-serif; background-color: #f4f4f4; color: #333; margin: 0; padding: 20px; }
+        .container { background: #fff; max-width: 900px; margin: auto; padding: 30px; border-radius: 5px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        h1, h2 { color: #2c3e50; }
+        table { border-collapse: collapse; margin-bottom: 20px; }
+        th, td { padding: 10px; border: 1px solid #bdc3c7; }
+        th { background-color: #34495e; color: white; }
+        .nested-table th { background-color: #7f8c8d; font-size: 0.9em; }
+        fieldset { border: 2px solid #2c3e50; padding: 20px; border-radius: 5px; background: #fafafa; }
+        legend { font-weight: bold; background: #2c3e50; color: #fff; padding: 5px 10px; border-radius: 3px; }
+        .form-row { margin-bottom: 15px; }
+        input[type="submit"] { background-color: #27ae60; color: white; padding: 10px 20px; border: none; cursor: pointer; }
+    </style>
+</head>
+<body bgcolor="#f4f4f4">
+
+    <div class="container">
+        <center>
+            <h1 title="Sistem de Logare">Hangar FPV și Jurnal de Zbor</h1>
+            <span>
+                <b>„Fără elice rupte, nu înveți nimic.”</b>
+            </span>
+            <p>Aici îți ții evidența dronelor și a ieșirilor pe câmp.<br>Completează totul cu atenție după fiecare zbor.</p>
+            
+            <a href="https://www.rotorama.com/" target="_blank" title="Piese FPV">
+                <img src="drone_main_page.jpg" alt="Drona FPV" width="200" height="200">
+            </a>
+        </center>
+
+        <hr>
+
+        <div>
+            <h2>1. Setup-ul curent: Nazgul5 V3</h2>
+            <table border="1" width="100%" bgcolor="#ffffff">
+                <tr bgcolor="#34495e">
+                    <th colspan="3" align="center" style="color: white;">Ce avem sub capotă?</th>
+                </tr>
+                <tr>
+                    <td rowspan="2" align="center" valign="middle" width="30%">
+                        <strong>Nazgul5 V3</strong><br>
+                        <em>Cadru: 5 inch True-X</em>
+                    </td>
+                    <td width="35%" valign="top">
+                        <table border="1" width="100%" bgcolor="#f9f9f9" class="nested-table">
+                            <tr><th colspan="2" align="center">Partea de forță</th></tr>
+                            <tr><td>Motoare</td><td>XING-E 2207</td></tr>
+                            <tr><td>Elice</td><td>HQProp 5.1</td></tr>
+                        </table>
+                    </td>
+                    <td width="35%" valign="top">
+                        <table border="1" width="100%" bgcolor="#f9f9f9" class="nested-table">
+                            <tr><th colspan="2" align="center">Electronică</th></tr>
+                            <tr><td>FC</td><td>Blitz F722</td></tr>
+                            <tr><td>ESC</td><td>45A 4-in-1</td></tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2" bgcolor="#ecf0f1" align="center" valign="middle">
+                        <strong>Status:</strong> Dronă armată, gata de acțiune.
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+        <hr>
+
+        <div>
+            <h2>2. Proceduri și verificări</h2>
+            <ol type="I">
+                <li><strong>Pregătirea acasă</strong>
+                    <ul type="square">
+                        <li>Încarcă bateriile (stocare sau plin).</li>
+                        <li>Verifică strângerea șuruburilor.</li>
+                    </ul>
+                </li>
+                <li><strong>Pe locație</strong></li>
+            </ol>
+
+            <ol type="A" start="3">
+                <li><strong>Situații de urgență (Crash)</strong>
+                    <ol type="1">
+                        <li>Dezarmează instant motoarele.</li>
+                        <li>Activează buzzer-ul.</li>
+                    </ol>
+                </li>
+            </ol>
+        </div>
+
+        <hr>
+
+        <div>
+            <h2>3. Adaugă o intrare nouă</h2>
+            <form action="#" method="POST">
+                <fieldset>
+                    <legend>Adăugare ieșire pe câmp</legend>
+                    
+                    <div class="form-row">
+                        Nume pilot (poreclă): <input type="text" name="pilot" maxlength="20" size="15">
+                        Cod PIN: <input type="password" name="pin" size="6">
+                    </div>
+
+                    <div class="form-row">
+                        Data zborului: <input type="text" name="data" value="ZZ/LL/AAAA" size="10">
+                        Câte baterii ai consumat?: <input type="text" name="baterii" value="1" size="3" maxlength="2">
+                    </div>
+
+                    <div class="form-row">
+                        <strong>Stilul abordat:</strong><br>
+                        <input type="radio" name="stil" value="free" checked> Freestyle<br>
+                        <input type="radio" name="stil" value="cine"> Cinematic lin<br>
+                        <input type="radio" name="stil" value="race"> Antrenament la porți 
+                    </div>
+
+                    <div class="form-row">
+                        <strong>Condiții meteo și incidente:</strong><br> 
+                        <input type="checkbox" name="c1" value="vant"> Vânt puternic<br> 
+                        <input type="checkbox" name="c2" value="soare"> Orbire de la soare<br>
+                        <input type="checkbox" name="c3" value="daune"> Am rupt brațe sau elice
+                    </div>
+
+                    <div class="form-row">
+                        Locația zborului (poți alege mai multe):<br>
+                        <select name="locatie" multiple size="3">
+                            <option value="padure">Pădure deasă</option>
+                            <option value="camp" selected>Câmp deschis</option>
+                            <option value="cladiri">Clădiri abandonate</option>
+                        </select>
+                    </div>
+
+                    <div class="form-row">
+                        Licență activă: <input type="text" name="licenta" value="RO-A1/A3" readonly>
+                        ID Înregistrare: <input type="text" name="id_zbor" value="#ZB-1029" disabled> 
+                    </div>
+
+                    <div class="form-row">
+                        Observații tehnice după zbor:<br>
+                        <textarea name="obs" rows="3" cols="60">Drona a început să oscileze pe axa de pitch la coborâre rapidă.</textarea>
+                    </div>
+
+                    <input type="submit" value="Salvează în jurnal">
+                </fieldset>
+            </form>
+        </div>
+    </div>
+
+</body>
+</html>

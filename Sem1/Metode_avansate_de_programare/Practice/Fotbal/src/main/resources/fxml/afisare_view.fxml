@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="450.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="grup.controller.AfisareController">
+   <children>
+
+      <Label fx:id="numeEchipaGazda" alignment="CENTER" layoutX="20.0" layoutY="20.0" prefWidth="200.0" text="Nume Gazda" textFill="#0026ff">
+         <font><Font name="System Bold" size="18.0" /></font>
+      </Label>
+      <Label fx:id="scorEchipaGazda" alignment="CENTER" layoutX="90.0" layoutY="50.0" text="0">
+         <font><Font size="24.0" /></font>
+      </Label>
+
+      <Label layoutX="285.0" layoutY="35.0" text="VS">
+         <font><Font name="System Bold" size="20.0" /></font>
+      </Label>
+
+      <Label fx:id="numeEchipaVenita" alignment="CENTER" layoutX="380.0" layoutY="20.0" prefWidth="200.0" text="Nume Oaspete" textFill="#ff0000">
+         <font><Font name="System Bold" size="18.0" /></font>
+      </Label>
+      <Label fx:id="scorEchipaVenita" alignment="CENTER" layoutX="450.0" layoutY="50.0" text="0">
+         <font><Font size="24.0" /></font>
+      </Label>
+
+
+      <HBox layoutX="20.0" layoutY="100.0" prefHeight="330.0" prefWidth="560.0" spacing="20.0">
+         <children>
+
+            <VBox prefHeight="200.0" prefWidth="270.0" spacing="5.0">
+               <Label text="Evenimente Gazdă:" textFill="#0026ff">
+                  <font>
+                     <Font name="System Italic" size="14.0"/>
+                  </font>
+               </Label>
+               <ListView fx:id="listGazda" prefHeight="300.0" prefWidth="270.0"/>
+            </VBox>
+
+            <VBox prefHeight="200.0" prefWidth="270.0" spacing="5.0">
+               <Label alignment="CENTER_RIGHT" maxWidth="Infinity" text="Evenimente Oaspete:" textFill="#ff0000">
+                  <font>
+                     <Font name="System Italic" size="14.0"/>
+                  </font>
+               </Label>
+               <ListView fx:id="listOaspete" prefHeight="300.0" prefWidth="270.0"/>
+            </VBox>
+
+         </children>
+      </HBox>
+
+   </children>
+</AnchorPane>

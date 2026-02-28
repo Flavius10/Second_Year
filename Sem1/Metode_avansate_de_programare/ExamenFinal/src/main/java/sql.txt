@@ -1,0 +1,104 @@
+-- =========================================================
+-- 0. CURATENIE (Ordinea inversa crearii pentru a nu avea erori de FK)
+-- =========================================================
+DROP TABLE IF EXISTS comments;
+DROP TABLE IF EXISTS item_tags;
+DROP TABLE IF EXISTS documents; -- TABEL NOU
+DROP TABLE IF EXISTS tags;
+DROP TABLE IF EXISTS items;
+DROP TABLE IF EXISTS users;
+
+-- =========================================================
+-- 1. TABEL USERI (Parintele Suprem)
+-- =========================================================
+CREATE TABLE users (
+    username VARCHAR(50) PRIMARY KEY,   -- Java: String
+    password VARCHAR(50),               -- Java: String
+    role VARCHAR(20),                   -- Java: String (sau Enum: ADMIN, DEALER, CLIENT)
+
+    -- TIP NOU: BOOLEAN
+    active BOOLEAN DEFAULT TRUE         -- Java: Boolean
+);
+
+-- =========================================================
+-- 2. TABEL ITEMS (Masini / Entitatea Principala)
+-- =========================================================
+CREATE TABLE items (
+    id SERIAL PRIMARY KEY,              -- Java: Long
+    name VARCHAR(100),                  -- Java: String
+    description VARCHAR(200),           -- Java: String
+
+    -- BANI (Foloseste BigDecimal in Java)
+    value DECIMAL(10, 2),               -- Java: BigDecimal
+
+    -- MASURATORI FIZICE (Foloseste Double in Java)
+    engine_capacity DOUBLE PRECISION,   -- Java: Double (ex: 1.6, 2.0)
+
+    -- DATA SI ORA (Foloseste LocalDateTime)
+    date_created TIMESTAMP,             -- Java: LocalDateTime (ex: cand a fost postat anuntul)
+
+    -- DOAR DATA (Foloseste LocalDate - FARA ORA)
+    fabrication_date DATE,              -- Java: LocalDate (ex: cand a fost fabricata masina)
+
+    -- STATUS (Enum)
+    status VARCHAR(20),                 -- Java: String (NEW, APPROVED, REJECTED)
+
+    -- LOGIC
+    is_negotiable BOOLEAN,              -- Java: Boolean
+
+    -- LEGATURA CU USER
+    owner_username VARCHAR(50),         -- Java: String / User Object
+    FOREIGN KEY (owner_username) REFERENCES users(username) ON DELETE CASCADE
+);
+
+-- =========================================================
+-- 3. TABEL TAGS (Dotari - Many-to-Many)
+-- =========================================================
+CREATE TABLE tags (
+    id SERIAL PRIMARY KEY,              -- Java: Long
+    name VARCHAR(50) UNIQUE             -- Java: String
+);
+
+-- =========================================================
+-- 4. TABEL DE LEGATURA (Items <-> Tags)
+-- =========================================================
+CREATE TABLE item_tags (
+    item_id INT,                        -- Java: Long
+    tag_id INT,                         -- Java: Long
+
+    PRIMARY KEY (item_id, tag_id),      -- Cheie compusa
+    FOREIGN KEY (item_id) REFERENCES items(id) ON DELETE CASCADE,
+    FOREIGN KEY (tag_id) REFERENCES tags(id) ON DELETE CASCADE
+);
+
+-- =========================================================
+-- 5. TABEL COMMENTS (Istoric / Chat - One-to-Many)
+-- =========================================================
+CREATE TABLE comments (
+    id SERIAL PRIMARY KEY,              -- Java: Long
+    text VARCHAR(500),                  -- Java: String
+    date_posted TIMESTAMP,              -- Java: LocalDateTime
+
+    item_id INT,                        -- Java: Long
+    author_username VARCHAR(50),        -- Java: String
+
+    FOREIGN KEY (item_id) REFERENCES items(id) ON DELETE CASCADE,
+    FOREIGN KEY (author_username) REFERENCES users(username) ON DELETE CASCADE
+);
+
+-- =========================================================
+-- 6. TABEL DOCUMENTS (Actele masinii - Tabel Nou!)
+-- =========================================================
+-- Util pentru a testa LocalDate si Boolean separat de tabelul mare
+CREATE TABLE documents (
+    id SERIAL PRIMARY KEY,              -- Java: Long
+    name VARCHAR(100),                  -- Java: String (ex: "Asigurare RCA")
+
+    issued_date DATE, -- Java: LocalDate (Data emiterii)
+    expiry_date DATE, -- Java: LocalDate (Data expirarii)
+
+    is_valid BOOLEAN,                   -- Java: Boolean
+
+    item_id INT,                        -- Legatura cu masina
+    FOREIGN KEY (item_id) REFERENCES items(id) ON DELETE CASCADE
+);

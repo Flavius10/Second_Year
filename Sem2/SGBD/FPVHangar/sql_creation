@@ -1,0 +1,61 @@
+-- 1. Creare Tabele
+
+CREATE TABLE Producator (
+    id SERIAL PRIMARY KEY,
+    nume VARCHAR(100) NOT NULL,
+    tara_origine VARCHAR(50)
+);
+
+CREATE TABLE Drona (
+    id SERIAL PRIMARY KEY,
+    nume_model VARCHAR(100) NOT NULL,
+    greutate_grame INT NOT NULL,
+    tip_cadru VARCHAR(50),
+    producator_id INT NOT NULL,
+    FOREIGN KEY (producator_id) REFERENCES Producator(id) ON DELETE CASCADE
+);
+
+CREATE TABLE Componenta (
+    id SERIAL PRIMARY KEY,
+    denumire VARCHAR(100) NOT NULL,
+    categorie VARCHAR(50)
+);
+
+CREATE TABLE Drona_Componenta (
+    drona_id INT NOT NULL,
+    componenta_id INT NOT NULL,
+    PRIMARY KEY (drona_id, componenta_id),
+    FOREIGN KEY (drona_id) REFERENCES Drona(id) ON DELETE CASCADE,
+    FOREIGN KEY (componenta_id) REFERENCES Componenta(id) ON DELETE CASCADE
+);
+
+-- 2. Inserare Date de Test
+
+-- Inserare 3 Părinți (Producători)
+INSERT INTO Producator (nume, tara_origine) VALUES
+('iFlight', 'China'),
+('GEPRC', 'China'),
+('Lumenier', 'SUA');
+
+-- Inserare 6 Copii (Drone) - asociate cu părinții
+INSERT INTO Drona (nume_model, greutate_grame, tip_cadru, producator_id) VALUES
+('Nazgul5 V3', 435, '5 inch', 1),
+('Protek35', 348, '3.5 inch Cinewhoop', 1),
+('Chimera7 Pro', 685, '7 inch Long Range', 1),
+('Mark5', 385, '5 inch', 2),
+('CineLog35', 258, '3.5 inch Cinewhoop', 2),
+('QAV-S JohnnyFPV', 390, '5 inch', 3);
+
+-- Inserare Componente (Pentru relația M-N)
+INSERT INTO Componenta (denumire, categorie) VALUES
+('Motor XING-E Pro 2207', 'Motor'),
+('DJI O3 Air Unit', 'Sistem Video'),
+('Caddx Vista Polar', 'Sistem Video'),
+('FC SucceX-D F7', 'Flight Controller');
+
+-- Inserare asocieri M-N (Drone - Componente)
+INSERT INTO Drona_Componenta (drona_id, componenta_id) VALUES
+(1, 1), -- Nazgul5 are motoare XING
+(1, 2), -- Nazgul5 are DJI O3
+(4, 2), -- Mark5 are DJI O3
+(2, 3); -- Protek35 are Caddx Vista

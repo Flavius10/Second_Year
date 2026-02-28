@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.cell.PropertyValueFactory?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox spacing="10.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="grup.controllers.WaitingListController">
+    <padding><Insets bottom="15.0" left="15.0" right="15.0" top="15.0" /></padding>
+
+    <Label text="Listă Așteptare - Urgențe">
+        <font><Font name="System Bold" size="16.0" /></font>
+    </Label>
+
+    <TableView fx:id="tablePacienti" prefHeight="400.0" prefWidth="550.0">
+        <columns>
+            <TableColumn text="Gravitate" prefWidth="80.0">
+                <cellValueFactory><PropertyValueFactory property="gravitate" /></cellValueFactory>
+            </TableColumn>
+
+            <TableColumn text="CNP" prefWidth="120.0">
+                <cellValueFactory><PropertyValueFactory property="cnp" /></cellValueFactory>
+            </TableColumn>
+
+            <TableColumn text="Diagnostic" prefWidth="200.0">
+                <cellValueFactory><PropertyValueFactory property="diagnosticPrincipal" /></cellValueFactory>
+            </TableColumn>
+
+            <TableColumn text="Varsta (luni)" prefWidth="100.0">
+                <cellValueFactory><PropertyValueFactory property="varsta" /></cellValueFactory>
+            </TableColumn>
+        </columns>
+    </TableView>
+</VBox>

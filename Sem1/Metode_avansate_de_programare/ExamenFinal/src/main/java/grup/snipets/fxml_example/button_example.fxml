@@ -1,0 +1,31 @@
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.ListView?>
+<VBox spacing="10" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="grup.controller.FormController">
+
+    <CheckBox fx:id="checkNegociabil" text="Pret Negociabil?" />
+
+    <Separator />
+
+    <Label text="Tip Combustibil:" />
+    <HBox spacing="10">
+        <RadioButton fx:id="radioDiesel" text="Diesel">
+            <toggleGroup>
+                <ToggleGroup fx:id="grupCombustibil" />
+            </toggleGroup>
+        </RadioButton>
+
+        <RadioButton fx:id="radioBenzina" text="Benzina" toggleGroup="$grupCombustibil" />
+
+        <RadioButton fx:id="radioElectric" text="Electric" toggleGroup="$grupCombustibil" />
+    </HBox>
+
+    <Button text="Salveaza" onAction="#handleSave" />
+
+</VBox>
