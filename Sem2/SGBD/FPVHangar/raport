@@ -1,0 +1,9 @@
+Decizii de design:
+    - am decis sa abordez problema cu o arhitecura stratificata ca sa pot sa separ logica de business de cea de prezentare si de cea de acces la date
+Provocări întâmpinate și soluții:
+    - nu am avut voie sa folosesc ORM-uri asa ca a trebuit sa fac conexiunea de mana
+    - am avut probleme cu inchiderea conexiunii la baza de date, dar am folosit un try-with-resources pentru a ma asigura ca conexiunea este inchisa corect
+Ce ați învățat:
+    - am invatat cum sa fac conexiunea la baza de date fara ORM-uri
+    - am invatat cum sa folosesc try-with-resources pentru a inchide conexiunea la baza de date corect
+    - am invatat cum sa separ logica de business de cea de prezentare si de cea de acces la date folosind o arhitectura stratificata

@@ -1,0 +1,13 @@
+Cum se configureaza baza de date:
+    - prima data apasam pe butonul cu iconul de baza de date din dreapta
+    - apoi apasam pe butonul "Add new connection"
+    - selectam tipul bazei de date pe care o folosim (in cazul nostru PostgreSQL)
+    - completam campurile necesare pentru a ne conecta la baza de date (host, port, username, password, database name)
+    - dupa ce am completat toate campurile, apasam pe butonul "Test Connection" pentru a verifica daca conexiunea la baza de
+    date este corecta
+    - daca conexiunea este corecta, apasam pe butonul "Save" pentru a salva conexiunea la baza de date
+    - creem baza de date si tabelele necesare
+
+Cum se ruleaza aplicatia;
+    - dupa ce am configurat conexiunea la baza de date, apasam pe butonul "Run" din partea de sus a ecranului pentru a rula
+    aplicatia si merge

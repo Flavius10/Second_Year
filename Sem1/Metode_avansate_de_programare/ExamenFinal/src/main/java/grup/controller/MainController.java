@@ -16,7 +16,6 @@ public class MainController implements Observer {
     public void setService(ServiceUser serviceUser, User user) {
         this.serviceUser = serviceUser;
         this.loggedInUser = user;
-
     }
 
 

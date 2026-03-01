@@ -11,22 +11,28 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox prefHeight="650.0" prefWidth="850.0" spacing="15.0" style="-fx-padding: 20;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+<VBox prefHeight="650.0" prefWidth="850.0" spacing="15.0" style="-fx-padding: 20;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="grup.controller.ControllerMain">
 
-    <Label text="Producători (Tabel Părinte)">
-        <font><Font name="System Bold" size="16.0" /></font>
-    </Label>
+    <HBox alignment="CENTER_LEFT">
+        <Label text="Producatori">
+            <font><Font name="System Bold" size="16.0" /></font>
+        </Label>
+        <Region HBox.hgrow="ALWAYS" />
+        <Button mnemonicParsing="false" onAction="#handleRefresh" style="-fx-background-color: #607D8B; -fx-text-fill: white;" text="Refresh Date" />
+    </HBox>
+
     <TableView fx:id="producatorTable" prefHeight="200.0" VBox.vgrow="ALWAYS">
         <columns>
             <TableColumn fx:id="colProdId" prefWidth="50.0" text="ID" />
-            <TableColumn fx:id="colProdNume" prefWidth="250.0" text="Nume Producător" />
-            <TableColumn fx:id="colProdTara" prefWidth="200.0" text="Țara Origine" />
+            <TableColumn fx:id="colProdNume" prefWidth="250.0" text="Nume Producator" />
+            <TableColumn fx:id="colProdTara" prefWidth="200.0" text="Tara Origine" />
         </columns>
     </TableView>
 
     <Separator prefWidth="200.0" />
 
-    <Label text="Drone FPV (Tabel Copil)">
+    <Label text="Drone FPV">
         <font><Font name="System Bold" size="16.0" /></font>
     </Label>
     <TableView fx:id="dronaTable" prefHeight="250.0" VBox.vgrow="ALWAYS">
@@ -45,9 +51,9 @@
 
         <Region HBox.hgrow="ALWAYS" />
 
-        <Button mnemonicParsing="false" style="-fx-background-color: #4CAF50; -fx-text-fill: white;" text="Adaugă" />
-        <Button mnemonicParsing="false" style="-fx-background-color: #2196F3; -fx-text-fill: white;" text="Modifică" />
-        <Button mnemonicParsing="false" style="-fx-background-color: #f44336; -fx-text-fill: white;" text="Șterge" />
+        <Button mnemonicParsing="false" onAction="#handleAddDrona" style="-fx-background-color: #4CAF50; -fx-text-fill: white;" text="Adaugă" />
+        <Button mnemonicParsing="false" onAction="#handleUpdateDrona" style="-fx-background-color: #2196F3; -fx-text-fill: white;" text="Modifică" />
+        <Button mnemonicParsing="false" onAction="#handleDeleteDrona" style="-fx-background-color: #f44336; -fx-text-fill: white;" text="Șterge" />
     </HBox>
 
 </VBox>
