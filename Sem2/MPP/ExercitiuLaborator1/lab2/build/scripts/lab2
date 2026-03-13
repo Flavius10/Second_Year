@@ -212,7 +212,7 @@ DEFAULT_JVM_OPTS=""
 
 set -- \
         -classpath "$CLASSPATH" \
-        Main \
+        grup.Main \
         "$@"
 
 # Stop when "xargs" is not available.

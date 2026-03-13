@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Raport Daune FPV</title>
+</head>
+
+<body>
+
+    <div>
+        <div>
+            <h1 title="Atelier Reparații">Raport Daune și Comandă Piese FPV</h1>
+            <span>
+                <b>„Dacă nu dai de pământ, nu forțezi destul.”</b>
+            </span>
+            <p>Completează acest formular de fiecare dată când ai nevoie de mentenanță.<br>Avem piese de schimb pentru orice situație.</p>
+        
+            <a href="https://www.rotorama.com/" target="_blank" title="MagazinPiese">
+                <img src="drone_crash.jpg" alt="Drona FPV prabusita" width="250" height="150">
+            </a>
+        </div>
+
+        <hr>
+
+        <div>
+            <h2>1. Catalog piese de schimb (True-X 5")</h2>
+            <table>
+                <tr>
+                    <th colspan="3">
+                        Inventar Hangar 2026
+                    </th>
+                </tr>
+
+                <tr>
+                    <td rowspan="2">
+                        <strong>Componente Cadru</strong><br>
+                        <em>Carbon T700</em>
+                    </td>
+
+                    <td>
+                        <table>
+                            <tr><th colspan="2">Piese Principale</th></tr>
+                            <tr><td>Braț 5mm</td><td>35 RON</td></tr>
+                            <tr><td>Bottom Plate</td><td>80 RON</td></tr>
+                        </table>
+                    </td>
+                    <td>
+                        <table>
+                            <tr><th colspan="2">Feronerie (Hardware)</th></tr>
+                            <tr><td>Șuruburi M3</td><td>10 RON/Set</td></tr>
+                            <tr><td>Distanțiere</td><td>20 RON/Set</td></tr>
+                        </table>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td colspan="2">
+                        <strong>Disponibilitate:</strong> Livrare din stoc în 24 de ore.
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+        <hr>
+
+        <div>
+            <h2>2. Procedura de recuperare din copac/câmp</h2>
+            <ol type="I">
+                <li><strong>Găsirea dronei</strong>
+                    <ul>
+                        <li>Ascultă direcția buzzer-ului autonom.</li>
+                        <li>Verifică ultima înregistrare DVR din ochelari.</li>
+                    </ul>
+                </li>
+                <li><strong>Extragerea fizică</strong></li>
+            </ol>
+
+            <ol type="A" start="3">
+                <li><strong>Verificarea la fața locului</strong>
+                    <ol type="1">
+                        <li>Deconectează imediat bateria (risc de incendiu).</li>
+                        <li>Curăță motoarele de pământ și iarbă.</li>
+                    </ol>
+                </li>
+            </ol>
+        </div>
+
+        <hr>
+
+        <div>
+            <h2>3. Deschide Tichet de Reparație</h2>
+            <form action="#" method="POST">
+                <fieldset>
+                    <legend>Înregistrare daune și solicitare piese</legend>
+                    
+                    <p>
+                        Nume pilot păgubit: <input type="text" name="pilot" maxlength="25" size="20">
+                        Cod autorizație: <input type="password" name="auth" size="6">
+                    </p>
+
+                    <p>
+                        Data prăbușirii: <input type="date" name="data_crash">
+                        Altitudinea căderii (m): <input type="number" name="altitudine" max="150" step="5" value="10">
+                    </p>
+
+                    <p>
+                        <strong>Gravitatea impactului:</strong><br>
+                        <input type="radio" name="gravitate" value="usoara" checked> Ușoară (zgârieturi)<br>
+                        <input type="radio" name="gravitate" value="medie"> Medie (braț rupt)<br>
+                        <input type="radio" name="gravitate" value="totala"> Daună totală (arsă)
+                    </p>
+
+                    <p>
+                        <strong>Ce piese necesită înlocuire?:</strong><br>
+                        <input type="checkbox" name="p1" value="elice"> Elice îndoite<br>
+                        <input type="checkbox" name="p2" value="motor"> Motor blocat / cu ax îndoit<br>
+                        <input type="checkbox" name="p3" value="vtx"> Antenă VTX smulsă
+                    </p>
+
+                    <p>
+                        Suprafața de impact (se pot alege mai multe):<br>
+                        <select name="suprafata" multiple size="3">
+                            <option value="asfalt">Asfalt / Beton</option>
+                            <option value="iarba" selected>Iarbă / Pământ moale</option>
+                            <option value="apa">Apă (Scurtcircuit)</option>
+                        </select>
+                    </p>
+
+                   <p>
+                        Status tichet: <input type="text" name="status" value="În așteptare" readonly>
+                        Cost estimativ (RON): <input type="text" name="cost" value="0.00" disabled>
+                    </p> 
+
+                    <p>
+                        Descrierea accidentului (ex: am pierdut semnalul video la 100m):<br>
+                        <textarea name="descriere" rows="4" cols="70">A intrat în failsafe deasupra copacilor.</textarea>
+                    </p>
+
+                    <p>
+                        <input type="submit" value="Trimite raportul spre atelier">
+                    </p>
+
+                </fieldset>
+            </form> 
+        </div>
+
+    </div>
+
+</body>
+</html>

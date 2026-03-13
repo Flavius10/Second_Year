@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module external.linked.project.id="module:test" external.linked.project.path="$MODULE_DIR$/../../module" external.root.project.path="$MODULE_DIR$/../../module" external.system.id="GRADLE" external.system.module.group="grup" external.system.module.type="sourceSet" external.system.module.version="1.0-SNAPSHOT" type="JAVA_MODULE" version="4">
   <component name="NewModuleRootManager">
-    <output-test url="file://$MODULE_DIR$/../../module/out/test/classes" />
+    <output-test url="file://$MODULE_DIR$/../../lab1/out/test/classes" />
     <exclude-output />
-    <content url="file://$MODULE_DIR$/../../module/src/test">
-      <sourceFolder url="file://$MODULE_DIR$/../../module/src/test/java" isTestSource="true" />
-      <sourceFolder url="file://$MODULE_DIR$/../../module/src/test/resources" type="java-test-resource" />
+    <content url="file://$MODULE_DIR$/../../lab1/src/test">
+      <sourceFolder url="file://$MODULE_DIR$/../../lab1/src/test/java" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/../../lab1/src/test/resources" type="java-test-resource" />
     </content>
     <orderEntry type="jdk" jdkName="openjdk-22" jdkType="JavaSDK" />
     <orderEntry type="sourceFolder" forTests="false" />

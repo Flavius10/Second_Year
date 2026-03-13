@@ -6,6 +6,9 @@
       <module name="lab2" target="22" />
       <module name="lab2.main" target="22" />
       <module name="lab2.test" target="22" />
+      <module name="lab3" target="22" />
+      <module name="lab3.main" target="22" />
+      <module name="lab3.test" target="22" />
       <module name="module.main" target="22" />
       <module name="module.test" target="22" />
     </bytecodeTargetLevel>

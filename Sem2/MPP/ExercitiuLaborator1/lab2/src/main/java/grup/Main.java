@@ -9,7 +9,8 @@ import java.util.List;
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
     public static void main(String[] args) {
-
+        List<String> participanti = Arrays.asList("Flavius", null, "Luca");
+        System.out.println(proceseazaParticipanti(participanti));
     }
 
     public static String proceseazaParticipanti(List<String> participanti){

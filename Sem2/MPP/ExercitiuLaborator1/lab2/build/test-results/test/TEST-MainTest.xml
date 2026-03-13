@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="MainTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2026-03-05T10:45:38.673Z" hostname="DESKTOP-BPLA1UE" time="0.046">
+<testsuite name="MainTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2026-03-05T11:02:01.894Z" hostname="DESKTOP-BPLA1UE" time="0.03">
   <properties/>
-  <testcase name="testMain2()" classname="MainTest" time="0.04"/>
+  <testcase name="testMain2()" classname="MainTest" time="0.025"/>
   <testcase name="testMain()" classname="MainTest" time="0.003"/>
   <system-out><![CDATA[Lista de participanti: Flavius, Maria, Luca
 Lista de participanti: Flavius, Luca
